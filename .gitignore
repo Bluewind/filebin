@@ -1,0 +1,5 @@
+data/uploads/*
+.*
+!data/uploads/.htaccess
+!.gitignore
+!system/.htaccess
