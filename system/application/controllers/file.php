@@ -164,19 +164,19 @@ class File extends Controller {
         header('Etag: "'.$etag.'"');
       } else {
         if ($mode 
-           && $this->file_mod->mime2extension($type)
-           && filesize($file) <= $this->config->item('upload_max_text_size')
-           ) {
+        && $this->file_mod->mime2extension($type)
+        && filesize($file) <= $this->config->item('upload_max_text_size')
+        ) {
           header("Content-Type: text/html\n");
           // TODO: move to own file
           echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'
           .'<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"'
           .'  <head><title>'.$filedata['filename'].'</title>'
-          .'    <link rel="stylesheet" type="text/css" href="'.base_url().'data/paste.css" />'
+          .'  <link rel="stylesheet" type="text/css" href="'.base_url().'data/paste.css" />'
           .'  </head>'
           .'<body>'
           .'  <div class="top_bar">'
-          .'    <a class="raw_link no" href="'.site_url($this->config->item('paste_download_url').$id).'">Raw</a>'
+          .'  <a class="raw_link no" href="'.site_url($this->config->item('paste_download_url').$id).'">Raw</a>'
           .'  </div'
           .'  <table class="content">'
           .'  <tr><td class="numbers"><pre>';
