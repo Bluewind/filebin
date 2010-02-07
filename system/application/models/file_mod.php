@@ -60,6 +60,10 @@ class File_mod extends Model {
         return $this->config->item('upload_path').'/'.substr($hash, 0, 3);
     }
 
+    function file($hash) {
+      return $this->folder($hash).'/'.$hash;
+    }
+
     function hash_password($password)
     {
     // TODO: move salt to config
@@ -95,7 +99,7 @@ class File_mod extends Model {
       $query = $this->db->query($sql, array($id, $password));
 
       if($this->unused_file($filedata['hash'])) {
-        unlink($this->config->item('upload_path').'/'.substr($filedata['hash'], 0, 3).'/'.$filedata['hash']);
+        unlink($this->file(substr($filedata['hash'])));
         // TODO: remove empty folders
       }
     }

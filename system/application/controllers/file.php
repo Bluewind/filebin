@@ -68,7 +68,7 @@ class File extends Controller {
           $file_name = $_FILES['userfile']['name'];
           $folder = $this->file_mod->folder($file_hash);
           file_exists($folder) || mkdir ($folder);
-          $file = $folder.'/'.$file_hash;
+          $file = $this->file_mod->file($file_hash);
           
           $sql = '
             INSERT INTO `files` (`hash`, `id`, `filename`, `password`, `date`)
@@ -118,9 +118,7 @@ class File extends Controller {
     $mode = $this->uri->segment(4);
 
     $filedata = $this->file_mod->get_filedata($id);
-
-    $folder = $this->file_mod->folder($filedata['hash']);
-    $file = $folder.'/'.$filedata['hash'];
+    $file = $this->file_mod->file($filedata['hash']);
     
     if ($this->file_mod->id_exists($id) && file_exists($file)) {
       // MODIFIED SINCE SUPPORT -- START
@@ -216,7 +214,7 @@ class File extends Controller {
       array($oldest_time));
 
     foreach($query->result_array() as $row) {
-      $file = $this->config->item('upload_path').'/'.substr($row['hash'], 0, 3).'/'.$row['hash'];
+      $file = $this->file_mod->file($row['hash']);
       if(filemtime($file) < $oldest_time) {
         unlink($file);
         $this->db->query('DELETE FROM files WHERE hash = ?', array($row['hash']));
