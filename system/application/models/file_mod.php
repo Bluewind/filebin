@@ -100,7 +100,7 @@ class File_mod extends Model {
 
     if($this->unused_file($filedata['hash'])) {
       unlink($this->file($filedata['hash']));
-      // TODO: remove empty folders
+      @rmdir($this->folder($filedata['hash']));
     }
   }
 
