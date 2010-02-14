@@ -99,7 +99,7 @@ class File_mod extends Model {
     $query = $this->db->query($sql, array($id, $password));
 
     if($this->unused_file($filedata['hash'])) {
-      unlink($this->file(substr($filedata['hash'])));
+      unlink($this->file($filedata['hash']));
       // TODO: remove empty folders
     }
   }
