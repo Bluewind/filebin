@@ -164,5 +164,6 @@ class File_mod extends Model {
 
 }
 
+# vim: set ts=2 sw=2 et:
 /* End of file file_mod.php */
 /* Location: ./system/application/models/file_mod.php */

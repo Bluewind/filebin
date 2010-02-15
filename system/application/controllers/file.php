@@ -225,5 +225,6 @@ class File extends Controller {
   }
 }
 
+# vim: set ts=2 sw=2 et:
 /* End of file file.php */
 /* Location: ./system/application/controllers/file.php */
