@@ -343,6 +343,7 @@ $config['upload_max_text_size'] = 2*1024*1024;
 $config['upload_max_age'] = 60*60*24*5; // 5 days
 $config['paste_show_url'] = 'file/show_url/'; // "s/" with url rewrite
 $config['paste_download_url'] = 'file/download/'; // "d/" with url rewrite
+$config['passwordsalt'] = ''; // just enter any strign you want here
 
 /* End of file config.php */
 /* Location: ./system/application/config/config.php */

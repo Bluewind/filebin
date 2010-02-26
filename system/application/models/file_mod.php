@@ -66,8 +66,7 @@ class File_mod extends Model {
 
   function hash_password($password)
   {
-    // TODO: move salt to config
-    return sha1('w9yFMeU6ITrkrPBlRJfA'.$password);
+    return sha1($this->config->item('passwordsalt').$password);
   }
 
   private function unused_file($hash)
