@@ -30,7 +30,8 @@ class File_mod extends Model {
     $sql = '
       SELECT id
       FROM `files`
-      WHERE `id` = ?';
+      WHERE `id` = ?
+      LIMIT 1';
     $query = $this->db->query($sql, array($id));
 
     if ($query->num_rows() == 1) {
@@ -45,7 +46,8 @@ class File_mod extends Model {
     $sql = '
       SELECT hash,filename
       FROM `files`
-      WHERE `id` = ?';
+      WHERE `id` = ?
+      LIMIT 1';
     $query = $this->db->query($sql, array($id));
 
     if ($query->num_rows() == 1) {
@@ -74,7 +76,8 @@ class File_mod extends Model {
     $sql = '
       SELECT id
       FROM `files`
-      WHERE `hash` = ?';
+      WHERE `hash` = ?
+      LIMIT 1';
     $query = $this->db->query($sql, array($hash));
 
     if ($query->num_rows() == 0) {

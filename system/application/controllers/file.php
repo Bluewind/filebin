@@ -218,7 +218,7 @@ class File extends Controller {
         unlink($file);
         $this->db->query('DELETE FROM files WHERE hash = ?', array($row['hash']));
       } else {
-        $this->db->query('DELETE FROM files WHERE id = ?', array($row['id']));
+        $this->db->query('DELETE FROM files WHERE id = ? LIMIT 1', array($row['id']));
       }
     }
   }
