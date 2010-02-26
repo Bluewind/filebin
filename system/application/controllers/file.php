@@ -193,8 +193,7 @@ class File extends Controller {
           header('Etag: "'.$etag.'"');
           $fp = fopen($file,"r");
           while (!feof($fp)) {
-            $buff = fread($fp,4096);
-            echo $buff;
+            echo fread($fp,4096);
           }
           fclose($fp);
         }
