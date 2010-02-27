@@ -171,7 +171,8 @@ class File extends Controller {
           $data['raw_link'] = site_url($this->config->item('paste_download_url').$id);
           header("Content-Type: text/html\n");
           echo $this->load->view('file/html_header', $data, true);
-          // TODO: implement in PHP
+          // only rewrite if it's fast
+          // count(file($file)); isn't
           echo shell_exec('/usr/bin/seq 1 $(/usr/bin/wc -l '.escapeshellarg($file).' | /bin/cut -d\  -f1) | sed -r \'s/^(.*)$/<a href="#n\1" class="no" name="n\1" id="n\1">\1<\/a>/g\'');
           echo '</pre></td><td class="code"><pre>'."\n";
           echo shell_exec(FCPATH.'scripts/syntax-highlighting.sh '.$filedata['filename'].'.'.$mode.' < '.escapeshellarg($file));
