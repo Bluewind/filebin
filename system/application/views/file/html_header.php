@@ -1,0 +1,13 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title><?php echo $title; ?></title>
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>data/paste.css" />
+  </head>
+  <body>
+    <div class="top_bar">
+      <a class="raw_link no" href="<?php echo $raw_link; ?>">Raw</a>
+    </div>
+    <table class="content">
+      <tr>
+        <td class="numbers"><pre>

@@ -167,24 +167,15 @@ class File extends Controller {
         && $this->file_mod->mime2extension($type)
         && filesize($file) <= $this->config->item('upload_max_text_size')
         ) {
+          $data['title'] = $filedata['filename'];
+          $data['raw_link'] = site_url($this->config->item('paste_download_url').$id);
           header("Content-Type: text/html\n");
-          // TODO: move to own file
-          echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'
-          .'<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"'
-          .'  <head><title>'.$filedata['filename'].'</title>'
-          .'  <link rel="stylesheet" type="text/css" href="'.base_url().'data/paste.css" />'
-          .'  </head>'
-          .'<body>'
-          .'  <div class="top_bar">'
-          .'  <a class="raw_link no" href="'.site_url($this->config->item('paste_download_url').$id).'">Raw</a>'
-          .'  </div'
-          .'  <table class="content">'
-          .'  <tr><td class="numbers"><pre>';
+          echo $this->load->view('file/html_header', $data, true);
           // TODO: implement in PHP
           echo shell_exec('/usr/bin/seq 1 $(/usr/bin/wc -l '.escapeshellarg($file).' | /bin/cut -d\  -f1) | sed -r \'s/^(.*)$/<a href="#n\1" class="no" name="n\1" id="n\1">\1<\/a>/g\'');
-          echo '  </pre></td><td class="code"><pre>'."\n";
+          echo '</pre></td><td class="code"><pre>'."\n";
           echo shell_exec(FCPATH.'scripts/syntax-highlighting.sh '.$filedata['filename'].'.'.$mode.' < '.escapeshellarg($file));
-          echo '</pre></td></tr></table></body></html>';
+          echo $this->load->view('file/html_footer', $data, true);
         } else {
           header("Content-Type: ".$type."\n");
           header("Content-disposition: inline; filename=\"".$filedata['filename']."\"\n");
