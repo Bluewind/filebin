@@ -206,7 +206,7 @@ class File extends Controller {
 
     foreach($query->result_array() as $row) {
       $file = $this->file_mod->file($row['hash']);
-      if(filemtime($file) < $oldest_time) {
+      if(file_exists($file) && filemtime($file) < $oldest_time) {
         unlink($file);
         $this->db->query('DELETE FROM files WHERE hash = ?', array($row['hash']));
       } else {
