@@ -142,6 +142,7 @@ class File_mod extends Model {
     #'text/x-log' => 'log',
     'text/html' => 'html',
     'text/css' => 'css',
+    'message/rfc822' => 'txt',
     #'image/svg+xml' => 'xml',
     'application/x-perl' => 'pl',
     'application/xml' => 'xml',
