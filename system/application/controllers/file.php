@@ -36,8 +36,7 @@ class File extends Controller {
   {
     $id = $this->uri->segment(3);
     $password = $this->input->post('password');
-    if ($password !== false && $this->file_mod->id_exists($id)) {
-      $this->file_mod->delete_id($id, $password);
+    if ($password !== false && $this->file_mod->id_exists($id) && $this->file_mod->delete_id($id, $password)) {
       echo $id." deleted\n";
     } else {
       echo 'Couldn\'t delete '.$id."\n";

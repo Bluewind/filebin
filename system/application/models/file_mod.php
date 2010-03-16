@@ -98,12 +98,17 @@ class File_mod extends Model {
       WHERE `id` = ?
       AND password = ?
       LIMIT 1';
-    $query = $this->db->query($sql, array($id, $password));
+    $this->db->query($sql, array($id, $password));
+
+    if($this->id_exists($id))  {
+      return false;
+    }
 
     if($this->unused_file($filedata['hash'])) {
       unlink($this->file($filedata['hash']));
       @rmdir($this->folder($filedata['hash']));
     }
+    return true;
   }
 
   private function random_id($min_length, $max_length)
