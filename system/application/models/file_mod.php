@@ -18,7 +18,7 @@ class File_mod extends Model {
   {
     $id = $this->random_id(3,6);
 
-    if ($this->id_exists($id)) {
+    if ($this->id_exists($id) || $id == 'file') {
       return $this->new_id();
     } else {
       return $id;
@@ -27,6 +27,10 @@ class File_mod extends Model {
 
   function id_exists($id)
   {
+    if(!$id) {
+      return false;
+    }
+
     $sql = '
       SELECT id
       FROM `files`
@@ -71,6 +75,129 @@ class File_mod extends Model {
     return sha1($this->config->item('passwordsalt').$password);
   }
 
+  function get_password()
+  {
+    $password = $this->input->post('password');
+    if ($password !== false) {
+      return $this->hash_password($password);
+    }
+    return 'NULL';
+  }
+
+  function add_file($hash, $id, $filename)
+  {
+    $query = $this->db->query('
+      INSERT INTO `files` (`hash`, `id`, `filename`, `password`, `date`)
+      VALUES (?, ?, ?, ?, ?)',
+      array($hash, $id, $filename, $this->get_password(), time()));
+  }
+
+  function show_url($id, $mode)
+  {
+    $data = array();
+
+    if ($mode) {
+      $data['url'] = site_url($this->config->item('paste_download_url').$id.'/'.$mode);
+    } else {
+      $data['url'] = site_url($this->config->item('paste_download_url').$id).'/';
+    }
+
+    if (strstr($_SERVER['HTTP_USER_AGENT'], 'libcurl')) {
+      echo $data['url'];
+    } else {
+      $this->load->view('file/header', $data);
+      $this->load->view('file/show_url', $data);
+      $this->load->view('file/footer', $data);
+    }
+  }
+
+  function download()
+  {
+    $data = array();
+    $id = $this->uri->segment(1);
+    $mode = $this->uri->segment(2);
+
+    $filedata = $this->get_filedata($id);
+    $file = $this->file($filedata['hash']);
+    
+    if ($this->id_exists($id) && file_exists($file)) {
+      // MODIFIED SINCE SUPPORT -- START
+      // helps to keep traffic low when reloading an image
+      // TODO: check for bugs, find source of code again
+      $filedate = filectime($file);
+      $etag = strtolower(md5_file($file));
+      $modified = true;
+
+      if(isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
+        $oldtag = trim(strtolower($_SERVER['HTTP_IF_NONE_MATCH']), '"');
+        if($oldtag == $etag) {
+          $modified = false;
+        } else {
+          $modified = true;
+        }
+      }
+       
+      if(isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
+        $olddate = date_parse(trim(strtolower($_SERVER['HTTP_IF_MODIFIED_SINCE'])));
+        $olddate = gmmktime($olddate['hour'],
+                            $olddate['minute'],
+                            $olddate['second'],
+                            $olddate['month'],
+                            $olddate['day'],
+                            $olddate['year']);
+        if($olddate >= $filedate) {
+          $modified = false;
+        } else {
+          $modified = true;
+        }
+      }
+      // MODIFIED SINCE SUPPORT -- END
+
+      $type = exec('/usr/bin/perlbin/vendor/mimetype -b '.escapeshellarg($file));
+
+      if (!$mode && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1) {
+        $mode = $this->mime2extension($type);
+      }
+
+      if (!$modified) {
+        header("HTTP/1.1 304 Not Modified");
+        header('Etag: "'.$etag.'"');
+      } else {
+        if ($mode 
+        && $this->mime2extension($type)
+        && filesize($file) <= $this->config->item('upload_max_text_size')
+        ) {
+          $data['title'] = $filedata['filename'];
+          $data['raw_link'] = site_url($this->config->item('paste_download_url').$id);
+          header("Content-Type: text/html\n");
+          echo $this->load->view('file/html_header', $data, true);
+          // only rewrite if it's fast
+          // count(file($file)); isn't
+          echo shell_exec('/usr/bin/seq 1 $(/usr/bin/wc -l '.escapeshellarg($file).' | /bin/cut -d\  -f1) | sed -r \'s/^(.*)$/<a href="#n\1" class="no" name="n\1" id="n\1">\1<\/a>/g\'');
+          echo '</pre></td><td class="code"><pre>'."\n";
+          echo shell_exec(FCPATH.'scripts/syntax-highlighting.sh '.$filedata['filename'].'.'.$mode.' < '.escapeshellarg($file));
+          echo $this->load->view('file/html_footer', $data, true);
+        } else {
+          header("Content-Type: ".$type."\n");
+          header("Content-disposition: inline; filename=\"".$filedata['filename']."\"\n");
+          header("Content-Length: ".filesize($file)."\n");
+          header("Last-Modified: ".date('D, d M Y H:i:s', $filedate)." GMT");
+          header('Etag: "'.$etag.'"');
+          $fp = fopen($file,"r");
+          while (!feof($fp)) {
+            echo fread($fp,4096);
+          }
+          fclose($fp);
+        }
+      }
+      exit();
+    } else {
+      $this->load->view('file/header', $data);
+      $this->load->view('file/non_existant');
+      $this->load->view('file/footer');
+    }
+  }
+
   private function unused_file($hash)
   {
     $sql = '
@@ -90,7 +217,11 @@ class File_mod extends Model {
   function delete_id($id, $password)
   {
     $filedata = $this->get_filedata($id);
-    $password = $this->hash_password($password);
+    $password = $this->get_password();
+
+    if(!$this->id_exists($id)) {
+      return false;
+    }
 
     $sql = '
       DELETE

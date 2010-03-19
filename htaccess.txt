@@ -1,8 +1,4 @@
 RewriteEngine on
-
-RewriteRule ^s/(.*)$ file/show_url
-RewriteRule ^d/(.*)$ file/download
-
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ /index.php/?$1 [L] 

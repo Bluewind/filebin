@@ -1,13 +1,27 @@
 <div style="text-align:center">
   <?php echo form_open_multipart('file/do_upload'); ?>
-    File: <input type="file" name="userfile" size="30" />
+    File: <input type="file" name="file" size="30" />
     <input type="submit" value="Upload" name="process" />
+  </form>
+  <br />
+  <p>OR</p>
+  <br />
+  <?php echo form_open_multipart('file/do_paste'); ?>
+    <textarea name="content" cols="80" rows="20"></textarea><br />
+    <input type="submit" value="Paste" name="process" />
   </form>
 </div>
 <br /><br />
-Uploads are deleted after 5 days.<br />
+Uploads/pastes are deleted after 5 days.<br />
 <br />
-If you want to you can use my script (needs python and curl) to upload files, paste text (with syntax highlighting of course) or delete your uploads:<br />
+For shell uploading/pasting use:<br />
+<pre>
+curl -F "content=<-" <?php echo base_url(); ?> < file      (not binary safe)
+cat file | curl -F "content=<-" <?php echo base_url(); ?>  (not binary safe)
+curl -F "file=@/home/user/foo" <?php echo base_url(); ?>   (binary safe)
+</pre>
+<br />
+If you want to you can use my script (needs python and curl) to upload files, paste text or delete your uploads:<br />
 <a href="http://git.server-speed.net/bin/plain/fb">http://git.server-speed.net/bin/plain/fb</a><br />
 <br />
 If you experience any problems feel free to <a href="http://bluewind.at/?id=1">contact me</a>.<br />

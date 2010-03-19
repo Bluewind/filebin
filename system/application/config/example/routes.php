@@ -42,6 +42,8 @@
 
 $route['default_controller'] = "file";
 $route['scaffolding_trigger'] = "";
+$route['file/(:any)'] = "file/$1";
+$route['(:any)'] = "file/index/$1";
 
 /* End of file routes.php */
 /* Location: ./system/application/config/routes.php */
