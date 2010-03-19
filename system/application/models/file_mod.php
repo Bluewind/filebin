@@ -97,9 +97,9 @@ class File_mod extends Model {
     $data = array();
 
     if ($mode) {
-      $data['url'] = site_url($this->config->item('paste_download_url').$id.'/'.$mode);
+      $data['url'] = site_url().$id.'/'.$mode;
     } else {
-      $data['url'] = site_url($this->config->item('paste_download_url').$id).'/';
+      $data['url'] = site_url().$id.'/';
     }
 
     if (strstr($_SERVER['HTTP_USER_AGENT'], 'libcurl')) {
@@ -168,7 +168,7 @@ class File_mod extends Model {
         && filesize($file) <= $this->config->item('upload_max_text_size')
         ) {
           $data['title'] = $filedata['filename'];
-          $data['raw_link'] = site_url($this->config->item('paste_download_url').$id);
+          $data['raw_link'] = site_url().$id;
           header("Content-Type: text/html\n");
           echo $this->load->view('file/html_header', $data, true);
           // only rewrite if it's fast

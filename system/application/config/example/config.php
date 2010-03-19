@@ -341,7 +341,6 @@ $config['upload_path'] = FCPATH.'data/uploads';
 $config['upload_max_size'] = 256*1024*1024;
 $config['upload_max_text_size'] = 2*1024*1024;
 $config['upload_max_age'] = 60*60*24*5; // 5 days
-$config['paste_download_url'] = 'file/download/'; // "" with url rewrite
 $config['passwordsalt'] = ''; // just enter any string you want here
 
 /* End of file config.php */
