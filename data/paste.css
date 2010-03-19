@@ -41,12 +41,14 @@ table.content td.numbers {
   text-align:right;
   border-right: 1px solid gray; 
   padding-left: 5px;
+  padding-bottom: 15px;
 }
 
 table.content td.code {
   vertical-align: top;
   padding-left:5px;
   width:100%;
+  padding-bottom: 15px;
 }
 
 pre {
