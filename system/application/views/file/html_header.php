@@ -7,6 +7,7 @@
   <body>
     <div class="top_bar">
       <a class="raw_link no" href="<?php echo $raw_link; ?>">Raw</a>
+      <a class="raw_link no" href="<?php echo $plain_link; ?>">Plain</a>
     </div>
     <table class="content">
       <tr>

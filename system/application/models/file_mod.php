@@ -163,12 +163,13 @@ class File_mod extends Model {
         header("HTTP/1.1 304 Not Modified");
         header('Etag: "'.$etag.'"');
       } else {
-        if ($mode 
+        if ($mode && $mode != 'plain'
         && $this->mime2extension($type)
         && filesize($file) <= $this->config->item('upload_max_text_size')
         ) {
           $data['title'] = $filedata['filename'];
           $data['raw_link'] = site_url($id);
+          $data['plain_link'] = site_url($id.'/plain');
           header("Content-Type: text/html\n");
           echo $this->load->view('file/html_header', $data, true);
           // only rewrite if it's fast
@@ -178,7 +179,11 @@ class File_mod extends Model {
           echo shell_exec(FCPATH.'scripts/syntax-highlighting.sh '.$filedata['filename'].'.'.$mode.' < '.escapeshellarg($file));
           echo $this->load->view('file/html_footer', $data, true);
         } else {
-          header("Content-Type: ".$type."\n");
+          if ($mode == 'plain') {
+            header("Content-Type: ".$type."\n");
+          } else {
+            header("Content-Type: text/plain\n");
+          }
           header("Content-disposition: inline; filename=\"".$filedata['filename']."\"\n");
           header("Content-Length: ".filesize($file)."\n");
           header("Last-Modified: ".date('D, d M Y H:i:s', $filedate)." GMT");
