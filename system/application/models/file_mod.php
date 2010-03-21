@@ -180,9 +180,9 @@ class File_mod extends Model {
           echo $this->load->view('file/html_footer', $data, true);
         } else {
           if ($mode == 'plain') {
-            header("Content-Type: ".$type."\n");
-          } else {
             header("Content-Type: text/plain\n");
+          } else {
+            header("Content-Type: ".$type."\n");
           }
           header("Content-disposition: inline; filename=\"".$filedata['filename']."\"\n");
           header("Content-Length: ".filesize($file)."\n");
