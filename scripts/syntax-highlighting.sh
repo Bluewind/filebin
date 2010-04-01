@@ -40,7 +40,7 @@ case "$1" in
   *.bib) exec /usr/bin/highlight -f -I -X -S bib;;
   *.bms) exec /usr/bin/highlight -f -I -X -S bms;;
   *.boo) exec /usr/bin/highlight -f -I -X -S boo;;
-  *.c|*.h|*.cpp) exec /usr/bin/highlight -f -I -X -S c;;
+  *.c|*.h|*.cpp|*.C|*.H) exec /usr/bin/highlight -f -I -X -S c;;
   *.cb) exec /usr/bin/highlight -f -I -X -S cb;;
   *.cfc) exec /usr/bin/highlight -f -I -X -S cfc;;
   *.chl) exec /usr/bin/highlight -f -I -X -S chl;;
@@ -114,7 +114,7 @@ case "$1" in
   *.pas) exec /usr/bin/highlight -f -I -X -S pas;;
   *.php) exec /usr/bin/highlight -f -I -X -S php;;
   *.pike) exec /usr/bin/highlight -f -I -X -S pike;;
-  *.pl) exec /usr/bin/highlight -f -I -X -S pl;;
+  *.pl|*.perl|*.pm) exec /usr/bin/highlight -f -I -X -S pl;;
   *.pl1) exec /usr/bin/highlight -f -I -X -S pl1;;
   *.pov) exec /usr/bin/highlight -f -I -X -S pov;;
   *.pro) exec /usr/bin/highlight -f -I -X -S pro;;
