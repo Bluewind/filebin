@@ -153,7 +153,7 @@ class File_mod extends Model {
       }
       // MODIFIED SINCE SUPPORT -- END
 
-      $type = exec('/usr/bin/perlbin/vendor/mimetype -b '.escapeshellarg($file));
+      $type = exec(FCPATH.'scripts/mimetype -b --orig-name '.escapeshellarg($filedata['filename']).' '.escapeshellarg($file));
 
       if (!$mode && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1) {
         $mode = $this->mime2extension($type);

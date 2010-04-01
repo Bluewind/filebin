@@ -22,6 +22,7 @@ my %opts = (
 	'stdin'		=> [''],
 	'brief'		=> ['b'],
 	'namefile'	=> ['f', 1],
+	'orig-name'	=> ['', 1],
 	'noalign'	=> ['N'],
 	'describe'	=> ['d'],
 	'file-compat'	=> [''],
@@ -192,6 +193,14 @@ foreach my $file (@ARGV) {
 			print $format->($file, $m), "\n" if $m;
 		}
 	}
+  elsif ($args{'orig-name'}) {
+    my $type = globs($args{'orig-name'});
+    if ($type ne "") {
+      print $format->($file, $type), "\n";
+    } else {
+      print $format->($file, mimetype($f)), "\n";
+    }
+  }
 	else { print $format->($file, mimetype($f)), "\n" }
 }
 
