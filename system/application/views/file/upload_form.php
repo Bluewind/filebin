@@ -12,21 +12,27 @@
   </form>
 </div>
 <br /><br />
-Uploads/pastes are deleted after 5 days.<br />
+<p>Uploads/pastes are deleted after 5 days.</p>
 <br />
-For shell uploading/pasting use:<br />
+<p>For shell uploading/pasting use:</p>
 <pre>
-curl -F "content=<-" <?php echo base_url(); ?> < file      (not binary safe)
-cat file | curl -F "content=<-" <?php echo base_url(); ?>  (not binary safe)
-curl -F "file=@/home/user/foo" <?php echo base_url(); ?>   (binary safe)
+curl -n -F "content=<-" <?php echo base_url(); ?> < file      (not binary safe)
+cat file | curl -n -F "content=<-" <?php echo base_url(); ?>  (not binary safe)
+curl -n -F "file=@/home/user/foo" <?php echo base_url(); ?>   (binary safe)
 </pre>
 <br />
-If you want to you can use my script (needs python and curl) to upload files, paste text or delete your uploads:<br />
-<a href="http://git.server-speed.net/bin/plain/fb">http://git.server-speed.net/bin/plain/fb</a><br />
+<p>If you want to use authentication add the following to your ~/.netrc:
+<pre>
+machine paste.xinu.at password my_secret_password
+</pre>
+</p>
 <br />
-If you experience any problems feel free to <a href="http://bluewind.at/?id=1">contact me</a>.<br />
+<p>If you want to you can use my script (needs python and curl) to upload files, paste text or delete your uploads:<br />
+<a href="http://git.server-speed.net/bin/plain/fb">http://git.server-speed.net/bin/plain/fb</a></p>
+<br />
+<p>If you experience any problems feel free to <a href="http://bluewind.at/?id=1">contact me</a>.</p>
 <br />
 <br />
 <div class="small">
-  This service is provided without warranty of any kind and may not be used to distribute copyrighted content.
+  <p>This service is provided without warranty of any kind and may not be used to distribute copyrighted content.</p>
 </div>
