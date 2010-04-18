@@ -226,6 +226,10 @@ class File_mod extends Model {
     $filedata = $this->get_filedata($id);
     $password = $this->get_password();
 
+    if ($password == "NULL") {
+      return false;
+    }
+
     if(!$this->id_exists($id)) {
       return false;
     }
