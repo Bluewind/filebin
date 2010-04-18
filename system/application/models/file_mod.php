@@ -80,6 +80,8 @@ class File_mod extends Model {
     $password = $this->input->post('password');
     if ($password !== false) {
       return $this->hash_password($password);
+    } elseif (isset($_SERVER['PHP_AUTH_PW']) && $_SERVER['PHP_AUTH_PW'] != '') {
+      return $this->hash_password($_SERVER['PHP_AUTH_PW']);
     }
     return 'NULL';
   }
