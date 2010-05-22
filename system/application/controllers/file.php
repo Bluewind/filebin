@@ -57,7 +57,7 @@ class File extends Controller {
     $data = array();
     $content = $this->input->post('content')."\n";
     $extension = $this->input->post('extension');
-    if($content === false) {
+    if($content === "\n") {
       $this->upload_form();
       return;
     }
