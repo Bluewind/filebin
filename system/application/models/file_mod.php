@@ -176,7 +176,7 @@ class File_mod extends Model {
           echo $this->load->view('file/html_header', $data, true);
           // only rewrite if it's fast
           // count(file($file)); isn't
-          echo shell_exec('/usr/bin/seq 1 $(/usr/bin/wc -l '.escapeshellarg($file).' | /bin/cut -d\  -f1) | sed -r \'s/^(.*)$/<a href="#n\1" class="no" name="n\1" id="n\1">\1<\/a>/g\'');
+          echo passthru('/usr/bin/perl -ne \'print "<a href=\"#n$.\" class=\"no\" id=\"n$.\" name=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
           echo '</pre></td><td class="code"><pre>'."\n";
           echo shell_exec(FCPATH.'scripts/syntax-highlighting.sh '.escapeshellarg($filedata['filename']).'.'.escapeshellarg($mode).' < '.escapeshellarg($file));
           echo $this->load->view('file/html_footer', $data, true);
