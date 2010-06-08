@@ -14,6 +14,10 @@ body {
   color: gray;
 }
 
+.numbers a:target {
+  background: yellow;
+}
+
 .content {
   padding-left:3px;
 }
