@@ -27,7 +27,7 @@ machine paste.xinu.at password my_secret_password
 </pre>
 </p>
 <br />
-<p>If you want to you can use my script (needs python and curl) to upload files, paste text or delete your uploads:<br />
+<p>If you want to you can use this script to upload files, paste text or delete your uploads:<br />
 <a href="http://git.server-speed.net/bin/plain/fb">http://git.server-speed.net/bin/plain/fb</a></p>
 <br />
 <p>If you experience any problems feel free to <a href="http://bluewind.at/?id=1">contact me</a>.</p>
