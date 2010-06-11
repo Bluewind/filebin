@@ -55,6 +55,14 @@ table.content td.code {
   padding-bottom: 15px;
 }
 
+table.content td.markdownrender {
+  vertical-align: top;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 15px;
+  width: 100%;
+}
+
 pre {
   margin-top:1em;
   margin-bottom:2px;

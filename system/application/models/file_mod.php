@@ -172,13 +172,21 @@ class File_mod extends Model {
           $data['title'] = $filedata['filename'];
           $data['raw_link'] = site_url($id);
           $data['plain_link'] = site_url($id.'/plain');
+          $data['auto_link'] = site_url($id).'/';
+          $data['rmd_link'] = site_url($id.'/rmd');
           header("Content-Type: text/html\n");
           echo $this->load->view('file/html_header', $data, true);
-          // only rewrite if it's fast
-          // count(file($file)); isn't
-          echo passthru('/usr/bin/perl -ne \'print "<a href=\"#n$.\" class=\"no\" id=\"n$.\" name=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
-          echo '</pre></td><td class="code"><pre>'."\n";
-          echo shell_exec(FCPATH.'scripts/syntax-highlighting.sh '.escapeshellarg($filedata['filename']).'.'.escapeshellarg($mode).' < '.escapeshellarg($file));
+          if ($mode == "rmd") {
+            echo '<td class="markdownrender"><pre>'."\n";
+            passthru('/usr/bin/perl /usr/bin/perlbin/vendor/Markdown.pl '.escapeshellarg($file));
+          } else {
+            echo '<td class="numbers"><pre>';
+            // only rewrite if it's fast
+            // count(file($file)); isn't
+            passthru('/usr/bin/perl -ne \'print "<a href=\"#n$.\" class=\"no\" id=\"n$.\" name=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
+            echo '</pre></td><td class="code"><pre>'."\n";
+            echo shell_exec(FCPATH.'scripts/syntax-highlighting.sh '.escapeshellarg($filedata['filename']).'.'.escapeshellarg($mode).' < '.escapeshellarg($file));
+          }
           echo $this->load->view('file/html_footer', $data, true);
         } else {
           if ($mode == 'plain') {
