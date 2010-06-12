@@ -15,6 +15,19 @@ class File extends Controller {
     parent::Controller();
     $this->load->helper('form');
     $this->load->model('file_mod');
+    $this->var->cli_client = false;
+    $this->file_mod->var->cli_client =& $this->var->cli_client;
+
+    if (strpos($_SERVER['HTTP_USER_AGENT'], 'fb-client') !== false) {
+      $latest_client = trim(file_get_contents(FCPATH.'data/client/latest'));
+      $client_version = substr($_SERVER['HTTP_USER_AGENT'], 10);
+      if ($latest_client != $client_version)  {
+        echo "Your are using an old client version. Latest is $latest_client.\n";
+      }
+      $this->var->cli_client = "fb-client";
+    } elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'libcurl') !== false) {
+      $this->var->cli_client = "curl";
+    }
   }
 
   function index()

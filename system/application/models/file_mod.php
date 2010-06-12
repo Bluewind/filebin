@@ -104,7 +104,7 @@ class File_mod extends Model {
       $data['url'] = site_url($id).'/';
     }
 
-    if (strstr($_SERVER['HTTP_USER_AGENT'], 'libcurl')) {
+    if ($this->var->cli_client) {
       echo $data['url']."\n";
     } else {
       $this->load->view('file/header', $data);
