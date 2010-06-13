@@ -290,6 +290,7 @@ class File_mod extends Model {
     'text/x-c++src' => 'cpp',
     'text/x-patch' => 'diff',
     'text/x-lua' => 'lua',
+    'text/x-java' => 'java',
     'text/x-haskell' => 'hs',
     'text/x-literate-haskell' => 'hs',
     'text/x-subviewer' => 'sh',
