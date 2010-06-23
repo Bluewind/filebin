@@ -4,11 +4,6 @@ html {
 	background: #fff;
 }
 
-* {
-	margin: 0;
-	padding: 0;
-}
-
 a {
 	text-decoration: none;
 	color: #048;
@@ -23,7 +18,8 @@ img {
 body {
 	color: #444;
 	font-family: "Bitstream Vera Sans", "DejaVu Sans", Arial;
-	margin-top: 30px;
+	margin: 0;
+	padding: 0;
 }
 
 .clearer {
