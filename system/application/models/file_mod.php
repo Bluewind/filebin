@@ -177,7 +177,7 @@ class File_mod extends Model {
           header("Content-Type: text/html\n");
           echo $this->load->view('file/html_header', $data, true);
           if ($mode == "rmd") {
-            echo '<td class="markdownrender"><pre>'."\n";
+            echo '<td class="markdownrender">'."\n";
             passthru('/usr/bin/perl /usr/bin/perlbin/vendor/Markdown.pl '.escapeshellarg($file));
           } else {
             echo '<td class="numbers"><pre>';
@@ -186,6 +186,7 @@ class File_mod extends Model {
             passthru('/usr/bin/perl -ne \'print "<a href=\"#n$.\" class=\"no\" id=\"n$.\" name=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
             echo '</pre></td><td class="code"><pre>'."\n";
             echo shell_exec(FCPATH.'scripts/syntax-highlighting.sh '.escapeshellarg($filedata['filename']).'.'.escapeshellarg($mode).' < '.escapeshellarg($file));
+            echo '</pre>';
           }
           echo $this->load->view('file/html_footer', $data, true);
         } else {
