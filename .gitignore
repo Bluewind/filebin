@@ -1,5 +1,6 @@
 data/uploads/*
 .*
+!.highlight
 !data/uploads/.htaccess
 !.gitignore
 !system/.htaccess

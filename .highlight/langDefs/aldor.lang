@@ -1,0 +1,31 @@
+$DESCRIPTION=Aldor
+
+$STRINGDELIMITERS=" '
+
+
+$ESCCHAR=_
+
+$SL_COMMENT=-- ++
+
+$CONTINUATIONSYMBOL=0
+
+$KEYWORDS(kwa)=add and always assert break but catch default define delay
+do else except export extend fix for fluid free from generate goto has if
+import in inline is isnt iterate let local macro never not of or pretend
+ref repeat return rule select then throw to try where while with yield
+
+$KEYWORDS(kwb)=print stdout newline true false
+
+$DIRECTIVE=#pile #include #assert #unassert #if #endif #library
+
+$KEYWORDS(kwc)=by case mod quo rem # + - +- ~ ^ * ** .. = ~= 
+^= / /\\ < <= << <- \\ \\/ > >= >> ->
+
+$KEYWORDS(kwd)=regex(\b[A-Z][A-Za-z0-9]+\b)
+
+$KEYWORDS(kwd)=regex(([A-Za-z0-9]+)\()
+$SYMBOLS= . , ; : :: :* $ @ | => +-> := == ==> [ ] { } ( ) '
+
+$INGORECASE=false
+
+$DIGIT=regex(^[\d,]*[ac]\d*)
