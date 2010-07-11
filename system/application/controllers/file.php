@@ -131,16 +131,24 @@ class File extends Controller {
   function cron()
   {
     $oldest_time = (time()-$this->config->item('upload_max_age'));
+    $small_upload_size = $this->config->item('small_upload_size');
     $query = $this->db->query('SELECT hash, id FROM files WHERE date < ?',
       array($oldest_time));
 
     foreach($query->result_array() as $row) {
       $file = $this->file_mod->file($row['hash']);
-      if(file_exists($file) && filemtime($file) < $oldest_time) {
-        unlink($file);
-        $this->db->query('DELETE FROM files WHERE hash = ?', array($row['hash']));
-      } else {
+      if (!file_exists($file)) {
         $this->db->query('DELETE FROM files WHERE id = ? LIMIT 1', array($row['id']));
+        continue;
+      }
+
+      if (filesize($file) > $small_upload_size) {
+        if (filemtime($file) < $oldest_time) {
+          unlink($file);
+          $this->db->query('DELETE FROM files WHERE hash = ?', array($row['hash']));
+        } else {
+          $this->db->query('DELETE FROM files WHERE id = ? LIMIT 1', array($row['id']));
+        }
       }
     }
   }

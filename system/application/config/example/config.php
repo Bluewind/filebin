@@ -341,6 +341,10 @@ $config['upload_path'] = FCPATH.'data/uploads';
 $config['upload_max_size'] = 256*1024*1024;
 $config['upload_max_text_size'] = 2*1024*1024;
 $config['upload_max_age'] = 60*60*24*5; // 5 days
+
+// won't be deleted
+$config['small_upload_size'] = 1024*10; // 10KB
+
 $config['passwordsalt'] = ''; // just enter any string you want here
 
 /* End of file config.php */
