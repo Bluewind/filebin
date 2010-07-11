@@ -13,7 +13,7 @@ class File extends Controller {
   function __construct()
   {
     parent::Controller();
-    $this->load->helper('form');
+    $this->load->helper(array('form', 'filebin'));
     $this->load->model('file_mod');
     $this->var->cli_client = false;
     $this->file_mod->var->cli_client =& $this->var->cli_client;
@@ -47,6 +47,7 @@ class File extends Controller {
   {
     $data = array();
     $data['title'] = 'Upload';
+    $data['small_upload_size'] = $this->config->item('small_upload_size');
 
     $this->load->view('file/header', $data);
     $this->load->view('file/upload_form', $data);

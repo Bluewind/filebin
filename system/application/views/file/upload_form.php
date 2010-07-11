@@ -12,7 +12,9 @@
   </form>
 </div>
 <br /><br />
-<p>Uploads/pastes are deleted after 5 days.</p>
+<p>Uploads/pastes are deleted after 5 days<?php if($small_upload_size > 0): ?>
+  unless they are smaller than <?php echo format_bytes($small_upload_size); ?>
+<?php endif; ?>.</p>
 <br />
 <p>For shell uploading/pasting use:</p>
 <pre>
