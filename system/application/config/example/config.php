@@ -340,6 +340,8 @@ $config['proxy_ips'] = '';
 $config['upload_path'] = FCPATH.'data/uploads';
 $config['upload_max_size'] = 256*1024*1024;
 $config['upload_max_text_size'] = 2*1024*1024;
+
+// 0 disables deletion
 $config['upload_max_age'] = 60*60*24*5; // 5 days
 
 // won't be deleted

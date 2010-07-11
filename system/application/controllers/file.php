@@ -130,6 +130,8 @@ class File extends Controller {
 
   function cron()
   {
+    if ($this->config->item('upload_max_age') == 0) return;
+
     $oldest_time = (time()-$this->config->item('upload_max_age'));
     $small_upload_size = $this->config->item('small_upload_size');
     $query = $this->db->query('SELECT hash, id FROM files WHERE date < ?',
