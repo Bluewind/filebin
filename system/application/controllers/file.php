@@ -38,6 +38,8 @@ class File extends Controller {
       $this->do_paste();
     } elseif ($this->file_mod->id_exists($this->uri->segment(1))) {
       $this->file_mod->download();
+    } elseif ($this->var->cli_client) {
+      die("No upload or unknown ID requested.\n");
     } else {
       $this->upload_form();
     }
