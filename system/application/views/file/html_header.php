@@ -7,7 +7,8 @@
   <body>
     <div class="top_bar">
       <a class="raw_link no" href="<?php echo $raw_link; ?>">Raw</a> |
-      <a class="raw_link no" href="<?php echo $plain_link; ?>">Plain</a>
+      <a class="raw_link no" href="<?php echo $plain_link; ?>">Plain</a> |
+      Currently: <?php echo $current_highlight; ?>
       <div style="float:right;">
         <a class="raw_link no" href="<?php echo $auto_link; ?>">Code</a> |
         <a class="raw_link no" href="<?php echo $rmd_link; ?>">Render Markdown</a>

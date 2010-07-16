@@ -175,6 +175,11 @@ class File_mod extends Model {
           $data['auto_link'] = site_url($id).'/';
           $data['rmd_link'] = site_url($id.'/rmd');
           header("Content-Type: text/html\n");
+          if ($mode) {
+            $data['current_highlight'] = $mode;
+          } else {
+            $data['current_highlight'] = $this->mime2extension($type);
+          }
           echo $this->load->view('file/html_header', $data, true);
           if ($mode == "rmd") {
             echo '<td class="markdownrender">'."\n";
