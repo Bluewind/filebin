@@ -197,6 +197,11 @@ class File_mod extends Model {
         } else {
           if ($mode == 'plain') {
             header("Content-Type: text/plain\n");
+          } elseif ($mode == "qr") {
+            header("Content-disposition: inline; filename=\"qr.png\"\n");
+            header("Content-Type: image/png\n");
+            passthru('/usr/bin/qrencode -s 10 -o - '.escapeshellarg(site_url($id).'/'));
+            exit();
           } else {
             header("Content-Type: ".$type."\n");
           }
