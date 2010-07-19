@@ -165,7 +165,7 @@ class File_mod extends Model {
         header("HTTP/1.1 304 Not Modified");
         header('Etag: "'.$etag.'"');
       } else {
-        if ($mode && $mode != 'plain'
+        if ($mode && $mode != 'plain' && $mode != 'qr'
         && $this->mime2extension($type)
         && filesize($file) <= $this->config->item('upload_max_text_size')
         ) {
