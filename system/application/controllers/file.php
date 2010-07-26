@@ -56,6 +56,11 @@ class File extends Controller {
     $this->load->view('file/footer', $data);
   }
 
+  function get_max_size()
+  {
+    echo $this->config->item('upload_max_size');
+  }
+
   function delete()
   {
     $id = $this->uri->segment(3);
