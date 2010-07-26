@@ -50,6 +50,7 @@ class File extends Controller {
     $data = array();
     $data['title'] = 'Upload';
     $data['small_upload_size'] = $this->config->item('small_upload_size');
+    $data['max_upload_size'] = $this->config->item('upload_max_size');
 
     $this->load->view('file/header', $data);
     $this->load->view('file/upload_form', $data);

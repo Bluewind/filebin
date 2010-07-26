@@ -14,7 +14,7 @@
 <br /><br />
 <p>Uploads/pastes are deleted after 5 days<?php if($small_upload_size > 0): ?>
   unless they are smaller than <?php echo format_bytes($small_upload_size); ?>
-<?php endif; ?>.</p>
+  <?php endif; ?>. Maximum upload size is <?php echo format_bytes($max_upload_size); ?></p>
 <br />
 <p>For shell uploading/pasting use:</p>
 <pre>
