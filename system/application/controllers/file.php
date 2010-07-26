@@ -82,7 +82,7 @@ class File extends Controller {
       $this->upload_form();
       return;
     }
-    if(strlen($content) >= $this->config->item('upload_max_size')) {
+    if(strlen($content) > $this->config->item('upload_max_size')) {
       $this->load->view('file/header', $data);
       $this->load->view('file/too_big');
       $this->load->view('file/footer');
@@ -116,7 +116,7 @@ class File extends Controller {
       return;
     }
     $filesize = filesize($_FILES['file']['tmp_name']);
-    if ($filesize >= $this->config->item('upload_max_size')) {
+    if ($filesize > $this->config->item('upload_max_size')) {
       $this->load->view('file/header', $data);
       $this->load->view('file/too_big');
       $this->load->view('file/footer');
