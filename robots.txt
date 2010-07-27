@@ -1,5 +1,0 @@
-User-Agent: *
-Disallow: /file/download/
-Disallow: /file/show_url/
-Disallow: /d/
-Disallow: /s/
