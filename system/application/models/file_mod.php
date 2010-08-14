@@ -329,7 +329,7 @@ class File_mod extends Model {
     'text/x-haskell' => 'hs',
     'text/x-literate-haskell' => 'hs',
     'text/x-subviewer' => 'sh',
-    #'text/x-makefile' => 'make',
+    'text/x-makefile' => 'make',
     #'text/x-log' => 'log',
     'text/html' => 'html',
     'text/css' => 'css',
