@@ -182,8 +182,16 @@ class File_mod extends Model {
           }
           echo $this->load->view('file/html_header', $data, true);
           if ($mode == "rmd") {
-            echo '<td class="markdownrender">'."\n";
-            passthru('/usr/bin/perl /usr/bin/perlbin/vendor/Markdown.pl '.escapeshellarg($file));
+            $this->load->library("MemcacheLibrary");
+            if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$mode)) {
+              ob_start();
+              echo '<td class="markdownrender">'."\n";
+              passthru('/usr/bin/perl /usr/bin/perlbin/vendor/Markdown.pl '.escapeshellarg($file));
+                $cached = ob_get_contents();
+                ob_end_clean();
+                $this->memcachelibrary->set($filedata['hash'].'_'.$mode, $cached, 100);
+            }
+            echo $cached;
           } else {
             echo '<td class="numbers"><pre>';
             // only rewrite if it's fast
@@ -197,7 +205,15 @@ class File_mod extends Model {
               }
               fclose($fp);
             } else {
-              passthru('/usr/bin/pygmentize -l '.$mode.' -f html '.escapeshellarg($file));
+              $this->load->library("MemcacheLibrary");
+              if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$mode)) {
+                ob_start();
+                passthru('/usr/bin/pygmentize -l '.$mode.' -f html '.escapeshellarg($file));
+                $cached = ob_get_contents();
+                ob_end_clean();
+                $this->memcachelibrary->set($filedata['hash'].'_'.$mode, $cached, 100);
+              }
+              echo $cached;
             }
             echo '</pre>';
           }
