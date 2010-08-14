@@ -62,7 +62,7 @@ class MemcacheLibrary {
         $this->CI->config->load("memcache");
 
         /* connect to default server */
-        if($this->CI->config->item("MEMCACHE_HOST") && $this->CI->config->item("MEMCACHE_PORT")) {
+        if($this->CI->config->item("MEMCACHE_HOST") && $this->CI->config->item("MEMCACHE_PORT") !== false) {
             $this->addServer($this->CI->config->item("MEMCACHE_HOST"), $this->CI->config->item("MEMCACHE_PORT"));
         }
 
