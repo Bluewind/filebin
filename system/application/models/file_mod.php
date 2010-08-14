@@ -190,7 +190,15 @@ class File_mod extends Model {
             // count(file($file)); isn't
             passthru('/usr/bin/perl -ne \'print "<a href=\"#n$.\" class=\"no\" id=\"n$.\" name=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
             echo '</pre></td><td class="code"><pre>'."\n";
-            echo shell_exec(FCPATH.'scripts/syntax-highlighting.sh '.escapeshellarg($filedata['filename']).'.'.escapeshellarg($mode).' < '.escapeshellarg($file));
+            if ($mode == 'txt') {
+              $fp = fopen($file,"r");
+              while (!feof($fp)) {
+                echo fread($fp,4096);
+              }
+              fclose($fp);
+            } else {
+              passthru('/usr/bin/pygmentize -l '.$mode.' -f html '.escapeshellarg($file));
+            }
             echo '</pre>';
           }
           echo $this->load->view('file/html_footer', $data, true);
