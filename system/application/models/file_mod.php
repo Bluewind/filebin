@@ -201,7 +201,7 @@ class File_mod extends Model {
             $this->load->library("MemcacheLibrary");
             if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$mode)) {
               ob_start();
-              passthru('/usr/bin/pygmentize -l '.$mode.' -f html '.escapeshellarg($file));
+              passthru('/usr/bin/pygmentize -O encoding=utf8 -F codetagify -l '.$mode.' -f html '.escapeshellarg($file));
               $cached = ob_get_contents();
               ob_end_clean();
               $this->memcachelibrary->set($filedata['hash'].'_'.$mode, $cached, 100);
