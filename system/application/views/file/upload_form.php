@@ -30,7 +30,7 @@ machine paste.xinu.at password my_secret_password
 </p>
 <br />
 <p>If you want to you can use this script to upload files, paste text or delete your uploads:<br />
-<a href="http://git.server-speed.net/bin/plain/fb">http://git.server-speed.net/bin/plain/fb</a></p>
+<a href="<?php echo $client_link; ?>"><?php echo $client_link; ?></a></p>
 <br />
 <p>If you experience any problems feel free to <a href="http://bluewind.at/?id=1">contact me</a>.</p>
 <br />
