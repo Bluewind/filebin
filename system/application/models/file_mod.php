@@ -198,23 +198,15 @@ class File_mod extends Model {
             // count(file($file)); isn't
             passthru('/usr/bin/perl -ne \'print "<a href=\"#n$.\" class=\"no\" id=\"n$.\" name=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
             echo '</pre></td><td class="code"><pre>'."\n";
-            if ($mode == 'txt') {
-              $fp = fopen($file,"r");
-              while (!feof($fp)) {
-                echo fread($fp,4096);
-              }
-              fclose($fp);
-            } else {
-              $this->load->library("MemcacheLibrary");
-              if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$mode)) {
-                ob_start();
-                passthru('/usr/bin/pygmentize -l '.$mode.' -f html '.escapeshellarg($file));
-                $cached = ob_get_contents();
-                ob_end_clean();
-                $this->memcachelibrary->set($filedata['hash'].'_'.$mode, $cached, 100);
-              }
-              echo $cached;
+            $this->load->library("MemcacheLibrary");
+            if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$mode)) {
+              ob_start();
+              passthru('/usr/bin/pygmentize -l '.$mode.' -f html '.escapeshellarg($file));
+              $cached = ob_get_contents();
+              ob_end_clean();
+              $this->memcachelibrary->set($filedata['hash'].'_'.$mode, $cached, 100);
             }
+            echo $cached;
             echo '</pre>';
           }
           echo $this->load->view('file/html_footer', $data, true);
@@ -317,7 +309,7 @@ class File_mod extends Model {
   function mime2extension($type)
   {
     $typearray = array(
-    'text/plain' => 'txt',
+    'text/plain' => 'text',
     'text/x-python' => 'py',
     'text/x-csrc' => 'c',
     'text/x-chdr' => 'h',
@@ -333,24 +325,24 @@ class File_mod extends Model {
     #'text/x-log' => 'log',
     'text/html' => 'html',
     'text/css' => 'css',
-    'message/rfc822' => 'txt',
+    'message/rfc822' => 'text',
     #'image/svg+xml' => 'xml',
     'application/x-perl' => 'pl',
     'application/xml' => 'xml',
     'application/javascript' => 'js',
-    'application/x-desktop' => 'txt',
-    'application/x-m4' => 'txt',
+    'application/x-desktop' => 'text',
+    'application/x-m4' => 'text',
     'application/x-awk' => 'awk',
     'application/x-java' => 'java',
     'application/x-php' => 'php',
     'application/x-ruby' => 'rb',
     'application/x-shellscript' => 'sh',
-    'application/x-x509-ca-cert' => 'txt',
-    'application/mbox' => 'txt'
+    'application/x-x509-ca-cert' => 'text',
+    'application/mbox' => 'text'
     );
     if (array_key_exists($type, $typearray)) return $typearray[$type];
 
-    if (strpos($type, 'text/') === 0) return 'txt';
+    if (strpos($type, 'text/') === 0) return 'text';
 
     # default
     return false;
