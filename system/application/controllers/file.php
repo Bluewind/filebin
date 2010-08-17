@@ -22,7 +22,7 @@ class File extends Controller {
     if (strpos($_SERVER['HTTP_USER_AGENT'], 'fb-client') !== false) {
       $client_version = substr($_SERVER['HTTP_USER_AGENT'], 10);
       if ($this->var->latest_client != $client_version)  {
-        echo "Your are using an old client version. Latest is $this->var->latest_client.\n";
+        echo "Your are using an old client version. Latest is ".$this->var->latest_client."\n";
       }
       $this->var->cli_client = "fb-client";
     } elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'libcurl') !== false) {
