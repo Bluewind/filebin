@@ -48,7 +48,7 @@ class File_mod extends Model {
   function get_filedata($id)
   {
     $sql = '
-      SELECT hash,filename
+      SELECT hash,filename,mimetype
       FROM `files`
       WHERE `id` = ?
       LIMIT 1';
@@ -88,10 +88,11 @@ class File_mod extends Model {
 
   function add_file($hash, $id, $filename)
   {
+    $mimetype = exec(FCPATH.'scripts/mimetype -b --orig-name '.escapeshellarg($filename).' '.escapeshellarg($this->file($hash)));
     $query = $this->db->query('
-      INSERT INTO `files` (`hash`, `id`, `filename`, `password`, `date`)
-      VALUES (?, ?, ?, ?, ?)',
-      array($hash, $id, $filename, $this->get_password(), time()));
+      INSERT INTO `files` (`hash`, `id`, `filename`, `password`, `date`, `mimetype`)
+      VALUES (?, ?, ?, ?, ?, ?)',
+      array($hash, $id, $filename, $this->get_password(), time(), $mimetype));
   }
 
   function show_url($id, $mode)
@@ -155,7 +156,7 @@ class File_mod extends Model {
       }
       // MODIFIED SINCE SUPPORT -- END
 
-      $type = exec(FCPATH.'scripts/mimetype -b --orig-name '.escapeshellarg($filedata['filename']).' '.escapeshellarg($file));
+      $type = $filedata['mimetype'] ? $filedata['mimetype'] : exec(FCPATH.'scripts/mimetype -b --orig-name '.escapeshellarg($filedata['filename']).' '.escapeshellarg($file));
 
       if (!$mode && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1) {
         $mode = $this->mime2extension($type);
