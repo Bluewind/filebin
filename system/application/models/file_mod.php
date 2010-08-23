@@ -160,6 +160,7 @@ class File_mod extends Model {
 
       if (!$mode && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1) {
         $mode = $this->mime2extension($type);
+        $mode = $this->filename2extension($filedata['filename']) ? $this->filename2extension($filedata['filename']) : $mode;
       }
 
       if (!$modified) {
@@ -346,6 +347,16 @@ class File_mod extends Model {
     if (strpos($type, 'text/') === 0) return 'text';
 
     # default
+    return false;
+  }
+
+  function filename2extension($name)
+  {
+    $namearray = array(
+      'PKGBUILD' => 'sh'
+    );
+    if (array_key_exists($name, $namearray)) return $namearray[$name];
+
     return false;
   }
 
