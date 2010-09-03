@@ -340,7 +340,8 @@ class File_mod extends Model {
     'application/x-ruby' => 'rb',
     'application/x-shellscript' => 'sh',
     'application/x-x509-ca-cert' => 'text',
-    'application/mbox' => 'text'
+    'application/mbox' => 'text',
+    'application/x-genesis-rom' => 'text'
     );
     if (array_key_exists($type, $typearray)) return $typearray[$type];
 
