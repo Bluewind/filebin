@@ -98,19 +98,36 @@ class File_mod extends Model {
   function show_url($id, $mode)
   {
     $data = array();
+    $redirect = false;
 
     if ($mode) {
       $data['url'] = site_url($id).'/'.$mode;
     } else {
       $data['url'] = site_url($id).'/';
+
+      $filedata = $this->get_filedata($id);
+      $file = $this->file($filedata['hash']);
+      $type = $filedata['mimetype'] ? $filedata['mimetype'] : exec(FCPATH.'scripts/mimetype -b --orig-name '.escapeshellarg($filedata['filename']).' '.escapeshellarg($file));
+      $mode = $this->mime2extension($type);
+      $mode = $this->filename2extension($filedata['filename']) ? $this->filename2extension($filedata['filename']) : $mode;
+
+      // If we detected a highlightable file redirect,
+      // otherwise show the URL because browsers would just show a DL dialog
+      if ($mode) {
+        $redirect = true;
+      }
     }
 
     if ($this->var->cli_client) {
       echo $data['url']."\n";
     } else {
-      $this->load->view('file/header', $data);
-      $this->load->view('file/show_url', $data);
-      $this->load->view('file/footer', $data);
+      if ($redirect) {
+        redirect($data['url']);
+      } else {
+        $this->load->view('file/header', $data);
+        $this->load->view('file/show_url', $data);
+        $this->load->view('file/footer', $data);
+      }
     }
   }
 
