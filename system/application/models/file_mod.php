@@ -219,10 +219,9 @@ class File_mod extends Model {
             echo '</pre></td><td class="code"><pre>'."\n";
             $this->load->library("MemcacheLibrary");
             if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$mode)) {
-              ob_start();
-              passthru('/usr/bin/pygmentize -O encoding=utf8 -F codetagify -l '.$mode.' -f html '.escapeshellarg($file));
-              $cached = ob_get_contents();
-              ob_end_clean();
+              $this->load->library('geshi');
+              $this->geshi->initialize(array('set_language' => $mode, 'set_source' => file_get_contents($file), 'enable_classes' => 'true'));
+              $cached = $this->geshi->output();
               $this->memcachelibrary->set($filedata['hash'].'_'.$mode, $cached, 100);
             }
             echo $cached;
@@ -329,7 +328,7 @@ class File_mod extends Model {
   {
     $typearray = array(
     'text/plain' => 'text',
-    'text/x-python' => 'py',
+    'text/x-python' => 'python',
     'text/x-csrc' => 'c',
     'text/x-chdr' => 'c',
     'text/x-c++hdr' => 'c',
@@ -337,27 +336,27 @@ class File_mod extends Model {
     'text/x-patch' => 'diff',
     'text/x-lua' => 'lua',
     'text/x-java' => 'java',
-    'text/x-haskell' => 'hs',
-    'text/x-literate-haskell' => 'hs',
-    'text/x-subviewer' => 'sh',
+    'text/x-haskell' => 'haskell',
+    'text/x-literate-haskell' => 'haskell',
+    'text/x-subviewer' => 'bash',
     'text/x-makefile' => 'make',
     #'text/x-log' => 'log',
     'text/html' => 'html',
     'text/css' => 'css',
-    'message/rfc822' => 'text',
+    'message/rfc822' => 'email',
     #'image/svg+xml' => 'xml',
-    'application/x-perl' => 'pl',
+    'application/x-perl' => 'perl',
     'application/xml' => 'xml',
-    'application/javascript' => 'js',
+    'application/javascript' => 'javascript',
     'application/x-desktop' => 'text',
     'application/x-m4' => 'text',
     'application/x-awk' => 'text',
     'application/x-java' => 'java',
     'application/x-php' => 'php',
-    'application/x-ruby' => 'rb',
-    'application/x-shellscript' => 'sh',
+    'application/x-ruby' => 'ruby',
+    'application/x-shellscript' => 'bash',
     'application/x-x509-ca-cert' => 'text',
-    'application/mbox' => 'text',
+    'application/mbox' => 'email',
     'application/x-genesis-rom' => 'text'
     );
     if (array_key_exists($type, $typearray)) return $typearray[$type];
