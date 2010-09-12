@@ -14,6 +14,8 @@ class File_mod extends Model {
     parent::Model();
   }
 
+  // Returns an unused ID
+  // TODO: make threadsafe
   function new_id()
   {
     $id = $this->random_id(3,6);
@@ -62,10 +64,12 @@ class File_mod extends Model {
     }
   }
 
+  // return the folder in which the file with $hash is stored
   function folder($hash) {
     return $this->config->item('upload_path').'/'.substr($hash, 0, 3);
   }
 
+  // Returns the full path to the file with $hash
   function file($hash) {
     return $this->folder($hash).'/'.$hash;
   }
@@ -75,6 +79,7 @@ class File_mod extends Model {
     return sha1($this->config->item('passwordsalt').$password);
   }
 
+  // Returns the password submitted by the user
   function get_password()
   {
     $password = $this->input->post('password');
@@ -86,6 +91,8 @@ class File_mod extends Model {
     return 'NULL';
   }
 
+  // Add a hash to the DB
+  // TODO: Should only update not insert; see new_id()
   function add_file($hash, $id, $filename)
   {
     $mimetype = exec(FCPATH.'scripts/mimetype -b --orig-name '.escapeshellarg($filename).' '.escapeshellarg($this->file($hash)));
@@ -131,6 +138,8 @@ class File_mod extends Model {
     }
   }
 
+  // download a given hash
+  // TODO: make smaller
   function download()
   {
     $data = array();
@@ -175,6 +184,7 @@ class File_mod extends Model {
 
       $type = $filedata['mimetype'] ? $filedata['mimetype'] : exec(FCPATH.'scripts/mimetype -b --orig-name '.escapeshellarg($filedata['filename']).' '.escapeshellarg($file));
 
+      // /$mode at the end of the URL overwrites autodetection
       if (!$mode && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1) {
         $mode = $this->mime2extension($type);
         $mode = $this->filename2extension($filedata['filename']) ? $this->filename2extension($filedata['filename']) : $mode;
@@ -215,6 +225,7 @@ class File_mod extends Model {
             echo '<td class="numbers"><pre>';
             // only rewrite if it's fast
             // count(file($file)); isn't
+            // generate line numbers (links)
             passthru('/usr/bin/perl -ne \'print "<a href=\"#n$.\" class=\"no\" id=\"n$.\" name=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
             echo '</pre></td><td class="code"><pre>'."\n";
             $this->load->library("MemcacheLibrary");
@@ -252,6 +263,7 @@ class File_mod extends Model {
       }
       exit();
     } else {
+      // TODO: remove -controller function has been removed
       $this->load->view('file/header', $data);
       $this->load->view('file/non_existant');
       $this->load->view('file/footer');
@@ -306,6 +318,8 @@ class File_mod extends Model {
     return true;
   }
 
+  // Generate a random ID
+  // TODO: speed up
   private function random_id($min_length, $max_length)
   {
     $random = '';
@@ -324,6 +338,7 @@ class File_mod extends Model {
     return $random;
   }
 
+  // Map MIME types to extensions needed for highlighting
   function mime2extension($type)
   {
     $typearray = array(
@@ -367,6 +382,7 @@ class File_mod extends Model {
     return false;
   }
 
+  // Map special filenames to extensions
   function filename2extension($name)
   {
     $namearray = array(

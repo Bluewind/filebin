@@ -8,7 +8,6 @@
  */
 
 class File extends Controller {
-  // TODO: Add comments
 
   function __construct()
   {
@@ -19,6 +18,7 @@ class File extends Controller {
     $this->file_mod->var->cli_client =& $this->var->cli_client;
     $this->var->latest_client = trim(file_get_contents(FCPATH.'data/client/latest'));
 
+    // official client uses "fb-client/$version" as useragent
     if (strpos($_SERVER['HTTP_USER_AGENT'], 'fb-client') !== false) {
       $client_version = substr($_SERVER['HTTP_USER_AGENT'], 10);
       if ($this->var->latest_client != $client_version)  {
@@ -32,6 +32,9 @@ class File extends Controller {
 
   function index()
   {
+    // Try to guess what the user would like to do.
+    // File uploads should be checked first because they are usually big and
+    // take quite some time to upload.
     if(isset($_FILES['file'])) {
       $this->do_upload();
     } elseif ($this->input->post('content')) {
@@ -58,11 +61,14 @@ class File extends Controller {
     $this->load->view('file/footer', $data);
   }
 
+  // Allow CLI clients to query the server for the maxium filesize so they can
+  // stop the upload before wasting time and bandwith
   function get_max_size()
   {
     echo $this->config->item('upload_max_size');
   }
 
+  // Allow users to delete IDs if their password matches the one used when uploading
   function delete()
   {
     $id = $this->uri->segment(3);
@@ -75,15 +81,21 @@ class File extends Controller {
     die();
   }
 
+  // Take the content from post instead of a file
+  // support textareas on the upload form
+  // XXX: This requires users of suhosin to adjust maxium post and request size
+  // TODO: merge with do_upload()
   function do_paste() 
   {
     $data = array();
     $content = $this->input->post('content')."\n";
     $extension = $this->input->post('extension');
+    // prevent empty pastes from the upload form
     if($content === "\n") {
       $this->upload_form();
       return;
     }
+    // TODO: Display nice error for cli clients
     if(strlen($content) > $this->config->item('upload_max_size')) {
       $this->load->view('file/header', $data);
       $this->load->view('file/too_big');
@@ -103,10 +115,13 @@ class File extends Controller {
     $this->file_mod->show_url($id, $extension);
   }
 
+  // Handles uploaded files
+  // TODO: merge with do_paste()
   function do_upload()
   {
     $data = array();
     $extension = $this->input->post('extension');
+    // TODO: Display nice error for cli clients
     if(!isset($_FILES['file'])) {
       $this->load->view('file/header', $data);
       $this->load->view('file/upload_error');
@@ -118,6 +133,7 @@ class File extends Controller {
       return;
     }
     $filesize = filesize($_FILES['file']['tmp_name']);
+    // TODO: Display nice error for cli clients
     if ($filesize > $this->config->item('upload_max_size')) {
       $this->load->view('file/header', $data);
       $this->load->view('file/too_big');
@@ -138,6 +154,7 @@ class File extends Controller {
     $this->file_mod->show_url($id, $extension);
   }
 
+  // Removes old files
   function cron()
   {
     if ($this->config->item('upload_max_age') == 0) return;
