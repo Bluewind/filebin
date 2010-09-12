@@ -370,7 +370,8 @@ class File_mod extends Model {
   function filename2extension($name)
   {
     $namearray = array(
-      'PKGBUILD' => 'sh'
+      'PKGBUILD' => 'bash',
+      '.vimrc' => 'vim'
     );
     if (array_key_exists($name, $namearray)) return $namearray[$name];
 
