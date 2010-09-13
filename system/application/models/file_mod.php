@@ -138,7 +138,7 @@ class File_mod extends Model {
     }
   }
 
-  // download a given hash
+  // download a given ID
   // TODO: make smaller
   function download()
   {
@@ -152,10 +152,14 @@ class File_mod extends Model {
     if ($this->id_exists($id) && file_exists($file)) {
       // MODIFIED SINCE SUPPORT -- START
       // helps to keep traffic low when reloading an image
-      // TODO: check for bugs, find source of code again
       $filedate = filectime($file);
       $etag = strtolower(md5_file($file));
       $modified = true;
+
+      // No need to check because different files have different IDs/hashes
+      if(isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
+          $modified = false;
+      }
 
       if(isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
         $oldtag = trim(strtolower($_SERVER['HTTP_IF_NONE_MATCH']), '"');
@@ -165,35 +169,21 @@ class File_mod extends Model {
           $modified = true;
         }
       }
-       
-      if(isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
-        $olddate = date_parse(trim(strtolower($_SERVER['HTTP_IF_MODIFIED_SINCE'])));
-        $olddate = gmmktime($olddate['hour'],
-                            $olddate['minute'],
-                            $olddate['second'],
-                            $olddate['month'],
-                            $olddate['day'],
-                            $olddate['year']);
-        if($olddate >= $filedate) {
-          $modified = false;
-        } else {
-          $modified = true;
-        }
-      }
       // MODIFIED SINCE SUPPORT -- END
-
-      $type = $filedata['mimetype'] ? $filedata['mimetype'] : exec(FCPATH.'scripts/mimetype -b --orig-name '.escapeshellarg($filedata['filename']).' '.escapeshellarg($file));
-
-      // /$mode at the end of the URL overwrites autodetection
-      if (!$mode && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1) {
-        $mode = $this->mime2extension($type);
-        $mode = $this->filename2extension($filedata['filename']) ? $this->filename2extension($filedata['filename']) : $mode;
-      }
 
       if (!$modified) {
         header("HTTP/1.1 304 Not Modified");
         header('Etag: "'.$etag.'"');
       } else {
+        $type = $filedata['mimetype'] ? $filedata['mimetype'] : exec(FCPATH.'scripts/mimetype -b --orig-name '.escapeshellarg($filedata['filename']).' '.escapeshellarg($file));
+
+        // /$mode at the end of the URL overwrites autodetection
+        if (!$mode && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1) {
+          $mode = $this->mime2extension($type);
+          $mode = $this->filename2extension($filedata['filename']) ? $this->filename2extension($filedata['filename']) : $mode;
+        }
+
+        // TODO: cleanup conditions
         if ($mode && $mode != 'plain' && $mode != 'qr'
         && $this->mime2extension($type)
         && filesize($file) <= $this->config->item('upload_max_text_size')
@@ -203,6 +193,7 @@ class File_mod extends Model {
           $data['plain_link'] = site_url($id.'/plain');
           $data['auto_link'] = site_url($id).'/';
           $data['rmd_link'] = site_url($id.'/rmd');
+
           header("Content-Type: text/html\n");
           if ($mode) {
             $data['current_highlight'] = $mode;
@@ -210,40 +201,32 @@ class File_mod extends Model {
             $data['current_highlight'] = $this->mime2extension($type);
           }
           echo $this->load->view('file/html_header', $data, true);
-          if ($mode == "rmd") {
-            $this->load->library("MemcacheLibrary");
-            if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$mode)) {
-              ob_start();
-              echo '<td class="markdownrender">'."\n";
-              passthru('/usr/bin/perl /usr/bin/perlbin/vendor/Markdown.pl '.escapeshellarg($file));
-                $cached = ob_get_contents();
-                ob_end_clean();
-                $this->memcachelibrary->set($filedata['hash'].'_'.$mode, $cached, 100);
-            }
-            echo $cached;
-          } else {
-            echo '<td class="numbers"><pre>';
-            // only rewrite if it's fast
-            // count(file($file)); isn't
-            // generate line numbers (links)
-            passthru('/usr/bin/perl -ne \'print "<a href=\"#n$.\" class=\"no\" id=\"n$.\" name=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
-            echo '</pre></td><td class="code"><pre>'."\n";
-            $this->load->library("MemcacheLibrary");
-            if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$mode)) {
+          $this->load->library("MemcacheLibrary");
+          if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$mode)) {
+            ob_start();
+            if ($mode == "rmd") {
+                echo '<td class="markdownrender">'."\n";
+                passthru('/usr/bin/perl /usr/bin/perlbin/vendor/Markdown.pl '.escapeshellarg($file));
+            } else {
+              echo '<td class="numbers"><pre>';
+              // generate line numbers (links)
+              passthru('/usr/bin/perl -ne \'print "<a href=\"#n$.\" class=\"no\" id=\"n$.\" name=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
+              echo '</pre></td><td class="code">'."\n";
               $this->load->library('geshi');
               $this->geshi->initialize(array('set_language' => $mode, 'set_source' => file_get_contents($file), 'enable_classes' => 'true'));
-              $cached = $this->geshi->output();
-              $this->memcachelibrary->set($filedata['hash'].'_'.$mode, $cached, 100);
+              echo $this->geshi->output();
             }
-            echo $cached;
-            echo '</pre>';
+            $cached = ob_get_contents();
+            ob_end_clean();
+            $this->memcachelibrary->set($filedata['hash'].'_'.$mode, $cached, 100);
           }
+          echo $cached;
           echo $this->load->view('file/html_footer', $data, true);
         } else {
           if ($mode == 'plain') {
             header("Content-Type: text/plain\n");
           } elseif ($mode == "qr") {
-            header("Content-disposition: inline; filename=\"qr.png\"\n");
+            header("Content-disposition: inline; filename=\"".$id."_qr.png\"\n");
             header("Content-Type: image/png\n");
             passthru('/usr/bin/qrencode -s 10 -o - '.escapeshellarg(site_url($id).'/'));
             exit();
@@ -264,7 +247,7 @@ class File_mod extends Model {
       exit();
     } else {
       // TODO: remove -controller function has been removed
-      $this->load->view('file/header', $data);
+      $this->load->view('file/header');
       $this->load->view('file/non_existant');
       $this->load->view('file/footer');
     }
