@@ -302,20 +302,16 @@ class File_mod extends Model {
   }
 
   // Generate a random ID
-  // TODO: speed up
   private function random_id($min_length, $max_length)
   {
     $random = '';
     $char_list = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     $char_list .= "abcdefghijklmnopqrstuvwxyz";
     $char_list .= "1234567890";
+    $length = rand()%($max_length-$min_length) + $min_length;
 
     for($i = 0; $i < $max_length; $i++) {
-      if (strlen($random) >= $min_length) {
-        if (rand()%2 == 1) {
-          break;
-        }
-      }
+      if (strlen($random) == $length) break;
       $random .= substr($char_list,(rand()%(strlen($char_list))), 1);
     }
     return $random;
