@@ -1,0 +1,38 @@
+.nsis .de1, .nsis .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.nsis  {font-family:monospace;}
+.nsis .imp {font-weight: bold; color: red;}
+.nsis li, .nsis .li1 {font-weight: normal; vertical-align:top;}
+.nsis .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.nsis .li2 {font-weight: bold; vertical-align:top;}
+.nsis .kw1 {color: #000066; font-weight:bold;}
+.nsis .kw2 {color: #000066;}
+.nsis .kw3 {color: #003366;}
+.nsis .kw4 {color: #000099;}
+.nsis .kw5 {color: #ff6600;}
+.nsis .kw6 {color: #ff6600;}
+.nsis .kw7 {color: #006600;}
+.nsis .kw8 {color: #006600;}
+.nsis .kw9 {color: #006600;}
+.nsis .kw10 {color: #006600;}
+.nsis .kw11 {color: #006600;}
+.nsis .kw12 {color: #006600;}
+.nsis .kw13 {color: #006600;}
+.nsis .kw14 {color: #006600;}
+.nsis .kw15 {color: #006600;}
+.nsis .kw16 {color: #006600;}
+.nsis .co1 {color: #666666; font-style: italic;}
+.nsis .co2 {color: #666666; font-style: italic;}
+.nsis .coMULTI {color: #666666; font-style: italic;}
+.nsis .es0 {color: #660066; font-weight: bold;}
+.nsis .st0 {color: #660066;}
+.nsis .re0 {color: #660000;}
+.nsis .re1 {color: #660000;}
+.nsis .re2 {color: #660000;}
+.nsis .re3 {color: #660000;}
+.nsis .re4 {color: #660000;}
+.nsis .re5 {color: #660000;}
+.nsis .re6 {color: #660000;}
+.nsis .re7 {color: #000099;}
+.nsis .re8 {color: #003399;}
+.nsis .ln-xtra, .nsis li.ln-xtra, .nsis div.ln-xtra {background-color: #ffc;}
+.nsis span.xtra { display:block; }

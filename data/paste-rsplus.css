@@ -1,0 +1,23 @@
+.rsplus .de1, .rsplus .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.rsplus  {font-family:monospace;}
+.rsplus .imp {font-weight: bold; color: red;}
+.rsplus li, .rsplus .li1 {font-weight: normal; vertical-align:top;}
+.rsplus .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.rsplus .li2 {font-weight: bold; vertical-align:top;}
+.rsplus .kw1 {color: #0000FF; font-weight: bold;}
+.rsplus .kw2 {color: #0000FF; font-weight: bold;}
+.rsplus .kw3 {color: #CC9900; font-weight: bold;}
+.rsplus .kw4 {color: #0000FF; font-weight: bold;}
+.rsplus .kw5 {color: #0000FF; font-weight: bold;}
+.rsplus .kw6 {color: #0000FF; font-weight: bold;}
+.rsplus .kw7 {color: #0000FF; font-weight: bold;}
+.rsplus .kw8 {color: #0000FF; font-weight: bold;}
+.rsplus .co1 {color: #228B22;}
+.rsplus .es0 {color: #000099; font-weight: bold;}
+.rsplus .br0 {color: #080;}
+.rsplus .sy0 {color: #080;}
+.rsplus .st0 {color: #ff0000;}
+.rsplus .nu0 {color: #ff0000;}
+.rsplus .re0 {color:#A020F0;}
+.rsplus .ln-xtra, .rsplus li.ln-xtra, .rsplus div.ln-xtra {background-color: #ffc;}
+.rsplus span.xtra { display:block; }

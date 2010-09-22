@@ -1,0 +1,22 @@
+.fortran .de1, .fortran .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.fortran  {font-family:monospace;}
+.fortran .imp {font-weight: bold; color: red;}
+.fortran li, .fortran .li1 {font-weight: normal; vertical-align:top;}
+.fortran .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.fortran .li2 {font-weight: bold; vertical-align:top;}
+.fortran .kw1 {color: #b1b100;}
+.fortran .kw2 {color: #000000; font-weight: bold;}
+.fortran .kw3 {color: #000066;}
+.fortran .kw4 {color: #993333;}
+.fortran .co1 {color: #666666; font-style: italic;}
+.fortran .co2 {color: #339933;}
+.fortran .coMULTI {color: #808080; font-style: italic;}
+.fortran .es0 {color: #000099; font-weight: bold;}
+.fortran .br0 {color: #009900;}
+.fortran .sy0 {color: #339933;}
+.fortran .st0 {color: #ff0000;}
+.fortran .nu0 {color: #cc66cc;}
+.fortran .me1 {color: #202020;}
+.fortran .me2 {color: #202020;}
+.fortran .ln-xtra, .fortran li.ln-xtra, .fortran div.ln-xtra {background-color: #ffc;}
+.fortran span.xtra { display:block; }

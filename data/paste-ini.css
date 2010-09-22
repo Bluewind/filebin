@@ -1,0 +1,14 @@
+.ini .de1, .ini .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.ini  {font-family:monospace;}
+.ini .imp {font-weight: bold; color: red;}
+.ini li, .ini .li1 {font-weight: normal; vertical-align:top;}
+.ini .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.ini .li2 {font-weight: bold; vertical-align:top;}
+.ini .co0 {color: #666666; font-style: italic;}
+.ini .sy0 {color: #000066; font-weight:bold;}
+.ini .st0 {color: #933;}
+.ini .re0 {color: #000066; font-weight:bold;}
+.ini .re1 {color: #000099;}
+.ini .re2 {color: #660066;}
+.ini .ln-xtra, .ini li.ln-xtra, .ini div.ln-xtra {background-color: #ffc;}
+.ini span.xtra { display:block; }

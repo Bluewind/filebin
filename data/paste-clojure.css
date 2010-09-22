@@ -1,0 +1,18 @@
+.clojure .de1, .clojure .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.clojure  {font-family:monospace;}
+.clojure .imp {font-weight: bold; color: red;}
+.clojure li, .clojure .li1 {font-weight: normal; vertical-align:top;}
+.clojure .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.clojure .li2 {font-weight: bold; vertical-align:top;}
+.clojure .kw1 {color: #b1b100;}
+.clojure .co1 {color: #808080; font-style: italic;}
+.clojure .coMULTI {color: #808080; font-style: italic;}
+.clojure .es0 {color: #000099; font-weight: bold;}
+.clojure .br0 {color: #66cc66;}
+.clojure .sy0 {color: #66cc66;}
+.clojure .st0 {color: #ff0000;}
+.clojure .nu0 {color: #cc66cc;}
+.clojure .me0 {color: #555;}
+.clojure .me1 {color: #555;}
+.clojure .ln-xtra, .clojure li.ln-xtra, .clojure div.ln-xtra {background-color: #ffc;}
+.clojure span.xtra { display:block; }

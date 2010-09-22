@@ -1,0 +1,17 @@
+.lolcode .de1, .lolcode .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.lolcode  {font-family:monospace;}
+.lolcode .imp {font-weight: bold; color: red;}
+.lolcode li, .lolcode .li1 {font-weight: normal; vertical-align:top;}
+.lolcode .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.lolcode .li2 {font-weight: bold; vertical-align:top;}
+.lolcode .kw1 {color: #008000;}
+.lolcode .kw2 {color: #000080;}
+.lolcode .kw3 {color: #000080;}
+.lolcode .kw4 {color: #800000;}
+.lolcode .co1 {color: #666666; style: italic;}
+.lolcode .co2 {color: #666666; style: italic;}
+.lolcode .br0 {color: #66cc66;}
+.lolcode .sy0 {color: #66cc66;}
+.lolcode .st0 {color: #ff0000;}
+.lolcode .ln-xtra, .lolcode li.ln-xtra, .lolcode div.ln-xtra {background-color: #ffc;}
+.lolcode span.xtra { display:block; }

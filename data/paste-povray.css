@@ -1,0 +1,24 @@
+.povray .de1, .povray .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.povray  {font-family:monospace;}
+.povray .imp {font-weight: bold; color: red;}
+.povray li, .povray .li1 {font-weight: normal; vertical-align:top;}
+.povray .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.povray .li2 {font-weight: bold; vertical-align:top;}
+.povray .kw1 {color: #a63123;}
+.povray .kw2 {color: #2312bc;}
+.povray .kw3 {color: #cc1122; font-weight: bold;}
+.povray .kw4 {color: #116688; font-weight: bold;}
+.povray .co1 {color: #808080; font-style: italic;}
+.povray .coMULTI {color: #808080; font-style: italic;}
+.povray .es0 {color: #000099; font-weight: bold;}
+.povray .br0 {color: #66cc66;}
+.povray .sy0 {color: #66cc66;}
+.povray .st0 {color: #ff0000;}
+.povray .nu0 {color: #cc66aa;}
+.povray .me1 {color: #006600;}
+.povray .me2 {color: #006600;}
+.povray .re0 {color: #6666cc; font-weight: bold;}
+.povray .re1 {color: #66cc66; font-weight: bold;}
+.povray .re2 {color: #66cc66; font-weight: bold;}
+.povray .ln-xtra, .povray li.ln-xtra, .povray div.ln-xtra {background-color: #ffc;}
+.povray span.xtra { display:block; }

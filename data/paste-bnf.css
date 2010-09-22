@@ -1,0 +1,12 @@
+.bnf .de1, .bnf .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.bnf  {font-family:monospace;}
+.bnf .imp {font-weight: bold; color: red;}
+.bnf li, .bnf .li1 {font-weight: normal; vertical-align:top;}
+.bnf .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.bnf .li2 {font-weight: bold; vertical-align:top;}
+.bnf .sy0 {color: #000066; font-weight: bold;}
+.bnf .st0 {color: #a00;}
+.bnf .st1 {color: #a00;}
+.bnf .re0 {color: #007;}
+.bnf .ln-xtra, .bnf li.ln-xtra, .bnf div.ln-xtra {background-color: #ffc;}
+.bnf span.xtra { display:block; }

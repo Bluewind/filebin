@@ -1,0 +1,17 @@
+.pic16 .de1, .pic16 .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.pic16  {font-family:monospace;}
+.pic16 .imp {font-weight: bold; color: red;}
+.pic16 li, .pic16 .li1 {font-weight: normal; vertical-align:top;}
+.pic16 .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.pic16 .li2 {font-weight: bold; vertical-align:top;}
+.pic16 .kw1 {color: #0000a0; font-weight: bold;}
+.pic16 .kw2 {color: #aa3300; font-weight: bold;}
+.pic16 .kw3 {color: #0000ff;}
+.pic16 .co1 {color: #00a000;}
+.pic16 .es0 {color: #ff0000;}
+.pic16 .br0 {color: #0000ff;}
+.pic16 .sy0 {color: #7777ff;}
+.pic16 .st0 {color: #ff7700;}
+.pic16 .nu0 {color: #ff7700;}
+.pic16 .ln-xtra, .pic16 li.ln-xtra, .pic16 div.ln-xtra {background-color: #ffc;}
+.pic16 span.xtra { display:block; }

@@ -1,0 +1,29 @@
+.systemverilog .de1, .systemverilog .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.systemverilog  {font-family:monospace;}
+.systemverilog .imp {font-weight: bold; color: red;}
+.systemverilog li, .systemverilog .li1 {font-weight: normal; vertical-align:top;}
+.systemverilog .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.systemverilog .li2 {font-weight: bold; vertical-align:top;}
+.systemverilog .kw1 {color: #996666; font-weight: bold;}
+.systemverilog .kw2 {color: #336600; font-weight: bold;}
+.systemverilog .kw3 {color: #996600; font-weight: bold;}
+.systemverilog .kw4 {color: #000033; font-weight: bold;}
+.systemverilog .kw5 {color: #330033; font-weight: bold;}
+.systemverilog .kw6 {color: #996600; font-weight: bold;}
+.systemverilog .kw7 {color: #CC9900; font-weight: bold;}
+.systemverilog .kw8 {color: #990000; font-weight: bold;}
+.systemverilog .co1 {color: #00008B; font-style: italic;}
+.systemverilog .coMULTI {color: #00008B; font-style: italic;}
+.systemverilog .es0 {color: #9F79EE}
+.systemverilog .br0 {color: #9F79EE;}
+.systemverilog .sy0 {color: #5D478B;}
+.systemverilog .st0 {color: #FF00FF;}
+.systemverilog .nu0 {color: #ff0055;}
+.systemverilog .me1 {color: #202020;}
+.systemverilog .me2 {color: #202020;}
+.systemverilog .re0 {color: #ff0055;}
+.systemverilog .re1 {color: #ff0055;}
+.systemverilog .re2 {color: #ff0055;}
+.systemverilog .re3 {color: #ff0055;}
+.systemverilog .ln-xtra, .systemverilog li.ln-xtra, .systemverilog div.ln-xtra {background-color: #ffc;}
+.systemverilog span.xtra { display:block; }

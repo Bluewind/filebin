@@ -1,0 +1,20 @@
+.dot .de1, .dot .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.dot  {font-family:monospace;}
+.dot .imp {font-weight: bold; color: red;}
+.dot li, .dot .li1 {font-weight: normal; vertical-align:top;}
+.dot .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.dot .li2 {font-weight: bold; vertical-align:top;}
+.dot .kw1 {color: #000066;}
+.dot .kw2 {color: #000000; font-weight: bold;}
+.dot .kw3 {color: #993333;}
+.dot .kw4 {color: #b1b100;}
+.dot .co1 {color: #808080; font-style: italic;}
+.dot .co2 {color: #339933;}
+.dot .coMULTI {color: #808080; font-style: italic;}
+.dot .es0 {color: #af624d; font-weight: bold;}
+.dot .br0 {color: #66cc66;}
+.dot .sy0 {color: #66cc66;}
+.dot .st0 {color: #ff0000;}
+.dot .nu0 {color: #cc66cc;}
+.dot .ln-xtra, .dot li.ln-xtra, .dot div.ln-xtra {background-color: #ffc;}
+.dot span.xtra { display:block; }

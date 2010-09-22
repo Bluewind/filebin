@@ -1,0 +1,11 @@
+.hq9plus .de1, .hq9plus .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.hq9plus  {font-family:monospace;}
+.hq9plus .imp {font-weight: bold; color: red;}
+.hq9plus li, .hq9plus .li1 {font-weight: normal; vertical-align:top;}
+.hq9plus .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.hq9plus .li2 {font-weight: bold; vertical-align:top;}
+.hq9plus .br0 {color: #66cc66;}
+.hq9plus .sy0 {color: #a16000;}
+.hq9plus .st0 {color: #ff0000;}
+.hq9plus .ln-xtra, .hq9plus li.ln-xtra, .hq9plus div.ln-xtra {background-color: #ffc;}
+.hq9plus span.xtra { display:block; }

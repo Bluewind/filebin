@@ -1,0 +1,37 @@
+.boo .de1, .boo .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.boo  {font-family:monospace;}
+.boo .imp {font-weight: bold; color: red;}
+.boo li, .boo .li1 {font-weight: normal; vertical-align:top;}
+.boo .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.boo .li2 {font-weight: bold; vertical-align:top;}
+.boo .kw1 {color:green;font-weight:bold;}
+.boo .kw2 {color:navy;}
+.boo .kw3 {color:blue;font-weight:bold;}
+.boo .kw4 {color:#8B4513;}
+.boo .kw5 {color:teal;font-weight:bold;}
+.boo .kw6 {color:blue;font-weight:bold;}
+.boo .kw7 {color:blue;font-weight:bold;}
+.boo .kw8 {color:blue;font-weight:bold;}
+.boo .kw9 {color:maroon;}
+.boo .kw10 {color:maroon;}
+.boo .kw11 {color:purple;}
+.boo .kw12 {color:#4B0082;}
+.boo .kw13 {color:purple;font-weight:bold;}
+.boo .kw14 {color:#008B8B;font-weight:bold;}
+.boo .kw15 {color:brown;}
+.boo .kw16 {color:black;font-weight:bold;}
+.boo .kw17 {color:gray;}
+.boo .co1 {color: #999999; font-style: italic;}
+.boo .co2 {color: #999999; font-style: italic;}
+.boo .coMULTI {color: #008000; font-style: italic;}
+.boo .es0 {color: #0000FF; font-weight: bold;}
+.boo .es_h {color: #0000FF; font-weight: bold;}
+.boo .br0 {color: #006400;}
+.boo .sy0 {color: #006400;}
+.boo .st0 {color: #008000;}
+.boo .st_h {color: #008000;}
+.boo .nu0 {color: #00008B;}
+.boo .me0 {color: 000000;}
+.boo .me1 {color: 000000;}
+.boo .ln-xtra, .boo li.ln-xtra, .boo div.ln-xtra {background-color: #ffc;}
+.boo span.xtra { display:block; }

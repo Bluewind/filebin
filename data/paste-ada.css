@@ -1,0 +1,19 @@
+.ada .de1, .ada .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.ada  {font-family:monospace;}
+.ada .imp {font-weight: bold; color: red;}
+.ada li, .ada .li1 {font-weight: normal; vertical-align:top;}
+.ada .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.ada .li2 {font-weight: bold; vertical-align:top;}
+.ada .kw1 {color: #00007f;}
+.ada .kw2 {color: #0000ff;}
+.ada .kw3 {color: #46aa03; font-weight:bold;}
+.ada .co1 {color: #adadad; font-style: italic;}
+.ada .coMULTI {color: #808080; font-style: italic;}
+.ada .es0 {color: #000099; font-weight: bold;}
+.ada .br0 {color: #66cc66;}
+.ada .sy0 {color: #66cc66;}
+.ada .st0 {color: #7f007f;}
+.ada .nu0 {color: #ff0000;}
+.ada .me1 {color: #202020;}
+.ada .ln-xtra, .ada li.ln-xtra, .ada div.ln-xtra {background-color: #ffc;}
+.ada span.xtra { display:block; }

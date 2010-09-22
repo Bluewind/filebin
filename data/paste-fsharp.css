@@ -1,0 +1,24 @@
+.fsharp .de1, .fsharp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.fsharp  {font-family:monospace;}
+.fsharp .imp {font-weight: bold; color: red;}
+.fsharp li, .fsharp .li1 {font-weight: normal; vertical-align:top;}
+.fsharp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.fsharp .li2 {font-weight: bold; vertical-align:top;}
+.fsharp .kw1 {color: #06c; font-weight: bold;}
+.fsharp .kw2 {color: #06c; font-weight: bold;}
+.fsharp .kw3 {color: #06c; font-weight: bold;}
+.fsharp .kw4 {color: #06c; font-weight: bold;}
+.fsharp .kw5 {color: #06c; font-weight: bold;}
+.fsharp .kw6 {color: #06c; font-weight: bold;}
+.fsharp .kw7 {color: #06c; font-weight: bold;}
+.fsharp .kw8 {color: #06c; font-weight: bold;}
+.fsharp .coMULTI {color: #5d478b; font-style: italic;}
+.fsharp .co1 {color: #5d478b; font-style: italic;}
+.fsharp .co2 {color: #5d478b; font-style: italic;}
+.fsharp .br0 {color: #6c6;}
+.fsharp .sy0 {color: #a52a2a;}
+.fsharp .st0 {color: #3cb371;}
+.fsharp .nu0 {color: #c6c;}
+.fsharp .me1 {color: #060;}
+.fsharp .ln-xtra, .fsharp li.ln-xtra, .fsharp div.ln-xtra {background-color: #ffc;}
+.fsharp span.xtra { display:block; }

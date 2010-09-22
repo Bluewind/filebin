@@ -1,0 +1,26 @@
+.cil .de1, .cil .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.cil  {font-family:monospace;}
+.cil .imp {font-weight: bold; color: red;}
+.cil li, .cil .li1 {font-weight: normal; vertical-align:top;}
+.cil .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cil .li2 {font-weight: bold; vertical-align:top;}
+.cil .kw1 {color:maroon;font-weight:bold;}
+.cil .kw2 {color:blue;font-weight:bold;}
+.cil .kw3 {color:purple;font-weight:bold;}
+.cil .kw4 {color:teal;}
+.cil .kw5 {color:blue;}
+.cil .kw6 {color:blue;}
+.cil .kw7 {color:blue;}
+.cil .kw8 {color:blue;}
+.cil .kw9 {color:00008B}
+.cil .kw10 {color:gray}
+.cil .co0 {color:gray;font-style:italic;}
+.cil .es0 {color: #008000; font-weight: bold;}
+.cil .br0 {color: #006400;}
+.cil .sy0 {color: #006400;}
+.cil .st0 {color: #008000;}
+.cil .nu0 {color: #00008B;}
+.cil .me1 {color: #000033;}
+.cil .re0 {color:blue;}
+.cil .ln-xtra, .cil li.ln-xtra, .cil div.ln-xtra {background-color: #ffc;}
+.cil span.xtra { display:block; }

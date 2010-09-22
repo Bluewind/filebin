@@ -1,0 +1,26 @@
+.awk .de1, .awk .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.awk  {font-family:monospace;}
+.awk .imp {font-weight: bold; color: red;}
+.awk li, .awk .li1 {font-weight: normal; vertical-align:top;}
+.awk .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.awk .li2 {font-weight: bold; vertical-align:top;}
+.awk .kw1 {color: #000000; font-weight: bold;}
+.awk .kw2 {color: #C20CB9; font-weight: bold;}
+.awk .kw3 {color: #4107D5; font-weight: bold;}
+.awk .kw4 {color: #07D589; font-weight: bold;}
+.awk .kw5 {color: #0BD507; font-weight: bold;}
+.awk .kw6 {color: #078CD5; font-weight: bold;}
+.awk .co1 {color:#808080;}
+.awk .es0 {color: #000099; font-weight: bold;}
+.awk .br0 {color: #7a0874; font-weight: bold;}
+.awk .sy0 {color:black;}
+.awk .sy1 {color:black;}
+.awk .sy2 {color:black;}
+.awk .sy3 {color:black;}
+.awk .sy4 {color:#C4C364;}
+.awk .sy5 {color:black;font-weight:bold;}
+.awk .st0 {color: #ff0000;}
+.awk .nu0 {color: #000000;}
+.awk .re0 {color:#000088;}
+.awk .ln-xtra, .awk li.ln-xtra, .awk div.ln-xtra {background-color: #ffc;}
+.awk span.xtra { display:block; }

@@ -1,0 +1,20 @@
+.gml .de1, .gml .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.gml  {font-family:monospace;}
+.gml .imp {font-weight: bold; color: red;}
+.gml li, .gml .li1 {font-weight: normal; vertical-align:top;}
+.gml .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.gml .li2 {font-weight: bold; vertical-align:top;}
+.gml .kw1 {font-weight: bold; color: #000000;}
+.gml .kw2 {font-weight: bold; color: #000000;}
+.gml .kw3 {color: navy;}
+.gml .kw4 {color: #663300;}
+.gml .co1 {font-style: italic; color: green;}
+.gml .coMULTI {font-style: italic; color: green;}
+.gml .es0 {color: #000099; font-weight: bold;}
+.gml .br0 {color: #000000;}
+.gml .sy0 {color: #66cc66; font-weight: bold;}
+.gml .st0 {color: #ff0000;}
+.gml .nu0 {color: #cc66cc;}
+.gml .me1 {color: #202020;}
+.gml .ln-xtra, .gml li.ln-xtra, .gml div.ln-xtra {background-color: #ffc;}
+.gml span.xtra { display:block; }

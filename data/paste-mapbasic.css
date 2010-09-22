@@ -1,0 +1,21 @@
+.mapbasic .de1, .mapbasic .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.mapbasic  {font-family:monospace;}
+.mapbasic .imp {font-weight: bold; color: red;}
+.mapbasic li, .mapbasic .li1 {font-weight: normal; vertical-align:top;}
+.mapbasic .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.mapbasic .li2 {font-weight: bold; vertical-align:top;}
+.mapbasic .kw1 {color: #0000ff;}
+.mapbasic .kw2 {color: #2391af;}
+.mapbasic .kw3 {color: #2391af;}
+.mapbasic .kw4 {color: #c635cb;}
+.mapbasic .kw5 {color: #0000ff;}
+.mapbasic .co1 {color: #008000;}
+.mapbasic .coMULTI {color: #008000;}
+.mapbasic .br0 {color: #000000;}
+.mapbasic .sy0 {color: #000000;}
+.mapbasic .st0 {color: #a31515;}
+.mapbasic .nu0 {color: #000000;}
+.mapbasic .re0 {color: #12198b;}
+.mapbasic .re1 {color: #2391af;}
+.mapbasic .ln-xtra, .mapbasic li.ln-xtra, .mapbasic div.ln-xtra {background-color: #ffc;}
+.mapbasic span.xtra { display:block; }

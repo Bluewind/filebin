@@ -1,0 +1,27 @@
+.powershell .de1, .powershell .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.powershell  {font-family:monospace;}
+.powershell .imp {font-weight: bold; color: red;}
+.powershell li, .powershell .li1 {font-weight: normal; vertical-align:top;}
+.powershell .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.powershell .li2 {font-weight: bold; vertical-align:top;}
+.powershell .kw1 {color: #008080; font-weight: bold;}
+.powershell .kw2 {color: #008080; font-weight: bold;}
+.powershell .kw3 {color: #0000FF;}
+.powershell .kw4 {color: #FF0000;}
+.powershell .kw5 {color: #008080; font-style: italic;}
+.powershell .kw6 {color: #000080;}
+.powershell .co1 {color: #008000;}
+.powershell .coMULTI {color: #008000;}
+.powershell .es0 {color: #008080; font-weight: bold;}
+.powershell .br0 {color: #000000;}
+.powershell .sy0 {color: pink;}
+.powershell .st0 {color: #800000;}
+.powershell .nu0 {color: #804000;}
+.powershell .me0 {color: pink;}
+.powershell .re0 {color: #800080;}
+.powershell .re3 {color: #008080;}
+.powershell .re4 {color: #008080;}
+.powershell .re5 {color: #800000;}
+.powershell .re6 {color: #000080;}
+.powershell .ln-xtra, .powershell li.ln-xtra, .powershell div.ln-xtra {background-color: #ffc;}
+.powershell span.xtra { display:block; }

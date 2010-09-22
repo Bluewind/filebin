@@ -1,0 +1,45 @@
+.mysql .de1, .mysql .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.mysql  {font-family:monospace;}
+.mysql .imp {font-weight: bold; color: red;}
+.mysql li, .mysql .li1 {font-weight: normal; vertical-align:top;}
+.mysql .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.mysql .li2 {font-weight: bold; vertical-align:top;}
+.mysql .kw1 {color: #990099; font-weight: bold;}
+.mysql .kw2 {color: #990099; font-weight: bold;}
+.mysql .kw3 {color: #9900FF; font-weight: bold;}
+.mysql .kw4 {color: #999900; font-weight: bold;}
+.mysql .kw5 {color: #999900; font-weight: bold;}
+.mysql .kw6 {color: #FF9900; font-weight: bold;}
+.mysql .kw7 {color: #FF9900; font-weight: bold;}
+.mysql .kw8 {color: #9900FF; font-weight: bold;}
+.mysql .kw9 {color: #9900FF; font-weight: bold;}
+.mysql .kw10 {color: #CC0099; font-weight: bold;}
+.mysql .kw11 {color: #CC0099; font-weight: bold;}
+.mysql .kw12 {color: #009900;}
+.mysql .kw13 {color: #000099;}
+.mysql .kw14 {color: #000099;}
+.mysql .kw15 {color: #000099;}
+.mysql .kw16 {color: #000099;}
+.mysql .kw17 {color: #000099;}
+.mysql .kw18 {color: #000099;}
+.mysql .kw19 {color: #000099;}
+.mysql .kw20 {color: #000099;}
+.mysql .kw21 {color: #000099;}
+.mysql .kw22 {color: #000099;}
+.mysql .kw23 {color: #000099;}
+.mysql .kw24 {color: #000099;}
+.mysql .kw25 {color: #000099;}
+.mysql .kw26 {color: #000099;}
+.mysql .kw27 {color: #00CC00;}
+.mysql .coMULTI {color: #808000; font-style: italic;}
+.mysql .co1 {color: #808080; font-style: italic;}
+.mysql .co2 {color: #808080; font-style: italic;}
+.mysql .es0 {color: #004000; font-weight: bold;}
+.mysql .es1 {color: #008080; font-weight: bold;}
+.mysql .br0 {color: #FF00FF;}
+.mysql .sy1 {color: #CC0099;}
+.mysql .sy2 {color: #000033;}
+.mysql .st0 {color: #008000;}
+.mysql .nu0 {color: #008080;}
+.mysql .ln-xtra, .mysql li.ln-xtra, .mysql div.ln-xtra {background-color: #ffc;}
+.mysql span.xtra { display:block; }

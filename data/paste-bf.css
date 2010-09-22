@@ -1,0 +1,16 @@
+.bf .de1, .bf .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.bf  {font-family:monospace;}
+.bf .imp {font-weight: bold; color: red;}
+.bf li, .bf .li1 {font-weight: normal; vertical-align:top;}
+.bf .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.bf .li2 {font-weight: bold; vertical-align:top;}
+.bf .co1 {color: #666666; font-style: italic;}
+.bf .br0 {color: #66cc66;}
+.bf .sy0 {color: #006600;}
+.bf .sy1 {color: #660000;}
+.bf .sy2 {color: #000066;}
+.bf .sy3 {color: #660066;}
+.bf .sy4 {color: #666600;}
+.bf .st0 {color: #ff0000;}
+.bf .ln-xtra, .bf li.ln-xtra, .bf div.ln-xtra {background-color: #ffc;}
+.bf span.xtra { display:block; }

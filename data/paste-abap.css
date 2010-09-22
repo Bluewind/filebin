@@ -1,0 +1,29 @@
+.abap .de1, .abap .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.abap  {font-family:monospace;}
+.abap .imp {font-weight: bold; color: red;}
+.abap li, .abap .li1 {font-weight: normal; vertical-align:top;}
+.abap .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.abap .li2 {font-weight: bold; vertical-align:top;}
+.abap .kw1 {color: #000066; text-transform: uppercase; font-weight: bold; zzz:control;}
+.abap .kw2 {color: #cc4050; text-transform: uppercase; font-weight: bold; zzz:data;}
+.abap .kw3 {color: #005066; text-transform: uppercase; font-weight: bold; zzz:statement;}
+.abap .kw4 {color: #500066; text-transform: uppercase; font-weight: bold; zzz:keyword;}
+.abap .kw5 {color: #005066; text-transform: uppercase; font-weight: bold; zzz:statement;}
+.abap .kw6 {color: #000066; text-transform: uppercase; font-weight: bold; zzz:control;}
+.abap .kw7 {color: #000066; text-transform: uppercase; font-weight: bold; zzz:control;}
+.abap .kw8 {color: #005066; text-transform: uppercase; font-weight: bold; zzz:statement;}
+.abap .kw9 {color: #500066; text-transform: uppercase; font-weight: bold; zzz:keyword;}
+.abap .co1 {color: #808080; font-style: italic;}
+.abap .co2 {color: #339933;}
+.abap .coMULTI {color: #808080; font-style: italic;}
+.abap .es0 {color: #000099; font-weight: bold;}
+.abap .br0 {color: #808080;}
+.abap .sy0 {color: #808080;}
+.abap .sy1 {color: #800080;}
+.abap .sy2 {color: #0000ff;}
+.abap .st0 {color: #4da619;}
+.abap .nu0 {color: #3399ff;}
+.abap .me1 {color: #202020;}
+.abap .me2 {color: #202020;}
+.abap .ln-xtra, .abap li.ln-xtra, .abap div.ln-xtra {background-color: #ffc;}
+.abap span.xtra { display:block; }

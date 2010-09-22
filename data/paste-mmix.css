@@ -1,0 +1,20 @@
+.mmix .de1, .mmix .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.mmix  {font-family:monospace;}
+.mmix .imp {font-weight: bold; color: red;}
+.mmix li, .mmix .li1 {font-weight: normal; vertical-align:top;}
+.mmix .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.mmix .li2 {font-weight: bold; vertical-align:top;}
+.mmix .kw1 {color: #00007f; font-weight: bold;}
+.mmix .kw2 {color: #0000ff; font-weight: bold;}
+.mmix .kw3 {color: #00007f;}
+.mmix .kw4 {color: #000000; font-weight: bold;}
+.mmix .kw5 {color: #000000; font-weight: bold;}
+.mmix .co1 {color: #666666; font-style: italic;}
+.mmix .co2 {color: #adadad; font-style: italic;}
+.mmix .es0 {color: #000099; font-weight: bold;}
+.mmix .br0 {color: #009900; font-weight: bold;}
+.mmix .sy0 {color: #339933;}
+.mmix .st0 {color: #7f007f;}
+.mmix .nu0 {color: #0000ff;}
+.mmix .ln-xtra, .mmix li.ln-xtra, .mmix div.ln-xtra {background-color: #ffc;}
+.mmix span.xtra { display:block; }

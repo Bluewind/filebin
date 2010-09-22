@@ -1,0 +1,19 @@
+.sdlbasic .de1, .sdlbasic .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.sdlbasic  {font-family:monospace;}
+.sdlbasic .imp {font-weight: bold; color: red;}
+.sdlbasic li, .sdlbasic .li1 {font-weight: normal; vertical-align:top;}
+.sdlbasic .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.sdlbasic .li2 {font-weight: bold; vertical-align:top;}
+.sdlbasic .kw1 {color: #b1b100;}
+.sdlbasic .co1 {color: #808080;}
+.sdlbasic .co2 {color: #808080;}
+.sdlbasic .co3 {color: #808080;}
+.sdlbasic .co4 {color: #808080;}
+.sdlbasic .es0 {color: #000099;}
+.sdlbasic .br0 {color: #66cc66;}
+.sdlbasic .sy0 {color: #66cc66;}
+.sdlbasic .st0 {color: #ff0000;}
+.sdlbasic .nu0 {color: #cc66cc;}
+.sdlbasic .me0 {color: #66cc66;}
+.sdlbasic .ln-xtra, .sdlbasic li.ln-xtra, .sdlbasic div.ln-xtra {background-color: #ffc;}
+.sdlbasic span.xtra { display:block; }

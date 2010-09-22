@@ -1,0 +1,21 @@
+.mpasm .de1, .mpasm .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.mpasm  {font-family:monospace;}
+.mpasm .imp {font-weight: bold; color: red;}
+.mpasm li, .mpasm .li1 {font-weight: normal; vertical-align:top;}
+.mpasm .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.mpasm .li2 {font-weight: bold; vertical-align:top;}
+.mpasm .kw1 {color: #00007f;}
+.mpasm .kw2 {color: #0000ff;}
+.mpasm .kw3 {color: #007f00;}
+.mpasm .kw4 {color: #46aa03; font-weight:bold;}
+.mpasm .kw5 {color: #7f0000;}
+.mpasm .co1 {color: #adadad; font-style: italic;}
+.mpasm .es0 {color: #000099; font-weight: bold;}
+.mpasm .br0 {color: #66cc66;}
+.mpasm .sy0 {color: #66cc66;}
+.mpasm .st0 {color: #7f007f;}
+.mpasm .nu0 {color: #ff0000;}
+.mpasm .re0 {color: #ff0000;}
+.mpasm .re1 {color: #ff0000;}
+.mpasm .ln-xtra, .mpasm li.ln-xtra, .mpasm div.ln-xtra {background-color: #ffc;}
+.mpasm span.xtra { display:block; }

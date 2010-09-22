@@ -1,0 +1,30 @@
+.fo .de1, .fo .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.fo  {font-family:monospace;}
+.fo .imp {font-weight: bold; color: red;}
+.fo li, .fo .li1 {font-weight: normal; vertical-align:top;}
+.fo .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.fo .li2 {font-weight: bold; vertical-align:top;}
+.fo .kw1 {color: #000000; font-weight: bold;}
+.fo .kw2 {color: #000000; font-weight: bold;}
+.fo .kw3 {color: #006600; font-weight: bold;}
+.fo .kw4 {color: #006600; font-weight: bold;}
+.fo .kw5 {color: #003399; font-weight: bold;}
+.fo .kw6 {color: #003399; font-weight: bold;}
+.fo .kw7 {color: #003399; font-weight: bold;}
+.fo .kw8 {color: #003399; font-weight: bold;}
+.fo .kw9 {color: #003399; font-weight: bold;}
+.fo .kw10 {color: #003399; font-weight: bold;}
+.fo .kw11 {color: #003399; font-weight: bold;}
+.fo .kw12 {color: #003399; font-weight: bold;}
+.fo .co1 {color: #666666; font-style: italic;}
+.fo .coMULTI {color: #666666; font-style: italic;}
+.fo .es0 {color: #000099; font-weight: bold;}
+.fo .br0 {color: #009900;}
+.fo .sy0 {color: #339933;}
+.fo .sy1 {color: #000000; font-weight: bold;}
+.fo .st0 {color: #0000ff;}
+.fo .nu0 {color: #cc66cc;}
+.fo .me1 {color: #006633;}
+.fo .me2 {color: #006633;}
+.fo .ln-xtra, .fo li.ln-xtra, .fo div.ln-xtra {background-color: #ffc;}
+.fo span.xtra { display:block; }

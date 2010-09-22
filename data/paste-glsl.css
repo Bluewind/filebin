@@ -1,0 +1,23 @@
+.glsl .de1, .glsl .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.glsl  {font-family:monospace;}
+.glsl .imp {font-weight: bold; color: red;}
+.glsl li, .glsl .li1 {font-weight: normal; vertical-align:top;}
+.glsl .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.glsl .li2 {font-weight: bold; vertical-align:top;}
+.glsl .kw1 {color: #000000; font-weight: bold;}
+.glsl .kw2 {color: #333399; font-weight: bold;}
+.glsl .kw3 {color: #000066; font-weight: bold;}
+.glsl .kw4 {color: #333399; font-weight: bold;}
+.glsl .kw5 {color: #993333; font-weight: bold;}
+.glsl .kw6 {color: #551111;}
+.glsl .co1 {color: #666666; font-style: italic;}
+.glsl .co2 {color: #009900;}
+.glsl .coMULTI {color: #666666; font-style: italic;}
+.glsl .es0 {color: #000099; font-weight: bold;}
+.glsl .br0 {color: #000066;}
+.glsl .sy0 {color: #000066;}
+.glsl .st0 {color: #ff0000;}
+.glsl .nu0 {color: #0000ff;}
+.glsl .me1 {color: #006600;}
+.glsl .ln-xtra, .glsl li.ln-xtra, .glsl div.ln-xtra {background-color: #ffc;}
+.glsl span.xtra { display:block; }

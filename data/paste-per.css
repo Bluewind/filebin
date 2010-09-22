@@ -1,0 +1,20 @@
+.per .de1, .per .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.per  {font-family:monospace;}
+.per .imp {font-weight: bold; color: red;}
+.per li, .per .li1 {font-weight: normal; vertical-align:top;}
+.per .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.per .li2 {font-weight: bold; vertical-align:top;}
+.per .kw1 {color: #0600FF;}
+.per .kw2 {color: #0000FF; font-weight: bold;}
+.per .co1 {color: #008080; font-style: italic;}
+.per .co2 {color: #008080;}
+.per .coMULTI {color: green}
+.per .es0 {color: #008080; font-weight: bold;}
+.per .br0 {color: #000000;}
+.per .sy0 {color: #008000;}
+.per .st0 {color: #808080;}
+.per .nu0 {color: #FF0000;}
+.per .me1 {color: #0000FF;}
+.per .me2 {color: #0000FF;}
+.per .ln-xtra, .per li.ln-xtra, .per div.ln-xtra {background-color: #ffc;}
+.per span.xtra { display:block; }

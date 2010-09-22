@@ -1,0 +1,24 @@
+.vbnet .de1, .vbnet .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.vbnet  {font-family:monospace;}
+.vbnet .imp {font-weight: bold; color: red;}
+.vbnet li, .vbnet .li1 {font-weight: normal; vertical-align:top;}
+.vbnet .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.vbnet .li2 {font-weight: bold; vertical-align:top;}
+.vbnet .kw1 {color: #0600FF;}
+.vbnet .kw2 {color: #FF8000;}
+.vbnet .kw3 {color: #008000;}
+.vbnet .kw4 {color: #FF0000;}
+.vbnet .kw5 {color: #804040;}
+.vbnet .kw6 {color: #0600FF;}
+.vbnet .kw7 {color: #0600FF;}
+.vbnet .kw8 {color: #0600FF;}
+.vbnet .co1 {color: #008080; font-style: italic;}
+.vbnet .coMULTI {color: #008080; font-style: italic;}
+.vbnet .es0 {color: #008080; font-weight: bold;}
+.vbnet .br0 {color: #000000;}
+.vbnet .sy0 {color: #008000;}
+.vbnet .st0 {color: #808080;}
+.vbnet .nu0 {color: #FF0000;}
+.vbnet .me1 {color: #0000FF;}
+.vbnet .ln-xtra, .vbnet li.ln-xtra, .vbnet div.ln-xtra {background-color: #ffc;}
+.vbnet span.xtra { display:block; }

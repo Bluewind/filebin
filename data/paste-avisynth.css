@@ -1,0 +1,20 @@
+.avisynth .de1, .avisynth .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.avisynth  {font-family:monospace;}
+.avisynth .imp {font-weight: bold; color: red;}
+.avisynth li, .avisynth .li1 {font-weight: normal; vertical-align:top;}
+.avisynth .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.avisynth .li2 {font-weight: bold; vertical-align:top;}
+.avisynth .kw1 {color:#9966CC; font-weight:bold;}
+.avisynth .kw2 {color:#0000FF; font-weight:bold;}
+.avisynth .kw3 {color:#CC3300; font-weight:bold;}
+.avisynth .kw4 {color:#660000; font-weight:bold;}
+.avisynth .co1 {color:#008000; font-style:italic;}
+.avisynth .coMULTI {color:#000080; font-style:italic;}
+.avisynth .es0 {color:#000099;}
+.avisynth .br0 {color:#006600; font-weight:bold;}
+.avisynth .sy0 {color:#006600; font-weight:bold;}
+.avisynth .st0 {color:#996600;}
+.avisynth .nu0 {color:#006666;}
+.avisynth .me1 {color:#9900CC;}
+.avisynth .ln-xtra, .avisynth li.ln-xtra, .avisynth div.ln-xtra {background-color: #ffc;}
+.avisynth span.xtra { display:block; }

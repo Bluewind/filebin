@@ -1,0 +1,19 @@
+.scala .de1, .scala .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.scala  {font-family:monospace;}
+.scala .imp {font-weight: bold; color: red;}
+.scala li, .scala .li1 {font-weight: normal; vertical-align:top;}
+.scala .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.scala .li2 {font-weight: bold; vertical-align:top;}
+.scala .kw1 {color: #0000ff; font-weight: bold;}
+.scala .kw2 {color: #9999cc; font-weight: bold;}
+.scala .co1 {color: #008000; font-style: italic;}
+.scala .coMULTI {color: #00ff00; font-style: italic;}
+.scala .es0 {color: #0000ff; font-weight: bold;}
+.scala .br0 {color: #F78811;}
+.scala .sy0 {color: #000080;}
+.scala .st0 {color: #6666FF;}
+.scala .nu0 {color: #F78811;}
+.scala .me1 {color: #000000;}
+.scala .me2 {color: #000000;}
+.scala .ln-xtra, .scala li.ln-xtra, .scala div.ln-xtra {background-color: #ffc;}
+.scala span.xtra { display:block; }

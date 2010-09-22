@@ -1,0 +1,17 @@
+.blitzbasic .de1, .blitzbasic .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.blitzbasic  {font-family:monospace;}
+.blitzbasic .imp {font-weight: bold; color: red;}
+.blitzbasic li, .blitzbasic .li1 {font-weight: normal; vertical-align:top;}
+.blitzbasic .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.blitzbasic .li2 {font-weight: bold; vertical-align:top;}
+.blitzbasic .kw1 {color: #000066; font-weight: bold;}
+.blitzbasic .kw2 {color: #0000ff;}
+.blitzbasic .co1 {color: #D9D100; font-style: italic;}
+.blitzbasic .es0 {color: #000099; font-weight: bold;}
+.blitzbasic .br0 {color: #000066;}
+.blitzbasic .sy0 {color: #000066;}
+.blitzbasic .st0 {color: #009900;}
+.blitzbasic .nu0 {color: #CC0000;}
+.blitzbasic .me1 {color: #006600;}
+.blitzbasic .ln-xtra, .blitzbasic li.ln-xtra, .blitzbasic div.ln-xtra {background-color: #ffc;}
+.blitzbasic span.xtra { display:block; }

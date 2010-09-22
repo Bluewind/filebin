@@ -1,0 +1,21 @@
+.gnuplot .de1, .gnuplot .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.gnuplot  {font-family:monospace;}
+.gnuplot .imp {font-weight: bold; color: red;}
+.gnuplot li, .gnuplot .li1 {font-weight: normal; vertical-align:top;}
+.gnuplot .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.gnuplot .li2 {font-weight: bold; vertical-align:top;}
+.gnuplot .kw1 {color: #b1b100;}
+.gnuplot .kw2 {color: #990000;}
+.gnuplot .kw3 {color: #550000;}
+.gnuplot .kw4 {color: #7a0874;}
+.gnuplot .kw5 {color: #448888;}
+.gnuplot .co1 {color: #adadad; font-style: italic;}
+.gnuplot .es0 {color: #000099; font-weight:bold;}
+.gnuplot .br0 {color: #000099; font-weight:bold;}
+.gnuplot .sy0 {color: #000; font-weight: bold;}
+.gnuplot .st0 {color: #0000ff;}
+.gnuplot .nu0 {color: #cc66cc;}
+.gnuplot .re0 {color: #007800;}
+.gnuplot .re1 {color: #cc66cc;}
+.gnuplot .ln-xtra, .gnuplot li.ln-xtra, .gnuplot div.ln-xtra {background-color: #ffc;}
+.gnuplot span.xtra { display:block; }

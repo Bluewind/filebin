@@ -1,0 +1,17 @@
+._4cs .de1, ._4cs .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+._4cs  {font-family:monospace;}
+._4cs .imp {font-weight: bold; color: red;}
+._4cs li, ._4cs .li1 {font-weight: normal; vertical-align:top;}
+._4cs .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+._4cs .li2 {font-weight: bold; vertical-align:top;}
+._4cs .kw1 {color: #0000C0; font-weight: bold;}
+._4cs .kw2 {color: #808080;}
+._4cs .co1 {color: #008000;}
+._4cs .es0 {color: #000099;}
+._4cs .br0 {color: #000080;}
+._4cs .sy0 {color: #000080;}
+._4cs .st0 {color: #800080;}
+._4cs .nu0 {color: #cc66cc;}
+._4cs .me1 {color: #66cc66;}
+._4cs .ln-xtra, ._4cs li.ln-xtra, ._4cs div.ln-xtra {background-color: #ffc;}
+._4cs span.xtra { display:block; }

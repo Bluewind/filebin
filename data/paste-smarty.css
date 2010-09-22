@@ -1,0 +1,26 @@
+.smarty .de1, .smarty .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.smarty  {font-family:monospace;}
+.smarty .imp {font-weight: bold; color: red;}
+.smarty li, .smarty .li1 {font-weight: normal; vertical-align:top;}
+.smarty .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.smarty .li2 {font-weight: bold; vertical-align:top;}
+.smarty .kw1 {color: #0600FF;}
+.smarty .kw2 {color: #008000;}
+.smarty .kw3 {color: #0600FF;}
+.smarty .kw4 {color: #804040;}
+.smarty .kw5 {color: #008000;}
+.smarty .kw6 {color: #6A0A0A;}
+.smarty .kw7 {color: #D36900;}
+.smarty .kw8 {color: #0600FF;}
+.smarty .coMULTI {color: #008080; font-style: italic;}
+.smarty .es0 {color: #000099; font-weight: bold;}
+.smarty .br0 {color: #D36900;}
+.smarty .sy0 {color: #D36900;}
+.smarty .st0 {color: #ff0000;}
+.smarty .nu0 {color: #cc66cc;}
+.smarty .me1 {color: #006600;}
+.smarty .sc1 {color: #808080; font-style: italic;}
+.smarty .sc2 {color: #009000;}
+.smarty .re0 {color: #00aaff;}
+.smarty .ln-xtra, .smarty li.ln-xtra, .smarty div.ln-xtra {background-color: #ffc;}
+.smarty span.xtra { display:block; }

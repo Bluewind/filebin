@@ -1,0 +1,35 @@
+.typoscript .de1, .typoscript .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.typoscript  {font-family:monospace;}
+.typoscript .imp {font-weight: bold; color: red;}
+.typoscript li, .typoscript .li1 {font-weight: normal; vertical-align:top;}
+.typoscript .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.typoscript .li2 {font-weight: bold; vertical-align:top;}
+.typoscript .kw1 {color: #ed7d14;}
+.typoscript .kw2 {font-weight: bold;}
+.typoscript .kw3 {color: #990000; font-weight: bold;}
+.typoscript .kw4 {color: #990000; font-weight: bold;}
+.typoscript .kw5 {color: #990000; font-weight: bold;}
+.typoscript .kw6 {color: #990000; font-weight: bold;}
+.typoscript .kw7 {color: #990000; font-weight: bold;}
+.typoscript .kw8 {font-weight: bold;}
+.typoscript .kw9 {color: #990000; font-weight: bold;}
+.typoscript .co1 {color: #aaa; font-style: italic;}
+.typoscript .co2 {color: #aaa; font-style: italic;}
+.typoscript .coMULTI {color: #aaa; font-style: italic;}
+.typoscript .br0 {color: #009900;}
+.typoscript .sy0 {color: #339933; font-weight: bold;}
+.typoscript .sy1 {color: #009900; font-weight: bold;}
+.typoscript .st0 {color: #ac14aa;}
+.typoscript .nu0 {color: #cc0000;}
+.typoscript .me1 {color: #0000e0; font-weight: bold;}
+.typoscript .me2 {color: #0000e0; font-weight: bold;}
+.typoscript .re0 {color: #009900;}
+.typoscript .re1 {color: #009900; font-weight: bold;}
+.typoscript .re2 {color: #3366CC;}
+.typoscript .re3 {color: #000066; font-weight: bold;}
+.typoscript .re4 {color: #ed7d14;}
+.typoscript .re5 {color: #000066; font-weight: bold;}
+.typoscript .re6 {color: #009900;}
+.typoscript .re7 {color: #3366CC;}
+.typoscript .ln-xtra, .typoscript li.ln-xtra, .typoscript div.ln-xtra {background-color: #ffc;}
+.typoscript span.xtra { display:block; }

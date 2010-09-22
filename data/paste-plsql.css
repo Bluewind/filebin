@@ -1,0 +1,22 @@
+.plsql .de1, .plsql .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.plsql  {font-family:monospace;}
+.plsql .imp {font-weight: bold; color: red;}
+.plsql li, .plsql .li1 {font-weight: normal; vertical-align:top;}
+.plsql .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.plsql .li2 {font-weight: bold; vertical-align:top;}
+.plsql .kw1 {color: #00F;}
+.plsql .kw2 {color: #000;}
+.plsql .kw3 {color: #00F;}
+.plsql .kw4 {color: #F00;}
+.plsql .kw5 {color: #800;}
+.plsql .co1 {color: #080; font-style: italic;}
+.plsql .coMULTI {color: #080; font-style: italic;}
+.plsql .es0 {color: #000; font-weight: bold;}
+.plsql .br0 {color: #00F;}
+.plsql .sy0 {color: #00F;}
+.plsql .st0 {color: #F00;}
+.plsql .nu0 {color: #800;}
+.plsql .me0 {color: #0F0;}
+.plsql .sc0 {color: #0F0;}
+.plsql .ln-xtra, .plsql li.ln-xtra, .plsql div.ln-xtra {background-color: #ffc;}
+.plsql span.xtra { display:block; }

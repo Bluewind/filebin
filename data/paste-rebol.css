@@ -1,0 +1,21 @@
+.rebol .de1, .rebol .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.rebol  {font-family:monospace;}
+.rebol .imp {font-weight: bold; color: red;}
+.rebol li, .rebol .li1 {font-weight: normal; vertical-align:top;}
+.rebol .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.rebol .li2 {font-weight: bold; vertical-align:top;}
+.rebol .kw1 {color: #b1b100;}
+.rebol .kw2 {color: #000000; font-weight: bold;}
+.rebol .kw3 {color: #000066;}
+.rebol .co1 {color: #808080; font-style: italic;}
+.rebol .coMULTI {color: #808080; font-style: italic;}
+.rebol .es0 {color: #000099; font-weight: bold;}
+.rebol .br0 {color: #66cc66;}
+.rebol .sy0 {color: #66cc66;}
+.rebol .st0 {color: #ff0000;}
+.rebol .nu0 {color: #cc66cc;}
+.rebol .me1 {color: #006600;}
+.rebol .me2 {color: #006600;}
+.rebol .re0 {color: #0000ff;}
+.rebol .ln-xtra, .rebol li.ln-xtra, .rebol div.ln-xtra {background-color: #ffc;}
+.rebol span.xtra { display:block; }

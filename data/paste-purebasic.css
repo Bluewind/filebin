@@ -1,0 +1,19 @@
+.purebasic .de1, .purebasic .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.purebasic  {font-family:monospace;}
+.purebasic .imp {font-weight: bold; color: red;}
+.purebasic li, .purebasic .li1 {font-weight: normal; vertical-align:top;}
+.purebasic .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.purebasic .li2 {font-weight: bold; vertical-align:top;}
+.purebasic .kw1 {color: #000066; font-weight: bold;}
+.purebasic .kw2 {color: #0000ff;}
+.purebasic .kw3 {color: #000fff;}
+.purebasic .co1 {color: #ff0000; font-style: italic;}
+.purebasic .coMULTI {color: #ff0000; font-style: italic;}
+.purebasic .es0 {color: #000099; font-weight: bold;}
+.purebasic .br0 {color: #000066;}
+.purebasic .sy0 {color: #000066;}
+.purebasic .st0 {color: #009900;}
+.purebasic .nu0 {color: #CC0000;}
+.purebasic .me1 {color: #006600;}
+.purebasic .ln-xtra, .purebasic li.ln-xtra, .purebasic div.ln-xtra {background-color: #ffc;}
+.purebasic span.xtra { display:block; }

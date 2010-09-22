@@ -1,0 +1,39 @@
+.d .de1, .d .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.d  {font-family:monospace;}
+.d .imp {font-weight: bold; color: red;}
+.d li, .d .li1 {font-weight: normal; vertical-align:top;}
+.d .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.d .li2 {font-weight: bold; vertical-align:top;}
+.d .kw1 {color: #b1b100;}
+.d .kw2 {color: #000000; font-weight: bold;}
+.d .kw3 {color: #aaaadd; font-weight: bold;}
+.d .kw4 {color: #993333;}
+.d .co1 {color: #808080; font-style: italic;}
+.d .co2 {color: #009933; font-style: italic;}
+.d .co3 {color: #009933; font-style: italic;}
+.d .co4 {color: #ff0000;}
+.d .co5 {color: #0040ff;}
+.d .coMULTI {color: #808080; font-style: italic;}
+.d .es0 {color: #000099; font-weight: bold;}
+.d .es1 {color: #000099; font-weight: bold;}
+.d .es2 {color: #660099; font-weight: bold;}
+.d .es3 {color: #660099; font-weight: bold;}
+.d .es4 {color: #660099; font-weight: bold;}
+.d .es5 {color: #006699; font-weight: bold;}
+.d .es6 {color: #666699; font-weight: bold; font-style: italic;}
+.d .br0 {color: #66cc66;}
+.d .sy0 {color: #66cc66;}
+.d .st0 {color: #ff0000;}
+.d .st_h {color: #ff0000;}
+.d .nu0 {color: #0000dd;}
+.d .nu6 {color: #208080;}
+.d .nu8 {color: #208080;}
+.d .nu12 {color: #208080;}
+.d .nu16 {color:#800080;}
+.d .nu17 {color:#800080;}
+.d .nu18 {color:#800080;}
+.d .nu19 {color:#800080;}
+.d .me1 {color: #006600;}
+.d .me2 {color: #006600;}
+.d .ln-xtra, .d li.ln-xtra, .d div.ln-xtra {background-color: #ffc;}
+.d span.xtra { display:block; }

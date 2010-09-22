@@ -1,0 +1,22 @@
+.pixelbender .de1, .pixelbender .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.pixelbender  {font-family:monospace;}
+.pixelbender .imp {font-weight: bold; color: red;}
+.pixelbender li, .pixelbender .li1 {font-weight: normal; vertical-align:top;}
+.pixelbender .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.pixelbender .li2 {font-weight: bold; vertical-align:top;}
+.pixelbender .kw1 {color: #0033ff;}
+.pixelbender .kw2 {color: #0033ff; font-weight: bold;}
+.pixelbender .kw3 {color: #0033ff;}
+.pixelbender .kw4 {color: #9900cc; font-weight: bold;}
+.pixelbender .kw5 {color: #333333;}
+.pixelbender .kw6 {color: #666666;}
+.pixelbender .kw7 {color: #990000;}
+.pixelbender .co1 {color: #009900;}
+.pixelbender .coMULTI {color: #3f5fbf;}
+.pixelbender .br0 {color: #000000;}
+.pixelbender .sy0 {color: #000000; font-weight: bold;}
+.pixelbender .st0 {color: #990000;}
+.pixelbender .nu0 {color: #000000; font-weight:bold;}
+.pixelbender .me0 {color: #000000;}
+.pixelbender .ln-xtra, .pixelbender li.ln-xtra, .pixelbender div.ln-xtra {background-color: #ffc;}
+.pixelbender span.xtra { display:block; }

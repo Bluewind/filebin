@@ -1,0 +1,19 @@
+.div .de1, .div .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.div  {font-family:monospace;}
+.div .imp {font-weight: bold; color: red;}
+.div li, .div .li1 {font-weight: normal; vertical-align:top;}
+.div .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.div .li2 {font-weight: bold; vertical-align:top;}
+.div .kw1 {color: #0040b1;}
+.div .kw2 {color: #000000;}
+.div .kw3 {color: #000066; font-weight: bold;}
+.div .kw4 {color: #993333;}
+.div .co1 {color: #808080; font-style: italic;}
+.div .coMULTI {color: #808080; font-style: italic;}
+.div .br0 {color: #44aa44;}
+.div .sy0 {color: #44aa44;}
+.div .st0 {color: #ff0000;}
+.div .nu0 {color: #cc66cc;}
+.div .me0 {color: #202020;}
+.div .ln-xtra, .div li.ln-xtra, .div div.ln-xtra {background-color: #ffc;}
+.div span.xtra { display:block; }

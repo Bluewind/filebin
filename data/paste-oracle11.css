@@ -1,0 +1,16 @@
+.oracle11 .de1, .oracle11 .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.oracle11  {font-family:monospace;}
+.oracle11 .imp {font-weight: bold; color: red;}
+.oracle11 li, .oracle11 .li1 {font-weight: normal; vertical-align:top;}
+.oracle11 .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.oracle11 .li2 {font-weight: bold; vertical-align:top;}
+.oracle11 .kw1 {color: #993333; font-weight: bold; text-transform: uppercase;}
+.oracle11 .co1 {color: #808080; font-style: italic;}
+.oracle11 .es0 {color: #000099; font-weight: bold;}
+.oracle11 .br0 {color: #66cc66;}
+.oracle11 .sy0 {color: #66cc66;}
+.oracle11 .st0 {color: #ff0000;}
+.oracle11 .nu0 {color: #cc66cc;}
+.oracle11 .me1 {color: #ff0000;}
+.oracle11 .ln-xtra, .oracle11 li.ln-xtra, .oracle11 div.ln-xtra {background-color: #ffc;}
+.oracle11 span.xtra { display:block; }

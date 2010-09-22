@@ -1,0 +1,21 @@
+.tcl .de1, .tcl .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.tcl  {font-family:monospace;}
+.tcl .imp {font-weight: bold; color: red;}
+.tcl li, .tcl .li1 {font-weight: normal; vertical-align:top;}
+.tcl .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.tcl .li2 {font-weight: bold; vertical-align:top;}
+.tcl .kw1 {color: #ff7700;font-weight:bold;}
+.tcl .kw2 {color: #008000;}
+.tcl .kw3 {color: #dc143c;}
+.tcl .co1 {color: #808080; font-style: italic;}
+.tcl .co2 {color: #483d8b;}
+.tcl .coMULTI {color: #808080; font-style: italic;}
+.tcl .es0 {color: #000099; font-weight: bold;}
+.tcl .br0 {color: black;}
+.tcl .sy0 {color: #66cc66;}
+.tcl .st0 {color: #483d8b;}
+.tcl .nu0 {color: #ff4500;}
+.tcl .me1 {color: black;}
+.tcl .re0 {color: #ff3333;}
+.tcl .ln-xtra, .tcl li.ln-xtra, .tcl div.ln-xtra {background-color: #ffc;}
+.tcl span.xtra { display:block; }

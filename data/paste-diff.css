@@ -1,0 +1,19 @@
+.diff .de1, .diff .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.diff  {font-family:monospace;}
+.diff .imp {font-weight: bold; color: red;}
+.diff li, .diff .li1 {font-weight: normal; vertical-align:top;}
+.diff .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.diff .li2 {font-weight: bold; vertical-align:top;}
+.diff .kw1 {color: #aaaaaa; font-style: italic;}
+.diff .re0 {color: #440088;}
+.diff .re1 {color: #991111;}
+.diff .re2 {color: #00b000;}
+.diff .re3 {color: #888822;}
+.diff .re4 {color: #888822;}
+.diff .re5 {color: #0011dd;}
+.diff .re6 {color: #440088;}
+.diff .re7 {color: #991111;}
+.diff .re8 {color: #00b000;}
+.diff .re9 {color: #888822;}
+.diff .ln-xtra, .diff li.ln-xtra, .diff div.ln-xtra {background-color: #ffc;}
+.diff span.xtra { display:block; }

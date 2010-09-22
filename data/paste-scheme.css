@@ -1,0 +1,17 @@
+.scheme .de1, .scheme .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.scheme  {font-family:monospace;}
+.scheme .imp {font-weight: bold; color: red;}
+.scheme li, .scheme .li1 {font-weight: normal; vertical-align:top;}
+.scheme .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.scheme .li2 {font-weight: bold; vertical-align:top;}
+.scheme .kw1 {color: #b1b100;}
+.scheme .co1 {color: #808080; font-style: italic;}
+.scheme .coMULTI {color: #808080; font-style: italic;}
+.scheme .es0 {color: #000099; font-weight: bold;}
+.scheme .br0 {color: #66cc66;}
+.scheme .sy0 {color: #66cc66;}
+.scheme .st0 {color: #ff0000;}
+.scheme .nu0 {color: #cc66cc;}
+.scheme .me0 {color: #202020;}
+.scheme .ln-xtra, .scheme li.ln-xtra, .scheme div.ln-xtra {background-color: #ffc;}
+.scheme span.xtra { display:block; }

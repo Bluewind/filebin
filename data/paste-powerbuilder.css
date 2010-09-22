@@ -1,0 +1,21 @@
+.powerbuilder .de1, .powerbuilder .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.powerbuilder  {font-family:monospace;}
+.powerbuilder .imp {font-weight: bold; color: red;}
+.powerbuilder li, .powerbuilder .li1 {font-weight: normal; vertical-align:top;}
+.powerbuilder .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.powerbuilder .li2 {font-weight: bold; vertical-align:top;}
+.powerbuilder .kw1 {color: #008000; font-weight: bold;}
+.powerbuilder .kw2 {color: #990099; font-weight: bold;}
+.powerbuilder .kw3 {color: #330099; font-weight: bold;}
+.powerbuilder .co1 {color: #0000ff; font-weight: bold;}
+.powerbuilder .coMULTI {color: #0000ff; font-weight: bold;}
+.powerbuilder .es0 {color: #800000; font-weight: bold;}
+.powerbuilder .br0 {color: #000000;}
+.powerbuilder .sy0 {color: #000000;}
+.powerbuilder .sy1 {color: #ffff00; background-color:#993300; font-weight: bold}
+.powerbuilder .sy2 {color: #000000;}
+.powerbuilder .sy3 {color: #000000;}
+.powerbuilder .st0 {color: #800000;}
+.powerbuilder .nu0 {color: #330099; font-weight: bold;}
+.powerbuilder .ln-xtra, .powerbuilder li.ln-xtra, .powerbuilder div.ln-xtra {background-color: #ffc;}
+.powerbuilder span.xtra { display:block; }

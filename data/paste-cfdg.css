@@ -1,0 +1,21 @@
+.cfdg .de1, .cfdg .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.cfdg  {font-family:monospace;}
+.cfdg .imp {font-weight: bold; color: red;}
+.cfdg li, .cfdg .li1 {font-weight: normal; vertical-align:top;}
+.cfdg .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cfdg .li2 {font-weight: bold; vertical-align:top;}
+.cfdg .kw1 {color: #717100;}
+.cfdg .kw2 {color: #000000; font-weight: bold;}
+.cfdg .kw3 {color: #006666;}
+.cfdg .co1 {color: #808080; font-style: italic;}
+.cfdg .co2 {color: #808080; font-style: italic;}
+.cfdg .coMULTI {color: #808080; font-style: italic;}
+.cfdg .es0 {color: #000099; font-weight: bold;}
+.cfdg .br0 {color: #66cc66;}
+.cfdg .sy0 {color: #66cc66;}
+.cfdg .st0 {color: #ff0000;}
+.cfdg .nu0 {color: #cc66cc;}
+.cfdg .me1 {color: #006600;}
+.cfdg .me2 {color: #006600;}
+.cfdg .ln-xtra, .cfdg li.ln-xtra, .cfdg div.ln-xtra {background-color: #ffc;}
+.cfdg span.xtra { display:block; }

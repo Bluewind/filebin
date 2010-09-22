@@ -1,0 +1,23 @@
+.java .de1, .java .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.java  {font-family:monospace;}
+.java .imp {font-weight: bold; color: red;}
+.java li, .java .li1 {font-weight: normal; vertical-align:top;}
+.java .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.java .li2 {font-weight: bold; vertical-align:top;}
+.java .kw1 {color: #000000; font-weight: bold;}
+.java .kw2 {color: #000066; font-weight: bold;}
+.java .kw3 {color: #003399;}
+.java .kw4 {color: #000066; font-weight: bold;}
+.java .co1 {color: #666666; font-style: italic;}
+.java .co2 {color: #006699;}
+.java .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java .coMULTI {color: #666666; font-style: italic;}
+.java .es0 {color: #000099; font-weight: bold;}
+.java .br0 {color: #009900;}
+.java .sy0 {color: #339933;}
+.java .st0 {color: #0000ff;}
+.java .nu0 {color: #cc66cc;}
+.java .me1 {color: #006633;}
+.java .me2 {color: #006633;}
+.java .ln-xtra, .java li.ln-xtra, .java div.ln-xtra {background-color: #ffc;}
+.java span.xtra { display:block; }

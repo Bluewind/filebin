@@ -1,0 +1,23 @@
+.gambas .de1, .gambas .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.gambas  {font-family:monospace;}
+.gambas .imp {font-weight: bold; color: red;}
+.gambas li, .gambas .li1 {font-weight: normal; vertical-align:top;}
+.gambas .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.gambas .li2 {font-weight: bold; vertical-align:top;}
+.gambas .kw1 {color: #0600FF; font-weight: bold;}
+.gambas .kw2 {color: #8B1433;}
+.gambas .kw3 {color: #8B1433;}
+.gambas .kw4 {color: #0600FF;}
+.gambas .kw5 {color: #1E90FF;}
+.gambas .kw6 {color: #0600FF;}
+.gambas .kw7 {color: #0600FF;}
+.gambas .co1 {color: #1A5B1A; font-style: italic;}
+.gambas .coMULTI {color: #1A5B1A; font-style: italic;}
+.gambas .es0 {color: #008080;}
+.gambas .br0 {color: #612188;}
+.gambas .sy0 {color: #6132B2;}
+.gambas .st0 {color: #7E4B05;}
+.gambas .nu0 {color: #FF0000;}
+.gambas .me1 {color: #0000FF;}
+.gambas .ln-xtra, .gambas li.ln-xtra, .gambas div.ln-xtra {background-color: #ffc;}
+.gambas span.xtra { display:block; }

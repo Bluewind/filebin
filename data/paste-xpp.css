@@ -1,0 +1,21 @@
+.xpp .de1, .xpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.xpp  {font-family:monospace;}
+.xpp .imp {font-weight: bold; color: red;}
+.xpp li, .xpp .li1 {font-weight: normal; vertical-align:top;}
+.xpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.xpp .li2 {font-weight: bold; vertical-align:top;}
+.xpp .kw1 {color: #0000ff;}
+.xpp .kw2 {color: #0000ff;}
+.xpp .kw3 {color: #0000ff;}
+.xpp .kw4 {color: #0000ff;}
+.xpp .co1 {color: #007f00;}
+.xpp .coMULTI {color: #007f00; font-style: italic;}
+.xpp .es0 {color: #000000;}
+.xpp .br0 {color: #000000;}
+.xpp .sy0 {color: #00007f;}
+.xpp .st0 {color: #ff0000;}
+.xpp .nu0 {color: #000000;}
+.xpp .me1 {color: #000000;}
+.xpp .me2 {color: #000000;}
+.xpp .ln-xtra, .xpp li.ln-xtra, .xpp div.ln-xtra {background-color: #ffc;}
+.xpp span.xtra { display:block; }

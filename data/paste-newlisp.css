@@ -1,0 +1,25 @@
+.newlisp .de1, .newlisp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.newlisp  {font-family:monospace;}
+.newlisp .imp {font-weight: bold; color: red;}
+.newlisp li, .newlisp .li1 {font-weight: normal; vertical-align:top;}
+.newlisp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.newlisp .li2 {font-weight: bold; vertical-align:top;}
+.newlisp .kw1 {color: #0000AA;}
+.newlisp .co1 {color: #808080; font-style: italic;}
+.newlisp .co2 {color: #808080; font-style: italic;}
+.newlisp .coMULTI {color: #00aa00; font-style: italic;}
+.newlisp .es0 {color: #009900;}
+.newlisp .br0 {color: #66cc66;}
+.newlisp .sy0 {color: #AA0000;}
+.newlisp .sy1 {color: #0000AA;}
+.newlisp .st0 {color: #009900;}
+.newlisp .nu0 {color: #777700;}
+.newlisp .me0 {color: #000099;}
+.newlisp .re0 {color: #00aa00;}
+.newlisp .re1 {color: #00aa00;}
+.newlisp .re2 {color: #00aa00;}
+.newlisp .re3 {color: #00aa00;}
+.newlisp .re4 {color: #00aa00;}
+.newlisp .re5 {color: #AA0000;}
+.newlisp .ln-xtra, .newlisp li.ln-xtra, .newlisp div.ln-xtra {background-color: #ffc;}
+.newlisp span.xtra { display:block; }

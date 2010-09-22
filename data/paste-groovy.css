@@ -1,0 +1,29 @@
+.groovy .de1, .groovy .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.groovy  {font-family:monospace;}
+.groovy .imp {font-weight: bold; color: red;}
+.groovy li, .groovy .li1 {font-weight: normal; vertical-align:top;}
+.groovy .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.groovy .li2 {font-weight: bold; vertical-align:top;}
+.groovy .kw1 {color: #b1b100;}
+.groovy .kw2 {color: #000000; font-weight: bold;}
+.groovy .kw3 {color: #aaaadd; font-weight: bold;}
+.groovy .kw4 {color: #993333;}
+.groovy .kw5 {color: #663399;}
+.groovy .kw6 {color: #CC0099;}
+.groovy .kw7 {color: #FFCC33;}
+.groovy .kw8 {color: #993399;}
+.groovy .kw9 {color: #993399; font-weight: bold;}
+.groovy .co1 {color: #808080; font-style: italic;}
+.groovy .co2 {color: #a1a100;}
+.groovy .co3 {color: #808080; font-style: italic;}
+.groovy .coMULTI {color: #808080; font-style: italic;}
+.groovy .es0 {color: #000099; font-weight: bold;}
+.groovy .br0 {color: #66cc66;}
+.groovy .sy0 {color: #66cc66;}
+.groovy .st0 {color: #ff0000;}
+.groovy .nu0 {color: #cc66cc;}
+.groovy .me1 {color: #006600;}
+.groovy .me2 {color: #006600;}
+.groovy .re0 {color: #0000ff;}
+.groovy .ln-xtra, .groovy li.ln-xtra, .groovy div.ln-xtra {background-color: #ffc;}
+.groovy span.xtra { display:block; }

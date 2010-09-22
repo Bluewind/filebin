@@ -1,0 +1,18 @@
+.lisp .de1, .lisp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.lisp  {font-family:monospace;}
+.lisp .imp {font-weight: bold; color: red;}
+.lisp li, .lisp .li1 {font-weight: normal; vertical-align:top;}
+.lisp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.lisp .li2 {font-weight: bold; vertical-align:top;}
+.lisp .kw1 {color: #b1b100;}
+.lisp .co1 {color: #808080; font-style: italic;}
+.lisp .coMULTI {color: #808080; font-style: italic;}
+.lisp .es0 {color: #000099; font-weight: bold;}
+.lisp .br0 {color: #66cc66;}
+.lisp .sy0 {color: #66cc66;}
+.lisp .st0 {color: #ff0000;}
+.lisp .nu0 {color: #cc66cc;}
+.lisp .me0 {color: #555;}
+.lisp .me1 {color: #555;}
+.lisp .ln-xtra, .lisp li.ln-xtra, .lisp div.ln-xtra {background-color: #ffc;}
+.lisp span.xtra { display:block; }

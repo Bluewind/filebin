@@ -1,0 +1,19 @@
+.progress .de1, .progress .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.progress  {font-family:monospace;}
+.progress .imp {font-weight: bold; color: red;}
+.progress li, .progress .li1 {font-weight: normal; vertical-align:top;}
+.progress .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.progress .li2 {font-weight: bold; vertical-align:top;}
+.progress .kw1 {color: #0000ff; font-weight: bold;}
+.progress .kw2 {color: #1D16B2;}
+.progress .kw3 {color: #993333;}
+.progress .kw4 {color: #0000ff;}
+.progress .coMULTI {color: #808080; font-style: italic;}
+.progress .es0 {color: #000099; font-weight: bold;}
+.progress .br0 {color: #66cc66;}
+.progress .sy0 {color: #66cc66;}
+.progress .st0 {color: #ff0000;}
+.progress .nu0 {color: #cc66cc;}
+.progress .me0 {color: #006600;}
+.progress .ln-xtra, .progress li.ln-xtra, .progress div.ln-xtra {background-color: #ffc;}
+.progress span.xtra { display:block; }

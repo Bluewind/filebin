@@ -1,0 +1,30 @@
+.klonecpp .de1, .klonecpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.klonecpp  {font-family:monospace;}
+.klonecpp .imp {font-weight: bold; color: red;}
+.klonecpp li, .klonecpp .li1 {font-weight: normal; vertical-align:top;}
+.klonecpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.klonecpp .li2 {font-weight: bold; vertical-align:top;}
+.klonecpp .kw1 {color: #b1b100; font-weight: bold;}
+.klonecpp .kw2 {color: #000000; font-weight: bold;}
+.klonecpp .kw3 {color: #6600FF;}
+.klonecpp .kw4 {color: #6600FF;}
+.klonecpp .kw5 {color: #0099FF; font-weight: bold;}
+.klonecpp .kw6 {color: #990099; font-weight: bold;}
+.klonecpp .kw7 {color: #000066;}
+.klonecpp .co1 {color: #808080; font-style: italic;}
+.klonecpp .co2 {color: #339933;}
+.klonecpp .coMULTI {color: #808080; font-style: italic;}
+.klonecpp .es0 {color: #000099; font-weight: bold;}
+.klonecpp .br0 {color: #000000;}
+.klonecpp .sy0 {color: #000000;}
+.klonecpp .sy1 {color: #000000; font-weight: bold;}
+.klonecpp .st0 {color: #ff0000;}
+.klonecpp .nu0 {color: #cc66cc;}
+.klonecpp .me1 {color: #006600;}
+.klonecpp .me2 {color: #006600;}
+.klonecpp .sc0 {background-color:#ffccff; font-weight: bold; color:#000000;}
+.klonecpp .sc3 {color: #00bbdd; font-weight: bold;}
+.klonecpp .sc4 {color: #ddbb00;}
+.klonecpp .sc5 {color: #009900;}
+.klonecpp .ln-xtra, .klonecpp li.ln-xtra, .klonecpp div.ln-xtra {background-color: #ffc;}
+.klonecpp span.xtra { display:block; }

@@ -1,0 +1,20 @@
+.z80 .de1, .z80 .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.z80  {font-family:monospace;}
+.z80 .imp {font-weight: bold; color: red;}
+.z80 li, .z80 .li1 {font-weight: normal; vertical-align:top;}
+.z80 .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.z80 .li2 {font-weight: bold; vertical-align:top;}
+.z80 .kw1 {color: #0000ff; font-weight:bold;}
+.z80 .kw2 {color: #0000ff;}
+.z80 .kw3 {color: #46aa03; font-weight:bold;}
+.z80 .co1 {color: #adadad; font-style: italic;}
+.z80 .es0 {color: #000099; font-weight: bold;}
+.z80 .br0 {color: #0000ff;}
+.z80 .sy0 {color: #008000;}
+.z80 .st0 {color: #7f007f;}
+.z80 .nu0 {color: #dd22dd;}
+.z80 .re0 {color: #22bbff;}
+.z80 .re1 {color: #22bbff;}
+.z80 .re2 {color: #993333;}
+.z80 .ln-xtra, .z80 li.ln-xtra, .z80 div.ln-xtra {background-color: #ffc;}
+.z80 span.xtra { display:block; }

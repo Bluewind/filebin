@@ -1,0 +1,19 @@
+.ocaml .de1, .ocaml .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.ocaml  {font-family:monospace;}
+.ocaml .imp {font-weight: bold; color: red;}
+.ocaml li, .ocaml .li1 {font-weight: normal; vertical-align:top;}
+.ocaml .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.ocaml .li2 {font-weight: bold; vertical-align:top;}
+.ocaml .kw1 {color: #06c; font-weight: bold;}
+.ocaml .kw2 {color: #06c; font-weight: bold;}
+.ocaml .kw3 {color: #06c; font-weight: bold;}
+.ocaml .kw4 {color: #06c; font-weight: bold;}
+.ocaml .kw5 {color: #06c; font-weight: bold;}
+.ocaml .coMULTI {color: #5d478b; font-style: italic;}
+.ocaml .br0 {color: #6c6;}
+.ocaml .sy0 {color: #a52a2a;}
+.ocaml .st0 {color: #3cb371;}
+.ocaml .nu0 {color: #c6c;}
+.ocaml .me1 {color: #060;}
+.ocaml .ln-xtra, .ocaml li.ln-xtra, .ocaml div.ln-xtra {background-color: #ffc;}
+.ocaml span.xtra { display:block; }

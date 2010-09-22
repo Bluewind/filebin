@@ -1,0 +1,15 @@
+.robots .de1, .robots .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.robots  {font-family:monospace;}
+.robots .imp {font-weight: bold; color: red;}
+.robots li, .robots .li1 {font-weight: normal; vertical-align:top;}
+.robots .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.robots .li2 {font-weight: bold; vertical-align:top;}
+.robots .kw1 {color: #b1b100;}
+.robots .co1 {color: #808080; font-style: italic;}
+.robots .es0 {color: #000099; font-weight: bold;}
+.robots .br0 {color: #66cc66;}
+.robots .sy0 {color: #66cc66;}
+.robots .st0 {color: #ff0000;}
+.robots .nu0 {color: #cc66cc;}
+.robots .ln-xtra, .robots li.ln-xtra, .robots div.ln-xtra {background-color: #ffc;}
+.robots span.xtra { display:block; }

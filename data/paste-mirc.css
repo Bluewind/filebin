@@ -1,0 +1,23 @@
+.mirc .de1, .mirc .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.mirc  {font-family:monospace;}
+.mirc .imp {font-weight: bold; color: red;}
+.mirc li, .mirc .li1 {font-weight: normal; vertical-align:top;}
+.mirc .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.mirc .li2 {font-weight: bold; vertical-align:top;}
+.mirc .kw1 {color: #994444;}
+.mirc .kw2 {color: #000000; font-weight: bold;}
+.mirc .kw3 {color: #990000; font-weight: bold;}
+.mirc .co1 {color: #808080; font-style: italic;}
+.mirc .br0 {color: #FF0000;}
+.mirc .sy0 {color: #FF0000;}
+.mirc .me0 {color: #008000;}
+.mirc .re0 {color: #000099;}
+.mirc .re1 {color: #990000;}
+.mirc .re2 {color: #000099;}
+.mirc .re3 {color: #888800;}
+.mirc .re4 {color: #888800;}
+.mirc .re5 {color: #000099;}
+.mirc .re6 {color: #990000; font-weight: bold;}
+.mirc .re7 {color: #990000; font-weight: bold;}
+.mirc .ln-xtra, .mirc li.ln-xtra, .mirc div.ln-xtra {background-color: #ffc;}
+.mirc span.xtra { display:block; }

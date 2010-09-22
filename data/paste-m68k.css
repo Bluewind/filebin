@@ -1,0 +1,20 @@
+.m68k .de1, .m68k .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.m68k  {font-family:monospace;}
+.m68k .imp {font-weight: bold; color: red;}
+.m68k li, .m68k .li1 {font-weight: normal; vertical-align:top;}
+.m68k .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.m68k .li2 {font-weight: bold; vertical-align:top;}
+.m68k .kw1 {color: #0000ff; font-weight:bold;}
+.m68k .kw2 {color: #0000ff;}
+.m68k .kw3 {color: #46aa03; font-weight:bold;}
+.m68k .co1 {color: #adadad; font-style: italic;}
+.m68k .es0 {color: #000099; font-weight: bold;}
+.m68k .br0 {color: #0000ff;}
+.m68k .sy0 {color: #008000;}
+.m68k .st0 {color: #7f007f;}
+.m68k .nu0 {color: #dd22dd;}
+.m68k .re0 {color: #22bbff;}
+.m68k .re1 {color: #22bbff;}
+.m68k .re2 {color: #993333;}
+.m68k .ln-xtra, .m68k li.ln-xtra, .m68k div.ln-xtra {background-color: #ffc;}
+.m68k span.xtra { display:block; }

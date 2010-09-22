@@ -1,0 +1,17 @@
+.pike .de1, .pike .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.pike  {font-family:monospace;}
+.pike .imp {font-weight: bold; color: red;}
+.pike li, .pike .li1 {font-weight: normal; vertical-align:top;}
+.pike .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.pike .li2 {font-weight: bold; vertical-align:top;}
+.pike .kw1 {color: #b1b100;}
+.pike .co1 {color: #666666; font-style: italic;}
+.pike .coMULTI {color: #666666; font-style: italic;}
+.pike .es0 {color: #000099; font-weight: bold;}
+.pike .br0 {color: #009900;}
+.pike .sy1 {color: #339933;}
+.pike .st0 {color: #0000ff;}
+.pike .nu0 {color: #cc66cc;}
+.pike .me0 {color: #004000;}
+.pike .ln-xtra, .pike li.ln-xtra, .pike div.ln-xtra {background-color: #ffc;}
+.pike span.xtra { display:block; }

@@ -1,0 +1,21 @@
+.io .de1, .io .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.io  {font-family:monospace;}
+.io .imp {font-weight: bold; color: red;}
+.io li, .io .li1 {font-weight: normal; vertical-align:top;}
+.io .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.io .li2 {font-weight: bold; vertical-align:top;}
+.io .kw1 {color: #b1b100;}
+.io .kw2 {color: #000000; font-weight: bold;}
+.io .kw3 {color: #000066;}
+.io .co1 {color: #808080; font-style: italic;}
+.io .co2 {color: #808080; font-style: italic;}
+.io .coMULTI {color: #808080; font-style: italic;}
+.io .es0 {color: #000099; font-weight: bold;}
+.io .br0 {color: #66cc66;}
+.io .sy0 {color: #66cc66;}
+.io .st0 {color: #ff0000;}
+.io .nu0 {color: #cc66cc;}
+.io .me1 {color: #006600;}
+.io .me2 {color: #006600;}
+.io .ln-xtra, .io li.ln-xtra, .io div.ln-xtra {background-color: #ffc;}
+.io span.xtra { display:block; }

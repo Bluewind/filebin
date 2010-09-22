@@ -1,0 +1,20 @@
+.actionscript .de1, .actionscript .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.actionscript  {font-family:monospace;}
+.actionscript .imp {font-weight: bold; color: red;}
+.actionscript li, .actionscript .li1 {font-weight: normal; vertical-align:top;}
+.actionscript .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.actionscript .li2 {font-weight: bold; vertical-align:top;}
+.actionscript .kw1 {color: #b1b100;}
+.actionscript .kw2 {color: #000000; font-weight: bold;}
+.actionscript .kw3 {color: #0066CC;}
+.actionscript .co1 {color: #808080; font-style: italic;}
+.actionscript .co2 {color: #808080; font-style: italic;}
+.actionscript .coMULTI {color: #808080; font-style: italic;}
+.actionscript .es0 {color: #000099; font-weight: bold;}
+.actionscript .br0 {color: #66cc66;}
+.actionscript .sy0 {color: #66cc66;}
+.actionscript .st0 {color: #ff0000;}
+.actionscript .nu0 {color: #cc66cc;}
+.actionscript .me1 {color: #006600;}
+.actionscript .ln-xtra, .actionscript li.ln-xtra, .actionscript div.ln-xtra {background-color: #ffc;}
+.actionscript span.xtra { display:block; }

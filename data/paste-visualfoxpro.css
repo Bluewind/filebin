@@ -1,0 +1,21 @@
+.visualfoxpro .de1, .visualfoxpro .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.visualfoxpro  {font-family:monospace;}
+.visualfoxpro .imp {font-weight: bold; color: red;}
+.visualfoxpro li, .visualfoxpro .li1 {font-weight: normal; vertical-align:top;}
+.visualfoxpro .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.visualfoxpro .li2 {font-weight: bold; vertical-align:top;}
+.visualfoxpro .kw1 {color: blue;}
+.visualfoxpro .kw2 {color: blue;}
+.visualfoxpro .kw3 {color: blue;}
+.visualfoxpro .kw4 {color: blue;}
+.visualfoxpro .co1 {color: green; font-style: italic;}
+.visualfoxpro .co2 {color: green; font-style: italic;}
+.visualfoxpro .coMULTI {color: #808080; font-style: italic;}
+.visualfoxpro .es0 {color: #000099; font-weight: bold;}
+.visualfoxpro .br0 {color: blue;}
+.visualfoxpro .sy0 {color: blue;}
+.visualfoxpro .st0 {color: #ff0000;}
+.visualfoxpro .nu0 {color: #cc66cc;}
+.visualfoxpro .me1 {color: #006600;}
+.visualfoxpro .ln-xtra, .visualfoxpro li.ln-xtra, .visualfoxpro div.ln-xtra {background-color: #ffc;}
+.visualfoxpro span.xtra { display:block; }

@@ -1,0 +1,36 @@
+.erlang .de1, .erlang .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.erlang  {font-family:monospace;}
+.erlang .imp {font-weight: bold; color: red;}
+.erlang li, .erlang .li1 {font-weight: normal; vertical-align:top;}
+.erlang .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.erlang .li2 {font-weight: bold; vertical-align:top;}
+.erlang .kw1 {color: #186895;}
+.erlang .kw2 {color: #014ea4;}
+.erlang .kw3 {color: #fa6fff;}
+.erlang .kw4 {color: #fa6fff;}
+.erlang .kw5 {color: #ff4e18;}
+.erlang .kw6 {color: #9d4f37;}
+.erlang .co1 {color: #666666; font-style: italic;}
+.erlang .coMULTI {color: #666666; font-style: italic;}
+.erlang .es0 {color: #000099; font-weight: bold;}
+.erlang .es_h {color: #000099; font-weight: bold;}
+.erlang .br0 {color: #109ab8;}
+.erlang .sy0 {color: #004866;}
+.erlang .sy1 {color: #6bb810;}
+.erlang .sy2 {color: #ee3800;}
+.erlang .sy3 {color: #014ea4;}
+.erlang .st0 {color: #ff7800;}
+.erlang .nu0 {color: #ff9600;}
+.erlang .me1 {color: #006600;}
+.erlang .me2 {color: #006600;}
+.erlang .re0 {color: #6941fd;}
+.erlang .re1 {color: #d400ed;}
+.erlang .re2 {color: #5400b3;}
+.erlang .re3 {color: #ff3c00;}
+.erlang .re4 {color: #6941fd;}
+.erlang .re5 {color: #45b3e6;}
+.erlang .re6 {color: #ff9600;}
+.erlang .re7 {color: #d400ed;}
+.erlang .re8 {color: #ff9600;}
+.erlang .ln-xtra, .erlang li.ln-xtra, .erlang div.ln-xtra {background-color: #ffc;}
+.erlang span.xtra { display:block; }

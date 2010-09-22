@@ -1,0 +1,18 @@
+.gettext .de1, .gettext .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.gettext  {font-family:monospace;}
+.gettext .imp {font-weight: bold; color: red;}
+.gettext li, .gettext .li1 {font-weight: normal; vertical-align:top;}
+.gettext .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.gettext .li2 {font-weight: bold; vertical-align:top;}
+.gettext .kw1 {color: #000000; font-weight: bold;}
+.gettext .co0 {color: #000099;}
+.gettext .co1 {color: #000099;}
+.gettext .co2 {color: #000099;}
+.gettext .co3 {color: #006666;}
+.gettext .co4 {color: #666666; font-style: italic;}
+.gettext .es0 {color: #000099; font-weight: bold;}
+.gettext .br0 {color: #000099;}
+.gettext .st0 {color: #ff0000;}
+.gettext .nu0 {color: #000099;}
+.gettext .ln-xtra, .gettext li.ln-xtra, .gettext div.ln-xtra {background-color: #ffc;}
+.gettext span.xtra { display:block; }

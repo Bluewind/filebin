@@ -1,0 +1,18 @@
+.locobasic .de1, .locobasic .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.locobasic  {font-family:monospace;}
+.locobasic .imp {font-weight: bold; color: red;}
+.locobasic li, .locobasic .li1 {font-weight: normal; vertical-align:top;}
+.locobasic .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.locobasic .li2 {font-weight: bold; vertical-align:top;}
+.locobasic .kw1 {color: #000088; font-weight: bold;}
+.locobasic .kw2 {color: #AA00AA; font-weight: bold;}
+.locobasic .co1 {color: #808080;}
+.locobasic .co2 {color: #808080;}
+.locobasic .es0 {color: #000099;}
+.locobasic .br0 {color: #ff0000;}
+.locobasic .sy0 {color: #66cc66;}
+.locobasic .st0 {color: #008800;}
+.locobasic .nu0 {color: #0044ff;}
+.locobasic .me0 {color: #66cc66;}
+.locobasic .ln-xtra, .locobasic li.ln-xtra, .locobasic div.ln-xtra {background-color: #ffc;}
+.locobasic span.xtra { display:block; }

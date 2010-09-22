@@ -1,0 +1,19 @@
+.inno .de1, .inno .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.inno  {font-family:monospace;}
+.inno .imp {font-weight: bold; color: red;}
+.inno li, .inno .li1 {font-weight: normal; vertical-align:top;}
+.inno .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.inno .li2 {font-weight: bold; vertical-align:top;}
+.inno .kw1 {color: #000000; font-weight: bold;}
+.inno .kw2 {color: #000000;font-style: italic;}
+.inno .kw3 {color: #0000FF;}
+.inno .kw4 {color: #CC0000;}
+.inno .co1 {color: #33FF00; font-style: italic;}
+.inno .coMULTI {color: #33FF00; font-style: italic;}
+.inno .br0 {color: #66cc66;}
+.inno .sy0 {color: #000000; font-weight: bold;}
+.inno .st0 {color: #ff0000;}
+.inno .nu0 {color: #cc66cc;}
+.inno .me1 {color: #006600;}
+.inno .ln-xtra, .inno li.ln-xtra, .inno div.ln-xtra {background-color: #ffc;}
+.inno span.xtra { display:block; }

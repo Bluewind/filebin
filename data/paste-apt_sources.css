@@ -1,0 +1,13 @@
+.apt_sources .de1, .apt_sources .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.apt_sources  {font-family:monospace;}
+.apt_sources .imp {font-weight: bold; color: red;}
+.apt_sources li, .apt_sources .li1 {font-weight: normal; vertical-align:top;}
+.apt_sources .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.apt_sources .li2 {font-weight: bold; vertical-align:top;}
+.apt_sources .kw1 {color: #00007f;}
+.apt_sources .kw2 {color: #b1b100;}
+.apt_sources .kw3 {color: #b16000;}
+.apt_sources .co1 {color: #adadad; font-style: italic;}
+.apt_sources .re0 {color: #009900;}
+.apt_sources .ln-xtra, .apt_sources li.ln-xtra, .apt_sources div.ln-xtra {background-color: #ffc;}
+.apt_sources span.xtra { display:block; }

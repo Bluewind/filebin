@@ -1,0 +1,17 @@
+.thinbasic .de1, .thinbasic .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.thinbasic  {font-family:monospace;}
+.thinbasic .imp {font-weight: bold; color: red;}
+.thinbasic li, .thinbasic .li1 {font-weight: normal; vertical-align:top;}
+.thinbasic .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.thinbasic .li2 {font-weight: bold; vertical-align:top;}
+.thinbasic .kw1 {color: #0000FF; font-weight: bold;}
+.thinbasic .kw2 {color: #993333; font-style: italic; font-weight: bold;}
+.thinbasic .co1 {color: #008000;}
+.thinbasic .es0 {color: #000099;}
+.thinbasic .br0 {color: #333333;}
+.thinbasic .sy0 {color: #333333;}
+.thinbasic .st0 {color: #800080;}
+.thinbasic .nu0 {color: #CC0000;}
+.thinbasic .me1 {color: #66cc66;}
+.thinbasic .ln-xtra, .thinbasic li.ln-xtra, .thinbasic div.ln-xtra {background-color: #ffc;}
+.thinbasic span.xtra { display:block; }

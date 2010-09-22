@@ -1,0 +1,21 @@
+.gdb .de1, .gdb .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.gdb  {font-family:monospace;}
+.gdb .imp {font-weight: bold; color: red;}
+.gdb li, .gdb .li1 {font-weight: normal; vertical-align:top;}
+.gdb .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.gdb .li2 {font-weight: bold; vertical-align:top;}
+.gdb .kw0 {font-weight:bold;}
+.gdb .kw1 {font-weight:bold; color: #ff0000;}
+.gdb .br0 {font-weight:bold;}
+.gdb .st0 {color: #933;}
+.gdb .nu0 {color: #cc66cc;}
+.gdb .re0 {color: #000066; font-weight:bold;}
+.gdb .re1 {color: #006600;}
+.gdb .re2 {color: #000066;}
+.gdb .re3 {color: #0066FF; text-style:italic;}
+.gdb .re4 {color: #80B5FF; text-style:italic;}
+.gdb .re5 {color: #A3007D;}
+.gdb .re6 {color: #FF00BF;}
+.gdb .re7 {font-weight: bold;}
+.gdb .ln-xtra, .gdb li.ln-xtra, .gdb div.ln-xtra {background-color: #ffc;}
+.gdb span.xtra { display:block; }

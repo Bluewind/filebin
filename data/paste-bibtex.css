@@ -1,0 +1,20 @@
+.bibtex .de1, .bibtex .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.bibtex  {font-family:monospace;}
+.bibtex .imp {font-weight: bold; color: red;}
+.bibtex li, .bibtex .li1 {font-weight: normal; vertical-align:top;}
+.bibtex .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.bibtex .li2 {font-weight: bold; vertical-align:top;}
+.bibtex .kw1 {color: #C02020;}
+.bibtex .kw2 {color: #C02020;}
+.bibtex .kw3 {color: #C08020;}
+.bibtex .kw4 {color: #C08020;}
+.bibtex .co1 {color: #2C922C; font-style: italic;}
+.bibtex .es0 {color: #000000; font-weight: bold;}
+.bibtex .br0 {color: #E02020;}
+.bibtex .sy0 {color: #E02020;}
+.bibtex .st0 {color: #2020C0;}
+.bibtex .re1 {color: #2020C0;}
+.bibtex .re2 {color: #C08020;}
+.bibtex .re3 {color: #800000;}
+.bibtex .ln-xtra, .bibtex li.ln-xtra, .bibtex div.ln-xtra {background-color: #ffc;}
+.bibtex span.xtra { display:block; }

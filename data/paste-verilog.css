@@ -1,0 +1,22 @@
+.verilog .de1, .verilog .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.verilog  {font-family:monospace;}
+.verilog .imp {font-weight: bold; color: red;}
+.verilog li, .verilog .li1 {font-weight: normal; vertical-align:top;}
+.verilog .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.verilog .li2 {font-weight: bold; vertical-align:top;}
+.verilog .kw1 {color: #A52A2A; font-weight: bold;}
+.verilog .kw2 {color: #9932CC;}
+.verilog .kw3 {color: #008800;}
+.verilog .co1 {color: #00008B; font-style: italic;}
+.verilog .coMULTI {color: #00008B; font-style: italic;}
+.verilog .es0 {color: #9F79EE}
+.verilog .br0 {color: #9F79EE;}
+.verilog .sy0 {color: #5D478B;}
+.verilog .st0 {color: #FF00FF;}
+.verilog .nu0 {color: #ff0055;}
+.verilog .me1 {color: #202020;}
+.verilog .me2 {color: #202020;}
+.verilog .re0 {color: #ff0055;}
+.verilog .re1 {color: #ff0055;}
+.verilog .ln-xtra, .verilog li.ln-xtra, .verilog div.ln-xtra {background-color: #ffc;}
+.verilog span.xtra { display:block; }

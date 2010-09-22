@@ -1,0 +1,24 @@
+.email .de1, .email .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.email  {font-family:monospace;}
+.email .imp {font-weight: bold; color: red;}
+.email li, .email .li1 {font-weight: normal; vertical-align:top;}
+.email .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.email .li2 {font-weight: bold; vertical-align:top;}
+.email .kw1 {color: #0000FF; font-weight: bold;}
+.email .kw2 {color: #000000; font-weight: bold;}
+.email .kw3 {color: #800000; font-weight: bold;}
+.email .kw4 {font-weight: bold;}
+.email .es0 {color: #000099; font-weight: bold;}
+.email .br0 {color: #66cc66;}
+.email .sy0 {color: #66cc66;}
+.email .st0 {color: #ff0000;}
+.email .nu0 {color: #cc66cc;}
+.email .sc0 {color: #000040;}
+.email .re1 {color: #000000; font-weight: bold;}
+.email .re2 {color: #0000FF;}
+.email .re3 {color: #008000;}
+.email .re4 {color: #0000FF; font-weight: bold;}
+.email .re5 {font-weight: bold;}
+.email .re6 {color: #400080;}
+.email .ln-xtra, .email li.ln-xtra, .email div.ln-xtra {background-color: #ffc;}
+.email span.xtra { display:block; }

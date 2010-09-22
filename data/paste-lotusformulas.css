@@ -1,0 +1,17 @@
+.lotusformulas .de1, .lotusformulas .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.lotusformulas  {font-family:monospace;}
+.lotusformulas .imp {font-weight: bold; color: red;}
+.lotusformulas li, .lotusformulas .li1 {font-weight: normal; vertical-align:top;}
+.lotusformulas .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.lotusformulas .li2 {font-weight: bold; vertical-align:top;}
+.lotusformulas .kw1 {color: #800000;}
+.lotusformulas .kw2 {color: #0000FF;}
+.lotusformulas .co1 {color: #008000;}
+.lotusformulas .es0 {color: #000099;}
+.lotusformulas .br0 {color: #000000;}
+.lotusformulas .sy0 {color: #66cc66;}
+.lotusformulas .st0 {color: #FF00FF;}
+.lotusformulas .nu0 {color: #FF00FF;}
+.lotusformulas .me1 {color: #0000AA;}
+.lotusformulas .ln-xtra, .lotusformulas li.ln-xtra, .lotusformulas div.ln-xtra {background-color: #ffc;}
+.lotusformulas span.xtra { display:block; }

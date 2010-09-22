@@ -1,0 +1,21 @@
+.mxml .de1, .mxml .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.mxml  {font-family:monospace;}
+.mxml .imp {font-weight: bold; color: red;}
+.mxml li, .mxml .li1 {font-weight: normal; vertical-align:top;}
+.mxml .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.mxml .li2 {font-weight: bold; vertical-align:top;}
+.mxml .coMULTI {color: #808080; font-style: italic;}
+.mxml .es0 {color: #000099; font-weight: bold;}
+.mxml .br0 {color: #66cc66;}
+.mxml .sy0 {color: #66cc66;}
+.mxml .st0 {color: #ff0000;}
+.mxml .nu0 {color: #cc66cc;}
+.mxml .sc0 {color: #00bbdd;}
+.mxml .sc1 {color: #ddbb00;}
+.mxml .sc2 {color: #339933;}
+.mxml .sc3 {color: #000000;}
+.mxml .re0 {font-weight: bold; color: black;}
+.mxml .re1 {color: #7400FF;}
+.mxml .re2 {color: #7400FF;}
+.mxml .ln-xtra, .mxml li.ln-xtra, .mxml div.ln-xtra {background-color: #ffc;}
+.mxml span.xtra { display:block; }

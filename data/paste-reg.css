@@ -1,0 +1,18 @@
+.reg .de1, .reg .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.reg  {font-family:monospace;}
+.reg .imp {font-weight: bold; color: red;}
+.reg li, .reg .li1 {font-weight: normal; vertical-align:top;}
+.reg .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.reg .li2 {font-weight: bold; vertical-align:top;}
+.reg .kw3 {color: #800000;}
+.reg .co1 {color: #009900;}
+.reg .br0 {color: #000000;}
+.reg .sy0 {color: #000000;}
+.reg .st0 {color: #009900;}
+.reg .re0 {color: #00CCFF;}
+.reg .geshi_registry_header {color: #0000FF;}
+.reg .re3 {color: #0000FF;}
+.reg .geshi_variable {color: #0000FF;}
+.reg .geshi_guid {color: #FF6600;}
+.reg .ln-xtra, .reg li.ln-xtra, .reg div.ln-xtra {background-color: #ffc;}
+.reg span.xtra { display:block; }

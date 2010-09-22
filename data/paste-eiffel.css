@@ -1,0 +1,21 @@
+.eiffel .de1, .eiffel .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.eiffel  {font-family:monospace;}
+.eiffel .imp {font-weight: bold; color: red;}
+.eiffel li, .eiffel .li1 {font-weight: normal; vertical-align:top;}
+.eiffel .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.eiffel .li2 {font-weight: bold; vertical-align:top;}
+.eiffel .kw1 {color: #0600FF; font-weight: bold;}
+.eiffel .kw2 {color: #0600FF; font-weight: bold;}
+.eiffel .kw3 {color: #800080;}
+.eiffel .kw4 {color: #800000}
+.eiffel .kw5 {color: #603000;}
+.eiffel .co1 {color: #008000; font-style: italic;}
+.eiffel .es0 {color: #005070; font-weight: bold;}
+.eiffel .br0 {color: #FF0000;}
+.eiffel .sy0 {color: #600000;}
+.eiffel .st0 {color: #0080A0;}
+.eiffel .nu0 {color: #FF0000;}
+.eiffel .me1 {color: #000060;}
+.eiffel .me2 {color: #000050;}
+.eiffel .ln-xtra, .eiffel li.ln-xtra, .eiffel div.ln-xtra {background-color: #ffc;}
+.eiffel span.xtra { display:block; }

@@ -1,0 +1,21 @@
+.asp .de1, .asp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.asp  {font-family:monospace;}
+.asp .imp {font-weight: bold; color: red;}
+.asp li, .asp .li1 {font-weight: normal; vertical-align:top;}
+.asp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.asp .li2 {font-weight: bold; vertical-align:top;}
+.asp .kw1 {color: #990099; font-weight: bold;}
+.asp .kw2 {color: #0000ff; font-weight: bold;}
+.asp .kw3 {color: #330066;}
+.asp .co1 {color: #008000;}
+.asp .co2 {color: #ff6600;}
+.asp .coMULTI {color: #008000;}
+.asp .es0 {color: #000099; font-weight: bold;}
+.asp .br0 {color: #006600; font-weight:bold;}
+.asp .sy0 {color: #006600; font-weight: bold;}
+.asp .sy1 {color: #000000; font-weight: bold;}
+.asp .st0 {color: #cc0000;}
+.asp .nu0 {color: #800000;}
+.asp .me1 {color: #9900cc;}
+.asp .ln-xtra, .asp li.ln-xtra, .asp div.ln-xtra {background-color: #ffc;}
+.asp span.xtra { display:block; }

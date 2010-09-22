@@ -1,0 +1,24 @@
+.scilab .de1, .scilab .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.scilab  {font-family:monospace;}
+.scilab .imp {font-weight: bold; color: red;}
+.scilab li, .scilab .li1 {font-weight: normal; vertical-align:top;}
+.scilab .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.scilab .li2 {font-weight: bold; vertical-align:top;}
+.scilab .kw1 {color: #b1b100;}
+.scilab .kw2 {color: #000000; font-weight: bold;}
+.scilab .kw3 {color: #000066;}
+.scilab .co1 {color: #666666; font-style: italic;}
+.scilab .coMULTI {color: #666666; font-style: italic;}
+.scilab .es0 {color: #000099; font-weight: bold;}
+.scilab .es_h {color: #000099; font-weight: bold;}
+.scilab .br0 {color: #009900;}
+.scilab .sy0 {color: #339933;}
+.scilab .st0 {color: #ff0000;}
+.scilab .st_h {color: #ff0000;}
+.scilab .nu0 {color: #cc66cc;}
+.scilab .me1 {color: #006600;}
+.scilab .me2 {color: #006600;}
+.scilab .re0 {color: #0000ff;}
+.scilab .re4 {color: #009999;}
+.scilab .ln-xtra, .scilab li.ln-xtra, .scilab div.ln-xtra {background-color: #ffc;}
+.scilab span.xtra { display:block; }

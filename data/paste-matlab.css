@@ -1,0 +1,16 @@
+.matlab .de1, .matlab .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.matlab  {font-family:monospace;}
+.matlab .imp {font-weight: bold; color: red;}
+.matlab li, .matlab .li1 {font-weight: normal; vertical-align:top;}
+.matlab .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.matlab .li2 {font-weight: bold; vertical-align:top;}
+.matlab .kw1 {color: #0000FF;}
+.matlab .kw2 {color: #0000FF;}
+.matlab .co1 {color: #228B22;}
+.matlab .co2 {color:#A020F0;}
+.matlab .br0 {color: #080;}
+.matlab .sy0 {color: #080;}
+.matlab .nu0 {color: #33f;}
+.matlab .re0 {color: #33f;}
+.matlab .ln-xtra, .matlab li.ln-xtra, .matlab div.ln-xtra {background-color: #ffc;}
+.matlab span.xtra { display:block; }

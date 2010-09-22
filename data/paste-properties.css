@@ -1,0 +1,14 @@
+.properties .de1, .properties .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties li, .properties .li1 {font-weight: normal; vertical-align:top;}
+.properties .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.properties .li2 {font-weight: bold; vertical-align:top;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties .ln-xtra, .properties li.ln-xtra, .properties div.ln-xtra {background-color: #ffc;}
+.properties span.xtra { display:block; }

@@ -1,0 +1,21 @@
+.oberon2 .de1, .oberon2 .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.oberon2  {font-family:monospace;}
+.oberon2 .imp {font-weight: bold; color: red;}
+.oberon2 li, .oberon2 .li1 {font-weight: normal; vertical-align:top;}
+.oberon2 .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.oberon2 .li2 {font-weight: bold; vertical-align:top;}
+.oberon2 .kw1 {color: #000000; font-weight: bold;}
+.oberon2 .kw2 {color: #000000; font-weight: bold;}
+.oberon2 .kw3 {color: #000066;}
+.oberon2 .kw4 {color: #000066; font-weight: bold;}
+.oberon2 .coMULTI {color: #666666; font-style: italic;}
+.oberon2 .es0 {color: #000099; font-weight: bold;}
+.oberon2 .es_h {color: #000099; font-weight: bold;}
+.oberon2 .br0 {color: #009900;}
+.oberon2 .sy0 {color: #339933;}
+.oberon2 .st0 {color: #ff0000;}
+.oberon2 .st_h {color: #ff0000;}
+.oberon2 .nu0 {color: #cc66cc;}
+.oberon2 .me1 {color: #0066ee;}
+.oberon2 .ln-xtra, .oberon2 li.ln-xtra, .oberon2 div.ln-xtra {background-color: #ffc;}
+.oberon2 span.xtra { display:block; }

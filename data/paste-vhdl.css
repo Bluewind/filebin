@@ -1,0 +1,19 @@
+.vhdl .de1, .vhdl .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.vhdl  {font-family:monospace;}
+.vhdl .imp {font-weight: bold; color: red;}
+.vhdl li, .vhdl .li1 {font-weight: normal; vertical-align:top;}
+.vhdl .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.vhdl .li2 {font-weight: bold; vertical-align:top;}
+.vhdl .kw1 {color: #000080; font-weight: bold;}
+.vhdl .kw2 {color: #0000ff;}
+.vhdl .co1 {color: #008000; font-style: italic;}
+.vhdl .coMULTI {color: #008000; font-style: italic;}
+.vhdl .es0 {color: #000099; font-weight: bold;}
+.vhdl .br0 {color: #000066;}
+.vhdl .sy0 {color: #000066;}
+.vhdl .st0 {color: #7f007f;}
+.vhdl .nu0 {color: #ff0000;}
+.vhdl .re0 {color: #ff0000;}
+.vhdl .re1 {color: #ff0000;}
+.vhdl .ln-xtra, .vhdl li.ln-xtra, .vhdl div.ln-xtra {background-color: #ffc;}
+.vhdl span.xtra { display:block; }

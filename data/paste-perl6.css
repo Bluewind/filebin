@@ -1,0 +1,27 @@
+.perl6 .de1, .perl6 .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.perl6  {font-family:monospace;}
+.perl6 .imp {font-weight: bold; color: red;}
+.perl6 li, .perl6 .li1 {font-weight: normal; vertical-align:top;}
+.perl6 .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.perl6 .li2 {font-weight: bold; vertical-align:top;}
+.perl6 .kw1 {color: #b1b100;}
+.perl6 .kw2 {color: #000000; font-weight: bold;}
+.perl6 .kw3 {color: #000066;}
+.perl6 .co1 {color: #666666; font-style: italic;}
+.perl6 .co2 {color: #009966; font-style: italic;}
+.perl6 .co3 {color: #0000ff;}
+.perl6 .co4 {color: #cc0000; font-style: italic;}
+.perl6 .co5 {color: #666666; font-style: italic;}
+.perl6 .coMULTI {color: #666666; font-style: italic;}
+.perl6 .es0 {color: #000099; font-weight: bold;}
+.perl6 .es_h {color: #000099; font-weight: bold;}
+.perl6 .br0 {color: #009900;}
+.perl6 .sy0 {color: #339933;}
+.perl6 .st0 {color: #ff0000;}
+.perl6 .st_h {color: #ff0000;}
+.perl6 .nu0 {color: #cc66cc;}
+.perl6 .me1 {color: #006600;}
+.perl6 .me2 {color: #006600;}
+.perl6 .re0 {color: #0000ff;}
+.perl6 .ln-xtra, .perl6 li.ln-xtra, .perl6 div.ln-xtra {background-color: #ffc;}
+.perl6 span.xtra { display:block; }

@@ -1,0 +1,21 @@
+.lscript .de1, .lscript .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.lscript  {font-family:monospace;}
+.lscript .imp {font-weight: bold; color: red;}
+.lscript li, .lscript .li1 {font-weight: normal; vertical-align:top;}
+.lscript .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.lscript .li2 {font-weight: bold; vertical-align:top;}
+.lscript .kw1 {color: #000000; font-weight: bold;}
+.lscript .kw2 {color: #FF6820; font-weight: bold;}
+.lscript .kw3 {color: #007F7F; font-weight: bold;}
+.lscript .kw4 {color: #800080; font-weight: bold;}
+.lscript .kw5 {color: #51BD95; font-weight: bold;}
+.lscript .kw6 {color: #416F85; font-weight: bold;}
+.lscript .kw7 {color: #C92929; font-weight: bold;}
+.lscript .co1 {color: #7F7F7F;}
+.lscript .coMULTI {color: #7F7F7F;}
+.lscript .br0 {color: #0040A0;}
+.lscript .sy0 {color: #0040A0;}
+.lscript .st0 {color: #00C800;}
+.lscript .nu0 {color: #6953AC;}
+.lscript .ln-xtra, .lscript li.ln-xtra, .lscript div.ln-xtra {background-color: #ffc;}
+.lscript span.xtra { display:block; }

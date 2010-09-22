@@ -1,0 +1,30 @@
+.logtalk .de1, .logtalk .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.logtalk  {font-family:monospace;}
+.logtalk .imp {font-weight: bold; color: red;}
+.logtalk li, .logtalk .li1 {font-weight: normal; vertical-align:top;}
+.logtalk .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.logtalk .li2 {font-weight: bold; vertical-align:top;}
+.logtalk .kw1 {color: #2e4dc9;}
+.logtalk .kw2 {color: #2e4dc9;}
+.logtalk .kw3 {color: #2e4dc9;}
+.logtalk .kw4 {color: #9d4f37;}
+.logtalk .kw5 {color: #9d4f37;}
+.logtalk .kw6 {color: #9d4f37;}
+.logtalk .kw7 {color: #9d4f37;}
+.logtalk .co1 {color: #60a0b0; font-style: italic;}
+.logtalk .co2 {color: #430000;}
+.logtalk .coMULTI {color: #60a0b0; font-style: italic;}
+.logtalk .es0 {color: #9f0000; font-weight: bold;}
+.logtalk .es1 {color: #9f0000; font-weight: bold;}
+.logtalk .es2 {color: #9f0000; font-weight: bold;}
+.logtalk .es3 {color: #9f0000; font-weight: bold;}
+.logtalk .br0 {color: #000000;}
+.logtalk .sy0 {color: #666666;font-weight: bold;}
+.logtalk .sy1 {color: #666666;font-weight: bold;}
+.logtalk .sy2 {color: #000000;}
+.logtalk .st0 {color: #9f0000;}
+.logtalk .st_h {color: #9f0000;}
+.logtalk .nu0 {color: #430000;}
+.logtalk .re0 {color: #848484;}
+.logtalk .ln-xtra, .logtalk li.ln-xtra, .logtalk div.ln-xtra {background-color: #ffc;}
+.logtalk span.xtra { display:block; }

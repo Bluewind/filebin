@@ -1,0 +1,24 @@
+.ruby .de1, .ruby .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.ruby  {font-family:monospace;}
+.ruby .imp {font-weight: bold; color: red;}
+.ruby li, .ruby .li1 {font-weight: normal; vertical-align:top;}
+.ruby .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.ruby .li2 {font-weight: bold; vertical-align:top;}
+.ruby .kw1 {color:#9966CC; font-weight:bold;}
+.ruby .kw2 {color:#0000FF; font-weight:bold;}
+.ruby .kw3 {color:#CC0066; font-weight:bold;}
+.ruby .kw4 {color:#CC00FF; font-weight:bold;}
+.ruby .co1 {color:#008000; font-style:italic;}
+.ruby .coMULTI {color:#000080; font-style:italic;}
+.ruby .es0 {color:#000099;}
+.ruby .br0 {color:#006600; font-weight:bold;}
+.ruby .sy0 {color:#006600; font-weight:bold;}
+.ruby .st0 {color:#996600;}
+.ruby .nu0 {color:#006666;}
+.ruby .me1 {color:#9900CC;}
+.ruby .re0 {color:#ff6633; font-weight:bold;}
+.ruby .re1 {color:#0066ff; font-weight:bold;}
+.ruby .re2 {color:#6666ff; font-weight:bold;}
+.ruby .re3 {color:#ff3333; font-weight:bold;}
+.ruby .ln-xtra, .ruby li.ln-xtra, .ruby div.ln-xtra {background-color: #ffc;}
+.ruby span.xtra { display:block; }

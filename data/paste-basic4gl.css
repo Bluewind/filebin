@@ -1,0 +1,16 @@
+.basic4gl .de1, .basic4gl .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.basic4gl  {font-family:monospace;}
+.basic4gl .imp {font-weight: bold; color: red;}
+.basic4gl li, .basic4gl .li1 {font-weight: normal; vertical-align:top;}
+.basic4gl .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.basic4gl .li2 {font-weight: bold; vertical-align:top;}
+.basic4gl .kw1 {color: #000080; font-weight: bold;}
+.basic4gl .kw2 {color: #FF0000;}
+.basic4gl .kw3 {color: #0000FF;}
+.basic4gl .co1 {color: #657CC4; font-style: italic;}
+.basic4gl .br0 {color: #000080;}
+.basic4gl .sy0 {color: #0000FF;}
+.basic4gl .st0 {color: #008000;}
+.basic4gl .nu0 {color: #000080; font-weight: bold;}
+.basic4gl .ln-xtra, .basic4gl li.ln-xtra, .basic4gl div.ln-xtra {background-color: #ffc;}
+.basic4gl span.xtra { display:block; }

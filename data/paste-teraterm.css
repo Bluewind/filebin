@@ -1,0 +1,18 @@
+.teraterm .de1, .teraterm .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.teraterm  {font-family:monospace;}
+.teraterm .imp {font-weight: bold; color: red;}
+.teraterm li, .teraterm .li1 {font-weight: normal; vertical-align:top;}
+.teraterm .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.teraterm .li2 {font-weight: bold; vertical-align:top;}
+.teraterm .kw1 {color: #000080; font-weight: bold!important;}
+.teraterm .kw2 {color: #808000; font-weight: bold;}
+.teraterm .kw3 {color: #ff0000; font-weight: bold;}
+.teraterm .kw4 {color: #ff00ff; font-weight: bold;}
+.teraterm .co1 {color: #008000; font-style: italic;}
+.teraterm .br0 {color: #ff00ff; font-weight: bold;}
+.teraterm .sy0 {color: #ff00ff; font-weight: bold;}
+.teraterm .st0 {color: #800080;}
+.teraterm .nu0 {color: #008080;}
+.teraterm .re0 {color: #0000ff; font-weight: bold;}
+.teraterm .ln-xtra, .teraterm li.ln-xtra, .teraterm div.ln-xtra {background-color: #ffc;}
+.teraterm span.xtra { display:block; }

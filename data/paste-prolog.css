@@ -1,0 +1,25 @@
+.prolog .de1, .prolog .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.prolog  {font-family:monospace;}
+.prolog .imp {font-weight: bold; color: red;}
+.prolog li, .prolog .li1 {font-weight: normal; vertical-align:top;}
+.prolog .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.prolog .li2 {font-weight: bold; vertical-align:top;}
+.prolog .kw1 {color: #990000;}
+.prolog .co1 {color: #666666; font-style: italic;}
+.prolog .coMULTI {color: #666666; font-style: italic;}
+.prolog .es0 {color: #000099; font-weight: bold;}
+.prolog .es_h {color: #000099; font-weight: bold;}
+.prolog .br0 {color: #009900;}
+.prolog .sy0 {color: #339933;}
+.prolog .sy1 {color: #339933;}
+.prolog .sy2 {color: #339933;}
+.prolog .sy3 {color: #339933;}
+.prolog .sy4 {color: #339933;}
+.prolog .sy5 {color: #339933;}
+.prolog .sy6 {color: #339933;}
+.prolog .st0 {color: #0000ff;}
+.prolog .st_h {color: #0000ff;}
+.prolog .nu0 {color: #800080;}
+.prolog .re0 {color: #008080;}
+.prolog .ln-xtra, .prolog li.ln-xtra, .prolog div.ln-xtra {background-color: #ffc;}
+.prolog span.xtra { display:block; }

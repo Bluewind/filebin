@@ -1,0 +1,13 @@
+.whitespace .de1, .whitespace .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.whitespace  {font-family:monospace;}
+.whitespace .imp {font-weight: bold; color: red;}
+.whitespace li, .whitespace .li1 {font-weight: normal; vertical-align:top;}
+.whitespace .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.whitespace .li2 {font-weight: bold; vertical-align:top;}
+.whitespace .co3 {color: #666666; font-style: italic;}
+.whitespace .br0 {color: #66cc66;}
+.whitespace .st0 {color: #ff0000;}
+.whitespace .re2 {background-color: #FF9999;}
+.whitespace .re3 {background-color: #9999FF;}
+.whitespace .ln-xtra, .whitespace li.ln-xtra, .whitespace div.ln-xtra {background-color: #ffc;}
+.whitespace span.xtra { display:block; }

@@ -1,0 +1,20 @@
+.cuesheet .de1, .cuesheet .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.cuesheet  {font-family:monospace;}
+.cuesheet .imp {font-weight: bold; color: red;}
+.cuesheet li, .cuesheet .li1 {font-weight: normal; vertical-align:top;}
+.cuesheet .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cuesheet .li2 {font-weight: bold; vertical-align:top;}
+.cuesheet .kw1 {color: #000000; font-weight: bold;}
+.cuesheet .kw2 {color: #000066; font-weight: bold;}
+.cuesheet .kw3 {color: #000066; font-weight: bold;}
+.cuesheet .kw4 {color: #000066; font-weight: bold;}
+.cuesheet .co1 {color: #808080;}
+.cuesheet .es0 {color: #000099;}
+.cuesheet .br0 {color: #0000ff;}
+.cuesheet .sy0 {color: #000066;}
+.cuesheet .st0 {color: #0000ff;}
+.cuesheet .nu0 {color: #006600;}
+.cuesheet .re1 {color: #000099;}
+.cuesheet .re2 {color: #009900;}
+.cuesheet .ln-xtra, .cuesheet li.ln-xtra, .cuesheet div.ln-xtra {background-color: #ffc;}
+.cuesheet span.xtra { display:block; }

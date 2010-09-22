@@ -1,0 +1,25 @@
+.rails .de1, .rails .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.rails  {font-family:monospace;}
+.rails .imp {font-weight: bold; color: red;}
+.rails li, .rails .li1 {font-weight: normal; vertical-align:top;}
+.rails .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.rails .li2 {font-weight: bold; vertical-align:top;}
+.rails .kw1 {color:#9966CC; font-weight:bold;}
+.rails .kw2 {color:#0000FF; font-weight:bold;}
+.rails .kw3 {color:#CC0066; font-weight:bold;}
+.rails .kw4 {color:#CC00FF; font-weight:bold;}
+.rails .kw5 {color:#5A0A0A; font-weight:bold;}
+.rails .co1 {color:#008000; font-style:italic;}
+.rails .coMULTI {color:#000080; font-style:italic;}
+.rails .es0 {color:#000099;}
+.rails .br0 {color:#006600; font-weight:bold;}
+.rails .sy0 {color:#006600; font-weight:bold;}
+.rails .st0 {color:#996600;}
+.rails .nu0 {color:#006666;}
+.rails .me1 {color:#9900CC;}
+.rails .re0 {color:#ff6633; font-weight:bold;}
+.rails .re1 {color:#0066ff; font-weight:bold;}
+.rails .re2 {color:#6666ff; font-weight:bold;}
+.rails .re3 {color:#ff3333; font-weight:bold;}
+.rails .ln-xtra, .rails li.ln-xtra, .rails div.ln-xtra {background-color: #ffc;}
+.rails span.xtra { display:block; }

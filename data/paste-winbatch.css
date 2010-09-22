@@ -1,0 +1,23 @@
+.winbatch .de1, .winbatch .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.winbatch  {font-family:monospace;}
+.winbatch .imp {font-weight: bold; color: red;}
+.winbatch li, .winbatch .li1 {font-weight: normal; vertical-align:top;}
+.winbatch .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.winbatch .li2 {font-weight: bold; vertical-align:top;}
+.winbatch .kw1 {color: #800080;}
+.winbatch .kw2 {color: #0080FF; font-weight: bold;}
+.winbatch .kw3 {color: #0000FF;}
+.winbatch .kw4 {color: #FF00FF;}
+.winbatch .kw5 {color: #008000;}
+.winbatch .co1 {color: #008000; font-style: italic;}
+.winbatch .co2 {color: #FF1010; font-weight: bold;}
+.winbatch .coMULTI {color: #808080; font-style: italic;}
+.winbatch .es0 {color: #000099; font-weight: bold;}
+.winbatch .br0 {color: #66cc66;}
+.winbatch .sy0 {color: #66cc66;}
+.winbatch .st0 {color: #ff0000;}
+.winbatch .nu0 {color: #cc66cc;}
+.winbatch .me0 {color: #006600;}
+.winbatch .re0 {color: #0000ff;}
+.winbatch .ln-xtra, .winbatch li.ln-xtra, .winbatch div.ln-xtra {background-color: #ffc;}
+.winbatch span.xtra { display:block; }

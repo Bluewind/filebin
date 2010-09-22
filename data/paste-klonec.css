@@ -1,0 +1,30 @@
+.klonec .de1, .klonec .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.klonec  {font-family:monospace;}
+.klonec .imp {font-weight: bold; color: red;}
+.klonec li, .klonec .li1 {font-weight: normal; vertical-align:top;}
+.klonec .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.klonec .li2 {font-weight: bold; vertical-align:top;}
+.klonec .kw1 {color: #b1b100; font-weight: bold;}
+.klonec .kw2 {color: #000000; font-weight: bold;}
+.klonec .kw3 {color: #6600FF;}
+.klonec .kw4 {color: #6600FF;}
+.klonec .kw5 {color: #0099FF; font-weight: bold;}
+.klonec .kw6 {color: #990099; font-weight: bold;}
+.klonec .kw7 {color: #000066;}
+.klonec .co1 {color: #808080; font-style: italic;}
+.klonec .co2 {color: #339933;}
+.klonec .coMULTI {color: #808080; font-style: italic;}
+.klonec .es0 {color: #000099; font-weight: bold;}
+.klonec .br0 {color: #000000;}
+.klonec .sy0 {color: #000000;}
+.klonec .sy1 {color: #000000; font-weight: bold;}
+.klonec .st0 {color: #ff0000;}
+.klonec .nu0 {color: #cc66cc;}
+.klonec .me1 {color: #006600;}
+.klonec .me2 {color: #006600;}
+.klonec .sc0 {background-color:#ffccff; font-weight: bold; color:#000000;}
+.klonec .sc3 {color: #00bbdd; font-weight: bold;}
+.klonec .sc4 {color: #ddbb00;}
+.klonec .sc5 {color: #009900;}
+.klonec .ln-xtra, .klonec li.ln-xtra, .klonec div.ln-xtra {background-color: #ffc;}
+.klonec span.xtra { display:block; }

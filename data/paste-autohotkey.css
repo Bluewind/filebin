@@ -1,0 +1,27 @@
+.autohotkey .de1, .autohotkey .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.autohotkey  {font-family:monospace;}
+.autohotkey .imp {font-weight: bold; color: red;}
+.autohotkey li, .autohotkey .li1 {font-weight: normal; vertical-align:top;}
+.autohotkey .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.autohotkey .li2 {font-weight: bold; vertical-align:top;}
+.autohotkey .kw1 {color: #AAAAFF; font-weight: bold;}
+.autohotkey .kw2 {color: #88FF88;}
+.autohotkey .kw3 {color: #FF00FF; font-style: italic;}
+.autohotkey .kw4 {color: #888844; font-weight: bold;}
+.autohotkey .kw5 {color: #000000; font-style: italic;}
+.autohotkey .kw6 {color: #FF0000; font-style: italic;}
+.autohotkey .kw7 {color: #000000; font-style: italic;}
+.autohotkey .kw8 {color: #000000; font-style: italic;}
+.autohotkey .coMULTI {font-style: italic; color: #669900;}
+.autohotkey .co1 {font-style: italic; color: #009933;}
+.autohotkey .br0 {color: #00FF00; font-weight: bold;}
+.autohotkey .sy0 {color: #000000; font-weight: italic;}
+.autohotkey .st0 {font-weight: bold; color: #008080;}
+.autohotkey .nu0 {color: #0000dd;}
+.autohotkey .me1 {color: #0000FF; font-style: italic; font-weight: italic;}
+.autohotkey .re0 {font-weight: italic; color: #A00A0;}
+.autohotkey .re1 {color: #CC0000; font-style: italic;}
+.autohotkey .re2 {color: #DD0000; font-style: italic;}
+.autohotkey .re3 {color: #88FF88;}
+.autohotkey .ln-xtra, .autohotkey li.ln-xtra, .autohotkey div.ln-xtra {background-color: #ffc;}
+.autohotkey span.xtra { display:block; }

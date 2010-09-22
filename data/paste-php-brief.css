@@ -1,0 +1,29 @@
+.php-brief .de1, .php-brief .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.php-brief  {font-family:monospace;}
+.php-brief .imp {font-weight: bold; color: red;}
+.php-brief li, .php-brief .li1 {font-weight: normal; vertical-align:top;}
+.php-brief .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.php-brief .li2 {font-weight: bold; vertical-align:top;}
+.php-brief .kw1 {color: #b1b100;}
+.php-brief .kw2 {color: #000000; font-weight: bold;}
+.php-brief .kw3 {color: #990000;}
+.php-brief .co1 {color: #666666; font-style: italic;}
+.php-brief .co2 {color: #666666; font-style: italic;}
+.php-brief .co3 {color: #0000cc; font-style: italic;}
+.php-brief .coMULTI {color: #666666; font-style: italic;}
+.php-brief .es0 {color: #000099; font-weight: bold;}
+.php-brief .es_h {color: #000099; font-weight: bold;}
+.php-brief .br0 {color: #009900;}
+.php-brief .sy0 {color: #339933;}
+.php-brief .sy1 {color: #000000; font-weight: bold;}
+.php-brief .st0 {color: #0000ff;}
+.php-brief .st_h {color: #0000ff;}
+.php-brief .nu0 {color: #cc66cc;}
+.php-brief .nu8 {color: #208080;}
+.php-brief .nu12 {color: #208080;}
+.php-brief .nu19 {color:#800080;}
+.php-brief .me1 {color: #004000;}
+.php-brief .me2 {color: #004000;}
+.php-brief .re0 {color: #0000ff;}
+.php-brief .ln-xtra, .php-brief li.ln-xtra, .php-brief div.ln-xtra {background-color: #ffc;}
+.php-brief span.xtra { display:block; }

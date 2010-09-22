@@ -1,0 +1,21 @@
+.tsql .de1, .tsql .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.tsql  {font-family:monospace;}
+.tsql .imp {font-weight: bold; color: red;}
+.tsql li, .tsql .li1 {font-weight: normal; vertical-align:top;}
+.tsql .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.tsql .li2 {font-weight: bold; vertical-align:top;}
+.tsql .kw1 {color: #0000FF;}
+.tsql .kw2 {color: #FF00FF;}
+.tsql .kw3 {color: #AF0000;}
+.tsql .kw4 {color: #AF0000;}
+.tsql .co1 {color: #008080;}
+.tsql .coMULTI {color: #008080;}
+.tsql .es0 {color: #000099; font-weight: bold;}
+.tsql .br0 {color: #808080;}
+.tsql .sy0 {color: #808080;}
+.tsql .st0 {color: #FF0000;}
+.tsql .nu0 {color: #000;}
+.tsql .me1 {color: #202020;}
+.tsql .me2 {color: #202020;}
+.tsql .ln-xtra, .tsql li.ln-xtra, .tsql div.ln-xtra {background-color: #ffc;}
+.tsql span.xtra { display:block; }

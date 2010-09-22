@@ -1,0 +1,28 @@
+.cfm .de1, .cfm .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.cfm  {font-family:monospace;}
+.cfm .imp {font-weight: bold; color: red;}
+.cfm li, .cfm .li1 {font-weight: normal; vertical-align:top;}
+.cfm .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cfm .li2 {font-weight: bold; vertical-align:top;}
+.cfm .kw1 {color: #990000; font-weight: bold;}
+.cfm .kw2 {color: #000000; font-weight: bold;}
+.cfm .kw3 {color: #0000FF;}
+.cfm .kw4 {color: #000000; font-weight: bold;}
+.cfm .kw5 {color: #0000FF;}
+.cfm .kw6 {color: #0000FF;}
+.cfm .kw7 {color: #0000FF;}
+.cfm .co1 {color: #808080; font-style: italic;}
+.cfm .coMULTI {color: #808080; font-style: italic;}
+.cfm .es0 {color: #000099; font-weight: bold;}
+.cfm .br0 {color: #0000FF;}
+.cfm .sy0 {color: #0000FF;}
+.cfm .st0 {color: #009900;}
+.cfm .nu0 {color: #FF0000;}
+.cfm .sc0 {color: #808080; font-style: italic;}
+.cfm .sc1 {color: #00bbdd;}
+.cfm .sc2 {color: #0000FF;}
+.cfm .sc3 {color: #000099;}
+.cfm .sc4 {color: #333333;}
+.cfm .sc5 {color: #333333;}
+.cfm .ln-xtra, .cfm li.ln-xtra, .cfm div.ln-xtra {background-color: #ffc;}
+.cfm span.xtra { display:block; }

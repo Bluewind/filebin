@@ -1,0 +1,27 @@
+.providex .de1, .providex .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.providex  {font-family:monospace;}
+.providex .imp {font-weight: bold; color: red;}
+.providex li, .providex .li1 {font-weight: normal; vertical-align:top;}
+.providex .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.providex .li2 {font-weight: bold; vertical-align:top;}
+.providex .kw1 {color: navy;}
+.providex .kw2 {color: blue;}
+.providex .kw3 {color: blue;}
+.providex .kw4 {color: #6A5ACD; font-style: italic;}
+.providex .kw5 {color: #BDB76B;}
+.providex .co1 {color: #008080; font-style: italic;}
+.providex .co2 {color: #008080;}
+.providex .coMULTI {color: #008080; font-style: italic;}
+.providex .es0 {color: #000099;}
+.providex .br0 {color: #000066;}
+.providex .sy0 {color: #008000;}
+.providex .sy1 {color: #000099;}
+.providex .sy2 {color: #000099;}
+.providex .sy3 {color: #0000C9;}
+.providex .sy4 {color: #000099;}
+.providex .st0 {color: green;}
+.providex .nu0 {color: #00008B;}
+.providex .re1 {color: #006400; font-weight: bold}
+.providex .re2 {color: #6A5ACD;}
+.providex .ln-xtra, .providex li.ln-xtra, .providex div.ln-xtra {background-color: #ffc;}
+.providex span.xtra { display:block; }

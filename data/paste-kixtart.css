@@ -1,0 +1,20 @@
+.kixtart .de1, .kixtart .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.kixtart  {font-family:monospace;}
+.kixtart .imp {font-weight: bold; color: red;}
+.kixtart li, .kixtart .li1 {font-weight: normal; vertical-align:top;}
+.kixtart .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.kixtart .li2 {font-weight: bold; vertical-align:top;}
+.kixtart .kw1 {color: #b1b100;}
+.kixtart .kw2 {color: #000000; font-weight: bold;}
+.kixtart .kw3 {color: #000066;}
+.kixtart .co1 {color: #808080; font-style: italic;}
+.kixtart .coMULTI {color: #808080; font-style: italic;}
+.kixtart .es0 {color: #000099; font-weight: bold;}
+.kixtart .br0 {color: #66cc66;}
+.kixtart .sy0 {color: #66cc66;}
+.kixtart .st0 {color: #ff0000;}
+.kixtart .nu0 {color: #cc66cc;}
+.kixtart .me1 {color: #006600;}
+.kixtart .me2 {color: #006600;}
+.kixtart .ln-xtra, .kixtart li.ln-xtra, .kixtart div.ln-xtra {background-color: #ffc;}
+.kixtart span.xtra { display:block; }

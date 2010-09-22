@@ -1,0 +1,20 @@
+.make .de1, .make .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.make  {font-family:monospace;}
+.make .imp {font-weight: bold; color: red;}
+.make li, .make .li1 {font-weight: normal; vertical-align:top;}
+.make .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.make .li2 {font-weight: bold; vertical-align:top;}
+.make .kw1 {color: #666622; font-weight: bold;}
+.make .kw2 {color: #990000;}
+.make .co1 {color: #339900; font-style: italic;}
+.make .co2 {color: #000099; font-weight: bold;}
+.make .es0 {color: #000099; font-weight: bold;}
+.make .br0 {color: #004400;}
+.make .sy0 {color: #004400;}
+.make .st0 {color: #CC2200;}
+.make .nu0 {color: #CC2200;}
+.make .re0 {color: #000088; font-weight: bold;}
+.make .re1 {color: #0000CC; font-weight: bold;}
+.make .re2 {color: #000088;}
+.make .ln-xtra, .make li.ln-xtra, .make div.ln-xtra {background-color: #ffc;}
+.make span.xtra { display:block; }

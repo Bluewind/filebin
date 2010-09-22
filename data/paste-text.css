@@ -1,0 +1,8 @@
+.text .de1, .text .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text li, .text .li1 {font-weight: normal; vertical-align:top;}
+.text .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.text .li2 {font-weight: bold; vertical-align:top;}
+.text .ln-xtra, .text li.ln-xtra, .text div.ln-xtra {background-color: #ffc;}
+.text span.xtra { display:block; }

@@ -1,0 +1,14 @@
+.intercal .de1, .intercal .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.intercal  {font-family:monospace;}
+.intercal .imp {font-weight: bold; color: red;}
+.intercal li, .intercal .li1 {font-weight: normal; vertical-align:top;}
+.intercal .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.intercal .li2 {font-weight: bold; vertical-align:top;}
+.intercal .kw1 {color: #000080; font-weight: bold;}
+.intercal .kw2 {color: #000080; font-weight: bold;}
+.intercal .br0 {color: #66cc66;}
+.intercal .sy0 {color: #66cc66;}
+.intercal .st0 {color: #ff0000;}
+.intercal .re1 {color: #808080; font-style: italic;}
+.intercal .ln-xtra, .intercal li.ln-xtra, .intercal div.ln-xtra {background-color: #ffc;}
+.intercal span.xtra { display:block; }

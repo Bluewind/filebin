@@ -1,0 +1,33 @@
+.sas .de1, .sas .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.sas  {font-family:monospace;}
+.sas .imp {font-weight: bold; color: red;}
+.sas li, .sas .li1 {font-weight: normal; vertical-align:top;}
+.sas .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.sas .li2 {font-weight: bold; vertical-align:top;}
+.sas .kw1 {color: #0000ff;}
+.sas .kw2 {color: #0000ff;}
+.sas .kw3 {color: #0000ff;}
+.sas .kw4 {color: #0000ff;}
+.sas .kw5 {color: #0000ff;}
+.sas .kw6 {color: #000080; font-weight: bold;}
+.sas .kw7 {color: #ff0000;}
+.sas .kw8 {color: #00ff00;}
+.sas .kw9 {color: #0000ff;}
+.sas .coMULTI {color: #006400; font-style: italic;}
+.sas .es0 {color: #000099; font-weight: bold;}
+.sas .br0 {color: #66cc66;}
+.sas .sy0 {color: #66cc66;}
+.sas .st0 {color: #a020f0;}
+.sas .nu0 {color: #2e8b57; font-weight: bold;}
+.sas .re0 {color: #0000ff; font-weight: bold;}
+.sas .re1 {color: #000080; font-weight: bold;}
+.sas .re2 {color: #006400; font-style: italic;}
+.sas .re3 {color: #006400; font-style: italic;}
+.sas .re4 {color: #006400; font-style: italic;}
+.sas .re5 {color: #ff0000; font-weight: bold;}
+.sas .re6 {color: #00ff00; font-style: italic;}
+.sas .re7 {color: #0000ff; font-style: normal;}
+.sas .re8 {color: #b218b2; font-weight: bold;}
+.sas .re9 {color: #b218b2; font-weight: bold;}
+.sas .ln-xtra, .sas li.ln-xtra, .sas div.ln-xtra {background-color: #ffc;}
+.sas span.xtra { display:block; }

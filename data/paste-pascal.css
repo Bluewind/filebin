@@ -1,0 +1,22 @@
+.pascal .de1, .pascal .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.pascal  {font-family:monospace;}
+.pascal .imp {font-weight: bold; color: red;}
+.pascal li, .pascal .li1 {font-weight: normal; vertical-align:top;}
+.pascal .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.pascal .li2 {font-weight: bold; vertical-align:top;}
+.pascal .kw1 {color: #000000; font-weight: bold;}
+.pascal .kw2 {color: #000000; font-weight: bold;}
+.pascal .kw3 {color: #000066;}
+.pascal .kw4 {color: #000066; font-weight: bold;}
+.pascal .co1 {color: #666666; font-style: italic;}
+.pascal .coMULTI {color: #666666; font-style: italic;}
+.pascal .es0 {color: #000099; font-weight: bold;}
+.pascal .es_h {color: #000099; font-weight: bold;}
+.pascal .br0 {color: #009900;}
+.pascal .sy0 {color: #339933;}
+.pascal .st0 {color: #ff0000;}
+.pascal .st_h {color: #ff0000;}
+.pascal .nu0 {color: #cc66cc;}
+.pascal .me1 {color: #0066ee;}
+.pascal .ln-xtra, .pascal li.ln-xtra, .pascal div.ln-xtra {background-color: #ffc;}
+.pascal span.xtra { display:block; }

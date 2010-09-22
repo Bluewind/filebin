@@ -1,0 +1,12 @@
+.vb .de1, .vb .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.vb  {font-family:monospace;}
+.vb .imp {font-weight: bold; color: red;}
+.vb li, .vb .li1 {font-weight: normal; vertical-align:top;}
+.vb .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.vb .li2 {font-weight: bold; vertical-align:top;}
+.vb .kw1 {color: #000080;}
+.vb .co1 {color: #008000;}
+.vb .es0 {color: #800000; font-weight: bold;}
+.vb .st0 {color: #800000;}
+.vb .ln-xtra, .vb li.ln-xtra, .vb div.ln-xtra {background-color: #ffc;}
+.vb span.xtra { display:block; }
