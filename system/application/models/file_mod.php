@@ -351,7 +351,8 @@ class File_mod extends Model {
     'application/x-shellscript' => 'bash',
     'application/x-x509-ca-cert' => 'text',
     'application/mbox' => 'email',
-    'application/x-genesis-rom' => 'text'
+    'application/x-genesis-rom' => 'text',
+    'application/x-applix-spreadsheet' => 'actionscript'
     );
     if (array_key_exists($type, $typearray)) return $typearray[$type];
 
