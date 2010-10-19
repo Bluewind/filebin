@@ -1,3 +1,3 @@
 <div style="text-align:center">
-  Sorry, the file you uploaded is too big.
+  <p>Sorry, the file you uploaded is too big.</p>
 </div>

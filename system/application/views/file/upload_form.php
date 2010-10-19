@@ -1,14 +1,18 @@
 <div style="text-align:center">
   <?php echo form_open_multipart('file/do_upload'); ?>
-    File: <input type="file" name="file" size="30" />
-    <input type="submit" value="Upload" name="process" />
+    <p>
+      File: <input type="file" name="file" size="30" />
+      <input type="submit" value="Upload" name="process" />
+    </p>
   </form>
   <br />
   <p>OR</p>
   <br />
   <?php echo form_open_multipart('file/do_paste'); ?>
-    <textarea name="content" cols="80" rows="20"></textarea><br />
-    <input type="submit" value="Paste" name="process" />
+    <p>
+      <textarea name="content" cols="80" rows="20"></textarea><br />
+      <input type="submit" value="Paste" name="process" />
+    </p>
   </form>
 </div>
 <br /><br />
@@ -18,16 +22,15 @@
 <br />
 <p>For shell uploading/pasting use:</p>
 <pre>
-curl -n -F "content=<-" <?php echo base_url(); ?> < file      (not binary safe)
-cat file | curl -n -F "content=<-" <?php echo base_url(); ?>  (not binary safe)
+curl -n -F "content=&lt;-" <?php echo base_url(); ?> &lt; file      (not binary safe)
+cat file | curl -n -F "content=&lt;-" <?php echo base_url(); ?>  (not binary safe)
 curl -n -F "file=@/home/user/foo" <?php echo base_url(); ?>   (binary safe)
 </pre>
 <br />
-<p>If you want to use authentication add the following to your ~/.netrc:
+<p>If you want to use authentication add the following to your ~/.netrc:</p>
 <pre>
 machine paste.xinu.at password my_secret_password
 </pre>
-</p>
 <br />
 <p>If you want to you can use this script to upload files, paste text or delete your uploads:<br />
 <a href="<?php echo $client_link; ?>"><?php echo $client_link; ?></a></p>
