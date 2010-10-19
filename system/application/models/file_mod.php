@@ -210,7 +210,7 @@ class File_mod extends Model {
             } else {
               echo '<td class="numbers"><pre>';
               // generate line numbers (links)
-              passthru('/usr/bin/perl -ne \'print "<a href=\"#n$.\" class=\"no\" id=\"n$.\" name=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
+              passthru('/usr/bin/perl -ne \'print "<a href=\"#n$.\" class=\"no\" id=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
               echo '</pre></td><td class="code">'."\n";
               $this->load->library('geshi');
               $this->geshi->initialize(array('set_language' => $mode, 'set_source' => file_get_contents($file), 'enable_classes' => 'true'));
