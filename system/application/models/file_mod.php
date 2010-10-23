@@ -195,7 +195,11 @@ class File_mod extends Model {
           $data['rmd_link'] = site_url($id.'/rmd');
 
           header("Content-Type: text/html\n");
-          $data['current_highlight'] = $mode;
+          if ($mode) {
+            $data['current_highlight'] = $mode;
+          } else {
+            $data['current_highlight'] = $this->mime2extension($type);
+          }
           echo $this->load->view('file/html_header', $data, true);
           $this->load->library("MemcacheLibrary");
           if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$mode)) {

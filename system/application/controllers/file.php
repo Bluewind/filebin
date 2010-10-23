@@ -54,7 +54,7 @@ class File extends Controller {
     $data['title'] = 'Upload';
     $data['small_upload_size'] = $this->config->item('small_upload_size');
     $data['max_upload_size'] = $this->config->item('upload_max_size');
-    $data['client_link'] = base_url().'data/client/fb-'.$this->var->latest_client;
+    $data['client_link'] = base_url().'data/client/fb-'.$this->var->latest_client.'.tar.gz';
 
     $this->load->view('file/header', $data);
     $this->load->view('file/upload_form', $data);
