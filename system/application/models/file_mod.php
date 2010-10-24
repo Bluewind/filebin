@@ -190,6 +190,7 @@ class File_mod extends Model {
         ) {
           $data['title'] = $filedata['filename'];
           $data['raw_link'] = site_url($id);
+          $data['new_link'] = site_url();
           $data['plain_link'] = site_url($id.'/plain');
           $data['auto_link'] = site_url($id).'/';
           $data['rmd_link'] = site_url($id.'/rmd');

@@ -9,9 +9,7 @@
 
 <body>
 	<div class="top">
-		<ul class="nav">
-			<li><?php echo anchor('file/index', 'Upload'); ?></li>
-		</ul>
+		<?php echo anchor('file/index', 'New'); ?>
 	</div>
 	
 	<div class="clearer" ></div>
