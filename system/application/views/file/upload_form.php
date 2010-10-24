@@ -34,6 +34,9 @@ machine paste.xinu.at password my_secret_password
 <br />
 <p>If you want to you can use this script to upload files, paste text or delete your uploads:<br />
 <a href="<?php echo $client_link; ?>"><?php echo $client_link; ?></a></p>
+<p>Arch Linux users: pacman -S fb-client<br />
+Debian users: <a href="<?php echo $client_link_deb; ?>"><?php echo $client_link_deb; ?></a></p>
+
 <br />
 <p>If you experience any problems feel free to <a href="http://bluewind.at/?id=1">contact me</a>.</p>
 <br />
