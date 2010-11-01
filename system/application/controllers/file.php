@@ -48,15 +48,25 @@ class File extends Controller {
     }
   }
 
+  function client()
+  {
+    $data['title'] = 'Client';
+    $data['client_link'] = base_url().'data/client/fb-'.$this->var->latest_client.'.tar.gz';
+    $data['client_link_dir'] = base_url().'data/client/';
+    $data['client_link_deb'] = base_url().'data/client/deb/';
+    $data['client_link_slackware'] = base_url().'data/client/slackware/';
+
+    $this->load->view('file/header', $data);
+    $this->load->view('file/client', $data);
+    $this->load->view('file/footer', $data);
+  }
+
   function upload_form()
   {
     $data = array();
     $data['title'] = 'Upload';
     $data['small_upload_size'] = $this->config->item('small_upload_size');
     $data['max_upload_size'] = $this->config->item('upload_max_size');
-    $data['client_link'] = base_url().'data/client/fb-'.$this->var->latest_client.'.tar.gz';
-    $data['client_link_deb'] = base_url().'data/client/deb/';
-    $data['client_link_slackware'] = base_url().'data/client/slackware/';
 
     $this->load->view('file/header', $data);
     $this->load->view('file/upload_form', $data);

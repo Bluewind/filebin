@@ -1,0 +1,20 @@
+<p><b>Shell:</b></p>
+<pre>
+curl -n -F "content=&lt;-" <?php echo base_url(); ?> &lt; file      (not binary safe)
+cat file | curl -n -F "content=&lt;-" <?php echo base_url(); ?>  (not binary safe)
+curl -n -F "file=@/home/user/foo" <?php echo base_url(); ?>   (binary safe)
+</pre>
+<p><b>Client:</b><br />
+<p>Development (git): <a href="http://git.server-speed.net/users/flo/fb/">http://git.server-speed.net/users/flo/fb/</a><br />
+Latest release: <a href="<?php echo $client_link; ?>"><?php echo $client_link; ?></a>.<br />
+GPG sigs, older versions: <a href="<?php echo $client_link_dir; ?>"><?php echo $client_link_dir; ?></a>
+</p>
+<p>If you want to use authentication (needed for deleting) add the following to your ~/.netrc:</p>
+<pre>
+machine paste.xinu.at password my_secret_password
+</pre>
+<p><b>Packages:</b><br />
+Arch Linux: pacman -S fb-client<br />
+Debian: <a href="<?php echo $client_link_deb; ?>"><?php echo $client_link_deb; ?></a><br />
+Slackware: <a href="<?php echo $client_link_slackware; ?>"><?php echo $client_link_slackware; ?></a></p>
+

@@ -11,7 +11,5 @@
 	<div class="top">
 		<?php echo anchor('file/index', 'New'); ?>
 	</div>
-	
-	<div class="clearer" ></div>
 
 	<div class="content">
