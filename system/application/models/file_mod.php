@@ -182,6 +182,7 @@ class File_mod extends Model {
 					$mode = $this->mime2extension($type);
 					$mode = $this->filename2extension($filedata['filename']) ? $this->filename2extension($filedata['filename']) : $mode;
 				}
+				$mode = $this->extension_aliases($mode);
 
 				// TODO: cleanup conditions
 				if ($mode && $mode != 'plain' && $mode != 'qr'
@@ -373,6 +374,17 @@ class File_mod extends Model {
 		if (array_key_exists($name, $namearray)) return $namearray[$name];
 
 		return false;
+	}
+
+	// Handle alias extensions
+	function extension_aliases($alias)
+	{
+		$aliasarray = array(
+			'py' => 'python'
+		);
+		if (array_key_exists($alias, $aliasarray)) return $aliasarray[$alias];
+
+		return $alias;
 	}
 
 }
