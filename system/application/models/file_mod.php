@@ -379,6 +379,7 @@ class File_mod extends Model {
 	// Handle alias extensions
 	function extension_aliases($alias)
 	{
+		if ($alias === false) return false;
 		$aliasarray = array(
 			'py' => 'python'
 		);
