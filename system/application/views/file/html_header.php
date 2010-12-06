@@ -10,7 +10,8 @@
       <a class="raw_link no" href="<?php echo $new_link; ?>">New</a> |
       <a class="raw_link no" href="<?php echo $raw_link; ?>">Raw</a> |
       <a class="raw_link no" href="<?php echo $plain_link; ?>">Plain</a> |
-      Currently: <?php echo $current_highlight; ?>
+      Currently: <?php echo $current_highlight; ?> |
+      Timeout: <?php echo $timeout; ?>
       <div style="float:right;">
         <a class="raw_link no" href="<?php echo $auto_link; ?>">Code</a> |
         <a class="raw_link no" href="<?php echo $rmd_link; ?>">Render Markdown</a>

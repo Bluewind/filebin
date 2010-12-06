@@ -50,7 +50,7 @@ class File_mod extends Model {
 	function get_filedata($id)
 	{
 		$sql = '
-			SELECT hash,filename,mimetype
+			SELECT hash,filename,mimetype, date
 			FROM `files`
 			WHERE `id` = ?
 			LIMIT 1';
@@ -201,6 +201,11 @@ class File_mod extends Model {
 						$data['current_highlight'] = $mode;
 					} else {
 						$data['current_highlight'] = $this->mime2extension($type);
+					}
+					if (filesize($file) > $this->config->item("small_upload_size")) {
+						$data['timeout'] = date("r", $filedata["date"]+$this->config->item("upload_max_age"));
+					} else {
+						$data['timeout'] = "never";
 					}
 					echo $this->load->view('file/html_header', $data, true);
 					$this->load->library("MemcacheLibrary");
