@@ -45,7 +45,7 @@ class File extends Controller {
 		} elseif ($this->var->cli_client) {
 			die("No upload or unknown ID requested.\n");
 		} elseif ($id != "file") {
-			$this->file_mod->non_existant();
+			$this->file_mod->non_existent();
 		} else {
 			$this->upload_form();
 		}

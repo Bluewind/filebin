@@ -138,12 +138,12 @@ class File_mod extends Model {
 		}
 	}
 
-	function non_existant()
+	function non_existent()
 	{
 		$data["title"] = "Not Found";
 		$this->output->set_status_header(404);
 		$this->load->view('file/header', $data);
-		$this->load->view('file/non_existant', $data);
+		$this->load->view('file/non_existent', $data);
 		$this->load->view('file/footer', $data);
 	}
 
@@ -167,7 +167,7 @@ class File_mod extends Model {
 				} else {
 					$this->db->query('DELETE FROM files WHERE id = ? LIMIT 1', array($id));
 				}
-				$this->non_existant();
+				$this->non_existent();
 				return;
 			}
 			// MODIFIED SINCE SUPPORT -- START
