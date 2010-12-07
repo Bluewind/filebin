@@ -44,7 +44,7 @@ class File extends Controller {
 			$this->file_mod->download();
 		} elseif ($this->var->cli_client) {
 			die("No upload or unknown ID requested.\n");
-		} elseif ($id != "file") {
+		} elseif ($id && $id != "file") {
 			$this->file_mod->non_existent();
 		} else {
 			$this->upload_form();
