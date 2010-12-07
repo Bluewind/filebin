@@ -138,6 +138,15 @@ class File_mod extends Model {
 		}
 	}
 
+	function non_existant()
+	{
+		$data["title"] = "Not Found";
+		$this->output->set_status_header(404);
+		$this->load->view('file/header', $data);
+		$this->load->view('file/non_existant', $data);
+		$this->load->view('file/footer', $data);
+	}
+
 	// download a given ID
 	// TODO: make smaller
 	function download()
@@ -150,6 +159,17 @@ class File_mod extends Model {
 		$file = $this->file($filedata['hash']);
 
 		if ($this->id_exists($id) && file_exists($file)) {
+			$oldest_time = (time()-$this->config->item('upload_max_age'));
+			if (filesize($file) > $this->config->item("small_upload_size") && $filedata["date"] < $oldest_time) {
+				if (filemtime($file) < $oldest_time) {
+					unlink($file);
+					$this->db->query('DELETE FROM files WHERE hash = ?', array($filedata['hash']));
+				} else {
+					$this->db->query('DELETE FROM files WHERE id = ? LIMIT 1', array($id));
+				}
+				$this->non_existant();
+				return;
+			}
 			// MODIFIED SINCE SUPPORT -- START
 			// helps to keep traffic low when reloading an image
 			$filedate = filectime($file);

@@ -35,14 +35,17 @@ class File extends Controller {
 		// Try to guess what the user would like to do.
 		// File uploads should be checked first because they are usually big and
 		// take quite some time to upload.
+		$id = $this->uri->segment(1);
 		if(isset($_FILES['file'])) {
 			$this->do_upload();
 		} elseif ($this->input->post('content')) {
 			$this->do_paste();
-		} elseif ($this->file_mod->id_exists($this->uri->segment(1))) {
+		} elseif ($this->file_mod->id_exists($id)) {
 			$this->file_mod->download();
 		} elseif ($this->var->cli_client) {
 			die("No upload or unknown ID requested.\n");
+		} elseif ($id != "file") {
+			$this->file_mod->non_existant();
 		} else {
 			$this->upload_form();
 		}
