@@ -158,7 +158,7 @@ class File_mod extends Model {
 		$filedata = $this->get_filedata($id);
 		$file = $this->file($filedata['hash']);
 
-		if ($this->id_exists($id) && file_exists($file)) {
+		if (file_exists($file)) {
 			$oldest_time = (time()-$this->config->item('upload_max_age'));
 			if (filesize($file) > $this->config->item("small_upload_size") && $filedata["date"] < $oldest_time) {
 				if (filemtime($file) < $oldest_time) {
@@ -273,10 +273,10 @@ class File_mod extends Model {
 			}
 			exit();
 		} else {
-			// TODO: remove -controller function has been removed
-			$this->load->view('file/header');
-			$this->load->view('file/non_existant');
-			$this->load->view('file/footer');
+			if (isset($filedata["hash"])) {
+				$this->db->query('DELETE FROM files WHERE hash = ?', array($filedata['hash']));
+			}
+			$this->non_existent();
 		}
 	}
 
