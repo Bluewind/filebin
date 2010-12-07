@@ -40,7 +40,7 @@ class File extends Controller {
 			$this->do_upload();
 		} elseif ($this->input->post('content')) {
 			$this->do_paste();
-		} elseif ($this->file_mod->id_exists($id)) {
+		} elseif ($id != "file" && $this->file_mod->id_exists($id)) {
 			$this->file_mod->download();
 		} elseif ($this->var->cli_client) {
 			die("No upload or unknown ID requested.\n");
