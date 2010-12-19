@@ -215,6 +215,7 @@ class File_mod extends Model {
 					$data['plain_link'] = site_url($id.'/plain');
 					$data['auto_link'] = site_url($id).'/';
 					$data['rmd_link'] = site_url($id.'/rmd');
+					$data['delete_link'] = site_url("file/delete/".$id);
 
 					header("Content-Type: text/html\n");
 					if ($mode) {

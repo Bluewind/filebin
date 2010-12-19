@@ -2,13 +2,15 @@
   <?php echo form_open_multipart('file/do_upload'); ?>
     <p>
       File: <input type="file" name="file" size="30" />
-      <input type="submit" value="Upload" name="process" />
+      <input type="submit" value="Upload" name="process" /><br />
+      Optional password (for deletion): <input type="password" name="password" size="10" />
     </p>
   </form>
   <p><b>OR</b></p>
   <?php echo form_open_multipart('file/do_paste'); ?>
     <p>
       <textarea name="content" cols="80" rows="20"></textarea><br />
+      Optional password (for deletion): <input type="password" name="password" size="10" /><br />
       <input type="submit" value="Paste" name="process" />
     </p>
   </form>

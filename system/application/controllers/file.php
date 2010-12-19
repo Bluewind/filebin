@@ -86,14 +86,38 @@ class File extends Controller {
 	// Allow users to delete IDs if their password matches the one used when uploading
 	function delete()
 	{
+		$data = array();
 		$id = $this->uri->segment(3);
 		$password = $this->input->post('password');
-		if ($this->file_mod->delete_id($id, $password)) {
-			echo $id." deleted\n";
-		} else {
-			echo 'Couldn\'t delete '.$id."\n";
+		$data["title"] = "Delete";
+		$data["id"] = $id;
+		if ($password) {
+			if ($this->file_mod->delete_id($id, $password)) {
+				if ($this->var->cli_client) {
+					echo $id." deleted\n";
+					die();
+				} else {
+					$this->load->view('file/header', $data);
+					$this->load->view('file/deleted', $data);
+					$this->load->view('file/footer', $data);
+					return;
+				}
+			} else {
+				if ($this->var->cli_client) {
+					echo 'Couldn\'t delete '.$id."\n";
+					die();
+				} else {
+					$data["msg"] = "Deletion failed. Is the password correct?";
+				}
+			}
 		}
-		die();
+		if ($this->var->cli_client) {
+			die();
+		} else {
+			$this->load->view('file/header', $data);
+			$this->load->view('file/delete_form', $data);
+			$this->load->view('file/footer', $data);
+		}
 	}
 
 	// Take the content from post instead of a file
