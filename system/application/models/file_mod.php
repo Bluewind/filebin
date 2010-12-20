@@ -363,7 +363,7 @@ class File_mod extends Model {
 		'text/x-subviewer' => 'bash',
 		'text/x-makefile' => 'make',
 		#'text/x-log' => 'log',
-		'text/html' => 'html',
+		'text/html' => 'xml',
 		'text/css' => 'css',
 		'message/rfc822' => 'email',
 		#'image/svg+xml' => 'xml',
