@@ -88,7 +88,7 @@ class File extends Controller {
 	{
 		$data = array();
 		$id = $this->uri->segment(3);
-		$password = $this->input->post('password');
+		$password = $this->file_mod->get_password();
 		$data["title"] = "Delete";
 		$data["id"] = $id;
 		if ($password) {
