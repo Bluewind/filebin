@@ -10,6 +10,7 @@
   <?php echo form_open_multipart('file/do_paste'); ?>
     <p>
       <textarea name="content" cols="80" rows="20"></textarea><br />
+      <div style="display: none">Email: <input type="text" name="email" size="20" /></div>
       Optional password (for deletion): <input type="password" name="password" size="10" /><br />
       <input type="submit" value="Paste" name="process" />
     </p>

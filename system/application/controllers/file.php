@@ -129,6 +129,9 @@ class File extends Controller {
 		$data = array();
 		$content = $this->input->post('content')."\n";
 		$extension = $this->input->post('extension');
+		// Try to filter spambots
+		if ($this->input->post("email") != "") return;
+
 		// prevent empty pastes from the upload form
 		if($content === "\n") {
 			$this->upload_form();
