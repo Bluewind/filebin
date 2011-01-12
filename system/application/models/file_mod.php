@@ -297,7 +297,7 @@ class File_mod extends Model {
 		}
 	}
 
-	function delete_id($id, $password)
+	function delete_id($id)
 	{
 		$filedata = $this->get_filedata($id);
 		$password = $this->get_password();

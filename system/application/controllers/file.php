@@ -92,7 +92,7 @@ class File extends Controller {
 		$data["title"] = "Delete";
 		$data["id"] = $id;
 		if ($password != "NULL") {
-			if ($this->file_mod->delete_id($id, $password)) {
+			if ($this->file_mod->delete_id($id)) {
 				if ($this->var->cli_client) {
 					echo $id." deleted\n";
 					die();
