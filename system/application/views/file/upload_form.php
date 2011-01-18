@@ -5,7 +5,9 @@
       <input type="submit" value="Upload" name="process" /><br />
       Optional password (for deletion): <input type="password" name="password" size="10" />
     </p>
-  </form>
+	</form>
+	<p>Pasting text directly has been disabled due to extensive bot problems. Please use the file upload instead.</p>
+<?php if (false): ?>
   <p><b>OR</b></p>
   <?php echo form_open_multipart('file/do_paste'); ?>
     <p>
@@ -13,7 +15,8 @@
       <div style="display: none">Email: <input type="text" name="email" size="20" /></div>
       Optional password (for deletion): <input type="password" name="password" size="10" /><br />
       <input type="submit" value="Paste" name="process" />
-    </p>
+		</p>
+<?php endif; ?>
   </form>
 </div>
 <br />

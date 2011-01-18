@@ -1,8 +1,11 @@
 <p><b>Shell:</b></p>
 <pre>
-curl -n -F "content=&lt;-" <?php echo base_url(); ?> &lt; file      (not binary safe)
-cat file | curl -n -F "content=&lt;-" <?php echo base_url(); ?>  (not binary safe)
-curl -n -F "file=@/home/user/foo" <?php echo base_url(); ?>   (binary safe)
+<?php if(false): ?>
+>curl -n -F "content=&lt;-" <?php echo site_url(); ?> &lt; file      (not binary safe)
+cat file | curl -n -F "content=&lt;-" <?php echo site_url(); ?>  (not binary safe)
+<?php endif; ?>
+curl -n -F "file=@/home/user/foo" <?php echo site_url(); ?>   (binary safe)
+cat file | curl -n -F "file=@-;filename=stdin" <?php echo site_url(); ?>   (binary safe)
 </pre>
 <p><b>Client:</b><br />
 <p>Development (git): <a href="http://git.server-speed.net/users/flo/fb/">http://git.server-speed.net/users/flo/fb/</a><br />

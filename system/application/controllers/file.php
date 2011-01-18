@@ -124,8 +124,12 @@ class File extends Controller {
 	// support textareas on the upload form
 	// XXX: This requires users of suhosin to adjust maxium post and request size
 	// TODO: merge with do_upload()
+	// XXX: this is too vulnerable to bots
 	function do_paste()
 	{
+		// FIXME: disable until bot problem is really fixed
+		return $this->upload_form();
+
 		$data = array();
 		$content = $this->input->post('content')."\n";
 		$extension = $this->input->post('extension');
