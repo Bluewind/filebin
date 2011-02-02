@@ -147,6 +147,17 @@ class File_mod extends CI_Model {
 		$this->load->view('file/footer', $data);
 	}
 
+	function check_client_version()
+	{
+		if ($this->var->cli_client == "fb-client") {
+			$client_version = substr($_SERVER['HTTP_USER_AGENT'], 10);
+			if ($this->var->latest_client != $client_version)  {
+				echo "Your are using an old client version. Latest is ".$this->var->latest_client."\n";
+			}
+		}
+
+	}
+
 	// download a given ID
 	// TODO: make smaller
 	function download()

@@ -20,10 +20,6 @@ class File extends CI_Controller {
 
 		// official client uses "fb-client/$version" as useragent
 		if (strpos($_SERVER['HTTP_USER_AGENT'], 'fb-client') !== false) {
-			$client_version = substr($_SERVER['HTTP_USER_AGENT'], 10);
-			if ($this->var->latest_client != $client_version)  {
-				echo "Your are using an old client version. Latest is ".$this->var->latest_client."\n";
-			}
 			$this->var->cli_client = "fb-client";
 		} elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'libcurl') !== false) {
 			$this->var->cli_client = "curl";
@@ -43,6 +39,7 @@ class File extends CI_Controller {
 		} elseif ($id != "file" && $this->file_mod->id_exists($id)) {
 			$this->file_mod->download();
 		} elseif ($this->var->cli_client) {
+			$this->file_mod->check_client_version();
 			die("No upload or unknown ID requested.\n");
 		} elseif ($id && $id != "file") {
 			$this->file_mod->non_existent();
@@ -86,6 +83,7 @@ class File extends CI_Controller {
 	// Allow users to delete IDs if their password matches the one used when uploading
 	function delete()
 	{
+		$this->file_mod->check_client_version();
 		$data = array();
 		$id = $this->uri->segment(3);
 		$password = $this->file_mod->get_password();
@@ -127,6 +125,7 @@ class File extends CI_Controller {
 	// XXX: this is too vulnerable to bots
 	function do_paste()
 	{
+		$this->file_mod->check_client_version();
 		// FIXME: disable until bot problem is really fixed
 		return $this->upload_form();
 
@@ -165,6 +164,7 @@ class File extends CI_Controller {
 	// TODO: merge with do_paste()
 	function do_upload()
 	{
+		$this->file_mod->check_client_version();
 		$data = array();
 		$extension = $this->input->post('extension');
 		// TODO: Display nice error for cli clients
