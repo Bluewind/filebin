@@ -70,6 +70,8 @@ class File extends CI_Controller {
 		$data['title'] = 'Upload';
 		$data['small_upload_size'] = $this->config->item('small_upload_size');
 		$data['max_upload_size'] = $this->config->item('upload_max_size');
+		$data['client_link'] = base_url().'data/client/fb-'.$this->var->latest_client.'.tar.gz';
+		$data['client_link_dir'] = base_url().'data/client/';
 
 		$this->load->view($this->var->view_dir.'/header', $data);
 		$this->load->view($this->var->view_dir.'/upload_form', $data);
