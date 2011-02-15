@@ -126,15 +126,14 @@ class File_mod extends CI_Model {
 		}
 
 		if ($this->var->cli_client) {
-			echo $data['url']."\n";
+			$redirect = false;
+		}
+		if ($redirect) {
+			redirect($data['url']);
 		} else {
-			if ($redirect) {
-				redirect($data['url']);
-			} else {
-				$this->load->view('file/header', $data);
-				$this->load->view('file/show_url', $data);
-				$this->load->view('file/footer', $data);
-			}
+			$this->load->view($this->var->view_dir.'/header', $data);
+			$this->load->view($this->var->view_dir.'/show_url', $data);
+			$this->load->view($this->var->view_dir.'/footer', $data);
 		}
 	}
 
@@ -142,9 +141,9 @@ class File_mod extends CI_Model {
 	{
 		$data["title"] = "Not Found";
 		$this->output->set_status_header(404);
-		$this->load->view('file/header', $data);
-		$this->load->view('file/non_existent', $data);
-		$this->load->view('file/footer', $data);
+		$this->load->view($this->var->view_dir.'/header', $data);
+		$this->load->view($this->var->view_dir.'/non_existent', $data);
+		$this->load->view($this->var->view_dir.'/footer', $data);
 	}
 
 	function check_client_version()
@@ -239,7 +238,7 @@ class File_mod extends CI_Model {
 					} else {
 						$data['timeout'] = "never";
 					}
-					echo $this->load->view('file/html_header', $data, true);
+					echo $this->load->view($this->var->view_dir.'/html_header', $data, true);
 					$this->load->library("MemcacheLibrary");
 					if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$mode)) {
 						ob_start();
@@ -260,7 +259,7 @@ class File_mod extends CI_Model {
 						$this->memcachelibrary->set($filedata['hash'].'_'.$mode, $cached, 100);
 					}
 					echo $cached;
-					echo $this->load->view('file/html_footer', $data, true);
+					echo $this->load->view($this->var->view_dir.'/html_footer', $data, true);
 				} else {
 					if ($mode == 'plain') {
 						header("Content-Type: text/plain\n");

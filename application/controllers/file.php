@@ -24,6 +24,12 @@ class File extends CI_Controller {
 		} elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'libcurl') !== false) {
 			$this->var->cli_client = "curl";
 		}
+
+		if ($this->var->cli_client) {
+			$this->var->view_dir = "file_plaintext";
+		} else {
+			$this->var->view_dir = "file";
+		}
 	}
 
 	function index()
@@ -38,9 +44,6 @@ class File extends CI_Controller {
 			$this->do_paste();
 		} elseif ($id != "file" && $this->file_mod->id_exists($id)) {
 			$this->file_mod->download();
-		} elseif ($this->var->cli_client) {
-			$this->file_mod->check_client_version();
-			die("No upload or unknown ID requested.\n");
 		} elseif ($id && $id != "file") {
 			$this->file_mod->non_existent();
 		} else {
@@ -56,9 +59,9 @@ class File extends CI_Controller {
 		$data['client_link_deb'] = base_url().'data/client/deb/';
 		$data['client_link_slackware'] = base_url().'data/client/slackware/';
 
-		$this->load->view('file/header', $data);
-		$this->load->view('file/client', $data);
-		$this->load->view('file/footer', $data);
+		$this->load->view($this->var->view_dir.'/header', $data);
+		$this->load->view($this->var->view_dir.'/client', $data);
+		$this->load->view($this->var->view_dir.'/footer', $data);
 	}
 
 	function upload_form()
@@ -68,9 +71,9 @@ class File extends CI_Controller {
 		$data['small_upload_size'] = $this->config->item('small_upload_size');
 		$data['max_upload_size'] = $this->config->item('upload_max_size');
 
-		$this->load->view('file/header', $data);
-		$this->load->view('file/upload_form', $data);
-		$this->load->view('file/footer', $data);
+		$this->load->view($this->var->view_dir.'/header', $data);
+		$this->load->view($this->var->view_dir.'/upload_form', $data);
+		$this->load->view($this->var->view_dir.'/footer', $data);
 	}
 
 	// Allow CLI clients to query the server for the maxium filesize so they can
@@ -91,31 +94,21 @@ class File extends CI_Controller {
 		$data["id"] = $id;
 		if ($password != "NULL") {
 			if ($this->file_mod->delete_id($id)) {
-				if ($this->var->cli_client) {
-					echo $id." deleted\n";
-					die();
-				} else {
-					$this->load->view('file/header', $data);
-					$this->load->view('file/deleted', $data);
-					$this->load->view('file/footer', $data);
-					return;
-				}
+				$this->load->view($this->var->view_dir.'/header', $data);
+				$this->load->view($this->var->view_dir.'/deleted', $data);
+				$this->load->view($this->var->view_dir.'/footer', $data);
+				return;
 			} else {
-				if ($this->var->cli_client) {
-					echo 'Couldn\'t delete '.$id."\n";
-					die();
-				} else {
-					$data["msg"] = "Deletion failed. Is the password correct?";
-				}
+				$data["msg"] = "Deletion failed. Is the password correct?";
+			}
+		} else {
+			if ($id && !$this->file_mod->id_exists($id)) {
+				$data["msg"] = "Unkown ID.";
 			}
 		}
-		if ($this->var->cli_client) {
-			die();
-		} else {
-			$this->load->view('file/header', $data);
-			$this->load->view('file/delete_form', $data);
-			$this->load->view('file/footer', $data);
-		}
+		$this->load->view($this->var->view_dir.'/header', $data);
+		$this->load->view($this->var->view_dir.'/delete_form', $data);
+		$this->load->view($this->var->view_dir.'/footer', $data);
 	}
 
 	// Take the content from post instead of a file
@@ -142,9 +135,9 @@ class File extends CI_Controller {
 		}
 		// TODO: Display nice error for cli clients
 		if(strlen($content) > $this->config->item('upload_max_size')) {
-			$this->load->view('file/header', $data);
-			$this->load->view('file/too_big');
-			$this->load->view('file/footer');
+			$this->load->view($this->var->view_dir.'/header', $data);
+			$this->load->view($this->var->view_dir.'/too_big');
+			$this->load->view($this->var->view_dir.'/footer');
 			return;
 		}
 
@@ -169,9 +162,9 @@ class File extends CI_Controller {
 		$extension = $this->input->post('extension');
 		// TODO: Display nice error for cli clients
 		if(!isset($_FILES['file'])) {
-			$this->load->view('file/header', $data);
-			$this->load->view('file/upload_error');
-			$this->load->view('file/footer');
+			$this->load->view($this->var->view_dir.'/header', $data);
+			$this->load->view($this->var->view_dir.'/upload_error');
+			$this->load->view($this->var->view_dir.'/footer');
 			return;
 		}
 		if ($_FILES['file']['error'] !== 0) {
@@ -181,9 +174,9 @@ class File extends CI_Controller {
 		$filesize = filesize($_FILES['file']['tmp_name']);
 		// TODO: Display nice error for cli clients
 		if ($filesize > $this->config->item('upload_max_size')) {
-			$this->load->view('file/header', $data);
-			$this->load->view('file/too_big');
-			$this->load->view('file/footer');
+			$this->load->view($this->var->view_dir.'/header', $data);
+			$this->load->view($this->var->view_dir.'/too_big');
+			$this->load->view($this->var->view_dir.'/footer');
 			return;
 		}
 
