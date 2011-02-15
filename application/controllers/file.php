@@ -104,6 +104,9 @@ class File extends CI_Controller {
 				$data["msg"] = "Deletion failed. Is the password correct?";
 			}
 		} else {
+			if ($this->var->cli_client) {
+				$data["msg"] = "No password supplied.";
+			}
 			if ($id && !$this->file_mod->id_exists($id)) {
 				$data["msg"] = "Unkown ID.";
 			}
