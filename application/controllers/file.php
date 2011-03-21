@@ -88,7 +88,6 @@ class File extends CI_Controller {
 	// Allow users to delete IDs if their password matches the one used when uploading
 	function delete()
 	{
-		$this->file_mod->check_client_version();
 		$data = array();
 		$id = $this->uri->segment(3);
 		$password = $this->file_mod->get_password();
@@ -123,7 +122,6 @@ class File extends CI_Controller {
 	// XXX: this is too vulnerable to bots
 	function do_paste()
 	{
-		$this->file_mod->check_client_version();
 		// FIXME: disable until bot problem is really fixed
 		return $this->upload_form();
 
@@ -162,7 +160,6 @@ class File extends CI_Controller {
 	// TODO: merge with do_paste()
 	function do_upload()
 	{
-		$this->file_mod->check_client_version();
 		$data = array();
 		$extension = $this->input->post('extension');
 		// TODO: Display nice error for cli clients
