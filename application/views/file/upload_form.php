@@ -1,12 +1,29 @@
 <div style="margin-top: 100px; text-align:center">
   <?php echo form_open_multipart('file/do_upload'); ?>
     <p>
-      File: <input type="file" name="file" size="30" />
-      <input type="submit" value="Upload" name="process" /><br />
+      File: <input type="file" id="file" name="file" size="30" />
+      <input type="submit" value="Upload" id="upload_button" name="process" /><br />
       Optional password (for deletion): <input type="password" name="password" size="10" />
     </p>
-	</form>
-	<p>Pasting text directly has been disabled due to extensive bot problems. Please use the file upload instead.</p>
+  </form>
+  <script type="text/javascript">
+    // check file size before uploading if browser support html5
+    if (window.File && window.FileList) {
+        function checkFileUpload(evt) {
+          var f = evt.target.files[0]; // FileList object
+          if (f.size > <?php echo $max_upload_size; ?>) {
+            document.getElementById('upload_button').value = "File too big";
+            document.getElementById('upload_button').disabled = true;
+          } else {
+            document.getElementById('upload_button').value = "Upload";
+            document.getElementById('upload_button').disabled = false;
+          }
+        }
+
+        document.getElementById('file').addEventListener('change', checkFileUpload, false);
+    }
+  </script>
+  <p>Pasting text directly has been disabled due to extensive bot problems. Please use the file upload instead.</p>
 <?php if (false): ?>
   <p><b>OR</b></p>
   <?php echo form_open_multipart('file/do_paste'); ?>
@@ -15,7 +32,7 @@
       <div style="display: none">Email: <input type="text" name="email" size="20" /></div>
       Optional password (for deletion): <input type="password" name="password" size="10" /><br />
       <input type="submit" value="Paste" name="process" />
-		</p>
+    </p>
 <?php endif; ?>
   </form>
 </div>
