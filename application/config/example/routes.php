@@ -39,7 +39,6 @@
 */
 
 $route['default_controller'] = "file";
-$route['scaffolding_trigger'] = "";
 $route['file/(:any)'] = "file/$1";
 $route['(:any)'] = "file/index/$1";
 $route['404_override'] = '';
