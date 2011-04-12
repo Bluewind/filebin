@@ -193,7 +193,7 @@ class CI_URI {
 		$uri = parse_url($uri, PHP_URL_PATH);
 
 		// Do some final cleaning of the URI and return it
-		return str_replace(array('//', '../'), '/', trim($uri, '/'));
+		return str_replace(array('//', '../'), '/', ltrim($uri, '/'));
 	}
 
 	// --------------------------------------------------------------------
