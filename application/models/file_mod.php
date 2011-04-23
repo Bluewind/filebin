@@ -407,7 +407,8 @@ class File_mod extends CI_Model {
 		if ($alias === false) return false;
 		$aliasarray = array(
 			'py' => 'python',
-			'sh' => 'bash'
+			'sh' => 'bash',
+			'pl' => 'perl'
 		);
 		if (array_key_exists($alias, $aliasarray)) return $aliasarray[$alias];
 
