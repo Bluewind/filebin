@@ -408,6 +408,7 @@ class File_mod extends CI_Model {
 		$aliasarray = array(
 			'py' => 'python',
 			'sh' => 'bash',
+			's' => 'asm',
 			'pl' => 'perl'
 		);
 		if (array_key_exists($alias, $aliasarray)) return $aliasarray[$alias];
