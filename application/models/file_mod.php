@@ -399,6 +399,7 @@ class File_mod extends CI_Model {
 		#'image/svg+xml' => 'xml',
 		'application/x-perl' => 'perl',
 		'application/xml' => 'xml',
+		'application/xml-dtd' => "xml",
 		'application/javascript' => 'javascript',
 		'application/x-desktop' => 'text',
 		'application/x-m4' => 'text',
