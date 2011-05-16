@@ -146,6 +146,42 @@ class File_mod extends CI_Model {
 		$this->load->view($this->var->view_dir.'/footer', $data);
 	}
 
+	// remove old/invalid/broken IDs
+	function valid_id($id)
+	{
+		$filedata = $this->get_filedata($id);
+		$file = $this->file($filedata['hash']);
+
+		if (!file_exists($file)) {
+			if (isset($filedata["hash"])) {
+				$this->db->query('DELETE FROM files WHERE hash = ?', array($filedata['hash']));
+			}
+			return false;
+		}
+
+		// small files don't expire
+		if (filesize($file) <= $this->config->item("small_upload_size")) {
+			return true;
+		}
+
+		// files older than this should be removed
+		$remove_before = (time()-$this->config->item('upload_max_age'));
+
+		if ($filedata["date"] < $remove_before) {
+			// if the file has been uploaded multiple times the mtime is the time
+			// of the last upload
+			if (filemtime($file) < $remove_before) {
+				unlink($file);
+				$this->db->query('DELETE FROM files WHERE hash = ?', array($filedata['hash']));
+			} else {
+				$this->db->query('DELETE FROM files WHERE id = ? LIMIT 1', array($id));
+			}
+			return false;
+		}
+
+		return true;
+	}
+
 	// download a given ID
 	// TODO: make smaller
 	function download()
@@ -157,127 +193,122 @@ class File_mod extends CI_Model {
 		$filedata = $this->get_filedata($id);
 		$file = $this->file($filedata['hash']);
 
-		if (file_exists($file)) {
-			$oldest_time = (time()-$this->config->item('upload_max_age'));
-			if (filesize($file) > $this->config->item("small_upload_size") && $filedata["date"] < $oldest_time) {
-				if (filemtime($file) < $oldest_time) {
-					unlink($file);
-					$this->db->query('DELETE FROM files WHERE hash = ?', array($filedata['hash']));
-				} else {
-					$this->db->query('DELETE FROM files WHERE id = ? LIMIT 1', array($id));
-				}
-				$this->non_existent();
-				return;
-			}
-			// MODIFIED SINCE SUPPORT -- START
-			// helps to keep traffic low when reloading an image
-			$filedate = filectime($file);
-			$etag = strtolower(md5_file($file));
-			$modified = true;
-
-			// No need to check because different files have different IDs/hashes
-			if(isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
-					$modified = false;
-			}
-
-			if(isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
-				$oldtag = trim(strtolower($_SERVER['HTTP_IF_NONE_MATCH']), '"');
-				if($oldtag == $etag) {
-					$modified = false;
-				} else {
-					$modified = true;
-				}
-			}
-			// MODIFIED SINCE SUPPORT -- END
-
-			if (!$modified) {
-				header("HTTP/1.1 304 Not Modified");
-				header('Etag: "'.$etag.'"');
-			} else {
-				$type = $filedata['mimetype'] ? $filedata['mimetype'] : exec(FCPATH.'scripts/mimetype -b --orig-name '.escapeshellarg($filedata['filename']).' '.escapeshellarg($file));
-
-				// /$mode at the end of the URL overwrites autodetection
-				if (!$mode && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1) {
-					$mode = $this->mime2extension($type);
-					$mode = $this->filename2extension($filedata['filename']) ? $this->filename2extension($filedata['filename']) : $mode;
-				}
-				$mode = $this->extension_aliases($mode);
-
-				// TODO: cleanup conditions
-				if ($mode && $mode != 'plain' && $mode != 'qr'
-				&& $this->mime2extension($type)
-				&& filesize($file) <= $this->config->item('upload_max_text_size')
-				) {
-					$data['title'] = $filedata['filename'];
-					$data['raw_link'] = site_url($id);
-					$data['new_link'] = site_url();
-					$data['plain_link'] = site_url($id.'/plain');
-					$data['auto_link'] = site_url($id).'/';
-					$data['rmd_link'] = site_url($id.'/rmd');
-					$data['delete_link'] = site_url("file/delete/".$id);
-
-					header("Content-Type: text/html\n");
-					if ($mode) {
-						$data['current_highlight'] = $mode;
-					} else {
-						$data['current_highlight'] = $this->mime2extension($type);
-					}
-					if (filesize($file) > $this->config->item("small_upload_size")) {
-						$data['timeout'] = date("r", $filedata["date"]+$this->config->item("upload_max_age"));
-					} else {
-						$data['timeout'] = "never";
-					}
-					echo $this->load->view($this->var->view_dir.'/html_header', $data, true);
-					$this->load->library("MemcacheLibrary");
-					if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$mode)) {
-						ob_start();
-						if ($mode == "rmd") {
-								echo '<td class="markdownrender">'."\n";
-								passthru('/usr/bin/perl /usr/bin/perlbin/vendor/Markdown.pl '.escapeshellarg($file));
-						} else {
-							echo '<td class="numbers"><pre>';
-							// generate line numbers (links)
-							passthru('/usr/bin/perl -ne \'print "<a href=\"#n$.\" class=\"no\" id=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
-							echo '</pre></td><td class="code">'."\n";
-							$this->load->library('geshi');
-							$this->geshi->initialize(array('set_language' => $mode, 'set_source' => file_get_contents($file), 'enable_classes' => 'true'));
-							echo $this->geshi->output();
-						}
-						$cached = ob_get_contents();
-						ob_end_clean();
-						$this->memcachelibrary->set($filedata['hash'].'_'.$mode, $cached, 100);
-					}
-					echo $cached;
-					echo $this->load->view($this->var->view_dir.'/html_footer', $data, true);
-				} else {
-					if ($mode == 'plain') {
-						header("Content-Type: text/plain\n");
-					} elseif ($mode == "qr") {
-						header("Content-disposition: inline; filename=\"".$id."_qr.png\"\n");
-						header("Content-Type: image/png\n");
-						passthru('/usr/bin/qrencode -s 10 -o - '.escapeshellarg(site_url($id).'/'));
-						exit();
-					} else {
-						header("Content-Type: ".$type."\n");
-					}
-					header("Content-disposition: inline; filename=\"".$filedata['filename']."\"\n");
-					header("Content-Length: ".filesize($file)."\n");
-					header("Last-Modified: ".date('D, d M Y H:i:s', $filedate)." GMT");
-					header('Etag: "'.$etag.'"');
-					$fp = fopen($file,"r");
-					while (!feof($fp)) {
-						echo fread($fp,4096);
-					}
-					fclose($fp);
-				}
-			}
-			exit();
-		} else {
-			if (isset($filedata["hash"])) {
-				$this->db->query('DELETE FROM files WHERE hash = ?', array($filedata['hash']));
-			}
+		if (!file_exists($file) || !$this->valid_id($id)) {
 			$this->non_existent();
+			return;
 		}
+
+		// MODIFIED SINCE SUPPORT -- START
+		// helps to keep traffic low when reloading
+		$filedate = filectime($file);
+		$etag = strtolower($filedata["hash"]."-".$filedata["date"]);
+		$modified = true;
+
+		// No need to check because different files have different IDs/hashes
+		if(isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
+				$modified = false;
+		}
+
+		if(isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
+			$oldtag = trim(strtolower($_SERVER['HTTP_IF_NONE_MATCH']), '"');
+			if($oldtag == $etag) {
+				$modified = false;
+			} else {
+				$modified = true;
+			}
+		}
+
+		if (!$modified) {
+			header("HTTP/1.1 304 Not Modified");
+			header('Etag: "'.$etag.'"');
+			exit();
+		}
+		// MODIFIED SINCE SUPPORT -- END
+
+		$type = $filedata['mimetype'] ? $filedata['mimetype'] : exec(FCPATH.'scripts/mimetype -b --orig-name '.escapeshellarg($filedata['filename']).' '.escapeshellarg($file));
+
+		// autodetect the mode for highlighting if the URL contains a / after the ID (URL: /ID/)
+		// URL: /ID/mode disables autodetection
+		if (!$mode && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1) {
+			$mode = $this->mime2extension($type);
+			$mode = $this->filename2extension($filedata['filename']) ? $this->filename2extension($filedata['filename']) : $mode;
+		}
+		// resolve aliases of modes
+		// this is mainly used for compatibility
+		$mode = $this->extension_aliases($mode);
+
+		header("Last-Modified: ".date('D, d M Y H:i:s', $filedate)." GMT");
+		header('Etag: "'.$etag.'"');
+
+		if ($mode == "qr") {
+			header("Content-disposition: inline; filename=\"".$id."_qr.png\"\n");
+			header("Content-Type: image/png\n");
+			passthru('/usr/bin/qrencode -s 10 -o - '.escapeshellarg(site_url($id).'/'));
+			exit();
+		}
+
+		// directly download the file
+		if (!$mode                        // user didn't specify a mode/didn't enable autodetection
+		|| !$this->mime2extension($type)  // file can't be highlighted
+		|| $mode == "plain"               // user wants to the the plain file
+		|| filesize($file) > $this->config->item('upload_max_text_size')
+		) {
+			if ($mode == 'plain') {
+				header("Content-Type: text/plain\n");
+			} else {
+				header("Content-Type: ".$type."\n");
+			}
+			header("Content-disposition: inline; filename=\"".$filedata['filename']."\"\n");
+			header("Content-Length: ".filesize($file)."\n");
+			$fp = fopen($file,"r");
+			while (!feof($fp)) {
+				echo fread($fp,4096);
+			}
+			fclose($fp);
+			exit();
+		}
+
+		// highlight the file and chache the result
+		$data['title'] = $filedata['filename'];
+		$data['raw_link'] = site_url($id);
+		$data['new_link'] = site_url();
+		$data['plain_link'] = site_url($id.'/plain');
+		$data['auto_link'] = site_url($id).'/';
+		$data['rmd_link'] = site_url($id.'/rmd');
+		$data['delete_link'] = site_url("file/delete/".$id);
+
+		header("Content-Type: text/html\n");
+
+		$data['current_highlight'] = $mode;
+
+		if (filesize($file) > $this->config->item("small_upload_size")) {
+			$data['timeout'] = date("r", $filedata["date"]+$this->config->item("upload_max_age"));
+		} else {
+			$data['timeout'] = "never";
+		}
+		echo $this->load->view($this->var->view_dir.'/html_header', $data, true);
+		$this->load->library("MemcacheLibrary");
+		if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$mode)) {
+			ob_start();
+			if ($mode == "rmd") {
+					echo '<td class="markdownrender">'."\n";
+					passthru('/usr/bin/perl /usr/bin/perlbin/vendor/Markdown.pl '.escapeshellarg($file));
+			} else {
+				echo '<td class="numbers"><pre>';
+				// generate line numbers (links)
+				passthru('/usr/bin/perl -ne \'print "<a href=\"#n$.\" class=\"no\" id=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
+				echo '</pre></td><td class="code">'."\n";
+				$this->load->library('geshi');
+				$this->geshi->initialize(array('set_language' => $mode, 'set_source' => file_get_contents($file), 'enable_classes' => 'true'));
+				echo $this->geshi->output();
+			}
+			$cached = ob_get_contents();
+			ob_end_clean();
+			$this->memcachelibrary->set($filedata['hash'].'_'.$mode, $cached, 100);
+		}
+		echo $cached;
+		echo $this->load->view($this->var->view_dir.'/html_footer', $data, true);
+		exit();
 	}
 
 	private function unused_file($hash)
