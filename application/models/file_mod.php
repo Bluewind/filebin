@@ -400,6 +400,7 @@ class File_mod extends CI_Model {
 		'application/x-perl' => 'perl',
 		'application/xml' => 'xml',
 		'application/xml-dtd' => "xml",
+		'application/xslt+xml' => "xml",
 		'application/javascript' => 'javascript',
 		'application/x-desktop' => 'text',
 		'application/x-m4' => 'text',
