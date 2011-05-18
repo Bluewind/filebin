@@ -7,6 +7,7 @@
     </p>
   </form>
   <script type="text/javascript">
+    /* <![CDATA[ */
     // check file size before uploading if browser support html5
     if (window.File && window.FileList) {
         function checkFileUpload(evt) {
@@ -22,6 +23,7 @@
 
         document.getElementById('file').addEventListener('change', checkFileUpload, false);
     }
+    /* ]]> */
   </script>
   <p>Pasting text directly has been disabled due to extensive bot problems. Please use the file upload instead.</p>
 <?php if (false): ?>
