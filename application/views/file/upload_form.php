@@ -33,8 +33,8 @@
       Optional password (for deletion): <input type="password" name="password" size="10" /><br />
       <input type="submit" value="Paste" name="process" />
     </p>
-<?php endif; ?>
   </form>
+<?php endif; ?>
 </div>
 <br />
 <p>Uploads/pastes are deleted after 5 days<?php if($small_upload_size > 0): ?>
