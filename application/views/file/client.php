@@ -7,7 +7,7 @@ cat file | curl -n -F "content=&lt;-" <?php echo site_url(); ?>  (not binary saf
 curl -n -F "file=@/home/user/foo" <?php echo site_url(); ?>   (binary safe)
 cat file | curl -n -F "file=@-;filename=stdin" <?php echo site_url(); ?>   (binary safe)
 </pre>
-<p><b>Client:</b><br />
+<p><b>Client:</b></p>
 <p>Development (git): <a href="http://git.server-speed.net/users/flo/fb/">http://git.server-speed.net/users/flo/fb/</a><br />
 Latest release: <a href="<?php echo $client_link; ?>"><?php echo $client_link; ?></a>.<br />
 GPG sigs, older versions: <a href="<?php echo $client_link_dir; ?>"><?php echo $client_link_dir; ?></a>
