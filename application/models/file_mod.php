@@ -405,6 +405,7 @@ class File_mod extends CI_Model {
 		'application/x-desktop' => 'text',
 		'application/x-m4' => 'text',
 		'application/x-awk' => 'text',
+		'application/x-fluid' => 'text',
 		'application/x-java' => 'java',
 		'application/x-php' => 'php',
 		'application/x-ruby' => 'ruby',
