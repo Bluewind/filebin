@@ -25,7 +25,6 @@
     }
     /* ]]> */
   </script>
-  <p>Pasting text directly has been disabled due to extensive bot problems. Please use the file upload instead.</p>
 <?php if (false): ?>
   <p><b>OR</b></p>
   <?php echo form_open_multipart('file/do_paste'); ?>
