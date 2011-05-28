@@ -39,7 +39,7 @@
 <?php endif; ?>
 </div>
 <br />
-<p>Uploads/pastes are deleted after 5 days<?php if($small_upload_size > 0): ?>
+<p>Uploads/pastes are deleted after <?php echo $upload_max_age; ?> days<?php if($small_upload_size > 0): ?>
   unless they are smaller than <?php echo format_bytes($small_upload_size); ?>
   <?php endif; ?>. Maximum upload size is <?php echo format_bytes($max_upload_size); ?></p>
 <p>For shell uploading/pasting and download information for the client go to <a href="<?php echo site_url("file/client"); ?>"><?php echo site_url("file/client"); ?></a></p>
