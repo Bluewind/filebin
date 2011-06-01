@@ -402,6 +402,7 @@ class File_mod extends CI_Model {
 		'application/xml-dtd' => "xml",
 		'application/xslt+xml' => "xml",
 		'application/javascript' => 'javascript',
+		'application/smil' => 'ocaml',
 		'application/x-desktop' => 'text',
 		'application/x-m4' => 'text',
 		'application/x-awk' => 'text',
