@@ -163,20 +163,17 @@ class File extends CI_Controller {
 	{
 		$data = array();
 		$extension = $this->input->post('extension');
-		// TODO: Display nice error for cli clients
-		if(!isset($_FILES['file'])) {
+		if(!isset($_FILES['file']) || $_FILES['file']['error'] !== 0) {
+			$this->output->set_status_header(400);
 			$this->load->view($this->var->view_dir.'/header', $data);
 			$this->load->view($this->var->view_dir.'/upload_error');
 			$this->load->view($this->var->view_dir.'/footer');
 			return;
 		}
-		if ($_FILES['file']['error'] !== 0) {
-			$this->upload_form();
-			return;
-		}
+
 		$filesize = filesize($_FILES['file']['tmp_name']);
-		// TODO: Display nice error for cli clients
 		if ($filesize > $this->config->item('upload_max_size')) {
+			$this->output->set_status_header(413);
 			$this->load->view($this->var->view_dir.'/header', $data);
 			$this->load->view($this->var->view_dir.'/too_big');
 			$this->load->view($this->var->view_dir.'/footer');
