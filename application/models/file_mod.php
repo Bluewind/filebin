@@ -129,7 +129,7 @@ class File_mod extends CI_Model {
 			$redirect = false;
 		}
 		if ($redirect) {
-			redirect($data['url']);
+			redirect($data['url'], "location", 303);
 		} else {
 			$this->load->view($this->var->view_dir.'/header', $data);
 			$this->load->view($this->var->view_dir.'/show_url', $data);
