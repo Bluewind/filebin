@@ -19,10 +19,12 @@ class File extends CI_Controller {
 		$this->var->latest_client = trim(file_get_contents(FCPATH.'data/client/latest'));
 
 		// official client uses "fb-client/$version" as useragent
-		if (strpos($_SERVER['HTTP_USER_AGENT'], 'fb-client') !== false) {
-			$this->var->cli_client = "fb-client";
-		} elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'libcurl') !== false) {
-			$this->var->cli_client = "curl";
+		$clients = array("fb-client", "libcurl", "pyfb");
+		foreach ($clients as $client) {
+			if (strpos($_SERVER['HTTP_USER_AGENT'], $client) !== false) {
+				$this->var->cli_client = true;
+				break;
+			}
 		}
 
 		if ($this->var->cli_client) {
