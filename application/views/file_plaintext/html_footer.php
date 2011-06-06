@@ -1,5 +1,1 @@
-        </td>
-      </tr>
-    </table>
-  </body>
-</html>
+<?php include "application/views/file/html_footer.php"; ?>
