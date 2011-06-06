@@ -118,49 +118,7 @@ class File extends CI_Controller {
 		$this->load->view($this->var->view_dir.'/footer', $data);
 	}
 
-	// Take the content from post instead of a file
-	// support textareas on the upload form
-	// XXX: This requires users of suhosin to adjust maxium post and request size
-	// TODO: merge with do_upload()
-	// XXX: this is too vulnerable to bots
-	function do_paste()
-	{
-		// FIXME: disable until bot problem is really fixed
-		return $this->upload_form();
-
-		$data = array();
-		$content = $this->input->post('content')."\n";
-		$extension = $this->input->post('extension');
-		// Try to filter spambots
-		if ($this->input->post("email") != "") return;
-
-		// prevent empty pastes from the upload form
-		if($content === "\n") {
-			$this->upload_form();
-			return;
-		}
-		// TODO: Display nice error for cli clients
-		if(strlen($content) > $this->config->item('upload_max_size')) {
-			$this->load->view($this->var->view_dir.'/header', $data);
-			$this->load->view($this->var->view_dir.'/too_big');
-			$this->load->view($this->var->view_dir.'/footer');
-			return;
-		}
-
-		$id = $this->file_mod->new_id();
-		$hash = md5($content);
-		$folder = $this->file_mod->folder($hash);
-		file_exists($folder) || mkdir ($folder);
-		$file = $this->file_mod->file($hash);
-
-		file_put_contents($file, $content);
-		chmod($file, 0600);
-		$this->file_mod->add_file($hash, $id, 'stdin');
-		$this->file_mod->show_url($id, $extension);
-	}
-
 	// Handles uploaded files
-	// TODO: merge with do_paste()
 	function do_upload()
 	{
 		$data = array();
