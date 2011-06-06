@@ -164,6 +164,12 @@ class File extends CI_Controller {
 	function do_upload()
 	{
 		$data = array();
+
+		if ($this->uri->segment(3)) {
+			$this->var->cli_client = true;
+			$this->var->view_dir = "file_plaintext";
+		}
+
 		$extension = $this->input->post('extension');
 		if(!isset($_FILES['file']) || $_FILES['file']['error'] !== 0) {
 			$this->output->set_status_header(400);
