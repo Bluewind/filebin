@@ -193,7 +193,7 @@ class File_mod extends CI_Model {
 		$filedata = $this->get_filedata($id);
 		$file = $this->file($filedata['hash']);
 
-		if (!file_exists($file) || !$this->valid_id($id)) {
+		if (!$this->valid_id($id)) {
 			$this->non_existent();
 			return;
 		}
