@@ -254,17 +254,9 @@ class File_mod extends CI_Model {
 		|| filesize($file) > $this->config->item('upload_max_text_size')
 		) {
 			if ($mode == 'plain') {
-				header("Content-Type: text/plain\n");
-			} else {
-				header("Content-Type: ".$type."\n");
+				$type = "text/plain";
 			}
-			header("Content-disposition: inline; filename=\"".$filedata['filename']."\"\n");
-			header("Content-Length: ".filesize($file)."\n");
-			$fp = fopen($file,"r");
-			while (!feof($fp)) {
-				echo fread($fp,4096);
-			}
-			fclose($fp);
+			rangeDownload($file, $filedata["filename"], $type);
 			exit();
 		}
 
