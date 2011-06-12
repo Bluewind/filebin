@@ -131,8 +131,17 @@ class File extends CI_Controller {
 		$extension = $this->input->post('extension');
 		if(!isset($_FILES['file']) || $_FILES['file']['error'] !== 0) {
 			$this->output->set_status_header(400);
+			$errors = array(
+				0=>"There is no error, the file uploaded with success",
+				1=>"The uploaded file exceeds the upload_max_filesize directive in php.ini",
+				2=>"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form",
+				3=>"The uploaded file was only partially uploaded",
+				4=>"No file was uploaded",
+				6=>"Missing a temporary folder"
+			);
+			$data["msg"] = $errors[$_FILES['file']['error']];
 			$this->load->view($this->var->view_dir.'/header', $data);
-			$this->load->view($this->var->view_dir.'/upload_error');
+			$this->load->view($this->var->view_dir.'/upload_error', $data);
 			$this->load->view($this->var->view_dir.'/footer');
 			return;
 		}
