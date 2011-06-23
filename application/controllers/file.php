@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2009-2010 Florian "Bluewind" Pritz <bluewind@server-speed.net>
+ * Copyright 2009-2011 Florian "Bluewind" Pritz <bluewind@server-speed.net>
  *
  * Licensed under GPLv3
  * (see COPYING for full license text)
