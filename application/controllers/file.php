@@ -96,7 +96,9 @@ class File extends CI_Controller {
 		$password = $this->file_mod->get_password();
 		$data["title"] = "Delete";
 		$data["id"] = $id;
-		if ($password != "NULL") {
+		if ($id && !$this->file_mod->id_exists($id)) {
+			$data["msg"] = "Unkown ID.";
+		} elseif ($password != "NULL") {
 			if ($this->file_mod->delete_id($id)) {
 				$this->load->view($this->var->view_dir.'/header', $data);
 				$this->load->view($this->var->view_dir.'/deleted', $data);
@@ -108,9 +110,6 @@ class File extends CI_Controller {
 		} else {
 			if ($this->var->cli_client) {
 				$data["msg"] = "No password supplied.";
-			}
-			if ($id && !$this->file_mod->id_exists($id)) {
-				$data["msg"] = "Unkown ID.";
 			}
 		}
 		$this->load->view($this->var->view_dir.'/header', $data);
