@@ -114,7 +114,7 @@ class File_mod extends CI_Model {
 
 			$filedata = $this->get_filedata($id);
 			$file = $this->file($filedata['hash']);
-			$type = $filedata['mimetype'] ? $filedata['mimetype'] : exec(FCPATH.'scripts/mimetype -b --orig-name '.escapeshellarg($filedata['filename']).' '.escapeshellarg($file));
+			$type = $filedata['mimetype'];
 			$mode = $this->mime2extension($type);
 			$mode = $this->filename2extension($filedata['filename']) ? $this->filename2extension($filedata['filename']) : $mode;
 
@@ -225,7 +225,7 @@ class File_mod extends CI_Model {
 		}
 		// MODIFIED SINCE SUPPORT -- END
 
-		$type = $filedata['mimetype'] ? $filedata['mimetype'] : exec(FCPATH.'scripts/mimetype -b --orig-name '.escapeshellarg($filedata['filename']).' '.escapeshellarg($file));
+		$type = $filedata['mimetype'];
 
 		// autodetect the mode for highlighting if the URL contains a / after the ID (URL: /ID/)
 		// URL: /ID/mode disables autodetection
