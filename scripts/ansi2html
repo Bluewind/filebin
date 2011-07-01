@@ -1,0 +1,20 @@
+#!/usr/bin/perl
+use strict;
+use HTML::FromANSI ();
+
+my $h = HTML::FromANSI->new(
+		fill_cols => 0,
+		font_face => "",
+		style => "",
+		tt => 0
+);
+
+open IN,  "<", $ARGV[0]  or die "cannot read $ARGV[0]: $!";
+
+$h->add_text(<IN>);
+my $html = $h->html;
+$html =~ s/background: black; //g;
+$html =~ s/color: white; /color: black /g;
+$html =~ s/<br>/\n/g;
+
+print $html;

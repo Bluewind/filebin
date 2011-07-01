@@ -247,12 +247,14 @@ class File_mod extends CI_Model {
 			exit();
 		}
 
+
+		$special_modes = array("ascii");
 		// directly download the file
-		if (!$mode                        // user didn't specify a mode/didn't enable autodetection
+		if (!in_array($mode, $special_modes) && (!$mode                        // user didn't specify a mode/didn't enable autodetection
 		|| !$this->mime2extension($type)  // file can't be highlighted
 		|| $mode == "plain"               // user wants to the the plain file
 		|| filesize($file) > $this->config->item('upload_max_text_size')
-		) {
+		)) {
 			if ($mode == 'plain') {
 				$type = "text/plain";
 			}
@@ -283,8 +285,12 @@ class File_mod extends CI_Model {
 		if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$mode)) {
 			ob_start();
 			if ($mode == "rmd") {
-					echo '<td class="markdownrender">'."\n";
-					passthru('/usr/bin/perl /usr/bin/perlbin/vendor/Markdown.pl '.escapeshellarg($file));
+				echo '<td class="markdownrender">'."\n";
+				passthru('/usr/bin/perl /usr/bin/vendor_perl/vendor/Markdown.pl '.escapeshellarg($file));
+			} elseif ($mode == "ascii") {
+				echo '<td class="code"><pre class="text">'."\n";
+				passthru('/usr/bin/perl '.FCPATH.'scripts/ansi2html '.escapeshellarg($file));
+				echo "</pre>\n";
 			} else {
 				echo '<td class="numbers"><pre>';
 				// generate line numbers (links)
