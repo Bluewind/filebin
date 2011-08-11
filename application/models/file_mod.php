@@ -96,7 +96,7 @@ class File_mod extends CI_Model {
 	// TODO: Should only update not insert; see new_id()
 	function add_file($hash, $id, $filename)
 	{
-		$mimetype = exec(FCPATH.'scripts/mimetype -b --orig-name '.escapeshellarg($filename).' '.escapeshellarg($this->file($hash)));
+		$mimetype = exec(FCPATH.'scripts/mimetype '.escapeshellarg($filename).' '.escapeshellarg($this->file($hash)));
 		$query = $this->db->query('
 			INSERT INTO `files` (`hash`, `id`, `filename`, `password`, `date`, `mimetype`)
 			VALUES (?, ?, ?, ?, ?, ?)',
@@ -379,6 +379,7 @@ class File_mod extends CI_Model {
 	{
 		$typearray = array(
 		'text/plain' => 'text',
+		'text/plain-ascii' => 'ascii',
 		'text/x-python' => 'python',
 		'text/x-csrc' => 'c',
 		'text/x-chdr' => 'c',
