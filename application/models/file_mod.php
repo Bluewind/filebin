@@ -12,6 +12,7 @@ class File_mod extends CI_Model {
 	function __construct()
 	{
 		parent::__construct();
+		putenv("PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin");
 	}
 
 	// Returns an unused ID
