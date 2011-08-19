@@ -16,7 +16,9 @@ class File extends CI_Controller {
 		$this->load->model('file_mod');
 		$this->var->cli_client = false;
 		$this->file_mod->var->cli_client =& $this->var->cli_client;
-		$this->var->latest_client = trim(file_get_contents(FCPATH.'data/client/latest'));
+		if (file_exists(FCPATH.'data/client/latest')) {
+			$this->var->latest_client = trim(file_get_contents(FCPATH.'data/client/latest'));
+		}
 
 		// official client uses "fb-client/$version" as useragent
 		$clients = array("fb-client", "libcurl", "pyfb");
