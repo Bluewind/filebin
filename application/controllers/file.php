@@ -75,12 +75,13 @@ class File extends CI_Controller {
 		$data['small_upload_size'] = $this->config->item('small_upload_size');
 		$data['max_upload_size'] = $this->config->item('upload_max_size');
 		$data['upload_max_age'] = $this->config->item('upload_max_age')/60/60/24;
-		$data['client_link'] = base_url().'data/client/fb-'.$this->var->latest_client.'.tar.gz';
-		$data['client_link_dir'] = base_url().'data/client/';
 		$data['contact_me_url'] = $this->config->item('contact_me_url');
 
 		$this->load->view($this->var->view_dir.'/header', $data);
 		$this->load->view($this->var->view_dir.'/upload_form', $data);
+		if ($this->var->cli_client) {
+			$this->load->view($this->var->view_dir.'/client', $data);
+		}
 		$this->load->view($this->var->view_dir.'/footer', $data);
 	}
 
