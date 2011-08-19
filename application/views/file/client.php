@@ -5,7 +5,7 @@ cat file | curl -n -F "file=@-;filename=stdin" <?php echo site_url(); ?>   (bina
 </pre>
 <p><b>Client:</b></p>
 <p>Development (git): <a href="http://git.server-speed.net/users/flo/fb/">http://git.server-speed.net/users/flo/fb/</a><br />
-Latest release: <a href="<?php echo $client_link; ?>"><?php echo $client_link; ?></a>.<br />
+<?php if($client_link) {?>Latest release: <a href="<?php echo $client_link; ?>"><?php echo $client_link; ?></a>.<br /><?php }; ?>
 GPG sigs, older versions: <a href="<?php echo $client_link_dir; ?>"><?php echo $client_link_dir; ?></a>
 </p>
 <p>If you want to use authentication (needed for deleting) add the following to your ~/.netrc:</p>

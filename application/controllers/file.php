@@ -58,7 +58,9 @@ class File extends CI_Controller {
 	function client()
 	{
 		$data['title'] = 'Client';
-		$data['client_link'] = base_url().'data/client/fb-'.$this->var->latest_client.'.tar.gz';
+		if ($this->var->latest_client) {
+			$data['client_link'] = base_url().'data/client/fb-'.$this->var->latest_client.'.tar.gz';
+		}
 		$data['client_link_dir'] = base_url().'data/client/';
 		$data['client_link_deb'] = base_url().'data/client/deb/';
 		$data['client_link_slackware'] = base_url().'data/client/slackware/';
