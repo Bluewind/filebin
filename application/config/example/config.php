@@ -381,5 +381,7 @@ $config['small_upload_size'] = 1024*10; // 10KB
 
 $config['passwordsalt'] = ''; // just enter any string you want here
 
+$config['contact_me_url'] = ''; // ommiting this will remove the "contact me" line.
+
 /* End of file config.php */
 /* Location: ./application/config/config.php */
