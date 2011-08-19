@@ -1,9 +1,5 @@
 <p><b>Shell:</b></p>
 <pre>
-<?php if(false): ?>
->curl -n -F "content=&lt;-" <?php echo site_url(); ?> &lt; file      (not binary safe)
-cat file | curl -n -F "content=&lt;-" <?php echo site_url(); ?>  (not binary safe)
-<?php endif; ?>
 curl -n -F "file=@/home/user/foo" <?php echo site_url(); ?>   (binary safe)
 cat file | curl -n -F "file=@-;filename=stdin" <?php echo site_url(); ?>   (binary safe)
 </pre>
