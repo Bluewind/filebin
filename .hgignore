@@ -1,0 +1,7 @@
+syntax: glob
+
+.DS_Store
+
+syntax: regexp
+application/cache/(?!index\.html|\.htaccess)
+application/logs/(?!index\.html|\.htaccess)
