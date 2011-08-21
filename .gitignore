@@ -5,3 +5,5 @@ data/client/
 !data/uploads/.htaccess
 !.gitignore
 !system/.htaccess
+!application/.htaccess
+!application/cache/.htaccess
