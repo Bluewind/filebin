@@ -287,7 +287,7 @@ class File_mod extends CI_Model {
 			ob_start();
 			if ($mode == "rmd") {
 				echo '<td class="markdownrender">'."\n";
-				passthru('/usr/bin/perl /usr/bin/vendor_perl/vendor/Markdown.pl '.escapeshellarg($file));
+				passthru('/usr/bin/perl /usr/bin/vendor_perl/Markdown.pl '.escapeshellarg($file));
 			} elseif ($mode == "ascii") {
 				echo '<td class="code"><pre class="text">'."\n";
 				passthru('/usr/bin/perl '.FCPATH.'scripts/ansi2html '.escapeshellarg($file));
