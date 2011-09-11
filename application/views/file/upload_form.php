@@ -3,7 +3,7 @@
     <p>
       File: <input type="file" id="file" name="file" size="30" />
       <input type="submit" value="Upload" id="upload_button" name="process" /><br />
-      Optional password (for deletion): <input type="password" name="password" size="10" />
+      Optional password (for deletion and search): <input type="password" name="password" size="10" />
     </p>
   </form>
   <script type="text/javascript">
@@ -79,7 +79,7 @@ document.write('\
     <p>\
       <textarea id="textarea" name="content" cols="80" rows="20"></textarea><br />\
       <div style="display: none">Email: <input type="text" name="email" size="20" /></div>\
-      Optional password (for deletion): <input id="textarea_password" type="password" name="password" size="10" /><br />\
+      Optional password (for deletion and search): <input id="textarea_password" type="password" name="password" size="10" /><br />\
       <input  type="submit" value="Paste" name="process" />\
     </p>\
     </form>\
@@ -92,6 +92,7 @@ document.write('\
   unless they are smaller than <?php echo format_bytes($small_upload_size); ?>
   <?php endif; ?>. Maximum upload size is <?php echo format_bytes($max_upload_size); ?></p>
 <p>For shell uploading/pasting and download information for the client go to <a href="<?php echo site_url("file/client"); ?>"><?php echo site_url("file/client"); ?></a></p>
+<p>You can use the <?php echo anchor("file/upload_history", "history"); ?> to find old uploads using your password.</p>
 <br />
 <?php if($contact_me_url) {?><p>If you experience any problems feel free to <a href="<?php echo $contact_me_url; ?>">contact me</a>.</p>
 <br /><?php }; ?>
