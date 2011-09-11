@@ -28,12 +28,12 @@
  * By default development will show errors but testing and live will hide them.
  */
 
-if (defined('ENVIRONMENT'))
+if (false && defined('ENVIRONMENT'))
 {
 	switch (ENVIRONMENT)
 	{
 		case 'development':
-			error_reporting(E_ALL ^ E_NOTICE);
+			error_reporting(E_ALL);
 		break;
 	
 		case 'testing':
