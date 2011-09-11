@@ -12,6 +12,7 @@ class File extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+		mb_internal_encoding('UTF-8');
 		$this->load->helper(array('form', 'filebin'));
 		$this->load->model('file_mod');
 		$this->var->cli_client = false;
@@ -92,6 +93,53 @@ class File extends CI_Controller {
 	function get_max_size()
 	{
 		echo $this->config->item('upload_max_size');
+	}
+
+	function upload_history()
+	{
+		$password = $this->file_mod->get_password();
+
+		$this->load->library("MemcacheLibrary");
+		if (! $cached = $this->memcachelibrary->get("history_".$this->var->view_dir."_".$password)) {
+			$data = array();
+			$query = array();
+			$lengths = array();
+			$data['title'] = 'Upload history';
+
+			if ($password != "NULL") {
+				$query = $this->db->query("
+					SELECT id, filename, mimetype, date, hash
+					FROM files
+					WHERE password = ?
+					ORDER BY date
+					", array($password))->result_array();
+			}
+
+			foreach($query as $key => $item) {
+				$query[$key]["date"] = date("r", $item["date"]);
+				// Keep track of longest string to pad plaintext output correctly
+				foreach(array("id", "filename", "mimetype", "date", "hash") as $length_key) {
+					if (!isset($lengths[$length_key])) {
+						$lengths[$length_key] = 0;
+					}
+					$len = mb_strlen($query[$key][$length_key]);
+					if ($len > $lengths[$length_key]) {
+						$lengths[$length_key] = $len;
+					}
+				}
+			}
+
+			$data["query"] = $query;
+			$data["lengths"] = $lengths;
+
+			$cached = "";
+			$cached .= $this->load->view($this->var->view_dir.'/header', $data, true);
+			$cached .= $this->load->view($this->var->view_dir.'/upload_history', $data, true);
+			$cached .= $this->load->view($this->var->view_dir.'/footer', $data, true);
+			$this->memcachelibrary->set('history_'.$this->var->view_dir."_".$password, $cached, 42);
+		}
+
+		echo $cached;
 	}
 
 	// Allow users to delete IDs if their password matches the one used when uploading

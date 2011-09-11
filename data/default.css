@@ -48,3 +48,33 @@ body {
 	padding-top:13px;
 }
 
+table {
+	border-collapse: collapse;
+}
+
+.results {
+	font-size: 0.75em;
+}
+
+.results th {
+	padding: 0.5em 1em 0.25em 0.25em;
+	background: #fff;
+	border-bottom: 1px solid #999;
+	text-align: left;
+}
+
+.results td {
+	padding: 0.3em 1em 0.3em 0.25em;
+}
+
+.results tr:hover {
+	background: #ddf;
+}
+
+tr.even {
+	background: #eef;
+}
+
+tr.odd {
+	background: #fff;
+}
