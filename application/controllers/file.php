@@ -104,11 +104,15 @@ class File extends CI_Controller {
 			$data = array();
 			$query = array();
 			$lengths = array();
+			$fields = array("id", "filename", "mimetype", "date", "hash");
 			$data['title'] = 'Upload history';
+			foreach($fields as $length_key) {
+				$lengths[$length_key] = 0;
+			}
 
 			if ($password != "NULL") {
 				$query = $this->db->query("
-					SELECT id, filename, mimetype, date, hash
+					SELECT ".implode(",", $fields)."
 					FROM files
 					WHERE password = ?
 					ORDER BY date
@@ -118,10 +122,7 @@ class File extends CI_Controller {
 			foreach($query as $key => $item) {
 				$query[$key]["date"] = date("r", $item["date"]);
 				// Keep track of longest string to pad plaintext output correctly
-				foreach(array("id", "filename", "mimetype", "date", "hash") as $length_key) {
-					if (!isset($lengths[$length_key])) {
-						$lengths[$length_key] = 0;
-					}
+				foreach($fields as $length_key) {
 					$len = mb_strlen($query[$key][$length_key]);
 					if ($len > $lengths[$length_key]) {
 						$lengths[$length_key] = $len;
