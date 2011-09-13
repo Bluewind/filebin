@@ -17,6 +17,7 @@ class File extends CI_Controller {
 		$this->load->model('file_mod');
 		$this->var->cli_client = false;
 		$this->file_mod->var->cli_client =& $this->var->cli_client;
+		$this->var->latest_client = false;
 		if (file_exists(FCPATH.'data/client/latest')) {
 			$this->var->latest_client = trim(file_get_contents(FCPATH.'data/client/latest'));
 		}
@@ -56,19 +57,25 @@ class File extends CI_Controller {
 		}
 	}
 
-	function client()
+	function client($load_header = true)
 	{
 		$data['title'] = 'Client';
 		if ($this->var->latest_client) {
 			$data['client_link'] = base_url().'data/client/fb-'.$this->var->latest_client.'.tar.gz';
+		} else {
+			$data['client_link'] = "none";
 		}
 		$data['client_link_dir'] = base_url().'data/client/';
 		$data['client_link_deb'] = base_url().'data/client/deb/';
 		$data['client_link_slackware'] = base_url().'data/client/slackware/';
 
-		$this->load->view($this->var->view_dir.'/header', $data);
+		if ($load_header) {
+			$this->load->view($this->var->view_dir.'/header', $data);
+		}
 		$this->load->view($this->var->view_dir.'/client', $data);
-		$this->load->view($this->var->view_dir.'/footer', $data);
+		if ($load_header) {
+			$this->load->view($this->var->view_dir.'/footer', $data);
+		}
 	}
 
 	function upload_form()
@@ -83,7 +90,7 @@ class File extends CI_Controller {
 		$this->load->view($this->var->view_dir.'/header', $data);
 		$this->load->view($this->var->view_dir.'/upload_form', $data);
 		if ($this->var->cli_client) {
-			$this->load->view($this->var->view_dir.'/client', $data);
+			$this->client(false);
 		}
 		$this->load->view($this->var->view_dir.'/footer', $data);
 	}
