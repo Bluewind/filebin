@@ -46,8 +46,6 @@ class File extends CI_Controller {
 		$id = $this->uri->segment(1);
 		if(isset($_FILES['file'])) {
 			$this->do_upload();
-		} elseif ($this->input->post('content')) {
-			$this->do_paste();
 		} elseif ($id != "file" && $this->file_mod->id_exists($id)) {
 			$this->file_mod->download();
 		} elseif ($id && $id != "file") {
