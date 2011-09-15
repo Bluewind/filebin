@@ -117,7 +117,6 @@ class File_mod extends CI_Model {
 			$file = $this->file($filedata['hash']);
 			$type = $filedata['mimetype'];
 			$mode = $this->mime2extension($type);
-			$mode = $this->filename2extension($filedata['filename']) ? $this->filename2extension($filedata['filename']) : $mode;
 
 			// If we detected a highlightable file redirect,
 			// otherwise show the URL because browsers would just show a DL dialog
