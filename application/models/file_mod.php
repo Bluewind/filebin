@@ -150,6 +150,9 @@ class File_mod extends CI_Model {
 	function valid_id($id)
 	{
 		$filedata = $this->get_filedata($id);
+		if (!$filedata) {
+			return false;
+		}
 		$file = $this->file($filedata['hash']);
 
 		if (!file_exists($file)) {
