@@ -17,5 +17,34 @@
         <a class="raw_link no" href="<?php echo $rmd_link; ?>">Render Markdown</a>
       </div>
     </div>
+  <script type="text/javascript">
+		/* <![CDATA[ */
+function update_anchor_highlight() {
+	var anchor = window.location.hash.substr(1);
+	var element = document.getElementById("highlight_line");
+	if (element) {
+		element.parentNode.removeChild(element);
+	}
+
+	anchor = document.getElementById(anchor);
+	if (!anchor) {
+		return;
+	}
+	var newElement = document.createElement("div");
+	newElement.setAttribute("id", "highlight_line");
+	newElement.textContent=" ";
+	anchor.parentNode.insertBefore(newElement, anchor.nextSibling);
+}
+
+if ("onhashchange" in window) {
+	window.onload = function () {
+		update_anchor_highlight();
+	}
+	window.onhashchange = function () {
+		update_anchor_highlight();
+	}
+}
+    /* ]]> */
+  </script>
     <table class="content">
       <tr>

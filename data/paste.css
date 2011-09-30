@@ -14,6 +14,15 @@ body {
 .numbers a:target {
   background: yellow;
 }
+div#highlight_line {
+  background: yellow;
+	display: inline;
+	position: absolute;
+	z-index: -1;
+	left: 0;
+	width: 100%;
+
+}
 
 .content {
   padding-left:3px;
