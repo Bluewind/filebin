@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title><?php echo $title; ?></title>
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>data/paste.css" />
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>data/paste-<?php echo $current_highlight; ?>.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>data/paste.css?<?php echo filemtime(FCPATH."/data/paste.css"); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>data/paste-<?php echo $current_highlight; ?>.css?<?php echo filemtime(FCPATH."/data/paste-".$current_highlight.".css"); ?>" />
   </head>
   <body>
     <div class="top_bar">

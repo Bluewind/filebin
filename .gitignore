@@ -3,6 +3,7 @@ data/client/
 .*
 !.highlight
 !data/uploads/.htaccess
+!data/.htaccess
 !.gitignore
 !system/.htaccess
 !application/.htaccess
