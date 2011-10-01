@@ -3,7 +3,7 @@
 
 <head>
 	<title><?php echo isset($title) ? $title : ''; ?></title>
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>data/default.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>data/default.css?<?php echo filemtime(FCPATH."/data/default.css"); ?>" media="screen" />
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 </head>
 
