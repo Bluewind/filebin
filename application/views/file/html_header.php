@@ -3,7 +3,7 @@
   <head>
     <title><?php echo $title; ?></title>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>data/paste.css?<?php echo filemtime(FCPATH."/data/paste.css"); ?>" />
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>data/paste-<?php echo $current_highlight; ?>.css?<?php echo filemtime(FCPATH."/data/paste-".$current_highlight.".css"); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>data/paste-<?php echo $current_highlight; ?>.css<?php if (file_exists(FCPATH."/data/paste-".$current_highlight.".css")) { echo "?".filemtime(FCPATH."/data/paste-".$current_highlight.".css");} ?>" />
   </head>
   <body>
     <div class="top_bar">
