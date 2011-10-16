@@ -1,0 +1,73 @@
+/* based on https://bitbucket.org/kevinburke/markdowncss/overview */
+h1, h2, h3, h4 {
+	color: #111111;
+	font-weight: 400;
+}
+h1, h2, h3, h4, h5, p {
+	margin-bottom: 24px;
+	padding: 0;
+}
+h1 {
+	font-size: 2.5em;
+}
+h2 {
+	font-size: 2em;
+	margin: 24px 0 6px;
+}
+h3 {
+	font-size: 1.7em;
+}
+h4 {
+	font-size: 1.5em;
+}
+h5 {
+	font-size: 1.3em;
+}
+li {
+	line-height: 1.5em;
+}
+li ul, li ul {
+	margin-left: 24px;
+}
+p, ul, ol {
+	font-size: 0.9em;
+	line-height: 1.5em;
+	max-width: 740px;
+}
+pre {
+	padding: 0px 24px;
+	max-width: 800px;
+	white-space: pre-wrap;
+}
+code {
+	font-family: Consolas, Monaco, Andale Mono, monospace;
+	line-height: 1.2em;
+	font-size: 0.85em;
+}
+aside {
+	display: block;
+	float: right;
+	width: 390px;
+}
+blockquote {
+	border-left: 0.5em solid #d6d6d6;
+	padding: 0 1em;
+	margin-left:0;
+	max-width: 676px;
+	background: #f6f6f6;
+}
+blockquote	cite {
+	font-size:0.85em;
+	line-height:1.3em;
+	color:#bfbfbf;
+}
+blockquote p {
+	color: #666;
+	max-width: 660px;
+}
+hr {
+	width: 740px;
+	text-align: left;
+	margin: 0 auto 0 0;
+	color: #999;
+}
