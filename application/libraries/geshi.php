@@ -3267,7 +3267,7 @@ class Geshi {
      * @todo BUGGY! Why? Why not build string and return?
      */
     function parse_non_string_part($stuff_to_parse) {
-        $stuff_to_parse = ' ' . $this->hsc($stuff_to_parse);
+        $stuff_to_parse = $this->hsc($stuff_to_parse);
 
         // Highlight keywords
         $disallowed_before = "(?<![a-zA-Z0-9\$_\|\#;>|^&";
@@ -3576,7 +3576,7 @@ class Geshi {
 
         $stuff_to_parse = str_replace('<|', '<span', $stuff_to_parse);
         $stuff_to_parse = str_replace ( '|>', '</span>', $stuff_to_parse );
-        return substr($stuff_to_parse, 1);
+        return $stuff_to_parse;
     }
 
     /**
