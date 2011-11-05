@@ -265,7 +265,6 @@ class File_mod extends CI_Model {
 			exit();
 		}
 
-		// highlight the file and chache the result
 		$data['title'] = $filedata['filename'];
 		$data['raw_link'] = site_url($id);
 		$data['new_link'] = site_url();
@@ -283,7 +282,10 @@ class File_mod extends CI_Model {
 		} else {
 			$data['timeout'] = "never";
 		}
+
 		echo $this->load->view($this->var->view_dir.'/html_header', $data, true);
+
+		// highlight the file and chache the result
 		$this->load->library("MemcacheLibrary");
 		if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$mode)) {
 			ob_start();
