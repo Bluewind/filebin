@@ -96,7 +96,7 @@ class File_mod extends CI_Model {
 	// TODO: Should only update not insert; see new_id()
 	function add_file($hash, $id, $filename)
 	{
-		$mimetype = exec(FCPATH.'scripts/mimetype '.escapeshellarg($filename).' '.escapeshellarg($this->file($hash)));
+		$mimetype = exec("/usr/bin/perl ".FCPATH.'scripts/mimetype '.escapeshellarg($filename).' '.escapeshellarg($this->file($hash)));
 		$query = $this->db->query('
 			INSERT INTO `files` (`hash`, `id`, `filename`, `password`, `date`, `mimetype`)
 			VALUES (?, ?, ?, ?, ?, ?)',
