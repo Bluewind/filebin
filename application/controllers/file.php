@@ -61,7 +61,7 @@ class File extends CI_Controller {
 		if ($this->var->latest_client) {
 			$data['client_link'] = base_url().'data/client/fb-'.$this->var->latest_client.'.tar.gz';
 		} else {
-			$data['client_link'] = "none";
+			$data['client_link'] = false;
 		}
 		$data['client_link_dir'] = base_url().'data/client/';
 		$data['client_link_deb'] = base_url().'data/client/deb/';
