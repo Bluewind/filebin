@@ -30,13 +30,13 @@ body {
   font-size:70%;
 }
 
-.top{
+.top {
   background: #444;
   color: #fff;
   padding-left: 5px;
   padding-top: 5px;
   padding-bottom: 5px; 
-  border-bottom: 3px double gray; 
+  border-bottom: 3px double gray;
 }
 
 .top a {
