@@ -1,3 +1,4 @@
+* run install.php to make sure all dependencies are installed
 * Copy all files from system/application/config/example to 
   system/application/config
 * Change them to fit your needs
