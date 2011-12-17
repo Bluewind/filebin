@@ -2,7 +2,7 @@
 if (window.File && window.FileList) {
 	function checkFileUpload(evt) {
 	  var f = evt.target.files[0];
-	  if (f.size > <?php echo $max_upload_size; ?>) {
+	  if (f.size > max_upload_size) {
 		document.getElementById('upload_button').value = "File too big";
 		document.getElementById('upload_button').disabled = true;
 	  } else {
@@ -40,7 +40,6 @@ function gen_boundary() {
 }
 function do_paste() {
     var http = new XMLHttpRequest();
-    var url = "<?php echo site_url("file/do_upload/dumb"); ?>";
     var CRLF = "\r\n";
     var boundary = "--" + gen_boundary();
     var body = "--" + boundary + CRLF
@@ -49,7 +48,7 @@ function do_paste() {
       + CRLF
       + document.getElementById("textarea").value + CRLF
       + "--" + boundary + "--" + CRLF + CRLF;
-    http.open("POST", url, true);
+    http.open("POST", upload_url, true);
 
     //Send the proper header information along with the request
     http.setRequestHeader("Content-type", "multipart/form-data; boundary=" + boundary);

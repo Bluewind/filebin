@@ -6,7 +6,6 @@
       Optional password (for deletion and search): <input type="password" name="password" size="10" />
     </p>
   </form>
-  <script type="text/javascript" src="<?php echo base_url(); ?>data/js/upload_form.js?<?php echo filemtime(FCPATH."/data/js/upload_form.js"); ?>"></script>
   <script type="text/javascript">
     /* <![CDATA[ */
 document.write('\
@@ -20,8 +19,11 @@ document.write('\
     </p>\
     </form>\
 ');
+  var upload_url = "<?php echo site_url("file/do_upload/dumb"); ?>";
+  var max_upload_size = "<?php echo $max_upload_size; ?>";
     /* ]]> */
   </script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>data/js/upload_form.js?<?php echo filemtime(FCPATH."/data/js/upload_form.js"); ?>"></script>
 </div>
 <br />
 <p>Uploads/pastes are deleted after <?php echo $upload_max_age; ?> days<?php if($small_upload_size > 0): ?>
