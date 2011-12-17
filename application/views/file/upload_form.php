@@ -47,5 +47,6 @@ document.write('\
 <?php if($contact_me_url) {?><p>If you experience any problems feel free to <a href="<?php echo $contact_me_url; ?>">contact me</a>.</p>
 <br /><?php }; ?>
 <div class="small">
+  <p>Icons by <a href="http://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a></p>
   <p>This service is provided without warranty of any kind and may not be used to distribute copyrighted content.</p>
 </div>
