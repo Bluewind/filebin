@@ -18,6 +18,9 @@ class File extends CI_Controller {
 			show_error($this->migration->error_string());
 		}
 
+		$old_path = getenv("PATH");
+		putenv("PATH=$old_path:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin");
+
 		mb_internal_encoding('UTF-8');
 		$this->load->helper(array('form', 'filebin'));
 		$this->load->model('file_mod');

@@ -12,7 +12,6 @@ class File_mod extends CI_Model {
 	function __construct()
 	{
 		parent::__construct();
-		putenv("PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin");
 	}
 
 	// Returns an unused ID
@@ -96,7 +95,7 @@ class File_mod extends CI_Model {
 	// TODO: Should only update not insert; see new_id()
 	function add_file($hash, $id, $filename)
 	{
-		$mimetype = exec("/usr/bin/perl ".FCPATH.'scripts/mimetype '.escapeshellarg($filename).' '.escapeshellarg($this->file($hash)));
+		$mimetype = exec("perl ".FCPATH.'scripts/mimetype '.escapeshellarg($filename).' '.escapeshellarg($this->file($hash)));
 		$query = $this->db->query('
 			INSERT INTO `files` (`hash`, `id`, `filename`, `password`, `date`, `mimetype`)
 			VALUES (?, ?, ?, ?, ?, ?)',
@@ -246,7 +245,7 @@ class File_mod extends CI_Model {
 		if ($mode == "qr") {
 			header("Content-disposition: inline; filename=\"".$id."_qr.png\"\n");
 			header("Content-Type: image/png\n");
-			passthru('/usr/bin/qrencode -s 10 -o - '.escapeshellarg(site_url($id).'/'));
+			passthru('qrencode -s 10 -o - '.escapeshellarg(site_url($id).'/'));
 			exit();
 		}
 
@@ -291,15 +290,15 @@ class File_mod extends CI_Model {
 			ob_start();
 			if ($mode == "rmd") {
 				echo '<td class="markdownrender">'."\n";
-				passthru('/usr/bin/perl /usr/bin/vendor_perl/Markdown.pl '.escapeshellarg($file));
+				passthru('perl '.FCPATH.'scripts/Markdown.pl '.escapeshellarg($file));
 			} elseif ($mode == "ascii") {
 				echo '<td class="code"><pre class="text">'."\n";
-				passthru('/usr/bin/perl '.FCPATH.'scripts/ansi2html '.escapeshellarg($file));
+				passthru('perl '.FCPATH.'scripts/ansi2html '.escapeshellarg($file));
 				echo "</pre>\n";
 			} else {
 				echo '<td class="numbers"><pre>';
 				// generate line numbers (links)
-				passthru('/usr/bin/perl -ne \'print "<a href=\"#n$.\" class=\"no\" id=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
+				passthru('perl -ne \'print "<a href=\"#n$.\" class=\"no\" id=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
 				echo '</pre></td><td class="code">'."\n";
 				$this->load->library('geshi');
 				$this->geshi->initialize(array('set_language' => $mode, 'set_source' => file_get_contents($file), 'enable_classes' => 'true'));
