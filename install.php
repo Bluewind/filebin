@@ -9,6 +9,10 @@ $errors = "";
 define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
 define('FCPATH', str_replace(SELF, "", __FILE__));
 
+if (file_exists(FCPATH."is_installed")) {
+	exit("already installed\n");
+}
+
 $old_path = getenv("PATH");
 putenv("PATH=$old_path:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin");
 
@@ -52,6 +56,7 @@ if ($errors != "") {
 	echo nl2br($errors);
 } else {
 // TODO: Make this an actual installer
+	file_put_contents(FCPATH."is_installed", "true");
 	echo nl2br("Tests completed.\n"
 		."The following steps remain:\n"
 		." - copy the files from ./application/config/example/ to ./application/config/ and edit them to suit your setup\n"
