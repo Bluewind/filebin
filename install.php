@@ -55,6 +55,6 @@ if ($errors != "") {
 	echo nl2br("Tests completed.\n"
 		."The following steps remain:\n"
 		." - copy the files from ./application/config/example/ to ./application/config/ and edit them to suit your setup\n"
-		." - import ./db.sql into your database\n"
+		." - the database will be set up automatically\n"
 	);
 }
