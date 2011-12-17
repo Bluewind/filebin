@@ -1,6 +1,6 @@
-* Import db.sql into your database.
 * Copy all files from system/application/config/example to 
   system/application/config
 * Change them to fit your needs
+* The necessary database tables are created automatically when accessing your pastebin
 * Copy htaccess.txt to .htaccess if you want shorter URLs
   (also change the config setting)
