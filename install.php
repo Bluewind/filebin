@@ -9,6 +9,9 @@ $errors = "";
 define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
 define('FCPATH', str_replace(SELF, "", __FILE__));
 
+$old_path = getenv("PATH");
+putenv("PATH=$old_path:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin");
+
 // test exec()
 exec("echo -n works") == "works" || $errors .= "exec() failed\n";
 
@@ -21,7 +24,7 @@ $buf == "works" || $errors .= "passthru() failed\n";
 
 // test perl HTML::FromANSI
 ob_start();
-passthru("/usr/bin/perl ".FCPATH."/scripts/install_helper.pl");
+passthru("perl ".FCPATH."/scripts/install_helper.pl");
 $buf = ob_get_contents();
 ob_end_clean();
 if ($buf != "works") {
@@ -35,13 +38,11 @@ if (!class_exists("Memcache")) {
 }
 
 // test qrencode
-$expected = base64_decode("iVBORw0KGgoAAAANSUhEUgAAAB0AAAAdAQAAAAB+6FqiAAAAbklEQVQImWP4DwQMaMQHWYd6hu/34+sZvoReBBLxgUAiCkh8v3G/nuGDKFD2/1eguo+ssv8ZftWsq2f4e6+jnuGrkhqQe60LKPvxNkhdEVDH5Xv/Gb4EBwENiFkHZAX1AsWuKAHtEOqpR7cXRAAANwpWESFdK+4AAAAASUVORK5CYII=");
 ob_start();
-passthru("/usr/bin/qrencode -s 1 -o - \"test\"");
-$buf = ob_get_contents();
+passthru("qrencode -V 2>&1", $buf);
 ob_end_clean();
-if ($buf != $expected) {
-	$errors .= " - Error when testing qrencode: Didn't get expected output when encoding string \"test\".\n";
+if ($buf != "0") {
+	$errors .= " - Error when testing qrencode: Return code was \"$buf\".\n";
 }
 
 
