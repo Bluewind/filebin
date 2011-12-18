@@ -251,7 +251,7 @@ class File_mod extends CI_Model {
 		}
 
 		// user wants to the the plain file
-		if ( $mode == 'plain') {
+		if ($mode == 'plain') {
 			rangeDownload($file, $filedata["filename"], "text/plain");
 			exit();
 		}
