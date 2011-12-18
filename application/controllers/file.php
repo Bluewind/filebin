@@ -64,7 +64,7 @@ class File extends CI_Controller {
 		}
 	}
 
-	function client($load_header = true)
+	function client()
 	{
 		$data['title'] = 'Client';
 		if ($this->var->latest_client) {
@@ -76,11 +76,11 @@ class File extends CI_Controller {
 		$data['client_link_deb'] = base_url().'data/client/deb/';
 		$data['client_link_slackware'] = base_url().'data/client/slackware/';
 
-		if ($load_header) {
+		if (!$this->var->cli_client) {
 			$this->load->view($this->var->view_dir.'/header', $data);
 		}
 		$this->load->view($this->var->view_dir.'/client', $data);
-		if ($load_header) {
+		if (!$this->var->cli_client) {
 			$this->load->view($this->var->view_dir.'/footer', $data);
 		}
 	}
@@ -97,7 +97,7 @@ class File extends CI_Controller {
 		$this->load->view($this->var->view_dir.'/header', $data);
 		$this->load->view($this->var->view_dir.'/upload_form', $data);
 		if ($this->var->cli_client) {
-			$this->client(false);
+			$this->client();
 		}
 		$this->load->view($this->var->view_dir.'/footer', $data);
 	}
