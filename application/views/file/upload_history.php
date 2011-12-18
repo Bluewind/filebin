@@ -1,6 +1,6 @@
 <?php echo form_open('file/upload_history'); ?>
 	<p>
-		Password:<input type="password" name="password" size="10" />
+		Password: <input type="password" name="password" size="10" />
 		<input type="submit" value="Display" />
 	</p>
 </form>
