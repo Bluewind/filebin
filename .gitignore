@@ -1,6 +1,7 @@
 data/uploads/*
 data/client/
 .*
+is_installed
 !.highlight
 !data/uploads/.htaccess
 !data/.htaccess
