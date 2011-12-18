@@ -115,7 +115,7 @@ class File_mod extends CI_Model {
 			$filedata = $this->get_filedata($id);
 			$file = $this->file($filedata['hash']);
 			$type = $filedata['mimetype'];
-			$mode = $this->mime2extension($type);
+			$mode = $this->mime2mode($type);
 
 			// If we detected a highlightable file redirect,
 			// otherwise show the URL because browsers would just show a DL dialog
@@ -408,7 +408,7 @@ class File_mod extends CI_Model {
 		return $mode;
 	}
 
-	// Map MIME types to extensions needed for highlighting
+	// Map MIME types to modes needed for highlighting
 	private function mime2mode($type)
 	{
 		$typearray = array(
@@ -458,7 +458,7 @@ class File_mod extends CI_Model {
 		return false;
 	}
 
-	// Map special filenames to extensions
+	// Map special filenames to modes
 	private function filename2mode($name)
 	{
 		$namearray = array(
@@ -470,7 +470,7 @@ class File_mod extends CI_Model {
 		return false;
 	}
 
-	// Handle alias extensions
+	// Handle mode aliases
 	function resolve_mode_alias($alias)
 	{
 		if ($alias === false) return false;
