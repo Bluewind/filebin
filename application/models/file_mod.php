@@ -228,8 +228,8 @@ class File_mod extends CI_Model {
 
 		$type = $filedata['mimetype'];
 
-		// autodetect the mode for highlighting if the URL contains a / after the ID (URL: /ID/)
-		// URL: /ID/mode disables autodetection
+		// autodetect the mode for highlighting if the URL contains a / after the ID (/ID/)
+		// /ID/mode disables autodetection
 		if (!$mode && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1) {
 			$mode = $this->mime2extension($type);
 			$mode = $this->filename2extension($filedata['filename']) ? $this->filename2extension($filedata['filename']) : $mode;
@@ -241,6 +241,7 @@ class File_mod extends CI_Model {
 		header("Last-Modified: ".date('D, d M Y H:i:s', $filedata["date"])." GMT");
 		header('Etag: "'.$etag.'"');
 
+		// create the qr code for /ID/
 		if ($mode == "qr") {
 			header("Content-disposition: inline; filename=\"".$id."_qr.png\"\n");
 			header("Content-Type: image/png\n");
@@ -248,17 +249,18 @@ class File_mod extends CI_Model {
 			exit();
 		}
 
+		// user wants to the the plain file
+		if ( $mode == 'plain') {
+			rangeDownload($file, $filedata["filename"], "text/plain");
+			exit();
+		}
 
-		$special_modes = array("ascii");
-		// directly download the file
-		if (!in_array($mode, $special_modes) && (!$mode                        // user didn't specify a mode/didn't enable autodetection
-		|| !$this->mime2extension($type)  // file can't be highlighted
-		|| $mode == "plain"               // user wants to the the plain file
-		|| filesize($file) > $this->config->item('upload_max_text_size')
-		)) {
-			if ($mode == 'plain') {
-				$type = "text/plain";
-			}
+		// if there is no mimetype mapping we can't highlight it
+		$can_highlight = $this->mime2extension($type);
+
+		$filesize_too_big = filesize($file) > $this->config->item('upload_max_text_size');
+
+		if (!$can_highlight || $filesize_too_big || !$mode) {
 			rangeDownload($file, $filedata["filename"], $type);
 			exit();
 		}
@@ -276,7 +278,7 @@ class File_mod extends CI_Model {
 		$data['current_highlight'] = $mode;
 
 		if (filesize($file) > $this->config->item("small_upload_size")) {
-			$data['timeout'] = date("r", $filedata["date"]+$this->config->item("upload_max_age"));
+			$data['timeout'] = date("r", $filedata["date"] + $this->config->item("upload_max_age"));
 		} else {
 			$data['timeout'] = "never";
 		}
@@ -308,7 +310,9 @@ class File_mod extends CI_Model {
 			$this->memcachelibrary->set($filedata['hash'].'_'.$mode, $cached, 100);
 		}
 		echo $cached;
+
 		echo $this->load->view($this->var->view_dir.'/html_footer', $data, true);
+
 		exit();
 	}
 
