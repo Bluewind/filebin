@@ -230,13 +230,14 @@ class File_mod extends CI_Model {
 
 		// autodetect the mode for highlighting if the URL contains a / after the ID (/ID/)
 		// /ID/mode disables autodetection
-		if (!$mode && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1) {
-			$mode = $this->mime2extension($type);
-			$mode = $this->filename2extension($filedata['filename']) ? $this->filename2extension($filedata['filename']) : $mode;
+		$autodetect_mode = !$mode && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1;
+
+		if ($autodetect_mode) {
+			$mode = $this->get_highlight_mode($type, $filedata["filename"]);
 		}
 		// resolve aliases of modes
 		// this is mainly used for compatibility
-		$mode = $this->extension_aliases($mode);
+		$mode = $this->resolve_mode_alias($mode);
 
 		header("Last-Modified: ".date('D, d M Y H:i:s', $filedata["date"])." GMT");
 		header('Etag: "'.$etag.'"');
@@ -256,7 +257,7 @@ class File_mod extends CI_Model {
 		}
 
 		// if there is no mimetype mapping we can't highlight it
-		$can_highlight = $this->mime2extension($type);
+		$can_highlight = $this->can_highlight($type);
 
 		$filesize_too_big = filesize($file) > $this->config->item('upload_max_text_size');
 
@@ -380,8 +381,35 @@ class File_mod extends CI_Model {
 		return $random;
 	}
 
+	// Allow certain types to be highlight without doing it automatically
+	function can_highlight($type)
+	{
+		$typearray = array(
+			'image/svg+xml',
+		);
+		if (in_array($type, $typearray)) return true;
+
+		if ($this->mime2mode($type)) return true;
+
+		return false;
+	}
+
+	// Return the mode that should be used for highlighting
+	function get_highlight_mode($type, $filename)
+	{
+		$mode = $this->mime2mode($type);
+
+		// filename modes overwrite mime type mappings
+		$filename_mode = $this->filename2mode($filename);
+		if ($filename_mode) {
+			return $filename_mode;
+		}
+
+		return $mode;
+	}
+
 	// Map MIME types to extensions needed for highlighting
-	function mime2extension($type)
+	private function mime2mode($type)
 	{
 		$typearray = array(
 		'text/plain' => 'text',
@@ -431,7 +459,7 @@ class File_mod extends CI_Model {
 	}
 
 	// Map special filenames to extensions
-	function filename2extension($name)
+	private function filename2mode($name)
 	{
 		$namearray = array(
 			'PKGBUILD' => 'bash',
@@ -443,7 +471,7 @@ class File_mod extends CI_Model {
 	}
 
 	// Handle alias extensions
-	function extension_aliases($alias)
+	function resolve_mode_alias($alias)
 	{
 		if ($alias === false) return false;
 		$aliasarray = array(
