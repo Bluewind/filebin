@@ -202,7 +202,6 @@ class File_mod extends CI_Model {
 
 		// MODIFIED SINCE SUPPORT -- START
 		// helps to keep traffic low when reloading
-		$filedate = filectime($file);
 		$etag = strtolower($filedata["hash"]."-".$filedata["date"]);
 		$modified = true;
 
@@ -239,7 +238,7 @@ class File_mod extends CI_Model {
 		// this is mainly used for compatibility
 		$mode = $this->extension_aliases($mode);
 
-		header("Last-Modified: ".date('D, d M Y H:i:s', $filedate)." GMT");
+		header("Last-Modified: ".date('D, d M Y H:i:s', $filedata["date"])." GMT");
 		header('Etag: "'.$etag.'"');
 
 		if ($mode == "qr") {
