@@ -42,7 +42,7 @@ document.write('\
 	<li><span class="example">/&lt;ID&gt;/rmd</span> convert markdown to HTML</li>
 	<li><span class="example">/&lt;ID&gt;/ascii</span> convert text with ANSI (shell) escape codes to HTML</li>
 </ul>
-<p>If your upload is not detected as text, only <span class="example">/&lt;ID&gt;/qr</span> will work as above and all others will simply return the file with the detected MIME type.</p>
+<p>If your upload is not detected as text, only <span class="example">/&lt;ID&gt;/qr</span> and <span class="example">/&lt;ID&gt;/plain</span> will work as above and all others will simply return the file with the detected MIME type.</p>
 <br />
 <?php if($contact_me_url) {?><p>If you experience any problems feel free to <a href="<?php echo $contact_me_url; ?>">contact me</a>.</p>
 <br /><?php }; ?>
