@@ -82,3 +82,15 @@ tr.odd {
 .example {
 	font-weight: bold;
 }
+
+td.title {
+	text-align: right;
+	color: #999;
+	font-size: 90%;
+	padding: 3px;
+}
+
+td.text {
+	text-align: left;
+	padding: 3px;
+}

@@ -165,6 +165,12 @@ class File extends CI_Controller {
 		$password = $this->file_mod->get_password();
 		$data["title"] = "Delete";
 		$data["id"] = $id;
+
+		$data["filedata"] = $this->file_mod->get_filedata($id);
+		if ($data["filedata"]) {
+			$data["filedata"]["size"] = filesize($this->file_mod->file($data["filedata"]["hash"]));
+		}
+
 		if ($id && !$this->file_mod->id_exists($id)) {
 			$data["msg"] = "Unkown ID.";
 		} elseif ($password != "NULL") {
