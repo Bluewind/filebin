@@ -135,11 +135,13 @@ class File extends CI_Controller {
 
 			foreach($query as $key => $item) {
 				$query[$key]["date"] = date("r", $item["date"]);
-				// Keep track of longest string to pad plaintext output correctly
-				foreach($fields as $length_key) {
-					$len = mb_strlen($query[$key][$length_key]);
-					if ($len > $lengths[$length_key]) {
-						$lengths[$length_key] = $len;
+				if ($this->var->cli_client) {
+					// Keep track of longest string to pad plaintext output correctly
+					foreach($fields as $length_key) {
+						$len = mb_strlen($query[$key][$length_key]);
+						if ($len > $lengths[$length_key]) {
+							$lengths[$length_key] = $len;
+						}
 					}
 				}
 			}
