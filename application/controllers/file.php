@@ -233,7 +233,18 @@ class File extends CI_Controller {
 
 		$id = $this->file_mod->new_id();
 		$hash = md5_file($_FILES['file']['tmp_name']);
-		$filename = $_FILES['file']['name'];
+
+		// work around a curl bug and allow the client to send the real filename base64 encoded
+		$filename = $this->input->post("filename");
+		if ($filename !== false) {
+			$filename = base64_decode($filename, true);
+		}
+
+		// fall back if base64_decode failed
+		if ($filename === false) {
+			$filename = $_FILES['file']['name'];
+		}
+
 		$folder = $this->file_mod->folder($hash);
 		file_exists($folder) || mkdir ($folder);
 		$file = $this->file_mod->file($hash);
