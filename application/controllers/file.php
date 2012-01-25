@@ -237,7 +237,7 @@ class File extends CI_Controller {
 		// work around a curl bug and allow the client to send the real filename base64 encoded
 		$filename = $this->input->post("filename");
 		if ($filename !== false) {
-			$filename = base64_decode($filename, true);
+			$filename = trim(base64_decode($filename, true), "\r\n\0\t\x0B");
 		}
 
 		// fall back if base64_decode failed
