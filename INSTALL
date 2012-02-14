@@ -1,6 +1,5 @@
 * run install.php to make sure all dependencies are installed
-* Copy all files from system/application/config/example to 
-  system/application/config
+* Copy all files from ./application/config/example to ./application/config
 * Change them to fit your needs
 * The necessary database tables are created automatically when accessing your pastebin
 * Copy htaccess.txt to .htaccess if you want shorter URLs
