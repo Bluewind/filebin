@@ -191,6 +191,10 @@ if (false && defined('ENVIRONMENT'))
 		define('APPPATH', BASEPATH.$application_folder.'/');
 	}
 
+	if (getenv("HOME") == "") {
+		putenv('HOME='.FCPATH);
+	}
+
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE

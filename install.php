@@ -8,6 +8,9 @@ $errors = "";
 
 define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
 define('FCPATH', str_replace(SELF, "", __FILE__));
+if (getenv("HOME") == "") {
+	putenv('HOME='.FCPATH);
+}
 
 if (file_exists(FCPATH."is_installed")) {
 	exit("already installed\n");
