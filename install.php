@@ -26,14 +26,21 @@ $buf = ob_get_contents();
 ob_end_clean();
 $buf == "works" || $errors .= "passthru() failed\n";
 
-// test perl HTML::FromANSI
-ob_start();
-passthru("perl 2>&1 ".FCPATH."/scripts/install_helper.pl");
-$buf = ob_get_contents();
-ob_end_clean();
-if ($buf != "works") {
-	$errors .= " - Error when running perl tests.\n";
-	$errors .= nl2br($buf);
+// test perl deps
+$perldeps = array(
+	"HTML::FromANSI",
+	"File::MimeInfo::Magic",
+	"Text::Markdown"
+);
+foreach ($perldeps as $dep) {
+	ob_start();
+	passthru("perl 2>&1 -M'$dep' -e1");
+	$buf = ob_get_contents();
+	ob_end_clean();
+	if ($buf != "") {
+		$errors .= " - failed to find perl module: $dep.\n";
+		$errors .= $buf;
+	}
 }
 
 // test memcache
@@ -51,7 +58,6 @@ if ($buf != "0") {
 
 
 if ($errors != "") {
-	echo nl2br("\n\n");
 	echo nl2br("Errors occured:\n");
 	echo nl2br($errors);
 } else {
