@@ -28,7 +28,7 @@ $buf == "works" || $errors .= "passthru() failed\n";
 
 // test perl HTML::FromANSI
 ob_start();
-passthru("perl ".FCPATH."/scripts/install_helper.pl");
+passthru("perl 2>&1 ".FCPATH."/scripts/install_helper.pl");
 $buf = ob_get_contents();
 ob_end_clean();
 if ($buf != "works") {
