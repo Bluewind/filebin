@@ -4,7 +4,7 @@
  * --------
  * Author: Conny Brunnkvist (conny@fuchsia.se), W. Tasin (tasin@fhm.edu)
  * Copyright: (c) 2004 Fuchsia Open Source Solutions (http://www.fuchsia.se/)
- * Release Version: 1.0.8.6
+ * Release Version: 1.0.8.10
  * Date Started: 2004/12/29
  *
  * Diff-output language file for GeSHi.
@@ -103,7 +103,6 @@ $language_data = array (
             7 => 'color: #991111;',
             8 => 'color: #00b000;',
             9 => 'color: #888822;',
-            10 => '',
             ),
         ),
     'URLS' => array(
@@ -181,14 +180,6 @@ $language_data = array (
         //File specification
         9 => array(
             GESHI_SEARCH => '(^|(?<=\A\s))(\\*){3}\\s.*$',
-            GESHI_REPLACE => '\\0',
-            GESHI_MODIFIERS => 'm',
-            GESHI_BEFORE => '',
-            GESHI_AFTER => ''
-            ),
-        //context lines
-        10 => array(
-            GESHI_SEARCH => '^ .*$',
             GESHI_REPLACE => '\\0',
             GESHI_MODIFIERS => 'm',
             GESHI_BEFORE => '',

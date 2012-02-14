@@ -304,7 +304,7 @@ class File_mod extends CI_Model {
 				echo '</pre></td><td class="code">'."\n";
 				$this->load->library('geshi');
 				$this->geshi->initialize(array('set_language' => $mode, 'set_source' => file_get_contents($file), 'enable_classes' => 'true'));
-				echo $this->geshi->output();
+				echo $this->geshi->parse_code();
 			}
 			$cached = ob_get_contents();
 			ob_end_clean();
