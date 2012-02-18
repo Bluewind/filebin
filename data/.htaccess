@@ -4,6 +4,9 @@
 	ExpiresByType application/javascript "access plus 1 year"
 </IfModule>
 
-Header append Cache-Control "public"
+<IfModule mod_headers.c>
+	Header append Cache-Control "public"
+</IfModule>
+
 FileEtag none
 
