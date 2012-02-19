@@ -281,6 +281,39 @@ class File extends CI_Controller {
 				}
 			}
 		}
+
+		/* remove files without database entries */
+		// TODO: put into a function
+		$upload_path = $this->config->item("upload_path");
+		$outer_dh = opendir($upload_path);
+
+		while (($dir = readdir($outer_dh)) !== false) {
+			if (!is_dir($upload_path."/".$dir) || $dir == ".." || $dir == ".") {
+				continue;
+			}
+
+			$dh = opendir($upload_path."/".$dir);
+
+			$empty = true;
+			
+			while (($file = readdir($dh)) !== false) {
+				if ($file == ".." || $file == ".") {
+					continue;
+				}
+
+				$query = $this->db->query("SELECT hash FROM files WHERE hash = ? LIMIT 1", array($file))->row_array();
+
+				if (empty($query)) {
+					unlink($upload_path."/".$dir."/".$file);
+				} else {
+					$empty = false;
+				}
+			}
+
+			if ($empty) {
+				rmdir($upload_path."/".$dir);
+			}
+		}
 	}
 }
 
