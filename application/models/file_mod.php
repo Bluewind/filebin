@@ -262,6 +262,9 @@ class File_mod extends CI_Model {
 		$filesize_too_big = filesize($file) > $this->config->item('upload_max_text_size');
 
 		if (!$can_highlight || $filesize_too_big || !$mode) {
+			foreach (array("X-WebKit-CSP", "X-Content-Security-Policy") as $header_name) {
+				header("$header_name: allow 'none'; img-src *; media-src *; font-src *; style-src *; script-src 'none'; object-src 'none'; frame-src 'none'; ");
+			}
 			rangeDownload($file, $filedata["filename"], $type);
 			exit();
 		}
