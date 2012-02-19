@@ -34,7 +34,7 @@ class File extends CI_Controller {
 		// official client uses "fb-client/$version" as useragent
 		$clients = array("fb-client", "libcurl", "pyfb");
 		foreach ($clients as $client) {
-			if (strpos($_SERVER['HTTP_USER_AGENT'], $client) !== false) {
+			if (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], $client) !== false) {
 				$this->var->cli_client = true;
 				break;
 			}
@@ -258,6 +258,11 @@ class File extends CI_Controller {
 	// Removes old files
 	function cron()
 	{
+		/* cron can only be run via the CLI
+		 * `php index.php file cron`
+		 */
+		if (!$this->input->is_cli_request()) return;
+
 		if ($this->config->item('upload_max_age') == 0) return;
 
 		$oldest_time = (time()-$this->config->item('upload_max_age'));
