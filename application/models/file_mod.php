@@ -266,7 +266,7 @@ class File_mod extends CI_Model {
 			exit();
 		}
 
-		$data['title'] = $filedata['filename'];
+		$data['title'] = htmlspecialchars($filedata['filename']);
 		$data['raw_link'] = site_url($id);
 		$data['new_link'] = site_url();
 		$data['plain_link'] = site_url($id.'/plain');
@@ -276,7 +276,7 @@ class File_mod extends CI_Model {
 
 		header("Content-Type: text/html\n");
 
-		$data['current_highlight'] = $mode;
+		$data['current_highlight'] = htmlspecialchars($mode);
 
 		if (filesize($file) > $this->config->item("small_upload_size")) {
 			$data['timeout'] = date("r", $filedata["date"] + $this->config->item("upload_max_age"));
