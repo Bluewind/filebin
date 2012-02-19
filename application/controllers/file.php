@@ -255,12 +255,13 @@ class File extends CI_Controller {
 		$this->file_mod->show_url($id, $extension);
 	}
 
+	/* Functions below this comment can only be run via the CLI
+	 * `php index.php file <function name>`
+	 */
+
 	// Removes old files
 	function cron()
 	{
-		/* cron can only be run via the CLI
-		 * `php index.php file cron`
-		 */
 		if (!$this->input->is_cli_request()) return;
 
 		if ($this->config->item('upload_max_age') == 0) return;
@@ -286,9 +287,12 @@ class File extends CI_Controller {
 				}
 			}
 		}
+	}
 
-		/* remove files without database entries */
-		// TODO: put into a function
+	/* remove files without database entries */
+	function clean_stale_files() {
+		if (!$this->input->is_cli_request()) return;
+
 		$upload_path = $this->config->item("upload_path");
 		$outer_dh = opendir($upload_path);
 
