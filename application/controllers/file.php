@@ -310,10 +310,13 @@ class File extends CI_Controller {
 				}
 			}
 
+			closedir($dh);
+
 			if ($empty) {
 				rmdir($upload_path."/".$dir);
 			}
 		}
+		closedir($outer_dh);
 	}
 }
 
