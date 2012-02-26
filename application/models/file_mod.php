@@ -432,6 +432,7 @@ class File_mod extends CI_Model {
 		#'text/x-log' => 'log',
 		'text/html' => 'xml',
 		'text/css' => 'css',
+		'text/x-ocaml' => 'ocaml',
 		'message/rfc822' => 'email',
 		#'image/svg+xml' => 'xml',
 		'application/x-perl' => 'perl',
