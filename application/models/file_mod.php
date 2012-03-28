@@ -428,6 +428,7 @@ class File_mod extends CI_Model {
 		'text/x-haskell' => 'haskell',
 		'text/x-literate-haskell' => 'haskell',
 		'text/x-subviewer' => 'bash',
+		'text/x-scheme' => 'scheme',
 		'text/x-makefile' => 'make',
 		#'text/x-log' => 'log',
 		'text/html' => 'xml',
