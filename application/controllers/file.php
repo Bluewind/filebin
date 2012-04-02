@@ -174,7 +174,7 @@ class File extends CI_Controller {
 		}
 
 		if ($id && !$this->file_mod->id_exists($id)) {
-			$data["msg"] = "Unkown ID.";
+			$data["msg"] = "Unknown ID.";
 		} elseif ($password != "NULL") {
 			if ($this->file_mod->delete_id($id)) {
 				$this->load->view($this->var->view_dir.'/header', $data);
