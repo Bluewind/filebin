@@ -1,3 +1,4 @@
+<? if (false) { ?>
 <div style="margin-top: 100px; text-align:center">
   <?php echo form_open_multipart('file/do_upload'); ?>
     <p>
@@ -46,6 +47,7 @@
 </ul>
 <p>If your upload is not detected as text, only <span class="example">/&lt;ID&gt;/qr</span> and <span class="example">/&lt;ID&gt;/plain</span> will work as above and all others will simply return the file with the detected MIME type.</p>
 <br />
+<? } ?>
 <?php if($contact_me_url) {?><p>If you experience any problems feel free to <a href="<?php echo $contact_me_url; ?>">contact me</a>.</p>
 <br /><?php }; ?>
 <div class="small">
