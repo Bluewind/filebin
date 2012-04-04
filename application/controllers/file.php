@@ -200,8 +200,7 @@ class File extends CI_Controller {
 		$data = array();
 
 		if ($this->uri->segment(3)) {
-			$this->var->cli_client = true;
-			$this->var->view_dir = "file_plaintext";
+			exit;
 		}
 
 		$extension = $this->input->post('extension');
