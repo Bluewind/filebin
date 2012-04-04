@@ -31,7 +31,7 @@
 <p>Uploads are deleted after <?php echo $upload_max_age; ?> days<?php if($small_upload_size > 0): ?>
   unless they are smaller than <?php echo format_bytes($small_upload_size); ?>
   <?php endif; ?>. Maximum upload size is <?php echo format_bytes($max_upload_size); ?></p>
-<p><h2>Features</h2></p>
+<h2>Features</h2>
 <p>For shell uploading and download information for the client go to <a href="<?php echo site_url("file/client"); ?>"><?php echo site_url("file/client"); ?></a></p>
 <p>You can use the <?php echo anchor("file/upload_history", "history"); ?> to find old uploads using the password supplied when creating the upload.</p>
 <p>How to link your uploads:</p>
