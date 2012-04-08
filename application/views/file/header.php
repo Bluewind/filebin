@@ -10,17 +10,18 @@
 
 <body>
 	<div class="top">
-		<?php echo anchor('file/index', 'New'); ?>
+		<?php echo anchor('file/index', 'New'); ?> |
+		<?php echo anchor('file/upload_history', 'History'); ?>
 
 		<div class="right">
 			<?php if(isset($username) && $username) { ?>
 				<?=anchor("user/logout", "Logout"); ?>
 			<?php } else { ?>
-					<?=form_open("user/login"); ?>
-						<input type="text" name="username" />
-						<input type="password" name="password" />
-						<input type="submit" value="Login" name="process" />
-					</form>
+				<?=form_open("user/login"); ?>
+					<input type="text" name="username" />
+					<input type="password" name="password" />
+					<input type="submit" value="Login" name="process" />
+				</form>
 			<?php } ?>
 		</div>
 	</div>
