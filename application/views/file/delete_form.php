@@ -25,13 +25,7 @@
 					<td class="text"><?php echo $filedata["mimetype"]; ?></td>
 				</tr>
 			<?php endif; ?>
-				<tr>
-					<td class="title">Password</td>
-					<td class="text">
-						<input type="password" name="password" size="10" />
-						<input type="submit" value="Delete" name="process" />
-					</td>
-				</tr>
 			</table>
+		<input type="submit" value="Delete" name="process" />
   </form>
 </div>

@@ -224,7 +224,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = ''; # set this to a 32char random string
 
 /*
 |--------------------------------------------------------------------------
@@ -248,7 +248,7 @@ $config['sess_cookie_name']		= 'ci_session';
 $config['sess_expiration']		= 7200;
 $config['sess_expire_on_close']	= FALSE;
 $config['sess_encrypt_cookie']	= FALSE;
-$config['sess_use_database']	= FALSE;
+$config['sess_use_database']	= true;
 $config['sess_table_name']		= 'ci_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= TRUE;
@@ -378,8 +378,6 @@ $config['upload_max_age'] = 60*60*24*5; // 5 days
 
 // won't be deleted
 $config['small_upload_size'] = 1024*10; // 10KB
-
-$config['passwordsalt'] = ''; // just enter any string you want here
 
 $config['contact_me_url'] = ''; // ommiting this will remove the "contact me" line.
 

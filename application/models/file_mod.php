@@ -20,7 +20,7 @@ class File_mod extends CI_Model {
 	{
 		$id = $this->random_id(3,6);
 
-		if ($this->id_exists($id) || $id == 'file') {
+		if ($this->id_exists($id) || $id == 'file' || $id == 'user') {
 			return $this->new_id();
 		} else {
 			return $id;
@@ -74,32 +74,19 @@ class File_mod extends CI_Model {
 		return $this->folder($hash).'/'.$hash;
 	}
 
-	function hash_password($password)
-	{
-		return sha1($this->config->item('passwordsalt').$password);
-	}
-
-	// Returns the password submitted by the user
-	function get_password()
-	{
-		$password = $this->input->post('password');
-		if ($password !== false && $password !== "") {
-			return $this->hash_password($password);
-		} elseif (isset($_SERVER['PHP_AUTH_PW']) && $_SERVER['PHP_AUTH_PW'] !== '') {
-			return $this->hash_password($_SERVER['PHP_AUTH_PW']);
-		}
-		return 'NULL';
-	}
-
 	// Add a hash to the DB
 	// TODO: Should only update not insert; see new_id()
 	function add_file($hash, $id, $filename)
 	{
+		$this->muser->require_access();
+
+		$userid = $this->muser->get_userid();
+
 		$mimetype = exec("perl ".FCPATH.'scripts/mimetype '.escapeshellarg($filename).' '.escapeshellarg($this->file($hash)));
 		$query = $this->db->query('
-			INSERT INTO `files` (`hash`, `id`, `filename`, `password`, `date`, `mimetype`)
+			INSERT INTO `files` (`hash`, `id`, `filename`, `user`, `date`, `mimetype`)
 			VALUES (?, ?, ?, ?, ?, ?)',
-			array($hash, $id, $filename, $this->get_password(), time(), $mimetype));
+			array($hash, $id, $filename, $userid, time(), $mimetype));
 	}
 
 	function show_url($id, $mode)
@@ -338,12 +325,9 @@ class File_mod extends CI_Model {
 
 	function delete_id($id)
 	{
+		$this->muser->require_access();
 		$filedata = $this->get_filedata($id);
-		$password = $this->get_password();
-
-		if ($password == "NULL") {
-			return false;
-		}
+		$userid = $this->muser->get_userid();
 
 		if(!$this->id_exists($id)) {
 			return false;
@@ -353,9 +337,9 @@ class File_mod extends CI_Model {
 			DELETE
 			FROM `files`
 			WHERE `id` = ?
-			AND password = ?
+			AND user = ?
 			LIMIT 1';
-		$this->db->query($sql, array($id, $password));
+		$this->db->query($sql, array($id, $userid));
 
 		if($this->id_exists($id))  {
 			return false;

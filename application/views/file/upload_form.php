@@ -1,10 +1,9 @@
-<? if (false) { ?>
+<? if ($username) { ?>
 <div style="margin-top: 100px; text-align:center">
   <?php echo form_open_multipart('file/do_upload'); ?>
     <p>
       File: <input type="file" id="file" name="file" size="30" />
-      <input type="submit" value="Upload" id="upload_button" name="process" /><br />
-      Optional password (for deletion and search): <input type="password" name="password" size="10" />
+      <input type="submit" value="Upload" id="upload_button" name="process" />
     </p>
   </form>
   <script type="text/javascript">
@@ -34,7 +33,7 @@
   <?php endif; ?>. Maximum upload size is <?php echo format_bytes($max_upload_size); ?></p>
 <h2>Features</h2>
 <p>For shell uploading and download information for the client go to <a href="<?php echo site_url("file/client"); ?>"><?php echo site_url("file/client"); ?></a></p>
-<p>You can use the <?php echo anchor("file/upload_history", "history"); ?> to find old uploads using the password supplied when creating the upload.</p>
+<p>You can use the <?php echo anchor("file/upload_history", "history"); ?> to find old uploads.</p>
 <p>How to link your uploads:</p>
 <ul>
 	<li><span class="example">/&lt;ID&gt;/</span> automatically highlight the uploads</li>

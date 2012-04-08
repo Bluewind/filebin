@@ -24,6 +24,8 @@ class File extends CI_Controller {
 		mb_internal_encoding('UTF-8');
 		$this->load->helper(array('form', 'filebin'));
 		$this->load->model('file_mod');
+		$this->load->model('muser');
+
 		$this->var->cli_client = false;
 		$this->file_mod->var->cli_client =& $this->var->cli_client;
 		$this->var->latest_client = false;
@@ -45,6 +47,17 @@ class File extends CI_Controller {
 		} else {
 			$this->var->view_dir = "file";
 		}
+
+		if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
+			if (!$this->muser->login($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])) {
+				// TODO: better message
+				echo "login failed.\n";
+				exit;
+			}
+		}
+
+		$this->data['username'] = $this->muser->get_username();
+
 	}
 
 	function index()
@@ -87,12 +100,16 @@ class File extends CI_Controller {
 
 	function upload_form()
 	{
+		$this->muser->require_access();
+	
 		$data = array();
 		$data['title'] = 'Upload';
 		$data['small_upload_size'] = $this->config->item('small_upload_size');
 		$data['max_upload_size'] = $this->config->item('upload_max_size');
 		$data['upload_max_age'] = $this->config->item('upload_max_age')/60/60/24;
 		$data['contact_me_url'] = $this->config->item('contact_me_url');
+
+		$data['username'] = $this->muser->get_username();
 
 		$this->load->view($this->var->view_dir.'/header', $data);
 		$this->load->view($this->var->view_dir.'/upload_form', $data);
@@ -111,10 +128,12 @@ class File extends CI_Controller {
 
 	function upload_history()
 	{
-		$password = $this->file_mod->get_password();
+		$this->muser->require_access();
+
+		$user = $this->muser->get_userid();
 
 		$this->load->library("MemcacheLibrary");
-		if (! $cached = $this->memcachelibrary->get("history_".$this->var->view_dir."_".$password)) {
+		if (! $cached = $this->memcachelibrary->get("history_".$this->var->view_dir."_".$user)) {
 			$data = array();
 			$query = array();
 			$lengths = array();
@@ -124,14 +143,12 @@ class File extends CI_Controller {
 				$lengths[$length_key] = 0;
 			}
 
-			if ($password != "NULL") {
-				$query = $this->db->query("
-					SELECT ".implode(",", $fields)."
-					FROM files
-					WHERE password = ?
-					ORDER BY date
-					", array($password))->result_array();
-			}
+			$query = $this->db->query("
+				SELECT ".implode(",", $fields)."
+				FROM files
+				WHERE user = ?
+				ORDER BY date
+				", array($user))->result_array();
 
 			foreach($query as $key => $item) {
 				$query[$key]["date"] = date("r", $item["date"]);
@@ -153,7 +170,7 @@ class File extends CI_Controller {
 			$cached .= $this->load->view($this->var->view_dir.'/header', $data, true);
 			$cached .= $this->load->view($this->var->view_dir.'/upload_history', $data, true);
 			$cached .= $this->load->view($this->var->view_dir.'/footer', $data, true);
-			$this->memcachelibrary->set('history_'.$this->var->view_dir."_".$password, $cached, 42);
+			$this->memcachelibrary->set('history_'.$this->var->view_dir."_".$user, $cached, 42);
 		}
 
 		echo $cached;
@@ -162,11 +179,17 @@ class File extends CI_Controller {
 	// Allow users to delete IDs if their password matches the one used when uploading
 	function delete()
 	{
+		$this->muser->require_access();
+
 		$data = array();
 		$id = $this->uri->segment(3);
-		$password = $this->file_mod->get_password();
 		$data["title"] = "Delete";
 		$data["id"] = $id;
+
+		$process = $this->input->post("process");
+		if ($this->var->cli_client) {
+			$process = true;
+		}
 
 		$data["filedata"] = $this->file_mod->get_filedata($id);
 		if ($data["filedata"]) {
@@ -176,18 +199,14 @@ class File extends CI_Controller {
 		if ($id && !$this->file_mod->id_exists($id)) {
 			$this->output->set_status_header(404);
 			$data["msg"] = "Unknown ID.";
-		} elseif ($password != "NULL") {
+		} elseif ($process) {
 			if ($this->file_mod->delete_id($id)) {
 				$this->load->view($this->var->view_dir.'/header', $data);
 				$this->load->view($this->var->view_dir.'/deleted', $data);
 				$this->load->view($this->var->view_dir.'/footer', $data);
 				return;
 			} else {
-				$data["msg"] = "Deletion failed. Is the password correct?";
-			}
-		} else {
-			if ($this->var->cli_client) {
-				$data["msg"] = "No password supplied.";
+				$data["msg"] = "Deletion failed. Do you really own that file?";
 			}
 		}
 		$this->load->view($this->var->view_dir.'/header', $data);
@@ -198,6 +217,8 @@ class File extends CI_Controller {
 	// Handles uploaded files
 	function do_upload()
 	{
+		$this->muser->require_access();
+
 		$data = array();
 
 		if ($this->uri->segment(3)) {
