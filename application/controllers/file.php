@@ -96,8 +96,6 @@ class File extends CI_Controller {
 
 	function upload_form()
 	{
-		$this->muser->require_access();
-	
 		$this->data['title'] .= ' - Upload';
 		$this->data['small_upload_size'] = $this->config->item('small_upload_size');
 		$this->data['max_upload_size'] = $this->config->item('upload_max_size');
