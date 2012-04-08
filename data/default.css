@@ -39,6 +39,11 @@ body {
   border-bottom: 3px double gray;
 }
 
+.top .right {
+	float: right;
+	padding-right: 10px;
+}
+
 .top a {
   color: lightblue;
 }

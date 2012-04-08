@@ -57,7 +57,6 @@ class File extends CI_Controller {
 		}
 
 		$this->data['username'] = $this->muser->get_username();
-
 	}
 
 	function index()
@@ -79,22 +78,22 @@ class File extends CI_Controller {
 
 	function client()
 	{
-		$data['title'] = 'Client';
+		$this->data['title'] = 'Client';
 		if ($this->var->latest_client) {
-			$data['client_link'] = base_url().'data/client/fb-'.$this->var->latest_client.'.tar.gz';
+			$this->data['client_link'] = base_url().'data/client/fb-'.$this->var->latest_client.'.tar.gz';
 		} else {
-			$data['client_link'] = false;
+			$this->data['client_link'] = false;
 		}
-		$data['client_link_dir'] = base_url().'data/client/';
-		$data['client_link_deb'] = base_url().'data/client/deb/';
-		$data['client_link_slackware'] = base_url().'data/client/slackware/';
+		$this->data['client_link_dir'] = base_url().'data/client/';
+		$this->data['client_link_deb'] = base_url().'data/client/deb/';
+		$this->data['client_link_slackware'] = base_url().'data/client/slackware/';
 
 		if (!$this->var->cli_client) {
-			$this->load->view($this->var->view_dir.'/header', $data);
+			$this->load->view($this->var->view_dir.'/header', $this->data);
 		}
-		$this->load->view($this->var->view_dir.'/client', $data);
+		$this->load->view($this->var->view_dir.'/client', $this->data);
 		if (!$this->var->cli_client) {
-			$this->load->view($this->var->view_dir.'/footer', $data);
+			$this->load->view($this->var->view_dir.'/footer', $this->data);
 		}
 	}
 
@@ -102,21 +101,20 @@ class File extends CI_Controller {
 	{
 		$this->muser->require_access();
 	
-		$data = array();
-		$data['title'] = 'Upload';
-		$data['small_upload_size'] = $this->config->item('small_upload_size');
-		$data['max_upload_size'] = $this->config->item('upload_max_size');
-		$data['upload_max_age'] = $this->config->item('upload_max_age')/60/60/24;
-		$data['contact_me_url'] = $this->config->item('contact_me_url');
+		$this->data['title'] = 'Upload';
+		$this->data['small_upload_size'] = $this->config->item('small_upload_size');
+		$this->data['max_upload_size'] = $this->config->item('upload_max_size');
+		$this->data['upload_max_age'] = $this->config->item('upload_max_age')/60/60/24;
+		$this->data['contact_me_url'] = $this->config->item('contact_me_url');
 
-		$data['username'] = $this->muser->get_username();
+		$this->data['username'] = $this->muser->get_username();
 
-		$this->load->view($this->var->view_dir.'/header', $data);
-		$this->load->view($this->var->view_dir.'/upload_form', $data);
+		$this->load->view($this->var->view_dir.'/header', $this->data);
+		$this->load->view($this->var->view_dir.'/upload_form', $this->data);
 		if ($this->var->cli_client) {
 			$this->client();
 		}
-		$this->load->view($this->var->view_dir.'/footer', $data);
+		$this->load->view($this->var->view_dir.'/footer', $this->data);
 	}
 
 	// Allow CLI clients to query the server for the maxium filesize so they can
@@ -134,11 +132,10 @@ class File extends CI_Controller {
 
 		$this->load->library("MemcacheLibrary");
 		if (! $cached = $this->memcachelibrary->get("history_".$this->var->view_dir."_".$user)) {
-			$data = array();
 			$query = array();
 			$lengths = array();
 			$fields = array("id", "filename", "mimetype", "date", "hash");
-			$data['title'] = 'Upload history';
+			$this->data['title'] = 'Upload history';
 			foreach($fields as $length_key) {
 				$lengths[$length_key] = 0;
 			}
@@ -163,13 +160,13 @@ class File extends CI_Controller {
 				}
 			}
 
-			$data["query"] = $query;
-			$data["lengths"] = $lengths;
+			$this->data["query"] = $query;
+			$this->data["lengths"] = $lengths;
 
 			$cached = "";
-			$cached .= $this->load->view($this->var->view_dir.'/header', $data, true);
-			$cached .= $this->load->view($this->var->view_dir.'/upload_history', $data, true);
-			$cached .= $this->load->view($this->var->view_dir.'/footer', $data, true);
+			$cached .= $this->load->view($this->var->view_dir.'/header', $this->data, true);
+			$cached .= $this->load->view($this->var->view_dir.'/upload_history', $this->data, true);
+			$cached .= $this->load->view($this->var->view_dir.'/footer', $this->data, true);
 			$this->memcachelibrary->set('history_'.$this->var->view_dir."_".$user, $cached, 42);
 		}
 
@@ -181,45 +178,42 @@ class File extends CI_Controller {
 	{
 		$this->muser->require_access();
 
-		$data = array();
 		$id = $this->uri->segment(3);
-		$data["title"] = "Delete";
-		$data["id"] = $id;
+		$this->data["title"] = "Delete";
+		$this->data["id"] = $id;
 
 		$process = $this->input->post("process");
 		if ($this->var->cli_client) {
 			$process = true;
 		}
 
-		$data["filedata"] = $this->file_mod->get_filedata($id);
-		if ($data["filedata"]) {
-			$data["filedata"]["size"] = filesize($this->file_mod->file($data["filedata"]["hash"]));
+		$this->data["filedata"] = $this->file_mod->get_filedata($id);
+		if ($this->data["filedata"]) {
+			$this->data["filedata"]["size"] = filesize($this->file_mod->file($this->data["filedata"]["hash"]));
 		}
 
 		if ($id && !$this->file_mod->id_exists($id)) {
 			$this->output->set_status_header(404);
-			$data["msg"] = "Unknown ID.";
+			$this->data["msg"] = "Unknown ID.";
 		} elseif ($process) {
 			if ($this->file_mod->delete_id($id)) {
-				$this->load->view($this->var->view_dir.'/header', $data);
-				$this->load->view($this->var->view_dir.'/deleted', $data);
-				$this->load->view($this->var->view_dir.'/footer', $data);
+				$this->load->view($this->var->view_dir.'/header', $this->data);
+				$this->load->view($this->var->view_dir.'/deleted', $this->data);
+				$this->load->view($this->var->view_dir.'/footer', $this->data);
 				return;
 			} else {
-				$data["msg"] = "Deletion failed. Do you really own that file?";
+				$this->data["msg"] = "Deletion failed. Do you really own that file?";
 			}
 		}
-		$this->load->view($this->var->view_dir.'/header', $data);
-		$this->load->view($this->var->view_dir.'/delete_form', $data);
-		$this->load->view($this->var->view_dir.'/footer', $data);
+		$this->load->view($this->var->view_dir.'/header', $this->data);
+		$this->load->view($this->var->view_dir.'/delete_form', $this->data);
+		$this->load->view($this->var->view_dir.'/footer', $this->data);
 	}
 
 	// Handles uploaded files
 	function do_upload()
 	{
 		$this->muser->require_access();
-
-		$data = array();
 
 		if ($this->uri->segment(3)) {
 			exit;
@@ -236,9 +230,9 @@ class File extends CI_Controller {
 				4=>"No file was uploaded",
 				6=>"Missing a temporary folder"
 			);
-			$data["msg"] = $errors[$_FILES['file']['error']];
-			$this->load->view($this->var->view_dir.'/header', $data);
-			$this->load->view($this->var->view_dir.'/upload_error', $data);
+			$this->data["msg"] = $errors[$_FILES['file']['error']];
+			$this->load->view($this->var->view_dir.'/header', $this->data);
+			$this->load->view($this->var->view_dir.'/upload_error', $this->data);
 			$this->load->view($this->var->view_dir.'/footer');
 			return;
 		}
@@ -246,7 +240,7 @@ class File extends CI_Controller {
 		$filesize = filesize($_FILES['file']['tmp_name']);
 		if ($filesize > $this->config->item('upload_max_size')) {
 			$this->output->set_status_header(413);
-			$this->load->view($this->var->view_dir.'/header', $data);
+			$this->load->view($this->var->view_dir.'/header', $this->data);
 			$this->load->view($this->var->view_dir.'/too_big');
 			$this->load->view($this->var->view_dir.'/footer');
 			return;

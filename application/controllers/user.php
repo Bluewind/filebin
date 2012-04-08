@@ -16,6 +16,7 @@ class User extends CI_Controller {
 		$this->load->helper('form');
 
 		$this->var->view_dir = "user/";
+		$this->data['username'] = $this->muser->get_username();
 	}
 	
 	function index()
@@ -47,6 +48,7 @@ class User extends CI_Controller {
 				if ($uri) {
 					redirect($uri);
 				} else {
+					$this->data['username'] = $this->muser->get_username();
 					$this->load->view($this->var->view_dir.'header', $this->data);
 					$this->load->view($this->var->view_dir.'login_successful', $this->data);
 					$this->load->view($this->var->view_dir.'footer', $this->data);

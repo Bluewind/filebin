@@ -12,15 +12,17 @@
 	<div class="top">
 		<?php echo anchor('file/index', 'New'); ?>
 
-		<?php if (!isset($username)) { ?>
-			<div style="float: right">
-				<?=form_open("user/login"); ?>
-					<input type="text" name="username" />
-					<input type="password" name="password" />
-					<input type="submit" value="Login" name="process" />
-				</form>
-			</div>
-		<?php } ?>
+		<div class="right">
+			<?php if($username) { ?>
+				<?=anchor("user/logout", "Logout"); ?>
+			<?php } else { ?>
+					<?=form_open("user/login"); ?>
+						<input type="text" name="username" />
+						<input type="password" name="password" />
+						<input type="submit" value="Login" name="process" />
+					</form>
+			<?php } ?>
+		</div>
 	</div>
 
 	<div class="content">
