@@ -59,8 +59,6 @@ class File extends CI_Controller {
 	function index()
 	{
 		// Try to guess what the user would like to do.
-		// File uploads should be checked first because they are usually big and
-		// take quite some time to upload.
 		$id = $this->uri->segment(1);
 		if(isset($_FILES['file'])) {
 			$this->do_upload();
