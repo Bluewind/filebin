@@ -56,13 +56,15 @@ class Muser extends CI_Model {
 		if ($this->logged_in()) {
 			return true;
 		} else {
-			if ($this->file->var->cli_client) {
-				echo "FileBin requires you to have an account, please go to the homepage for more information.";
+			if ($this->file_mod->is_cli_client()) {
+				echo "FileBin requires you to have an account, please go to the homepage for more information.\n";
+				exit();
 			} else {
 				$this->session->set_flashdata("uri", $this->uri->uri_string());
 				redirect('user/login');
 			}
 		}
+		exit();
 	}
 
 	function hash_password($password)

@@ -36,14 +36,7 @@ class File extends CI_Controller {
 			$this->var->latest_client = trim(file_get_contents(FCPATH.'data/client/latest'));
 		}
 
-		// official client uses "fb-client/$version" as useragent
-		$clients = array("fb-client", "libcurl", "pyfb");
-		foreach ($clients as $client) {
-			if (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], $client) !== false) {
-				$this->var->cli_client = true;
-				break;
-			}
-		}
+		$this->var->cli_client = $this->file_mod->is_cli_client();
 
 		if ($this->var->cli_client) {
 			$this->var->view_dir = "file_plaintext";
@@ -51,7 +44,7 @@ class File extends CI_Controller {
 			$this->var->view_dir = "file";
 		}
 
-		if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
+		if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW']) && $_SERVER['PHP_AUTH_USER'] && $_SERVER['PHP_AUTH_PW']) {
 			if (!$this->muser->login($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])) {
 				// TODO: better message
 				echo "login failed.\n";

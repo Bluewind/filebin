@@ -175,6 +175,18 @@ class File_mod extends CI_Model {
 		return true;
 	}
 
+	function is_cli_client()
+	{
+		// official client uses "fb-client/$version" as useragent
+		$clients = array("fb-client", "libcurl", "pyfb");
+		foreach ($clients as $client) {
+			if (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], $client) !== false) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	// download a given ID
 	// TODO: make smaller
 	function download()
