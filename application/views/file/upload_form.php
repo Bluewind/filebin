@@ -13,8 +13,6 @@ document.write('\
   <form action="javascript: do_paste()">\
     <p>\
       <textarea id="textarea" name="content" cols="80" rows="20"></textarea><br />\
-      <div style="display: none">Email: <input type="text" name="email" size="20" /></div>\
-      Optional password (for deletion and search): <input id="textarea_password" type="password" name="password" size="10" /><br />\
       <input  type="submit" value="Paste" name="process" />\
     </p>\
     </form>\

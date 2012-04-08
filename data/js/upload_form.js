@@ -52,7 +52,6 @@ function do_paste() {
 
     //Send the proper header information along with the request
     http.setRequestHeader("Content-type", "multipart/form-data; boundary=" + boundary);
-    http.setRequestHeader("Authorization", "Basic " + encode64(":" + document.getElementById("textarea_password").value));
 
     http.onreadystatechange = function() {
       if(http.readyState == 4 && http.status == 200) {
