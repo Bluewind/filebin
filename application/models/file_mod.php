@@ -9,9 +9,14 @@
 
 class File_mod extends CI_Model {
 
+	var $data = array();
+
 	function __construct()
 	{
 		parent::__construct();
+		$this->load->model("muser");
+		$this->data["title"] = "FileBin";
+		$this->data["username"] = $this->muser->get_username();
 	}
 
 	// Returns an unused ID
@@ -91,13 +96,12 @@ class File_mod extends CI_Model {
 
 	function show_url($id, $mode)
 	{
-		$data = array();
 		$redirect = false;
 
 		if ($mode) {
-			$data['url'] = site_url($id).'/'.$mode;
+			$this->data['url'] = site_url($id).'/'.$mode;
 		} else {
-			$data['url'] = site_url($id).'/';
+			$this->data['url'] = site_url($id).'/';
 
 			$filedata = $this->get_filedata($id);
 			$file = $this->file($filedata['hash']);
@@ -115,21 +119,21 @@ class File_mod extends CI_Model {
 			$redirect = false;
 		}
 		if ($redirect) {
-			redirect($data['url'], "location", 303);
+			redirect($this->data['url'], "location", 303);
 		} else {
-			$this->load->view($this->var->view_dir.'/header', $data);
-			$this->load->view($this->var->view_dir.'/show_url', $data);
-			$this->load->view($this->var->view_dir.'/footer', $data);
+			$this->load->view($this->var->view_dir.'/header', $this->data);
+			$this->load->view($this->var->view_dir.'/show_url', $this->data);
+			$this->load->view($this->var->view_dir.'/footer', $this->data);
 		}
 	}
 
 	function non_existent()
 	{
-		$data["title"] .= " - Not Found";
+		$this->data["title"] .= " - Not Found";
 		$this->output->set_status_header(404);
-		$this->load->view($this->var->view_dir.'/header', $data);
-		$this->load->view($this->var->view_dir.'/non_existent', $data);
-		$this->load->view($this->var->view_dir.'/footer', $data);
+		$this->load->view($this->var->view_dir.'/header', $this->data);
+		$this->load->view($this->var->view_dir.'/non_existent', $this->data);
+		$this->load->view($this->var->view_dir.'/footer', $this->data);
 	}
 
 	// remove old/invalid/broken IDs
@@ -175,7 +179,6 @@ class File_mod extends CI_Model {
 	// TODO: make smaller
 	function download()
 	{
-		$data = array();
 		$id = $this->uri->segment(1);
 		$mode = $this->uri->segment(2);
 
@@ -256,25 +259,25 @@ class File_mod extends CI_Model {
 			exit();
 		}
 
-		$data['title'] = htmlspecialchars($filedata['filename']);
-		$data['raw_link'] = site_url($id);
-		$data['new_link'] = site_url();
-		$data['plain_link'] = site_url($id.'/plain');
-		$data['auto_link'] = site_url($id).'/';
-		$data['rmd_link'] = site_url($id.'/rmd');
-		$data['delete_link'] = site_url("file/delete/".$id);
+		$this->data['title'] = htmlspecialchars($filedata['filename']);
+		$this->data['raw_link'] = site_url($id);
+		$this->data['new_link'] = site_url();
+		$this->data['plain_link'] = site_url($id.'/plain');
+		$this->data['auto_link'] = site_url($id).'/';
+		$this->data['rmd_link'] = site_url($id.'/rmd');
+		$this->data['delete_link'] = site_url("file/delete/".$id);
 
 		header("Content-Type: text/html\n");
 
-		$data['current_highlight'] = htmlspecialchars($mode);
+		$this->data['current_highlight'] = htmlspecialchars($mode);
 
 		if (filesize($file) > $this->config->item("small_upload_size")) {
-			$data['timeout'] = date("r", $filedata["date"] + $this->config->item("upload_max_age"));
+			$this->data['timeout'] = date("r", $filedata["date"] + $this->config->item("upload_max_age"));
 		} else {
-			$data['timeout'] = "never";
+			$this->data['timeout'] = "never";
 		}
 
-		echo $this->load->view($this->var->view_dir.'/html_header', $data, true);
+		echo $this->load->view($this->var->view_dir.'/html_header', $this->data, true);
 
 		// highlight the file and chache the result
 		$this->load->library("MemcacheLibrary");
@@ -302,7 +305,7 @@ class File_mod extends CI_Model {
 		}
 		echo $cached;
 
-		echo $this->load->view($this->var->view_dir.'/html_footer', $data, true);
+		echo $this->load->view($this->var->view_dir.'/html_footer', $this->data, true);
 
 		exit();
 	}

@@ -13,7 +13,7 @@
 		<?php echo anchor('file/index', 'New'); ?>
 
 		<div class="right">
-			<?php if($username) { ?>
+			<?php if(isset($username) && $username) { ?>
 				<?=anchor("user/logout", "Logout"); ?>
 			<?php } else { ?>
 					<?=form_open("user/login"); ?>
