@@ -232,7 +232,12 @@ class File extends CI_Controller {
 				4=>"No file was uploaded",
 				6=>"Missing a temporary folder"
 			);
-			$this->data["msg"] = $errors[$_FILES['file']['error']];
+
+			$this->data["msg"] = "Unknown error.";
+
+			if (isset($_FILES["file"])) {
+				$this->data["msg"] = $errors[$_FILES['file']['error']];
+			}
 			$this->load->view($this->var->view_dir.'/header', $this->data);
 			$this->load->view($this->var->view_dir.'/upload_error', $this->data);
 			$this->load->view($this->var->view_dir.'/footer');
