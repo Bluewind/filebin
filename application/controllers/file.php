@@ -9,6 +9,9 @@
 
 class File extends CI_Controller {
 
+	var $data = array();
+	var $var;
+
 	function __construct()
 	{
 		parent::__construct();
