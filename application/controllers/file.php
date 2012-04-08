@@ -198,6 +198,7 @@ class File extends CI_Controller {
 				$this->data["msg"] = "Deletion failed. Do you really own that file?";
 			}
 		}
+
 		$this->load->view($this->var->view_dir.'/header', $this->data);
 		$this->load->view($this->var->view_dir.'/delete_form', $this->data);
 		$this->load->view($this->var->view_dir.'/footer', $this->data);
@@ -304,7 +305,8 @@ class File extends CI_Controller {
 	}
 
 	/* remove files without database entries */
-	function clean_stale_files() {
+	function clean_stale_files()
+	{
 		if (!$this->input->is_cli_request()) return;
 
 		$upload_path = $this->config->item("upload_path");
