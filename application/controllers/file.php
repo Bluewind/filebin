@@ -57,6 +57,7 @@ class File extends CI_Controller {
 		}
 
 		$this->data['username'] = $this->muser->get_username();
+		$this->data['title'] = "FileBin";
 	}
 
 	function index()
@@ -78,7 +79,7 @@ class File extends CI_Controller {
 
 	function client()
 	{
-		$this->data['title'] = 'Client';
+		$this->data['title'] .= ' - Client';
 		if ($this->var->latest_client) {
 			$this->data['client_link'] = base_url().'data/client/fb-'.$this->var->latest_client.'.tar.gz';
 		} else {
@@ -101,7 +102,7 @@ class File extends CI_Controller {
 	{
 		$this->muser->require_access();
 	
-		$this->data['title'] = 'Upload';
+		$this->data['title'] .= ' - Upload';
 		$this->data['small_upload_size'] = $this->config->item('small_upload_size');
 		$this->data['max_upload_size'] = $this->config->item('upload_max_size');
 		$this->data['upload_max_age'] = $this->config->item('upload_max_age')/60/60/24;
@@ -135,7 +136,7 @@ class File extends CI_Controller {
 			$query = array();
 			$lengths = array();
 			$fields = array("id", "filename", "mimetype", "date", "hash");
-			$this->data['title'] = 'Upload history';
+			$this->data['title'] .= ' - Upload history';
 			foreach($fields as $length_key) {
 				$lengths[$length_key] = 0;
 			}
@@ -179,7 +180,7 @@ class File extends CI_Controller {
 		$this->muser->require_access();
 
 		$id = $this->uri->segment(3);
-		$this->data["title"] = "Delete";
+		$this->data["title"] .= " - Delete $id";
 		$this->data["id"] = $id;
 
 		$process = $this->input->post("process");

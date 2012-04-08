@@ -125,7 +125,7 @@ class File_mod extends CI_Model {
 
 	function non_existent()
 	{
-		$data["title"] = "Not Found";
+		$data["title"] .= " - Not Found";
 		$this->output->set_status_header(404);
 		$this->load->view($this->var->view_dir.'/header', $data);
 		$this->load->view($this->var->view_dir.'/non_existent', $data);
