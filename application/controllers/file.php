@@ -217,7 +217,8 @@ class File extends CI_Controller {
 		$this->muser->require_access();
 
 		if ($this->uri->segment(3)) {
-			exit;
+			$this->var->cli_client = true;
+			$this->var->view_dir = "file_plaintext";
 		}
 
 		$extension = $this->input->post('extension');
