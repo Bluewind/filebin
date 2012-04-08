@@ -1,0 +1,23 @@
+._6502tasm .de1, ._6502tasm .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+._6502tasm  {font-family:monospace;}
+._6502tasm .imp {font-weight: bold; color: red;}
+._6502tasm li, ._6502tasm .li1 {font-weight: normal; vertical-align:top;}
+._6502tasm .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+._6502tasm .li2 {font-weight: bold; vertical-align:top;}
+._6502tasm .kw1 {color: #00f; font-weight:bold;}
+._6502tasm .kw2 {color: #00f; font-weight:bold;}
+._6502tasm .kw3 {color: #080; font-weight:bold;}
+._6502tasm .kw4 {color: #f00; font-weight:bold;}
+._6502tasm .kw5 {color: #80f; font-weight:bold;}
+._6502tasm .kw6 {color: #f08; font-weight:bold;}
+._6502tasm .kw7 {color: #a04; font-weight:bold; font-style: italic;}
+._6502tasm .co1 {color: #999; font-style: italic;}
+._6502tasm .es0 {color: #009; font-weight: bold;}
+._6502tasm .br0 {color: #000;}
+._6502tasm .sy0 {color: #080;}
+._6502tasm .st0 {color: #080;}
+._6502tasm .nu0 {color: #f00;}
+._6502tasm .nu5 {color: #f00;}
+._6502tasm .nu13 {color: #f00;}
+._6502tasm .ln-xtra, ._6502tasm li.ln-xtra, ._6502tasm div.ln-xtra {background-color: #ffc;}
+._6502tasm span.xtra { display:block; }

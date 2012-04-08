@@ -4,14 +4,21 @@
 .lua li, .lua .li1 {font-weight: normal; vertical-align:top;}
 .lua .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
 .lua .li2 {font-weight: bold; vertical-align:top;}
-.lua .kw1 {color: #b1b100;}
+.lua .kw1 {color: #aa9900; font-weight: bold;}
+.lua .kw2 {color: #aa9900; font-weight: bold;}
+.lua .kw3 {color: #0000aa;}
+.lua .kw4 {color: #aa9900;}
+.lua .kw5 {color: #aa9900;}
 .lua .co1 {color: #808080; font-style: italic;}
+.lua .co2 {color: #ff0000;}
 .lua .coMULTI {color: #808080; font-style: italic;}
 .lua .es0 {color: #000099; font-weight: bold;}
+.lua .es1 {color: #000099; font-weight: bold;}
+.lua .es2 {color: #000099; font-weight: bold;}
 .lua .br0 {color: #66cc66;}
 .lua .sy0 {color: #66cc66;}
-.lua .st0 {color: #ff0000;}
+.lua .st0 {color: #ff6666;}
 .lua .nu0 {color: #cc66cc;}
-.lua .me0 {color: #b1b100;}
+.lua .me0 {color: #aa9900;}
 .lua .ln-xtra, .lua li.ln-xtra, .lua div.ln-xtra {background-color: #ffc;}
 .lua span.xtra { display:block; }

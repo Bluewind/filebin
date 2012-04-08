@@ -1,0 +1,17 @@
+.bascomavr .de1, .bascomavr .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.bascomavr  {font-family:monospace;}
+.bascomavr .imp {font-weight: bold; color: red;}
+.bascomavr li, .bascomavr .li1 {font-weight: normal; vertical-align:top;}
+.bascomavr .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.bascomavr .li2 {font-weight: bold; vertical-align:top;}
+.bascomavr .kw1 {color: #000080; font-weight: bold;}
+.bascomavr .kw2 {color: #FF0000;}
+.bascomavr .kw3 {color: #0000FF;}
+.bascomavr .kw4 {color: #0080FF;}
+.bascomavr .co1 {color: #657CC4; font-style: italic;}
+.bascomavr .br0 {color: #000080;}
+.bascomavr .sy0 {color: #0000FF;}
+.bascomavr .st0 {color: #008000;}
+.bascomavr .nu0 {color: #000080; font-weight: bold;}
+.bascomavr .ln-xtra, .bascomavr li.ln-xtra, .bascomavr div.ln-xtra {background-color: #ffc;}
+.bascomavr span.xtra { display:block; }

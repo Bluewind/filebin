@@ -1,0 +1,37 @@
+.ecmascript .de1, .ecmascript .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.ecmascript  {font-family:monospace;}
+.ecmascript .imp {font-weight: bold; color: red;}
+.ecmascript li, .ecmascript .li1 {font-weight: normal; vertical-align:top;}
+.ecmascript .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.ecmascript .li2 {font-weight: bold; vertical-align:top;}
+.ecmascript .kw1 {color: #009999;}
+.ecmascript .kw2 {color: #1500C8;}
+.ecmascript .kw3 {color: #1500C8;}
+.ecmascript .kw4 {color: #1500C8;}
+.ecmascript .kw5 {color: #1500C8;}
+.ecmascript .kw6 {color: #1500C8;}
+.ecmascript .kw7 {color: #1500C8;}
+.ecmascript .kw8 {color: #1500C8;}
+.ecmascript .co1 {color: #666666; font-style: italic;}
+.ecmascript .co2 {color: #CC0000;}
+.ecmascript .coMULTI {color: #666666; font-style: italic;}
+.ecmascript .es0 {color: #3366CC;}
+.ecmascript .es1 {color: #3366CC;}
+.ecmascript .es2 {color: #3366CC;}
+.ecmascript .es3 {color: #3366CC;}
+.ecmascript .es4 {color: #3366CC;}
+.ecmascript .es5 {color: #3366CC;}
+.ecmascript .br0 {color: #008800;}
+.ecmascript .sy0 {color: #339933;}
+.ecmascript .st0 {color: #9900FF;}
+.ecmascript .nu0 {color: #FF00FF;}
+.ecmascript .nu6 {color: #FF00FF;}
+.ecmascript .nu8 {color: #FF00FF;}
+.ecmascript .nu12 {color: #FF00FF;}
+.ecmascript .nu16 {color: #FF00FF;}
+.ecmascript .nu17 {color: #FF00FF;}
+.ecmascript .nu18 {color: #FF00FF;}
+.ecmascript .nu19 {color: #FF00FF;}
+.ecmascript .me1 {color: #660066;}
+.ecmascript .ln-xtra, .ecmascript li.ln-xtra, .ecmascript div.ln-xtra {background-color: #ffc;}
+.ecmascript span.xtra { display:block; }

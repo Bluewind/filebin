@@ -1,0 +1,18 @@
+.proftpd .de1, .proftpd .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.proftpd  {font-family:monospace;}
+.proftpd .imp {font-weight: bold; color: red;}
+.proftpd li, .proftpd .li1 {font-weight: normal; vertical-align:top;}
+.proftpd .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.proftpd .li2 {font-weight: bold; vertical-align:top;}
+.proftpd .kw1 {color: #00007f;}
+.proftpd .kw2 {color: #0000ff;}
+.proftpd .kw3 {color: #000000; font-weight:bold;}
+.proftpd .kw4 {color: #000080; font-weight:bold;}
+.proftpd .co1 {color: #adadad; font-style: italic;}
+.proftpd .es0 {color: #000099; font-weight: bold;}
+.proftpd .br0 {color: #339933;}
+.proftpd .sy0 {color: #008000;}
+.proftpd .st0 {color: #7f007f;}
+.proftpd .nu0 {color: #ff0000;}
+.proftpd .ln-xtra, .proftpd li.ln-xtra, .proftpd div.ln-xtra {background-color: #ffc;}
+.proftpd span.xtra { display:block; }

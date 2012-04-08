@@ -10,11 +10,12 @@
 .autoit .kw4 {color: #0080FF; font-style: italic; font-weight: bold;}
 .autoit .kw5 {color: #F000FF; font-style: italic;}
 .autoit .kw6 {color: #A00FF0; font-style: italic;}
-.autoit .co0 {font-style: italic; color: #009933;}
 .autoit .coMULTI {font-style: italic; color: #669900;}
+.autoit .co0 {font-style: italic; color: #009933;}
+.autoit .co1 {font-style: italic; color: #9977BB;}
 .autoit .br0 {color: #FF0000; font-weight: bold;}
 .autoit .sy0 {color: #FF0000; font-weight: bold;}
-.autoit .st0 {font-weight: bold; color: #008080;}
+.autoit .st0 {font-weight: bold; color: #9977BB;}
 .autoit .nu0 {color: #AC00A9; font-style: italic; font-weight: bold;}
 .autoit .me1 {color: #0000FF; font-style: italic; font-weight: bold;}
 .autoit .re0 {font-weight: bold; color: #AA0000;}

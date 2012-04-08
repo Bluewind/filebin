@@ -1,0 +1,25 @@
+.falcon .de1, .falcon .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.falcon  {font-family:monospace;}
+.falcon .imp {font-weight: bold; color: red;}
+.falcon li, .falcon .li1 {font-weight: normal; vertical-align:top;}
+.falcon .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.falcon .li2 {font-weight: bold; vertical-align:top;}
+.falcon .kw1 {color: #000080;font-weight:bold;}
+.falcon .kw2 {color: #800000;font-weight:bold;}
+.falcon .kw3 {color: #800000;font-weight:bold;}
+.falcon .kw4 {color: #000080;font-weight:bold;}
+.falcon .kw5 {color: #000000;font-weight:bold;}
+.falcon .kw6 {font-weight:bold;}
+.falcon .kw7 {font-weight:bold;}
+.falcon .kw8 {font-weight:bold;}
+.falcon .co1 {color: #29B900;}
+.falcon .coMULTI {color: #008080}
+.falcon .es0 {color: #800000}
+.falcon .br0 {color: #000000}
+.falcon .sy0 {color: #8B0513}
+.falcon .st0 {color: #800000}
+.falcon .nu0 {color: #000000}
+.falcon .me0 {color: #000000}
+.falcon .re0 {color: #FF00FF}
+.falcon .ln-xtra, .falcon li.ln-xtra, .falcon div.ln-xtra {background-color: #ffc;}
+.falcon span.xtra { display:block; }

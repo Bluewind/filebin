@@ -10,10 +10,13 @@
 .ocaml .kw4 {color: #06c; font-weight: bold;}
 .ocaml .kw5 {color: #06c; font-weight: bold;}
 .ocaml .coMULTI {color: #5d478b; font-style: italic;}
-.ocaml .br0 {color: #6c6;}
+.ocaml .co1 {color: #5d478b; font-style: italic;}
+.ocaml .br0 {color: #a52a2a;}
 .ocaml .sy0 {color: #a52a2a;}
 .ocaml .st0 {color: #3cb371;}
 .ocaml .nu0 {color: #c6c;}
 .ocaml .me1 {color: #060;}
+.ocaml .re1 {font-weight:bold; color:#339933;}
+.ocaml .re2 {font-weight:bold; color:#993399;}
 .ocaml .ln-xtra, .ocaml li.ln-xtra, .ocaml div.ln-xtra {background-color: #ffc;}
 .ocaml span.xtra { display:block; }

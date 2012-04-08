@@ -1,0 +1,60 @@
+.llvm .de1, .llvm .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.llvm  {font-family:monospace;}
+.llvm .imp {font-weight: bold; color: red;}
+.llvm li, .llvm .li1 {font-weight: normal; vertical-align:top;}
+.llvm .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.llvm .li2 {font-weight: bold; vertical-align:top;}
+.llvm .kw0 {color: #209090;}
+.llvm .kw1 {color: #0000F0;}
+.llvm .kw2 {color: #00F000; font-weight: bold;}
+.llvm .kw3 {color: #F00000;}
+.llvm .kw4 {color: #00F0F0; font-weight: bold;}
+.llvm .kw5 {color: #F000F0; font-weight: bold;}
+.llvm .kw6 {color: #403020; font-weight: bold;}
+.llvm .kw7 {color: #909090; font-weight: bold;}
+.llvm .kw8 {color: #009090; font-weight: bold;}
+.llvm .kw9 {color: #900090; font-weight: bold;}
+.llvm .kw10 {color: #909000; font-weight: bold;}
+.llvm .kw11 {color: #000090; font-weight: bold;}
+.llvm .kw12 {color: #900000; font-weight: bold;}
+.llvm .kw13 {color: #009000; font-weight: bold;}
+.llvm .kw14 {color: #F0F090; font-weight: bold;}
+.llvm .kw15 {color: #F090F0; font-weight: bold;}
+.llvm .kw16 {color: #90F0F0; font-weight: bold;}
+.llvm .kw17 {color: #9090F0; font-weight: bold;}
+.llvm .kw18 {color: #90F090; font-weight: bold;}
+.llvm .kw19 {color: #F09090; font-weight: bold;}
+.llvm .kw20 {color: #4040F0; font-weight: bold;}
+.llvm .kw21 {color: #40F040; font-weight: bold;}
+.llvm .kw22 {color: #F04040; font-weight: bold;}
+.llvm .kw23 {color: #F0F040; font-weight: bold;}
+.llvm .kw24 {color: #F040F0; font-weight: bold;}
+.llvm .kw25 {color: #40F0F0; font-weight: bold;}
+.llvm .kw26 {color: #904040; font-weight: bold;}
+.llvm .co1 {color: #666666; font-style: italic;}
+.llvm .coMULTI {color: #666666; font-style: italic;}
+.llvm .es0 {color: #000099; font-weight: bold;}
+.llvm .es1 {color: #000099; font-weight: bold;}
+.llvm .es2 {color: #660099; font-weight: bold;}
+.llvm .es3 {color: #660099; font-weight: bold;}
+.llvm .es4 {color: #006699; font-weight: bold;}
+.llvm .es5 {color: #006699; font-weight: bold; font-style: italic;}
+.llvm .es6 {color: #009933; font-weight: bold;}
+.llvm .es_h {color: #000099; font-weight: bold;}
+.llvm .br0 {color: #009900;}
+.llvm .sy0 {color: #339933;}
+.llvm .st0 {color: #0000ff;}
+.llvm .st_h {color: #0000ff;}
+.llvm .nu0 {color: #cc66cc;}
+.llvm .nu8 {color: #208080;}
+.llvm .nu12 {color: #208080;}
+.llvm .nu19 {color:#800080;}
+.llvm .me1 {color: #004000;}
+.llvm .me2 {color: #004000;}
+.llvm .re0 {color: #007088;}
+.llvm .re1 {color: #007088;}
+.llvm .re3 {color: #700088;}
+.llvm .re4 {color: #010088;}
+.llvm .re9 {color: #6109F8;}
+.llvm .ln-xtra, .llvm li.ln-xtra, .llvm div.ln-xtra {background-color: #ffc;}
+.llvm span.xtra { display:block; }

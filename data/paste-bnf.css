@@ -4,7 +4,12 @@
 .bnf li, .bnf .li1 {font-weight: normal; vertical-align:top;}
 .bnf .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
 .bnf .li2 {font-weight: bold; vertical-align:top;}
+.bnf .co0 {color: #666666; font-style: italic;}
 .bnf .sy0 {color: #000066; font-weight: bold;}
+.bnf .sy1 {color: #000066; font-weight: bold;}
+.bnf .sy2 {color: #000066; font-weight: bold;}
+.bnf .sy3 {color: #000066; font-weight: bold;}
+.bnf .sy4 {color: #006600; font-weight: bold;}
 .bnf .st0 {color: #a00;}
 .bnf .st1 {color: #a00;}
 .bnf .re0 {color: #007;}

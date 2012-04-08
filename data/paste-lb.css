@@ -1,0 +1,19 @@
+.lb .de1, .lb .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.lb  {font-family:monospace;}
+.lb .imp {font-weight: bold; color: red;}
+.lb li, .lb .li1 {font-weight: normal; vertical-align:top;}
+.lb .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.lb .li2 {font-weight: bold; vertical-align:top;}
+.lb .kw1 {color: #0000FF;}
+.lb .kw2 {color: #AD0080;}
+.lb .kw3 {color: #008080;}
+.lb .co1 {color: #666666; font-style: italic;}
+.lb .coMULTI {color: #666666; font-style: italic;}
+.lb .es0 {color: #000099; font-weight: bold;}
+.lb .br0 {color: #009900;}
+.lb .sy1 {color: #339933;}
+.lb .st0 {color: #008000;}
+.lb .nu0 {color: #FF0000;}
+.lb .me0 {color: #004000;}
+.lb .ln-xtra, .lb li.ln-xtra, .lb div.ln-xtra {background-color: #ffc;}
+.lb span.xtra { display:block; }

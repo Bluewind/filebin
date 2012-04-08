@@ -1,0 +1,19 @@
+.postgresql .de1, .postgresql .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.postgresql  {font-family:monospace;}
+.postgresql .imp {font-weight: bold; color: red;}
+.postgresql li, .postgresql .li1 {font-weight: normal; vertical-align:top;}
+.postgresql .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.postgresql .li2 {font-weight: bold; vertical-align:top;}
+.postgresql .kw1 {color: #000000; font-weight: bold; text-transform: uppercase;}
+.postgresql .kw3 {color: #333399; font-weight: bold; text-transform: uppercase;}
+.postgresql .kw4 {color: #993333; font-weight: bold; text-transform: uppercase;}
+.postgresql .kw5 {color: #993333; font-weight: bold; text-transform: uppercase;}
+.postgresql .co1 {color: #808080; font-style: italic;}
+.postgresql .es0 {color: #000099; font-weight: bold;}
+.postgresql .br0 {color: #66cc66;}
+.postgresql .sy0 {color: #66cc66;}
+.postgresql .st0 {color: #ff0000;}
+.postgresql .nu0 {color: #cc66cc;}
+.postgresql .me1 {color: #ff0000;}
+.postgresql .ln-xtra, .postgresql li.ln-xtra, .postgresql div.ln-xtra {background-color: #ffc;}
+.postgresql span.xtra { display:block; }

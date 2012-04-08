@@ -1,0 +1,21 @@
+.yaml .de1, .yaml .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.yaml  {font-family:monospace;}
+.yaml .imp {font-weight: bold; color: red;}
+.yaml li, .yaml .li1 {font-weight: normal; vertical-align:top;}
+.yaml .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.yaml .li2 {font-weight: bold; vertical-align:top;}
+.yaml .kw1 {font-weight: bold;}
+.yaml .co0 {color: #303050;background-color: #F5F5F5}
+.yaml .co1 {color: blue;}
+.yaml .co2 {font-weight: bold; color: red;}
+.yaml .co3 {color: green;}
+.yaml .co4 {color: #007F45;}
+.yaml .co5 {color: #7f7fFF;}
+.yaml .co6 {color: #FF7000;}
+.yaml .co7 {color: #FF45C0;}
+.yaml .co8 {font-weight: bold; color: #005F5F;}
+.yaml .sy1 {color: cyan;}
+.yaml .sy2 {font-weight: bold; color: brown;}
+.yaml .st0 {color: #CF00CF;}
+.yaml .ln-xtra, .yaml li.ln-xtra, .yaml div.ln-xtra {background-color: #ffc;}
+.yaml span.xtra { display:block; }

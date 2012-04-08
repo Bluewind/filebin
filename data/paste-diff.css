@@ -12,9 +12,8 @@
 .diff .re4 {color: #888822;}
 .diff .re5 {color: #0011dd;}
 .diff .re6 {color: #440088;}
-.diff .re7, .diff .re7 .re0 {color: #991111;}
-.diff .re8, .diff .re8 .re0 {color: #00b000;}
+.diff .re7 {color: #991111;}
+.diff .re8 {color: #00b000;}
 .diff .re9 {color: #888822;}
-.diff .re10, .diff .re10 .re0 {color: #444444}
 .diff .ln-xtra, .diff li.ln-xtra, .diff div.ln-xtra {background-color: #ffc;}
 .diff span.xtra { display:block; }

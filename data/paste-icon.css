@@ -1,0 +1,25 @@
+.icon .de1, .icon .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.icon  {font-family:monospace;}
+.icon .imp {font-weight: bold; color: red;}
+.icon li, .icon .li1 {font-weight: normal; vertical-align:top;}
+.icon .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.icon .li2 {font-weight: bold; vertical-align:top;}
+.icon .kw1 {color: #b1b100;}
+.icon .kw2 {color: #b1b100;}
+.icon .kw3 {color: #b1b100;}
+.icon .kw4 {color: #b1b100;}
+.icon .kw5 {color: #b1b100;}
+.icon .kw6 {color: #b1b100;}
+.icon .kw7 {color: #b1b100;}
+.icon .kw8 {color: #b1b100;}
+.icon .co1 {color: #666666; font-style: italic;}
+.icon .coMULTI {color: #666666; font-style: italic;}
+.icon .es0 {color: #000099; font-weight: bold;}
+.icon .br0 {color: #009900;}
+.icon .sy1 {color: #339933;}
+.icon .sy2 {color: #b1b100;}
+.icon .st0 {color: #0000ff;}
+.icon .nu0 {color: #cc66cc;}
+.icon .me0 {color: #004000;}
+.icon .ln-xtra, .icon li.ln-xtra, .icon div.ln-xtra {background-color: #ffc;}
+.icon span.xtra { display:block; }

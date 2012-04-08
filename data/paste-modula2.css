@@ -1,0 +1,21 @@
+.modula2 .de1, .modula2 .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.modula2  {font-family:monospace;}
+.modula2 .imp {font-weight: bold; color: red;}
+.modula2 li, .modula2 .li1 {font-weight: normal; vertical-align:top;}
+.modula2 .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.modula2 .li2 {font-weight: bold; vertical-align:top;}
+.modula2 .kw1 {color: #000000; font-weight: bold;}
+.modula2 .kw2 {color: #000000; font-weight: bold;}
+.modula2 .kw3 {color: #000066;}
+.modula2 .kw4 {color: #000066; font-weight: bold;}
+.modula2 .coMULTI {color: #666666; font-style: italic;}
+.modula2 .es0 {color: #000099; font-weight: bold;}
+.modula2 .es_h {color: #000099; font-weight: bold;}
+.modula2 .br0 {color: #009900;}
+.modula2 .sy0 {color: #339933;}
+.modula2 .st0 {color: #ff0000;}
+.modula2 .st_h {color: #ff0000;}
+.modula2 .nu0 {color: #cc66cc;}
+.modula2 .me1 {color: #0066ee;}
+.modula2 .ln-xtra, .modula2 li.ln-xtra, .modula2 div.ln-xtra {background-color: #ffc;}
+.modula2 span.xtra { display:block; }

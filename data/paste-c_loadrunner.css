@@ -1,0 +1,33 @@
+.c_loadrunner .de1, .c_loadrunner .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.c_loadrunner  {font-family:monospace;}
+.c_loadrunner .imp {font-weight: bold; color: red;}
+.c_loadrunner li, .c_loadrunner .li1 {font-weight: normal; vertical-align:top;}
+.c_loadrunner .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.c_loadrunner .li2 {font-weight: bold; vertical-align:top;}
+.c_loadrunner .kw1 {color: #0000ff;}
+.c_loadrunner .kw2 {color: #0000ff;}
+.c_loadrunner .kw3 {color: #8a0000;}
+.c_loadrunner .kw4 {color: #0000ff;}
+.c_loadrunner .kw5 {color: #8a0000;}
+.c_loadrunner .kw6 {color: #0000ff;}
+.c_loadrunner .kw7 {color: #8a0000;}
+.c_loadrunner .kw8 {color: #0000ff;}
+.c_loadrunner .kw9 {color: #8a0000;}
+.c_loadrunner .kw10 {color: #0000ff;}
+.c_loadrunner .co1 {color: #9b9b9b;}
+.c_loadrunner .coMULTI {color: #9b9b9b;}
+.c_loadrunner .es0 {color: #c000c0;}
+.c_loadrunner .br0 {color: #000000;}
+.c_loadrunner .sy0 {color: #000000;}
+.c_loadrunner .st0 {color: #008080;}
+.c_loadrunner .nu0 {color: #008080;}
+.c_loadrunner .nu262144 {color:#008080;}
+.c_loadrunner .nu524288 {color:#008080;}
+.c_loadrunner .nu131072 {color:#008080;}
+.c_loadrunner .nu6 {color: #008080;}
+.c_loadrunner .nu8 {color: #008080;}
+.c_loadrunner .nu12 {color: #008080;}
+.c_loadrunner .nu16 {color:#008080;}
+.c_loadrunner .me1 {color: #000000;}
+.c_loadrunner .ln-xtra, .c_loadrunner li.ln-xtra, .c_loadrunner div.ln-xtra {background-color: #ffc;}
+.c_loadrunner span.xtra { display:block; }

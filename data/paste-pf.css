@@ -1,0 +1,34 @@
+.pf .de1, .pf .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.pf  {font-family:monospace;}
+.pf .imp {font-weight: bold; color: red;}
+.pf li, .pf .li1 {font-weight: normal; vertical-align:top;}
+.pf .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.pf .li2 {font-weight: bold; vertical-align:top;}
+.pf .kw1 {color: #009900; font-weight: bold;}
+.pf .kw2 {color: #990000; font-weight: bold;}
+.pf .kw3 {color: #7a0874;}
+.pf .kw4 {color: #336699;}
+.pf .co0 {color: #666666; font-style: italic;}
+.pf .co1 {color: #800000;}
+.pf .co2 {color: #cc0000; font-style: italic;}
+.pf .co3 {color: #000000; font-weight: bold;}
+.pf .es1 {color: #000099; font-weight: bold;}
+.pf .es2 {color: #007800;}
+.pf .es3 {color: #007800;}
+.pf .es4 {color: #007800;}
+.pf .es5 {color: #780078;}
+.pf .es_h {color: #000099; font-weight: bold;}
+.pf .br0 {color: #7a0874; font-weight: bold;}
+.pf .sy0 {color: #000000; font-weight: bold;}
+.pf .st0 {color: #CC0000;}
+.pf .st_h {color: #CC0000;}
+.pf .nu0 {color: #ff00cc;}
+.pf .re0 {color: #007800;}
+.pf .re1 {color: #007800;}
+.pf .re2 {color: #007800;}
+.pf .re4 {color: #007800;}
+.pf .re5 {color: #660033;}
+.pf .re6 {color: #000099; font-weight: bold;}
+.pf .re7 {color: #0000ff;}
+.pf .ln-xtra, .pf li.ln-xtra, .pf div.ln-xtra {background-color: #ffc;}
+.pf span.xtra { display:block; }

@@ -1,0 +1,21 @@
+.gwbasic .de1, .gwbasic .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.gwbasic  {font-family:monospace;}
+.gwbasic .imp {font-weight: bold; color: red;}
+.gwbasic li, .gwbasic .li1 {font-weight: normal; vertical-align:top;}
+.gwbasic .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.gwbasic .li2 {font-weight: bold; vertical-align:top;}
+.gwbasic .kw1 {color: #00a1a1;font-weight: bold}
+.gwbasic .kw2 {color: #000066;font-weight: bold}
+.gwbasic .kw3 {color: #00a166;font-weight: bold}
+.gwbasic .kw4 {color: #0066a1;font-weight: bold}
+.gwbasic .co1 {color: #808080;}
+.gwbasic .co2 {color: #808080;}
+.gwbasic .es0 {color: #000099;}
+.gwbasic .br0 {color: #66cc66;}
+.gwbasic .sy0 {color: #00a166;font-weight: bold}
+.gwbasic .sy1 {color: #00a1a1;font-weight: bold}
+.gwbasic .st0 {color: #ff0000;}
+.gwbasic .nu0 {color: #cc66cc;}
+.gwbasic .re1 {color: #708090}
+.gwbasic .ln-xtra, .gwbasic li.ln-xtra, .gwbasic div.ln-xtra {background-color: #ffc;}
+.gwbasic span.xtra { display:block; }

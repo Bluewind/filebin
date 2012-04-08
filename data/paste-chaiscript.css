@@ -1,0 +1,20 @@
+.chaiscript .de1, .chaiscript .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.chaiscript  {font-family:monospace;}
+.chaiscript .imp {font-weight: bold; color: red;}
+.chaiscript li, .chaiscript .li1 {font-weight: normal; vertical-align:top;}
+.chaiscript .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.chaiscript .li2 {font-weight: bold; vertical-align:top;}
+.chaiscript .kw1 {color: #000066; font-weight: bold;}
+.chaiscript .kw2 {color: #003366; font-weight: bold;}
+.chaiscript .kw3 {color: #000066;}
+.chaiscript .co1 {color: #006600; font-style: italic;}
+.chaiscript .co2 {color: #009966; font-style: italic;}
+.chaiscript .coMULTI {color: #006600; font-style: italic;}
+.chaiscript .es0 {color: #000099; font-weight: bold;}
+.chaiscript .br0 {color: #009900;}
+.chaiscript .sy0 {color: #339933;}
+.chaiscript .st0 {color: #3366CC;}
+.chaiscript .nu0 {color: #CC0000;}
+.chaiscript .me1 {color: #660066;}
+.chaiscript .ln-xtra, .chaiscript li.ln-xtra, .chaiscript div.ln-xtra {background-color: #ffc;}
+.chaiscript span.xtra { display:block; }

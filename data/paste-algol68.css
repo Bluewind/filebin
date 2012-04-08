@@ -1,0 +1,49 @@
+.algol68 .de1, .algol68 .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.algol68  {font-family:monospace;}
+.algol68 .imp {font-weight: bold; color: red;}
+.algol68 li, .algol68 .li1 {font-weight: normal; vertical-align:top;}
+.algol68 .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.algol68 .li2 {font-weight: bold; vertical-align:top;}
+.algol68 .kw1 {color: #FF0000; font-weight: bold;}
+.algol68 .kw2 {color: #b1b100; font-weight: bold;}
+.algol68 .kw3 {color: #b1b100; font-weight: bold;}
+.algol68 .kw4 {color: #b1b100; font-weight: bold;}
+.algol68 .kw5 {color: #FF0000; font-weight: bold;}
+.algol68 .kw6 {color: #b1b100; font-weight: bold;}
+.algol68 .kw7 {color: #b1b100; font-weight: bold;}
+.algol68 .kw8 {color: #b1b100; font-weight: bold;}
+.algol68 .kw10 {color: #b1b100; font-weight: bold;}
+.algol68 .kw11 {color: #b1b100; font-weight: bold;}
+.algol68 .kw12 {color: #b1b100; font-weight: bold;}
+.algol68 .kw14 {color: #b1b100; font-weight: bold;}
+.algol68 .kw15 {color: #b1b100; font-weight: bold;}
+.algol68 .kw16 {color: #b1b100; font-weight: bold;}
+.algol68 .kw17 {color: #b1b100; font-weight: bold;}
+.algol68 .kw18 {color: #FF0000; font-weight: bold;}
+.algol68 .kw19 {color: #FF0000; font-weight: bold;}
+.algol68 .kw20 {color: #b1b100;}
+.algol68 .kw21 {color: #b1b100;}
+.algol68 .kw22 {color: #b1b100;}
+.algol68 .kw23 {color: #b1b100;}
+.algol68 .kw24 {color: #b1b100;}
+.algol68 .kw25 {color: #b1b100;}
+.algol68 .kw26 {color: #b1b100;}
+.algol68 .kw27 {color: #b1b100;}
+.algol68 .kw28 {color: #b1b100;}
+.algol68 .kw29 {color: #b1b100;}
+.algol68 .co1 {color: #666666; font-style: italic;}
+.algol68 .co2 {color: #666666; font-style: italic;}
+.algol68 .co3 {color: #666666; font-style: italic;}
+.algol68 .coMULTI {color: #666666; font-style: italic;}
+.algol68 .es0 {color: #000099; font-weight: bold;}
+.algol68 .br0 {color: #009900;}
+.algol68 .sy0 {color: #339933;}
+.algol68 .sy1 {color: #339933;}
+.algol68 .st0 {color: #0000ff;}
+.algol68 .nu0 {color: #cc66cc;}
+.algol68 .me0 {color: #004000;}
+.algol68 .me1 {color: #004000;}
+.algol68 .re0 {color: #cc66cc;}
+.algol68 .re1 {color: #cc66cc;}
+.algol68 .ln-xtra, .algol68 li.ln-xtra, .algol68 div.ln-xtra {background-color: #ffc;}
+.algol68 span.xtra { display:block; }

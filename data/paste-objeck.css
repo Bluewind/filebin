@@ -1,0 +1,19 @@
+.objeck .de1, .objeck .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.objeck  {font-family:monospace;}
+.objeck .imp {font-weight: bold; color: red;}
+.objeck li, .objeck .li1 {font-weight: normal; vertical-align:top;}
+.objeck .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.objeck .li2 {font-weight: bold; vertical-align:top;}
+.objeck .kw1 {color: #b1b100;}
+.objeck .kw2 {color: #b1b100;}
+.objeck .kw3 {color: #b1b100;}
+.objeck .co1 {color: #666666; font-style: italic;}
+.objeck .coMULTI {color: #666666; font-style: italic;}
+.objeck .es0 {color: #000099; font-weight: bold;}
+.objeck .br0 {color: #009900;}
+.objeck .sy1 {color: #339933;}
+.objeck .st0 {color: #0000ff;}
+.objeck .nu0 {color: #cc66cc;}
+.objeck .me0 {color: #004000;}
+.objeck .ln-xtra, .objeck li.ln-xtra, .objeck div.ln-xtra {background-color: #ffc;}
+.objeck span.xtra { display:block; }

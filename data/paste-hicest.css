@@ -1,0 +1,18 @@
+.hicest .de1, .hicest .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.hicest  {font-family:monospace;}
+.hicest .imp {font-weight: bold; color: red;}
+.hicest li, .hicest .li1 {font-weight: normal; vertical-align:top;}
+.hicest .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.hicest .li2 {font-weight: bold; vertical-align:top;}
+.hicest .kw1 {color: #ff0000;}
+.hicest .co1 {color: #666666; font-style: italic;}
+.hicest .coMULTI {color: #666666; font-style: italic;}
+.hicest .es0 {color: #000099; font-weight: bold;}
+.hicest .br0 {color: #009900;}
+.hicest .sy1 {color: #339933;}
+.hicest .sy2 {color: #ff0000;}
+.hicest .st0 {color: #0000ff;}
+.hicest .nu0 {color: #cc66cc;}
+.hicest .me0 {color: #004000;}
+.hicest .ln-xtra, .hicest li.ln-xtra, .hicest div.ln-xtra {background-color: #ffc;}
+.hicest span.xtra { display:block; }

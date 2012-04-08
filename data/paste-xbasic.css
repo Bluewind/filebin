@@ -1,0 +1,18 @@
+.xbasic .de1, .xbasic .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.xbasic  {font-family:monospace;}
+.xbasic .imp {font-weight: bold; color: red;}
+.xbasic li, .xbasic .li1 {font-weight: normal; vertical-align:top;}
+.xbasic .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.xbasic .li2 {font-weight: bold; vertical-align:top;}
+.xbasic .kw1 {color: #00a1a1;font-weight: bold}
+.xbasic .kw2 {color: #000066;font-weight: bold}
+.xbasic .kw3 {color: #00a166;font-weight: bold}
+.xbasic .kw4 {color: #0066a1;font-weight: bold}
+.xbasic .co1 {color: #808080;}
+.xbasic .es0 {color: #000099;}
+.xbasic .br0 {color: #66cc66;}
+.xbasic .sy0 {color: #66cc66;}
+.xbasic .st0 {color: #ff0000;}
+.xbasic .nu0 {color: #cc66cc;}
+.xbasic .ln-xtra, .xbasic li.ln-xtra, .xbasic div.ln-xtra {background-color: #ffc;}
+.xbasic span.xtra { display:block; }

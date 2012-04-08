@@ -1,0 +1,29 @@
+.magiksf .de1, .magiksf .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.magiksf  {font-family:monospace;}
+.magiksf .imp {font-weight: bold; color: red;}
+.magiksf li, .magiksf .li1 {font-weight: normal; vertical-align:top;}
+.magiksf .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.magiksf .li2 {font-weight: bold; vertical-align:top;}
+.magiksf .kw1 {color: #000000; font-weight: bold;}
+.magiksf .kw2 {color: #ff3f3f;}
+.magiksf .kw3 {color: #3f7f3f; font-weight: bold;}
+.magiksf .kw4 {color: #cc66cc;}
+.magiksf .kw5 {color: #ff3fff; font-weight: bold;}
+.magiksf .kw6 {font-weight: bold;}
+.magiksf .co1 {color: #339933; font-weight: bold;}
+.magiksf .co2 {color: #993333;}
+.magiksf .co3 {color: #339933;}
+.magiksf .coMULTI {color: #7f7f7f; font-style: italic}
+.magiksf .es0 {color: #000099; font-weight: bold;}
+.magiksf .br0 {color: #ff3f3f;}
+.magiksf .sy0 {color: #ff3f3f;}
+.magiksf .st0 {color: #ff0000;}
+.magiksf .nu0 {color: #cc66cc;}
+.magiksf .me1 {color: #202020;}
+.magiksf .me2 {color: #202020;}
+.magiksf .re1 {color: #3f3fff;}
+.magiksf .re2 {color: #3f3fff;}
+.magiksf .re3 {color: #cc66cc;}
+.magiksf .re4 {color: #7f3f7f; font-style: italic;}
+.magiksf .ln-xtra, .magiksf li.ln-xtra, .magiksf div.ln-xtra {background-color: #ffc;}
+.magiksf span.xtra { display:block; }

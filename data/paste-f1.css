@@ -1,0 +1,26 @@
+.f1 .de1, .f1 .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.f1  {font-family:monospace;}
+.f1 .imp {font-weight: bold; color: red;}
+.f1 li, .f1 .li1 {font-weight: normal; vertical-align:top;}
+.f1 .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.f1 .li2 {font-weight: bold; vertical-align:top;}
+.f1 .kw1 {color: #0000ff;}
+.f1 .kw2 {color: #000080;}
+.f1 .kw3 {color: #000080;}
+.f1 .co1 {color: #008000; font-style: italic;}
+.f1 .co2 {color: #008000; font-style: italic;}
+.f1 .coMULTI {color: #008000; font-style: italic;}
+.f1 .es0 {color: #000099; font-weight: bold;}
+.f1 .es1 {color: #000099; font-weight: bold;}
+.f1 .es2 {color: #009999; font-weight: bold;}
+.f1 .br0 {color: #000000;}
+.f1 .sy0 {color: #000000;}
+.f1 .sy1 {color: #000000;}
+.f1 .sy2 {color: #000000;}
+.f1 .sy3 {color: #000000;}
+.f1 .sy4 {color: #000000;}
+.f1 .st0 {color: #ff0000;}
+.f1 .nu0 {color: #800000;}
+.f1 .me1 {color: #202020;}
+.f1 .ln-xtra, .f1 li.ln-xtra, .f1 div.ln-xtra {background-color: #ffc;}
+.f1 span.xtra { display:block; }

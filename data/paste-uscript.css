@@ -1,0 +1,28 @@
+.uscript .de1, .uscript .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.uscript  {font-family:monospace;}
+.uscript .imp {font-weight: bold; color: red;}
+.uscript li, .uscript .li1 {font-weight: normal; vertical-align:top;}
+.uscript .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.uscript .li2 {font-weight: bold; vertical-align:top;}
+.uscript .kw1 {color: #0000FF;}
+.uscript .kw2 {color: #0000FF;}
+.uscript .kw3 {color: #0066AA;}
+.uscript .kw4 {color: #0088FF;}
+.uscript .kw5 {color: #E000E0;}
+.uscript .kw6 {color: #900000;}
+.uscript .kw7 {color: #888800;}
+.uscript .kw8 {color: #AA6600;}
+.uscript .kw9 {color: #FF8800;}
+.uscript .kw10 {color: #0000FF;}
+.uscript .co1 {color: #008080; font-style: italic;}
+.uscript .co2 {color: #000000; font-weight: bold;}
+.uscript .coMULTI {color: #008080; font-style: italic;}
+.uscript .br0 {color: #000000;}
+.uscript .sy0 {color: #669966;}
+.uscript .st0 {color: #999999;}
+.uscript .nu0 {color: #FF0000;}
+.uscript .me0 {color: #006600;}
+.uscript .re0 {color: #E000E0;}
+.uscript .re1 {color: #E000E0;}
+.uscript .ln-xtra, .uscript li.ln-xtra, .uscript div.ln-xtra {background-color: #ffc;}
+.uscript span.xtra { display:block; }

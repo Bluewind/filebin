@@ -1,0 +1,24 @@
+.vala .de1, .vala .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.vala  {font-family:monospace;}
+.vala .imp {font-weight: bold; color: red;}
+.vala li, .vala .li1 {font-weight: normal; vertical-align:top;}
+.vala .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.vala .li2 {font-weight: bold; vertical-align:top;}
+.vala .kw1 {color: #0600FF;}
+.vala .kw2 {color: #FF8000; font-weight: bold;}
+.vala .kw3 {color: #008000;}
+.vala .kw4 {color: #FF0000;}
+.vala .co1 {color: #008080; font-style: italic;}
+.vala .co3 {color: #008080;}
+.vala .coMULTI {color: #008080; font-style: italic;}
+.vala .es0 {color: #008080; font-weight: bold;}
+.vala .es_h {color: #008080; font-weight: bold;}
+.vala .br0 {color: #000000;}
+.vala .sy0 {color: #008000;}
+.vala .st0 {color: #666666;}
+.vala .st_h {color: #666666;}
+.vala .nu0 {color: #FF0000;}
+.vala .me1 {color: #0000FF;}
+.vala .me2 {color: #0000FF;}
+.vala .ln-xtra, .vala li.ln-xtra, .vala div.ln-xtra {background-color: #ffc;}
+.vala span.xtra { display:block; }

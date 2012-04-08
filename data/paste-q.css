@@ -1,0 +1,34 @@
+.q .de1, .q .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.q  {font-family:monospace;}
+.q .imp {font-weight: bold; color: red;}
+.q li, .q .li1 {font-weight: normal; vertical-align:top;}
+.q .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.q .li2 {font-weight: bold; vertical-align:top;}
+.q .kw1 {color: #000099; font-weight: bold;}
+.q .kw2 {color: #009900; font-weight: bold;}
+.q .co1 {color: #666666; font-style: italic;}
+.q .co2 {color: #666666; font-style: italic;}
+.q .co3 {color: #808080; font-style: italic;}
+.q .coMULTI {color: #808080; font-style: italic;}
+.q .es0 {color: #000099; font-weight: bold;}
+.q .es1 {color: #000099; font-weight: bold;}
+.q .es2 {color: #660099; font-weight: bold;}
+.q .es3 {color: #660099; font-weight: bold;}
+.q .es4 {color: #660099; font-weight: bold;}
+.q .es5 {color: #006699; font-weight: bold;}
+.q .br0 {color: #009900;}
+.q .sy0 {color: #339933;}
+.q .st0 {color: #990000;}
+.q .nu0 {color: #0000dd;}
+.q .nu262144 {color:#800080;}
+.q .nu524288 {color:#800080;}
+.q .nu131072 {color:#800080;}
+.q .nu6 {color: #208080;}
+.q .nu8 {color: #208080;}
+.q .nu12 {color: #208080;}
+.q .nu16 {color:#800080;}
+.q .me1 {color: #202020;}
+.q .me2 {color: #202020;}
+.q .re2 {color: #999900;}
+.q .ln-xtra, .q li.ln-xtra, .q div.ln-xtra {background-color: #ffc;}
+.q span.xtra { display:block; }

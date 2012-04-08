@@ -1,0 +1,38 @@
+.pcre .de1, .pcre .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.pcre  {font-family:monospace;}
+.pcre .imp {font-weight: bold; color: red;}
+.pcre li, .pcre .li1 {font-weight: normal; vertical-align:top;}
+.pcre .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.pcre .li2 {font-weight: bold; vertical-align:top;}
+.pcre .co1 {color: #993333; font-weight: bold;}
+.pcre .co2 {color: #cc3300; font-weight: bold;}
+.pcre .co3 {color: #cc0066; font-weight: bold;}
+.pcre .co4 {color: #cc0066; font-weight: bold;}
+.pcre .co5 {color: #cc6600; font-weight: bold;}
+.pcre .co6 {color: #cc00cc; font-weight: bold;}
+.pcre .co7 {color: #cc9900; font-weight: bold; font-style: italic;}
+.pcre .co8 {color: #cc9900; font-style: italic;}
+.pcre .co9 {color: #669933; font-style: italic;}
+.pcre .co10 {color: #339933; font-style: italic;}
+.pcre .co11 {color: #339966; font-style: italic;}
+.pcre .co12 {color: #339999; font-style: italic;}
+.pcre .co13 {color: #663399; font-style: italic;}
+.pcre .co14 {color: #999933; font-style: italic;}
+.pcre .co15 {color: #993399; font-style: italic;}
+.pcre .co16 {color: #333399; font-style: italic;}
+.pcre .co17 {color: #666666; font-style: italic;}
+.pcre .coMULTI {color: #666666; font-style: italic;}
+.pcre .es0 {color: #000099; font-weight: bold;}
+.pcre .es_h {color: #000099; font-weight: bold;}
+.pcre .br0 {color: #009900;}
+.pcre .sy0 {color: #333399; font-weight: bold;}
+.pcre .sy1 {color: #993333; font-weight: bold;}
+.pcre .sy2 {color: #339933; font-weight: bold;}
+.pcre .sy3 {color: #333399; font-weight: bold;}
+.pcre .sy4 {color: #333399; font-style: italic;}
+.pcre .st0 {color: #ff0000;}
+.pcre .nu0 {color: #cc66cc;}
+.pcre .me1 {color: #006600;}
+.pcre .me2 {color: #006600;}
+.pcre .ln-xtra, .pcre li.ln-xtra, .pcre div.ln-xtra {background-color: #ffc;}
+.pcre span.xtra { display:block; }

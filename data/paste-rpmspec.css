@@ -1,0 +1,22 @@
+.rpmspec .de1, .rpmspec .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.rpmspec  {font-family:monospace;}
+.rpmspec .imp {font-weight: bold; color: red;}
+.rpmspec li, .rpmspec .li1 {font-weight: normal; vertical-align:top;}
+.rpmspec .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.rpmspec .li2 {font-weight: bold; vertical-align:top;}
+.rpmspec .co1 {color: #666666; font-style: italic;}
+.rpmspec .coMULTI {color: #666666; font-style: italic;}
+.rpmspec .es0 {color: #000099; font-weight: bold;}
+.rpmspec .es_h {color: #000099; font-weight: bold;}
+.rpmspec .br0 {color: #009900;}
+.rpmspec .sy0 {color: #339933;}
+.rpmspec .st0 {color: #ff0000;}
+.rpmspec .nu0 {color: #cc66cc;}
+.rpmspec .me1 {color: #006600;}
+.rpmspec .me2 {color: #006600;}
+.rpmspec .re1 {color: #0000ff;}
+.rpmspec .re2 {color: #009999;}
+.rpmspec .re3 {color: #000000; font-weight: bold;}
+.rpmspec .re4 {color: #ff6600; font-style: italic;}
+.rpmspec .ln-xtra, .rpmspec li.ln-xtra, .rpmspec div.ln-xtra {background-color: #ffc;}
+.rpmspec span.xtra { display:block; }

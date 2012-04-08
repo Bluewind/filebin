@@ -1,0 +1,22 @@
+.zxbasic .de1, .zxbasic .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.zxbasic  {font-family:monospace;}
+.zxbasic .imp {font-weight: bold; color: red;}
+.zxbasic li, .zxbasic .li1 {font-weight: normal; vertical-align:top;}
+.zxbasic .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.zxbasic .li2 {font-weight: bold; vertical-align:top;}
+.zxbasic .kw1 {color: #000080; font-weight: bold;}
+.zxbasic .kw2 {color: #800080; font-weight: bold;}
+.zxbasic .kw3 {color: #006000; font-weight: bold;}
+.zxbasic .kw4 {color: #801010; font-weight: bold;}
+.zxbasic .co1 {color: #808080; font-style: italic;}
+.zxbasic .co2 {color: #339933;}
+.zxbasic .co3 {color: #808080; font-style: italic;}
+.zxbasic .coMULTI {color: #808080; font-style: italic;}
+.zxbasic .es0 {color: #000099;}
+.zxbasic .br0 {color: #007676;}
+.zxbasic .sy0 {color: #66cc66;}
+.zxbasic .st0 {color: #A00000; font-style: italic;}
+.zxbasic .nu0 {color: #b05103;}
+.zxbasic .me0 {color: #66cc66;}
+.zxbasic .ln-xtra, .zxbasic li.ln-xtra, .zxbasic div.ln-xtra {background-color: #ffc;}
+.zxbasic span.xtra { display:block; }

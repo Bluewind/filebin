@@ -1,0 +1,21 @@
+.j .de1, .j .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.j  {font-family:monospace;}
+.j .imp {font-weight: bold; color: red;}
+.j li, .j .li1 {font-weight: normal; vertical-align:top;}
+.j .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.j .li2 {font-weight: bold; vertical-align:top;}
+.j .kw1 {color: #0000ff; font-weight: bold;}
+.j .kw2 {color: #0000cc; font-weight: bold;}
+.j .co1 {color: #666666; font-style: italic;}
+.j .co2 {color: #666666; font-style: italic; font-weight: bold;}
+.j .co3 {color: #ff00ff; }
+.j .coMULTI {color: #666666; font-style: italic;}
+.j .es_h {font-weight: bold;}
+.j .br0 {color: #009900;}
+.j .sy0 {color: #009900; font-weight: bold;}
+.j .st_h {color: #ff0000;}
+.j .st0 {color: #ff0000;}
+.j .nu0 {color: #009999; font-weight: bold;}
+.j .re0 {color: #0000ff; font-weight: bold;}
+.j .ln-xtra, .j li.ln-xtra, .j div.ln-xtra {background-color: #ffc;}
+.j span.xtra { display:block; }

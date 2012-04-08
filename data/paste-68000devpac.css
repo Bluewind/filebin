@@ -1,0 +1,22 @@
+._68000devpac .de1, ._68000devpac .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+._68000devpac  {font-family:monospace;}
+._68000devpac .imp {font-weight: bold; color: red;}
+._68000devpac li, ._68000devpac .li1 {font-weight: normal; vertical-align:top;}
+._68000devpac .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+._68000devpac .li2 {font-weight: bold; vertical-align:top;}
+._68000devpac .kw1 {color: #f08; font-weight:bold;}
+._68000devpac .kw2 {color: #00f; font-weight:bold;}
+._68000devpac .kw3 {color: #00f; font-weight:bold;}
+._68000devpac .kw4 {color: #080; font-weight:bold;}
+._68000devpac .co1 {color: #999; font-style: italic;}
+._68000devpac .es0 {color: #009; font-weight: bold;}
+._68000devpac .br0 {color: #000;}
+._68000devpac .sy0 {color: #080;}
+._68000devpac .st0 {color: #080;}
+._68000devpac .nu0 {color: #f00;}
+._68000devpac .nu5 {color: #f00;}
+._68000devpac .nu10 {color: #f00;}
+._68000devpac .nu13 {color: #f00;}
+._68000devpac .re0 {color: #933;}
+._68000devpac .ln-xtra, ._68000devpac li.ln-xtra, ._68000devpac div.ln-xtra {background-color: #ffc;}
+._68000devpac span.xtra { display:block; }

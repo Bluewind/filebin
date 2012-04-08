@@ -4,7 +4,12 @@
 .vb li, .vb .li1 {font-weight: normal; vertical-align:top;}
 .vb .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
 .vb .li2 {font-weight: bold; vertical-align:top;}
-.vb .kw1 {color: #000080;}
+.vb .kw1 {color: #F660AB; font-weight: bold;}
+.vb .kw2 {color: #E56717; font-weight: bold;}
+.vb .kw3 {color: #8D38C9; font-weight: bold;}
+.vb .kw4 {color: #151B8D; font-weight: bold;}
+.vb .kw5 {color: #00C2FF; font-weight: bold;}
+.vb .kw6 {color: #3EA99F; font-weight: bold;}
 .vb .co1 {color: #008000;}
 .vb .es0 {color: #800000; font-weight: bold;}
 .vb .st0 {color: #800000;}

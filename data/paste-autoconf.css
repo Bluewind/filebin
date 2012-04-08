@@ -1,0 +1,36 @@
+.autoconf .de1, .autoconf .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.autoconf  {font-family:monospace;}
+.autoconf .imp {font-weight: bold; color: red;}
+.autoconf li, .autoconf .li1 {font-weight: normal; vertical-align:top;}
+.autoconf .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.autoconf .li2 {font-weight: bold; vertical-align:top;}
+.autoconf .kw1 {color: #00ffff;}
+.autoconf .co1 {color: #666666;}
+.autoconf .co2 {color: #339900;}
+.autoconf .co3 {color: #666666;}
+.autoconf .coMULTI {color: #ff0000; font-style: italic;}
+.autoconf .es0 {color: #000099;}
+.autoconf .es1 {color: #000099;}
+.autoconf .es2 {color: #660099;}
+.autoconf .es3 {color: #660099;}
+.autoconf .es4 {color: #660099;}
+.autoconf .es5 {color: #006699;}
+.autoconf .br0 {color: #008000;}
+.autoconf .sy0 {color: #008000;}
+.autoconf .sy1 {color: #000080;}
+.autoconf .sy2 {color: #000040;}
+.autoconf .sy3 {color: #000040;}
+.autoconf .sy4 {color: #008080;}
+.autoconf .st0 {color: #996600;}
+.autoconf .nu0 {color: #0000dd;}
+.autoconf .nu6 {color: #208080;}
+.autoconf .nu8 {color: #208080;}
+.autoconf .nu12 {color: #208080;}
+.autoconf .nu16 {color:#800080;}
+.autoconf .nu17 {color:#800080;}
+.autoconf .nu18 {color:#800080;}
+.autoconf .nu19 {color:#800080;}
+.autoconf .me1 {color: #202020;}
+.autoconf .me2 {color: #202020;}
+.autoconf .ln-xtra, .autoconf li.ln-xtra, .autoconf div.ln-xtra {background-color: #ffc;}
+.autoconf span.xtra { display:block; }

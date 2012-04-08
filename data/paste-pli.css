@@ -1,0 +1,16 @@
+.pli .de1, .pli .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.pli  {font-family:monospace;}
+.pli .imp {font-weight: bold; color: red;}
+.pli li, .pli .li1 {font-weight: normal; vertical-align:top;}
+.pli .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.pli .li2 {font-weight: bold; vertical-align:top;}
+.pli .kw1 {color: #b1b100;}
+.pli .coMULTI {color: #666666; font-style: italic;}
+.pli .es0 {color: #000099; font-weight: bold;}
+.pli .br0 {color: #009900;}
+.pli .sy1 {color: #339933;}
+.pli .st0 {color: #0000ff;}
+.pli .nu0 {color: #cc66cc;}
+.pli .me0 {color: #004000;}
+.pli .ln-xtra, .pli li.ln-xtra, .pli div.ln-xtra {background-color: #ffc;}
+.pli span.xtra { display:block; }

@@ -8,14 +8,15 @@
 .gdb .kw1 {font-weight:bold; color: #ff0000;}
 .gdb .br0 {font-weight:bold;}
 .gdb .st0 {color: #933;}
-.gdb .nu0 {color: #cc66cc;}
 .gdb .re0 {color: #000066; font-weight:bold;}
 .gdb .re1 {color: #006600;}
-.gdb .re2 {color: #000066;}
-.gdb .re3 {color: #0066FF; text-style:italic;}
-.gdb .re4 {color: #80B5FF; text-style:italic;}
-.gdb .re5 {color: #A3007D;}
-.gdb .re6 {color: #FF00BF;}
-.gdb .re7 {font-weight: bold;}
+.gdb .re2 {color: #B07E00;}
+.gdb .re3 {color: #0057AE; text-style:italic;}
+.gdb .re4 {color: #0057AE; text-style:italic;}
+.gdb .re5 {color: #442886;}
+.gdb .re6 {color: #442886; font-weight:bold;}
+.gdb .re7 {color: #FF0000; font-weight:bold;}
+.gdb .re8 {color: #006E26;}
+.gdb .re9 {color: #555;}
 .gdb .ln-xtra, .gdb li.ln-xtra, .gdb div.ln-xtra {background-color: #ffc;}
 .gdb span.xtra { display:block; }

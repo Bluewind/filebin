@@ -1,0 +1,22 @@
+.pycon .de1, .pycon .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.pycon  {font-family:monospace;}
+.pycon .imp {font-weight: bold; color: red;}
+.pycon li, .pycon .li1 {font-weight: normal; vertical-align:top;}
+.pycon .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.pycon .li2 {font-weight: bold; vertical-align:top;}
+.pycon .kw1 {color: #ff7700;font-weight:bold;}
+.pycon .kw2 {color: #008000;}
+.pycon .kw3 {color: #dc143c;}
+.pycon .kw4 {color: #0000cd;}
+.pycon .co1 {color: #808080; font-style: italic;}
+.pycon .coMULTI {color: #808080; font-style: italic;}
+.pycon .co-1 {color: #444444;}
+.pycon .es0 {color: #000099; font-weight: bold;}
+.pycon .br0 {color: black;}
+.pycon .sy0 {color: #66cc66;}
+.pycon .st0 {color: #483d8b;}
+.pycon .nu0 {color: #ff4500;}
+.pycon .me1 {color: black;}
+.pycon .sc-1 {color: #222222;}
+.pycon .ln-xtra, .pycon li.ln-xtra, .pycon div.ln-xtra {background-color: #ffc;}
+.pycon span.xtra { display:block; }

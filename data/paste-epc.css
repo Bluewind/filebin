@@ -1,0 +1,19 @@
+.epc .de1, .epc .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.epc  {font-family:monospace;}
+.epc .imp {font-weight: bold; color: red;}
+.epc li, .epc .li1 {font-weight: normal; vertical-align:top;}
+.epc .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.epc .li2 {font-weight: bold; vertical-align:top;}
+.epc .kw1 {color: #e63ec3;}
+.epc .kw2 {color: #e63ec3;}
+.epc .co0 {color: #0000ff;}
+.epc .es1 {color: #000099;}
+.epc .br0 {color: #000000;}
+.epc .sy0 {color: #0b610b;}
+.epc .sy1 {color: #e63ec3;}
+.epc .st0 {color: #8a0808;}
+.epc .st1 {color: #6e6e6e;}
+.epc .nu0 {color: #0b610b;}
+.epc .re1 {color: #0b610b;}
+.epc .ln-xtra, .epc li.ln-xtra, .epc div.ln-xtra {background-color: #ffc;}
+.epc span.xtra { display:block; }

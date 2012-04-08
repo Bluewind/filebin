@@ -1,0 +1,19 @@
+.oz .de1, .oz .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.oz  {font-family:monospace;}
+.oz .imp {font-weight: bold; color: red;}
+.oz li, .oz .li1 {font-weight: normal; vertical-align:top;}
+.oz .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.oz .li2 {font-weight: bold; vertical-align:top;}
+.oz .kw1 {color: #a020f0;}
+.oz .co1 {color: #B22222;}
+.oz .coMULTI {color: #B22222;}
+.oz .es0 {color: #bc8f8f;}
+.oz .sy0 {color: #a020f0;}
+.oz .st0 {color: #bc8f8f;}
+.oz .re1 {color: #0000ff;}
+.oz .re2 {color: #00a030;}
+.oz .re3 {color: #bc8f8f;}
+.oz .re4 {color: #0000ff;}
+.oz .re5 {color: #a020f0;}
+.oz .ln-xtra, .oz li.ln-xtra, .oz div.ln-xtra {background-color: #ffc;}
+.oz span.xtra { display:block; }

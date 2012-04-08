@@ -1,0 +1,24 @@
+.unicon .de1, .unicon .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.unicon  {font-family:monospace;}
+.unicon .imp {font-weight: bold; color: red;}
+.unicon li, .unicon .li1 {font-weight: normal; vertical-align:top;}
+.unicon .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.unicon .li2 {font-weight: bold; vertical-align:top;}
+.unicon .kw1 {color: #b1b100;}
+.unicon .kw2 {color: #b1b100;}
+.unicon .kw3 {color: #b1b100;}
+.unicon .kw4 {color: #b1b100;}
+.unicon .kw5 {color: #b1b100;}
+.unicon .kw6 {color: #b1b100;}
+.unicon .kw7 {color: #b1b100;}
+.unicon .kw8 {color: #b1b100;}
+.unicon .co1 {color: #666666; font-style: italic;}
+.unicon .coMULTI {color: #666666; font-style: italic;}
+.unicon .es0 {color: #000099; font-weight: bold;}
+.unicon .br0 {color: #009900;}
+.unicon .sy1 {color: #339933;}
+.unicon .st0 {color: #0000ff;}
+.unicon .nu0 {color: #cc66cc;}
+.unicon .me0 {color: #004000;}
+.unicon .ln-xtra, .unicon li.ln-xtra, .unicon div.ln-xtra {background-color: #ffc;}
+.unicon span.xtra { display:block; }

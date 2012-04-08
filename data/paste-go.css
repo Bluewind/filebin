@@ -1,0 +1,28 @@
+.go .de1, .go .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.go  {font-family:monospace;}
+.go .imp {font-weight: bold; color: red;}
+.go li, .go .li1 {font-weight: normal; vertical-align:top;}
+.go .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.go .li2 {font-weight: bold; vertical-align:top;}
+.go .kw1 {color: #b1b100; font-weight: bold;}
+.go .kw2 {color: #000000; font-weight: bold;}
+.go .kw3 {color: #000066;}
+.go .kw4 {color: #993333;}
+.go .kw5 {color: #003399;}
+.go .co1 {color: #666666; font-style: italic;}
+.go .co2 {color: #0000ff;}
+.go .coMULTI {color: #666666; font-style: italic;}
+.go .es1 {color: #000099; font-weight: bold;}
+.go .es2 {color: #000099;}
+.go .es3 {color: #000099;}
+.go .es4 {color: #000099;}
+.go .es5 {color: #000099;}
+.go .sy1 {color: #339933;}
+.go .sy2 {color: #339933;}
+.go .sy3 {color: #339933;}
+.go .sy4 {color: #000000; font-weight: bold;}
+.go .st0 {color: #cc66cc;}
+.go .nu0 {color: #cc66cc;}
+.go .me0 {color: #004000;}
+.go .ln-xtra, .go li.ln-xtra, .go div.ln-xtra {background-color: #ffc;}
+.go span.xtra { display:block; }

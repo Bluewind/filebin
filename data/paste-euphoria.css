@@ -1,0 +1,18 @@
+.euphoria .de1, .euphoria .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.euphoria  {font-family:monospace;}
+.euphoria .imp {font-weight: bold; color: red;}
+.euphoria li, .euphoria .li1 {font-weight: normal; vertical-align:top;}
+.euphoria .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.euphoria .li2 {font-weight: bold; vertical-align:top;}
+.euphoria .kw1 {color: #0000ff; font-weight: bold;}
+.euphoria .kw2 {color: #cc33ff; font-weight: bold;}
+.euphoria .co1 {color: #ff0000; font-style: italic;}
+.euphoria .es0 {color: #009900; font-weight: bold;}
+.euphoria .br0 {color: #999900; font-weight: bold;}
+.euphoria .sy0 {color: #999900;}
+.euphoria .sy1 {color: #333333;}
+.euphoria .sy2 {color: #333333; font-style: bold}
+.euphoria .st0 {color: #00cc00;}
+.euphoria .nu0 {color: #cc33cc; font-style: italic}
+.euphoria .ln-xtra, .euphoria li.ln-xtra, .euphoria div.ln-xtra {background-color: #ffc;}
+.euphoria span.xtra { display:block; }
