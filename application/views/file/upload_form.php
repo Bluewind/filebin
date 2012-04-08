@@ -23,6 +23,9 @@ document.write('\
   </script>
   <script type="text/javascript" src="<?php echo base_url(); ?>data/js/upload_form.js?<?php echo filemtime(FCPATH."/data/js/upload_form.js"); ?>"></script>
 </div>
+<? } else { ?>
+You have to <?=anchor("user/login", "log in"); ?> to be able to upload/paste.
+<? } ?>
 <br />
 <p>Uploads/pastes are deleted after <?php echo $upload_max_age; ?> days<?php if($small_upload_size > 0): ?>
   unless they are smaller than <?php echo format_bytes($small_upload_size); ?>
@@ -42,7 +45,6 @@ document.write('\
 </ul>
 <p>If your upload is not detected as text, only <span class="example">/&lt;ID&gt;/qr</span> and <span class="example">/&lt;ID&gt;/plain</span> will work as above and all others will simply return the file with the detected MIME type.</p>
 <br />
-<? } ?>
 <?php if($contact_me_url) {?><p>If you experience any problems feel free to <a href="<?php echo $contact_me_url; ?>">contact me</a>.</p>
 <br /><?php }; ?>
 <div class="small">
