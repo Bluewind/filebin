@@ -56,8 +56,12 @@ class Muser extends CI_Model {
 		if ($this->logged_in()) {
 			return true;
 		} else {
-			$this->session->set_flashdata("uri", $this->uri->uri_string());
-			redirect('user/login');
+			if ($this->file->var->cli_client) {
+				echo "FileBin requires you to have an account, please go to the homepage for more information.";
+			} else {
+				$this->session->set_flashdata("uri", $this->uri->uri_string());
+				redirect('user/login');
+			}
 		}
 	}
 
