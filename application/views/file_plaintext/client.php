@@ -7,7 +7,6 @@ Development (git): http://git.server-speed.net/users/flo/fb
 Latest release: <?php echo $client_link."\n"; ?>
 GPG sigs, older versions: <?php echo $client_link_dir."\n"; ?>
 
-If you want to use authentication (needed for deleting) add the following 
-to your ~/.netrc:
-  machine paste.xinu.at password my_secret_password
+To authenticate add the following to your ~/.netrc:
+  machine paste.xinu.at login my_username password my_secret_password
 
