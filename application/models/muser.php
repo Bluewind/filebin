@@ -71,7 +71,7 @@ class Muser extends CI_Model {
 	function hash_password($password)
 	{
 		$salt = random_alphanum(22);
-		return crypt($password, "$2a$10$$salt$");
+		return crypt($password, "$2a$09$$salt$");
 	}
 
 }
