@@ -11,7 +11,8 @@
 <body>
 	<div class="top">
 		<?php echo anchor('file/index', 'New'); ?> |
-		<?php echo anchor('file/upload_history', 'History'); ?>
+		<?php echo anchor('file/upload_history', 'History'); ?> |
+		<?php echo anchor('user/invite', 'Invite'); ?>
 
 		<div class="right">
 			<?php if(isset($username) && $username) { ?>
