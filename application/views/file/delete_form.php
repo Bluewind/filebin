@@ -1,4 +1,4 @@
-<div style="text-align:center">
+<div class="center">
   <?php echo form_open('file/delete/'.$id); ?>
 			<?php if(isset($msg)) echo "<p>".$msg."</p>"; ?>
 			<?php if($filedata): ?>

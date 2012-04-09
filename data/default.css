@@ -21,6 +21,18 @@ body {
 	padding: 0;
 }
 
+p, li {
+	max-width: 800px;
+}
+
+.center {
+	text-align: center;
+	margin-top: 100px;
+}
+.center p {
+	max-width: 100%;
+}
+
 .clearer {
 	clear: both;
 	font-size: 0;

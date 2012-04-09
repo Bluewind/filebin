@@ -1,5 +1,5 @@
 <? if ($username) { ?>
-<div style="margin-top: 100px; text-align:center">
+<div class="center">
   <?php echo form_open_multipart('file/do_upload'); ?>
     <p>
       File: <input type="file" id="file" name="file" size="30" />
