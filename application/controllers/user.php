@@ -106,6 +106,79 @@ class User extends CI_Controller {
 		$this->load->view($this->var->view_dir.'invite', $this->data);
 		$this->load->view($this->var->view_dir.'footer', $this->data);
 	}
+
+	function register()
+	{
+		$key = $this->uri->segment(3);
+		$process = $this->input->post("process");
+		$values = array(
+			"username" => "",
+			"email" => ""
+		);
+		$error = array();
+
+		$query = $this->db->query("
+			SELECT `user`, `key`
+			FROM invitations
+			WHERE `key` = ?
+			", array($key))->row_array();
+
+		if (!isset($query["key"]) || $key != $query["key"]) {
+			// TODO: better message
+			echo "Unknown key.";
+			return;
+		}
+
+		$referrer = $query["user"];
+
+		if ($process) {
+			$username = $this->input->post("username");
+			$email = $this->input->post("email");
+			$password = $this->input->post("password");
+			$password_confirm = $this->input->post("password_confirm");
+
+			if (!$username) {
+				$error[]= "Invalid username.";
+			}
+
+			$this->load->helper("email");
+			if (!valid_email($email)) {
+				$error[]= "Invalid email.";
+			}
+
+			if (!$password || $password != $password_confirm) {
+				$error[]= "No password or passwords don't match.";
+			}
+
+			if (empty($error)) {
+				$this->db->query("
+					INSERT INTO users
+					(`username`, `password`, `email`, `referrer`)
+					VALUES(?, ?, ?, ?)
+					", array(
+						$username,
+						$this->muser->hash_password($password),
+						$email,
+						$referrer
+					));
+				$this->db->query("
+					DELETE FROM invitations
+					WHERE `key` = ?
+					", array($key));
+			} else {
+				$values["username"] = $username;
+				$values["email"] = $email;
+			}
+		}
+
+		$this->data["key"] = $key;
+		$this->data["values"] = $values;
+		$this->data["error"] = $error;
+
+		$this->load->view($this->var->view_dir.'header', $this->data);
+		$this->load->view($this->var->view_dir.'register', $this->data);
+		$this->load->view($this->var->view_dir.'footer', $this->data);
+	}
 	
 	function logout()
 	{

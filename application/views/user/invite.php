@@ -5,6 +5,6 @@
 <p>Unused invitation keys:</p>
 <p>
 <?php foreach($query as $key => $item): ?>
-	<?php echo $item["key"]; ?><br />
+	<?php echo anchor("user/register/".$item["key"], $item["key"]); ?><br />
 <?php endforeach; ?>
 </p>
