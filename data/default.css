@@ -56,6 +56,22 @@ p, li {
 	padding-right: 10px;
 }
 
+#login-form {
+	visibility: hidden;
+	position: absolute;
+	right: 0;
+	top: 0;
+
+	/* these help to keep the box displayed once the user hovered over login*/
+	padding-top: 35px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+}
+
+a:hover #login-form {
+	visibility: visible;
+}
+
 .top a {
   color: lightblue;
 }
