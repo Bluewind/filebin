@@ -23,7 +23,7 @@ class File_mod extends CI_Model {
 	// TODO: make threadsafe
 	function new_id()
 	{
-		$id = random_id(3,6);
+		$id = random_alphanum(3,6);
 
 		if ($this->id_exists($id) || $id == 'file' || $id == 'user') {
 			return $this->new_id();

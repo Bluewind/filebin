@@ -77,7 +77,7 @@ class User extends CI_Controller {
 			return;
 		}
 
-		$key = random_id(12, 16);
+		$key = random_alphanum(12, 16);
 
 		$this->db->query("
 			INSERT INTO invitations

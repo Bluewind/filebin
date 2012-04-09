@@ -182,17 +182,21 @@ function is_cli_client()
 	return false;
 }
 
-function random_id($min_length, $max_length)
+function random_alphanum($min_length, $max_length = null)
 {
 	$random = '';
 	$char_list = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	$char_list .= "abcdefghijklmnopqrstuvwxyz";
 	$char_list .= "1234567890";
-	$length = rand()%($max_length-$min_length) + $min_length;
+
+	if ($max_length === null) {
+		$max_length = $min_length;
+	}
+	$length = mt_rand($min_length, $max_length);
 
 	for($i = 0; $i < $max_length; $i++) {
 		if (strlen($random) == $length) break;
-		$random .= substr($char_list,(rand()%(strlen($char_list))), 1);
+		$random .= substr($char_list, mt_rand(0, strlen($char_list)), 1);
 	}
 	return $random;
 }
