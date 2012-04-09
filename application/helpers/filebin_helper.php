@@ -170,4 +170,31 @@ function mb_str_pad($ps_input, $pn_pad_length, $ps_pad_string = " ", $pn_pad_typ
 	return $ret;
 }
 
+function is_cli_client()
+{
+	// official client uses "fb-client/$version" as useragent
+	$clients = array("fb-client", "libcurl", "pyfb");
+	foreach ($clients as $client) {
+		if (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], $client) !== false) {
+			return true;
+		}
+	}
+	return false;
+}
+
+function random_id($min_length, $max_length)
+{
+	$random = '';
+	$char_list = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	$char_list .= "abcdefghijklmnopqrstuvwxyz";
+	$char_list .= "1234567890";
+	$length = rand()%($max_length-$min_length) + $min_length;
+
+	for($i = 0; $i < $max_length; $i++) {
+		if (strlen($random) == $length) break;
+		$random .= substr($char_list,(rand()%(strlen($char_list))), 1);
+	}
+	return $random;
+}
+
 # vim: set noet:

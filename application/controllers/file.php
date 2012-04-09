@@ -36,7 +36,7 @@ class File extends CI_Controller {
 			$this->var->latest_client = trim(file_get_contents(FCPATH.'data/client/latest'));
 		}
 
-		$this->var->cli_client = $this->file_mod->is_cli_client();
+		$this->var->cli_client = is_cli_client();
 
 		if ($this->var->cli_client) {
 			$this->var->view_dir = "file_plaintext";

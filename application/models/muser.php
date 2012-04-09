@@ -5,6 +5,7 @@ class Muser extends CI_Model {
 	{
 		parent::__construct();
 		$this->load->library("session");
+		$this->load->helper("filebin");
 	}
 
 	function logged_in()
@@ -56,7 +57,7 @@ class Muser extends CI_Model {
 		if ($this->logged_in()) {
 			return true;
 		} else {
-			if ($this->file_mod->is_cli_client()) {
+			if (is_cli_client()) {
 				echo "FileBin requires you to have an account, please go to the homepage for more information.\n";
 				exit();
 			} else {

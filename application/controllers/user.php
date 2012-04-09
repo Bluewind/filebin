@@ -13,7 +13,7 @@ class User extends CI_Controller {
 		$this->load->model("muser");
 		$this->data["title"] = "FileBin";
 		
-		$this->load->helper('form');
+		$this->load->helper(array('form', 'filebin'));
 
 		$this->var->view_dir = "user/";
 		$this->data['username'] = $this->muser->get_username();
