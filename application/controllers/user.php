@@ -57,6 +57,55 @@ class User extends CI_Controller {
 			$this->load->view($this->var->view_dir.'footer', $this->data);
 		}
 	}
+
+	function create_invitation_key()
+	{
+		$this->muser->require_access();
+
+		$userid = $this->muser->get_userid();
+
+		// TODO: count both, invited users and key
+		$query = $this->db->query("
+			SELECT count(*) as count
+			FROM invitations
+			WHERE user = ?
+			", array($userid))->row_array();
+
+		if ($query["count"] + 1 > 3) {
+			// TODO: better message
+			echo "You've reached your invitation limit.";
+			return;
+		}
+
+		$key = random_id(12, 16);
+
+		$this->db->query("
+			INSERT INTO invitations
+			(`key`, `user`, `date`)
+			VALUES (?, ?, ?)
+		", array($key, $userid, time()));
+
+		redirect("user/invite");
+	}
+
+	function invite()
+	{
+		$this->muser->require_access();
+
+		$userid = $this->muser->get_userid();
+
+		$query = $this->db->query("
+			SELECT *
+			FROM invitations
+			WHERE user = ?
+			", array($userid))->result_array();
+
+		$this->data["query"] = $query;
+
+		$this->load->view($this->var->view_dir.'header', $this->data);
+		$this->load->view($this->var->view_dir.'invite', $this->data);
+		$this->load->view($this->var->view_dir.'footer', $this->data);
+	}
 	
 	function logout()
 	{
