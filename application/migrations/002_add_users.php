@@ -7,7 +7,7 @@ class Migration_Add_users extends CI_Migration {
 	{
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `users` (
-			  `id` int(8) UNSIGNED NOT NULL AUTO INCREMENT,
+			  `id` int(8) UNSIGNED NOT NULL AUTO_INCREMENT,
 			  `username` varchar(32) COLLATE ascii_general_ci NOT NULL,
 			  `password` varchar(60) COLLATE ascii_general_ci NOT NULL,
 			  `email` varchar(255) COLLATE ascii_general_ci NOT NULL,
