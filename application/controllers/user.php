@@ -165,6 +165,10 @@ class User extends CI_Controller {
 					DELETE FROM invitations
 					WHERE `key` = ?
 					", array($key));
+				$this->load->view($this->var->view_dir.'header', $this->data);
+				$this->load->view($this->var->view_dir.'registered', $this->data);
+				$this->load->view($this->var->view_dir.'footer', $this->data);
+				return;
 			} else {
 				$values["username"] = $username;
 				$values["email"] = $email;
