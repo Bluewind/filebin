@@ -18,16 +18,7 @@
 			<?php if(isset($username) && $username) { ?>
 				<?=anchor("user/logout", "Logout"); ?>
 			<?php } else { ?>
-				<a>
-					Login
-					<div id="login-form">
-						<?=form_open("user/login"); ?>
-							<input type="text" name="username" />
-							<input type="password" name="password" />
-							<input type="submit" value="Login" name="process" />
-						</form>
-					</div>
-				</a>
+				<?=anchor("user/login", "Login"); ?>
 			<?php } ?>
 		</div>
 	</div>

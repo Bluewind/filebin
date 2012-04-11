@@ -25,6 +25,13 @@ document.write('\
 </div>
 <? } else { ?>
 You have to <?=anchor("user/login", "log in"); ?> to be able to upload/paste.
+<div id="login-form">
+	<?=form_open("user/login"); ?>
+		<input type="text" name="username" />
+		<input type="password" name="password" />
+		<input type="submit" value="Login" name="process" />
+	</form>
+</div>
 <? } ?>
 <br />
 <p>Uploads/pastes are deleted after <?php echo $upload_max_age; ?> days<?php if($small_upload_size > 0): ?>
