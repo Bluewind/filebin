@@ -21,7 +21,15 @@ class Muser extends CI_Model {
 			WHERE `username` = ?
 			', array($username))->row_array();
 
-		if (crypt($password, $query["password"] == $password)) {
+		if (!isset($query["username"]) || $query["username"] !== $username) {
+			return false;
+		}
+
+		if (!isset($query["password"])) {
+			return false;
+		}
+
+		if (crypt($password, $query["password"]) === $query["password"]) {
 			$this->session->set_userdata('logged_in', true);
 			$this->session->set_userdata('username', $username);
 			return true;
