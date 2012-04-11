@@ -127,7 +127,7 @@ class File extends CI_Controller {
 		if (! $cached = $this->memcachelibrary->get("history_".$this->var->view_dir."_".$user)) {
 			$query = array();
 			$lengths = array();
-			$fields = array("id", "filename", "mimetype", "date", "hash");
+			$fields = array("id", "filename", "mimetype", "date", "hash", "filesize");
 			$this->data['title'] .= ' - Upload history';
 			foreach($fields as $length_key) {
 				$lengths[$length_key] = 0;
@@ -142,6 +142,7 @@ class File extends CI_Controller {
 
 			foreach($query as $key => $item) {
 				$query[$key]["date"] = date("r", $item["date"]);
+				$query[$key]["filesize"] = format_bytes($item["filesize"]);
 				if ($this->var->cli_client) {
 					// Keep track of longest string to pad plaintext output correctly
 					foreach($fields as $length_key) {
@@ -342,6 +343,36 @@ class File extends CI_Controller {
 			}
 		}
 		closedir($outer_dh);
+	}
+
+	function update_file_sizes()
+	{
+		if (!$this->input->is_cli_request()) return;
+
+		$chunk = 500;
+
+		$total = $this->db->count_all("files");
+
+		for ($limit = 0; $limit < $total; $limit += $chunk) {
+			$query = $this->db->query("
+				SELECT hash
+				FROM files
+				GROUP BY hash
+				LIMIT $limit, $chunk
+				")->result_array();
+
+			foreach ($query as $key => $item) {
+				$hash = $item["hash"];
+				$filesize = intval(filesize($this->file_mod->file($hash)));
+				$this->db->query("
+					UPDATE files
+					SET filesize = ?
+					WHERE hash = ?
+					", array($filesize, $hash));
+			}
+		}
+
+
 	}
 }
 

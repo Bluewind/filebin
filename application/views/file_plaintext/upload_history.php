@@ -4,7 +4,8 @@ echo
 	.mb_str_pad("Filename", $lengths["filename"])." | "
 	.mb_str_pad("Mimetype", $lengths["mimetype"])." | "
 	.mb_str_pad("Date", $lengths["date"])." | "
-	.mb_str_pad("Hash", $lengths["hash"])."\n";
+	.mb_str_pad("Hash", $lengths["hash"])." | "
+	.mb_str_pad("Size", $lengths["filesize"])."\n";
 
 foreach($query as $key => $item) {
 	echo
@@ -12,6 +13,7 @@ foreach($query as $key => $item) {
 		.mb_str_pad($item["filename"], $lengths["filename"])." | "
 		.mb_str_pad($item["mimetype"], $lengths["mimetype"])." | "
 		.$item["date"]." | "
-		.$item["hash"]."\n";
+		.$item["hash"]." | "
+		.$item["filesize"]."\n";
 }
 

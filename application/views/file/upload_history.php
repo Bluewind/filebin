@@ -6,6 +6,7 @@
   <th>Mimetype
   <th>Date</th>
   <th>Hash</th>
+  <th>Size</th>
 </tr>
 
 <?php foreach($query as $key => $item): ?>
@@ -16,6 +17,7 @@
 	<td><?php echo $item["mimetype"]; ?></td>
 	<td><?php echo $item["date"]; ?></td>
 	<td><?php echo $item["hash"]; ?></td>
+	<td><?php echo $item["filesize"]; ?></td>
 </tr>
 <?php endforeach; ?>
 </table>

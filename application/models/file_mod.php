@@ -88,10 +88,11 @@ class File_mod extends CI_Model {
 		$userid = $this->muser->get_userid();
 
 		$mimetype = exec("perl ".FCPATH.'scripts/mimetype '.escapeshellarg($filename).' '.escapeshellarg($this->file($hash)));
+		$filesize = filesize($this->file($hash));
 		$query = $this->db->query('
-			INSERT INTO `files` (`hash`, `id`, `filename`, `user`, `date`, `mimetype`)
-			VALUES (?, ?, ?, ?, ?, ?)',
-			array($hash, $id, $filename, $userid, time(), $mimetype));
+			INSERT INTO `files` (`hash`, `id`, `filename`, `user`, `date`, `mimetype`, `filesize`)
+			VALUES (?, ?, ?, ?, ?, ?, ?)',
+			array($hash, $id, $filename, $userid, time(), $mimetype, $filesize));
 	}
 
 	function show_url($id, $mode)
