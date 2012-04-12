@@ -254,7 +254,7 @@ class File_mod extends CI_Model {
 
 		if (!$can_highlight || $filesize_too_big || !$mode) {
 			foreach (array("X-WebKit-CSP", "X-Content-Security-Policy") as $header_name) {
-				header("$header_name: allow 'none'; img-src *; media-src *; font-src *; style-src *; script-src 'none'; object-src *; frame-src 'none'; ");
+				header("$header_name: allow 'none'; img-src *; media-src *; font-src *; style-src * 'unsafe-inline'; script-src 'none'; object-src *; frame-src 'none'; ");
 			}
 			rangeDownload($file, $filedata["filename"], $type);
 			exit();
