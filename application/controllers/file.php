@@ -205,15 +205,49 @@ class File extends CI_Controller {
 		$this->load->view($this->var->view_dir.'/footer', $this->data);
 	}
 
+	// Handle pastes
+	function do_paste()
+	{
+		$this->muser->require_access();
+
+		$content = $this->input->post("content");
+		$filesize = strlen($content);
+		$filename = "stdin";
+
+		if(!$content) {
+			$this->output->set_status_header(400);
+			$this->data["msg"] = "Nothing was pasted, content is empty.";
+			$this->load->view($this->var->view_dir.'/header', $this->data);
+			$this->load->view($this->var->view_dir.'/upload_error', $this->data);
+			$this->load->view($this->var->view_dir.'/footer');
+			return;
+		}
+
+		if ($filesize > $this->config->item('upload_max_size')) {
+			$this->output->set_status_header(413);
+			$this->load->view($this->var->view_dir.'/header', $this->data);
+			$this->load->view($this->var->view_dir.'/too_big');
+			$this->load->view($this->var->view_dir.'/footer');
+			return;
+		}
+
+		$id = $this->file_mod->new_id();
+		$hash = md5($content);
+
+		$folder = $this->file_mod->folder($hash);
+		file_exists($folder) || mkdir ($folder);
+		$file = $this->file_mod->file($hash);
+
+		file_put_contents($file, $content);
+		chmod($file, 0600);
+		$this->file_mod->add_file($hash, $id, $filename);
+		$this->file_mod->show_url($id, $extension);
+	}
+
 	// Handles uploaded files
 	function do_upload()
 	{
 		$this->muser->require_access();
-
-		if ($this->uri->segment(3)) {
-			$this->var->cli_client = true;
-			$this->var->view_dir = "file_plaintext";
-		}
 
 		$extension = $this->input->post('extension');
 		if(!isset($_FILES['file']) || $_FILES['file']['error'] !== 0) {

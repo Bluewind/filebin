@@ -6,18 +6,15 @@
       <input type="submit" value="Upload" id="upload_button" name="process" />
     </p>
   </form>
+  <p><b>OR</b></p>
+  <?php echo form_open_multipart('file/do_paste'); ?>
+    <p>
+      <textarea id="textarea" name="content" cols="80" rows="20"></textarea><br />
+      <input  type="submit" value="Paste" name="process" />
+    </p>
+  </form>
   <script type="text/javascript">
     /* <![CDATA[ */
-document.write('\
-  <p><b>OR</b></p>\
-  <form action="javascript: do_paste()">\
-    <p>\
-      <textarea id="textarea" name="content" cols="80" rows="20"></textarea><br />\
-      <input  type="submit" value="Paste" name="process" />\
-    </p>\
-    </form>\
-');
-  var upload_url = "<?php echo site_url("file/do_upload/dumb"); ?>";
   var max_upload_size = "<?php echo $max_upload_size; ?>";
     /* ]]> */
   </script>
