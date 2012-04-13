@@ -55,7 +55,7 @@ class File_mod extends CI_Model {
 	function get_filedata($id)
 	{
 		$sql = '
-			SELECT hash, filename, mimetype, date
+			SELECT hash, filename, mimetype, date, user
 			FROM `files`
 			WHERE `id` = ?
 			LIMIT 1';

@@ -2,7 +2,9 @@
   <?php echo form_open('file/delete/'.$id); ?>
 			<?php if(isset($msg)) echo "<p>".$msg."</p>"; ?>
 			<?php if($filedata): ?>
-				<p>You are about to delete the following upload:</p>
+				<?php if($can_delete) { ?>
+					<p>You are about to delete the following upload:</p>
+				<?php } ?>
 				<table style="margin: auto">
 					<tr>
 						<td class="title">ID</td>
@@ -25,7 +27,9 @@
 						<td class="text"><?php echo $filedata["mimetype"]; ?></td>
 					</tr>
 				</table>
-			<input type="submit" value="Delete" name="process" />
+			<?php if($can_delete) { ?>
+				<input type="submit" value="Delete" name="process" />
+			<?php } ?>
 		<?php endif; ?>
   </form>
 </div>

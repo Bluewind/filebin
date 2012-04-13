@@ -200,6 +200,8 @@ class File extends CI_Controller {
 			}
 		}
 
+		$this->data["can_delete"] = $this->data["filedata"]["user"] == $this->muser->get_userid();
+
 		$this->load->view($this->var->view_dir.'/header', $this->data);
 		$this->load->view($this->var->view_dir.'/delete_form', $this->data);
 		$this->load->view($this->var->view_dir.'/footer', $this->data);
