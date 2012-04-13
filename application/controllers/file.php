@@ -379,6 +379,32 @@ class File extends CI_Controller {
 		closedir($outer_dh);
 	}
 
+	function nuke_id()
+	{
+		if (!$this->input->is_cli_request()) return;
+
+		$id = $this->uri->segment(3);
+
+
+		$file_data = $this->file_mod->get_filedata($id);
+
+		if (empty($file_data)) {
+			echo "unknown id \"$id\"\n";
+			return;
+		}
+
+		$hash = $file_data["hash"];
+
+		$this->db->query("
+			DELETE FROM files
+			WHERE hash = ?
+			", array($hash));
+
+		unlink($this->file_mod->file($hash));
+
+		echo "removed hash \"$hash\"\n";
+	}
+
 	function update_file_sizes()
 	{
 		if (!$this->input->is_cli_request()) return;
