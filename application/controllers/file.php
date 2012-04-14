@@ -312,7 +312,7 @@ class File extends CI_Controller {
 
 		$filedata = $this->file_mod->get_filedata($id);
 
-		if ($filedata["owner"] != 0) {
+		if ($filedata["user"] != 0) {
 			show_error("Someone already owns '$id', can't reassign.");
 		}
 
