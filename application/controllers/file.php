@@ -334,10 +334,16 @@ class File extends CI_Controller {
 
 		if ($this->config->item('upload_max_age') == 0) return;
 
-		$oldest_time = (time()-$this->config->item('upload_max_age'));
+		$oldest_time = (time() - $this->config->item('upload_max_age'));
+		$oldest_session_time = (time() - $this->config->item("sess_expiration"));
+
 		$small_upload_size = $this->config->item('small_upload_size');
-		$query = $this->db->query('SELECT hash, id FROM files WHERE date < ?',
-			array($oldest_time));
+
+		$query = $this->db->query('
+			SELECT hash, id, user
+			FROM files
+			WHERE date < ? OR (user = 0 AND date < ?)',
+				array($oldest_time, $oldest_session_time));
 
 		foreach($query->result_array() as $row) {
 			$file = $this->file_mod->file($row['hash']);
@@ -346,7 +352,7 @@ class File extends CI_Controller {
 				continue;
 			}
 
-			if (filesize($file) > $small_upload_size) {
+			if ($row["user"] == 0 || filesize($file) > $small_upload_size) {
 				if (filemtime($file) < $oldest_time) {
 					unlink($file);
 					$this->db->query('DELETE FROM files WHERE hash = ?', array($row['hash']));
