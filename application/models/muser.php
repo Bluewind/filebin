@@ -47,11 +47,19 @@ class Muser extends CI_Model {
 
 	function get_username()
 	{
+		if (!$this->logged_in()) {
+			return "";
+		}
+
 		return $this->session->userdata('username');
 	}
 
 	function get_userid()
 	{
+		if (!$this->logged_in()) {
+			return 0;
+		}
+
 		$query = $this->db->query("
 			SELECT id
 			FROM users
@@ -69,7 +77,9 @@ class Muser extends CI_Model {
 				echo "FileBin requires you to have an account, please go to the homepage for more information.\n";
 				exit();
 			} else {
-				$this->session->set_flashdata("uri", $this->uri->uri_string());
+				if (!$this->session->userdata("flash:new:uri")) {
+					$this->session->set_flashdata("uri", $this->uri->uri_string());
+				}
 				redirect('user/login');
 			}
 		}

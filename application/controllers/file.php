@@ -210,8 +210,6 @@ class File extends CI_Controller {
 	// Handle pastes
 	function do_paste()
 	{
-		$this->muser->require_access();
-
 		$content = $this->input->post("content");
 		$filesize = strlen($content);
 		$filename = "stdin";
@@ -243,14 +241,12 @@ class File extends CI_Controller {
 		file_put_contents($file, $content);
 		chmod($file, 0600);
 		$this->file_mod->add_file($hash, $id, $filename);
-		$this->file_mod->show_url($id, $extension);
+		$this->file_mod->show_url($id, false);
 	}
 
 	// Handles uploaded files
 	function do_upload()
 	{
-		$this->muser->require_access();
-
 		$extension = $this->input->post('extension');
 		if(!isset($_FILES['file']) || $_FILES['file']['error'] !== 0) {
 			$this->output->set_status_header(400);
@@ -305,6 +301,26 @@ class File extends CI_Controller {
 		chmod($file, 0600);
 		$this->file_mod->add_file($hash, $id, $filename);
 		$this->file_mod->show_url($id, $extension);
+	}
+
+	function claim_id()
+	{
+		$this->muser->require_access();
+
+		$last_upload = $this->session->userdata("last_upload");
+		$id = $last_upload["id"];
+
+		$filedata = $this->file_mod->get_filedata($id);
+
+		if ($filedata["owner"] != 0) {
+			show_error("Someone already owns '$id', can't reassign.");
+		}
+
+		$this->file_mod->adopt($id);
+
+		$this->session->unset_userdata("last_upload");
+
+		$this->file_mod->show_url($id, $last_upload["mode"]);
 	}
 
 	/* Functions below this comment can only be run via the CLI

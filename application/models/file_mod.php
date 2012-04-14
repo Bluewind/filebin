@@ -83,8 +83,6 @@ class File_mod extends CI_Model {
 	// TODO: Should only update not insert; see new_id()
 	function add_file($hash, $id, $filename)
 	{
-		$this->muser->require_access();
-
 		$userid = $this->muser->get_userid();
 
 		$mimetype = exec("perl ".FCPATH.'scripts/mimetype '.escapeshellarg($filename).' '.escapeshellarg($this->file($hash)));
@@ -95,9 +93,30 @@ class File_mod extends CI_Model {
 			array($hash, $id, $filename, $userid, time(), $mimetype, $filesize));
 	}
 
+	function adopt($id)
+	{
+		$userid = $this->muser->get_userid();
+
+		$this->db->query("
+			UPDATE files
+			SET user = ?
+			WHERE id = ?
+			", array($userid, $id));
+	}
+
 	function show_url($id, $mode)
 	{
 		$redirect = false;
+
+		if (!$this->muser->logged_in()) {
+			// keep the upload but require the user to login
+			$this->session->set_userdata("last_upload", array(
+				"id" => $id,
+				"mode" => $mode
+			));
+			$this->session->set_flashdata("uri", "file/claim_id");
+			$this->muser->require_access();
+		}
 
 		if ($mode) {
 			$this->data['url'] = site_url($id).'/'.$mode;
@@ -187,6 +206,12 @@ class File_mod extends CI_Model {
 		$file = $this->file($filedata['hash']);
 
 		if (!$this->valid_id($id)) {
+			$this->non_existent();
+			return;
+		}
+
+		// don't allow unowned files to be downloaded
+		if ($filedata["user"] == 0) {
 			$this->non_existent();
 			return;
 		}
