@@ -6,6 +6,7 @@ class Muser extends CI_Model {
 		parent::__construct();
 		$this->load->library("session");
 		$this->load->helper("filebin");
+		$this->session->keep_flashdata("uri");
 	}
 
 	function logged_in()
