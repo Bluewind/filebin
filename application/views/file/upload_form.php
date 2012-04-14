@@ -50,7 +50,7 @@ You have to <?=anchor("user/login", "log in"); ?> to be able to upload/paste.
 <p>If your upload is not detected as text, only <span class="example">/&lt;ID&gt;/qr</span> and <span class="example">/&lt;ID&gt;/plain</span> will work as above and all others will simply return the file with the detected MIME type.</p>
 
 <h2>Information</h2>
-<p>This website's primary goal is aiding developers, users, <a href="http://www.catb.org/~esr/faqs/hacker-howto.html">hackers</a>, students and alike in solving problems, debugging software, sharing their configuration, etc. It is not intended to distribute confidential or harmful information, scripts or software.</p>
+<p>This website's primary goal is aiding developers, power users, students and alike in solving problems, debugging software, sharing their configuration, etc. It is not intended to distribute confidential or harmful information, scripts or software.</p>
 
 <p>If you believe you deserve an account, ask someone who is already using this service to <?=anchor("user/invite", "invite"); ?> you.</p>
 
