@@ -127,14 +127,24 @@ class File extends CI_Controller {
 		if (! $cached = $this->memcachelibrary->get("history_".$this->var->view_dir."_".$user)) {
 			$query = array();
 			$lengths = array();
-			$fields = array("id", "filename", "mimetype", "date", "hash", "filesize");
+
+			// key: database field name; value: display name
+			$fields = array(
+				"id" => "ID",
+				"filename" => "Filename",
+				"mimetype" => "Mimetype",
+				"date" => "Date",
+				"hash" => "Hash",
+				"filesize" => "Size"
+			);
+
 			$this->data['title'] .= ' - Upload history';
-			foreach($fields as $length_key) {
-				$lengths[$length_key] = 0;
+			foreach($fields as $length_key => $value) {
+				$lengths[$length_key] = mb_strlen($value);
 			}
 
 			$query = $this->db->query("
-				SELECT ".implode(",", $fields)."
+				SELECT ".implode(",", array_keys($fields))."
 				FROM files
 				WHERE user = ?
 				ORDER BY date
@@ -145,7 +155,7 @@ class File extends CI_Controller {
 				$query[$key]["filesize"] = format_bytes($item["filesize"]);
 				if ($this->var->cli_client) {
 					// Keep track of longest string to pad plaintext output correctly
-					foreach($fields as $length_key) {
+					foreach($fields as $length_key => $value) {
 						$len = mb_strlen($query[$key][$length_key]);
 						if ($len > $lengths[$length_key]) {
 							$lengths[$length_key] = $len;
@@ -156,6 +166,7 @@ class File extends CI_Controller {
 
 			$this->data["query"] = $query;
 			$this->data["lengths"] = $lengths;
+			$this->data["fields"] = $fields;
 
 			$cached = "";
 			$cached .= $this->load->view($this->var->view_dir.'/header', $this->data, true);

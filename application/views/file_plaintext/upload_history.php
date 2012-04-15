@@ -1,11 +1,11 @@
 <?php
 echo
-	mb_str_pad("ID", $lengths["id"])." | "
-	.mb_str_pad("Filename", $lengths["filename"])." | "
-	.mb_str_pad("Mimetype", $lengths["mimetype"])." | "
-	.mb_str_pad("Date", $lengths["date"])." | "
-	.mb_str_pad("Hash", $lengths["hash"])." | "
-	.mb_str_pad("Size", $lengths["filesize"])."\n";
+	mb_str_pad($fields["id"], $lengths["id"])." | "
+	.mb_str_pad($fields["filename"], $lengths["filename"])." | "
+	.mb_str_pad($fields["mimetype"], $lengths["mimetype"])." | "
+	.mb_str_pad($fields["date"], $lengths["date"])." | "
+	.mb_str_pad($fields["hash"], $lengths["hash"])." | "
+	.mb_str_pad($fields["filesize"], $lengths["filesize"])."\n";
 
 foreach($query as $key => $item) {
 	echo
