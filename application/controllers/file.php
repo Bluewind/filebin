@@ -172,7 +172,9 @@ class File extends CI_Controller {
 			$cached .= $this->load->view($this->var->view_dir.'/header', $this->data, true);
 			$cached .= $this->load->view($this->var->view_dir.'/upload_history', $this->data, true);
 			$cached .= $this->load->view($this->var->view_dir.'/footer', $this->data, true);
-			$this->memcachelibrary->set('history_'.$this->var->view_dir."_".$user, $cached, 42);
+
+			// disable for now. reenable if it causes too much load
+			//$this->memcachelibrary->set('history_'.$this->var->view_dir."_".$user, $cached, 42);
 		}
 
 		echo $cached;
