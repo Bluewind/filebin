@@ -18,7 +18,7 @@
   var max_upload_size = "<?php echo $max_upload_size; ?>";
     /* ]]> */
   </script>
-  <script type="text/javascript" src="<?php echo base_url(); ?>data/js/upload_form.js?<?php echo filemtime(FCPATH."/data/js/upload_form.js"); ?>"></script>
+  <script type="text/javascript" src="<?php echo link_with_mtime("/data/js/upload_form.js"); ?>"></script>
 </div>
 <? } else { ?>
 You have to <?=anchor("user/login", "log in"); ?> to be able to upload/paste.

@@ -201,4 +201,15 @@ function random_alphanum($min_length, $max_length = null)
 	return $random;
 }
 
+function link_with_mtime($file)
+{
+	$link = base_url($file);
+
+	if (file_exists(FCPATH.$file)) {
+		$link .= "?".filemtime(FCPATH.$file);
+	}
+
+	return $link;
+}
+
 # vim: set noet:
