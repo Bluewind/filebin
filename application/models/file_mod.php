@@ -9,14 +9,13 @@
 
 class File_mod extends CI_Model {
 
-	var $data = array();
+	var $data;
 
 	function __construct()
 	{
 		parent::__construct();
+		$this->data =& get_instance()->data;
 		$this->load->model("muser");
-		$this->data["title"] = "FileBin";
-		$this->data["username"] = $this->muser->get_username();
 	}
 
 	// Returns an unused ID
@@ -55,7 +54,7 @@ class File_mod extends CI_Model {
 	function get_filedata($id)
 	{
 		$sql = '
-			SELECT hash, filename, mimetype, date, user
+			SELECT hash, filename, mimetype, date, user, filesize
 			FROM `files`
 			WHERE `id` = ?
 			LIMIT 1';
@@ -268,6 +267,11 @@ class File_mod extends CI_Model {
 			exit();
 		}
 
+		if ($mode == 'info') {
+			$this->display_info($id);
+			return;
+		}
+
 		// if there is no mimetype mapping we can't highlight it
 		$can_highlight = $this->can_highlight($type);
 
@@ -287,12 +291,7 @@ class File_mod extends CI_Model {
 		header("Content-Type: text/html\n");
 
 		$this->data['current_highlight'] = htmlspecialchars($mode);
-
-		if (filesize($file) > $this->config->item("small_upload_size")) {
-			$this->data['timeout'] = date("r", $filedata["date"] + $this->config->item("upload_max_age"));
-		} else {
-			$this->data['timeout'] = "never";
-		}
+		$this->data['timeout'] = $this->get_timeout_string($id);
 
 		echo $this->load->view($this->var->view_dir.'/html_header', $this->data, true);
 
@@ -327,6 +326,18 @@ class File_mod extends CI_Model {
 		exit();
 	}
 
+	function get_timeout_string($id)
+	{
+		$filedata = $this->get_filedata($id);
+		$file = $this->file($filedata["hash"]);
+
+		if (filesize($file) > $this->config->item("small_upload_size")) {
+			return date("r", $filedata["date"] + $this->config->item("upload_max_age"));
+		} else {
+			return "unknown";
+		}
+	}
+
 	private function unused_file($hash)
 	{
 		$sql = '
@@ -341,6 +352,22 @@ class File_mod extends CI_Model {
 		} else {
 			return false;
 		}
+	}
+
+	function display_info($id)
+	{
+		$this->data["title"] .= " - Info $id";
+		$this->data["filedata"] = $this->get_filedata($id);
+		$this->data["id"] = $id;
+		$this->data['timeout'] = $this->get_timeout_string($id);
+
+		if (!isset($this->data["can_delete"])) {
+			$this->data["can_delete"] = false;
+		}
+
+		$this->load->view($this->var->view_dir.'/header', $this->data);
+		$this->load->view($this->var->view_dir.'/file_info', $this->data);
+		$this->load->view($this->var->view_dir.'/footer', $this->data);
 	}
 
 	function delete_id($id)

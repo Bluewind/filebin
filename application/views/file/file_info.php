@@ -19,8 +19,12 @@
 						<td class="text"><?php echo date("r", $filedata["date"]); ?></td>
 					</tr>
 					<tr>
+						<td class="title">Date of removal</td>
+						<td class="text"><?php echo $timeout; ?></td>
+					</tr>
+					<tr>
 						<td class="title">Size</td>
-						<td class="text"><?php echo format_bytes($filedata["size"]); ?></td>
+						<td class="text"><?php echo format_bytes($filedata["filesize"]); ?></td>
 					</tr>
 					<tr>
 						<td class="title">Mimetype</td>

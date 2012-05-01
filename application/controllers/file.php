@@ -180,23 +180,17 @@ class File extends CI_Controller {
 		echo $cached;
 	}
 
-	// Allow users to delete IDs if their password matches the one used when uploading
+	// Allow users to delete their own IDs
 	function delete()
 	{
 		$this->muser->require_access();
 
 		$id = $this->uri->segment(3);
-		$this->data["title"] .= " - Delete $id";
 		$this->data["id"] = $id;
 
 		$process = $this->input->post("process");
 		if ($this->var->cli_client) {
 			$process = true;
-		}
-
-		$this->data["filedata"] = $this->file_mod->get_filedata($id);
-		if ($this->data["filedata"]) {
-			$this->data["filedata"]["size"] = filesize($this->file_mod->file($this->data["filedata"]["hash"]));
 		}
 
 		if ($id && !$this->file_mod->id_exists($id)) {
@@ -213,11 +207,10 @@ class File extends CI_Controller {
 			}
 		}
 
+		$this->data["filedata"] = $this->file_mod->get_filedata($id);
 		$this->data["can_delete"] = $this->data["filedata"]["user"] == $this->muser->get_userid();
 
-		$this->load->view($this->var->view_dir.'/header', $this->data);
-		$this->load->view($this->var->view_dir.'/delete_form', $this->data);
-		$this->load->view($this->var->view_dir.'/footer', $this->data);
+		$this->file_mod->display_info($id);
 	}
 
 	// Handle pastes
