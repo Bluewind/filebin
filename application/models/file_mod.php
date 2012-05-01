@@ -195,6 +195,27 @@ class File_mod extends CI_Model {
 		return true;
 	}
 
+	private function handle_etag($etag) {
+		$etag = strtolower($etag);
+		$modified = true;
+
+		if(isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
+			$oldtag = trim(strtolower($_SERVER['HTTP_IF_NONE_MATCH']), '"');
+			if($oldtag == $etag) {
+				$modified = false;
+			} else {
+				$modified = true;
+			}
+		}
+
+		header('Etag: "'.$etag.'"');
+
+		if (!$modified) {
+			header("HTTP/1.1 304 Not Modified");
+			exit();
+		}
+	}
+
 	// download a given ID
 	// TODO: make smaller
 	function download()
@@ -216,31 +237,9 @@ class File_mod extends CI_Model {
 			return;
 		}
 
-		// MODIFIED SINCE SUPPORT -- START
 		// helps to keep traffic low when reloading
-		$etag = strtolower($filedata["hash"]."-".$filedata["date"]);
-		$modified = true;
-
-		// No need to check because different files have different IDs/hashes
-		if(isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
-				$modified = false;
-		}
-
-		if(isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
-			$oldtag = trim(strtolower($_SERVER['HTTP_IF_NONE_MATCH']), '"');
-			if($oldtag == $etag) {
-				$modified = false;
-			} else {
-				$modified = true;
-			}
-		}
-
-		if (!$modified) {
-			header("HTTP/1.1 304 Not Modified");
-			header('Etag: "'.$etag.'"');
-			exit();
-		}
-		// MODIFIED SINCE SUPPORT -- END
+		$etag = $filedata["hash"]."-".$filedata["date"];
+		$this->handle_etag($etag);
 
 		$type = $filedata['mimetype'];
 
@@ -254,9 +253,6 @@ class File_mod extends CI_Model {
 		// resolve aliases of modes
 		// this is mainly used for compatibility
 		$mode = $this->resolve_mode_alias($mode);
-
-		header("Last-Modified: ".date('D, d M Y H:i:s', $filedata["date"])." GMT");
-		header('Etag: "'.$etag.'"');
 
 		// create the qr code for /ID/
 		if ($mode == "qr") {
