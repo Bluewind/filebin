@@ -7,14 +7,14 @@
   </head>
   <body>
     <div class="top_bar">
-      <a class="raw_link no" href="<?php echo $new_link; ?>">New</a> |
-      <a class="raw_link no" href="<?php echo $raw_link; ?>">Raw</a> |
-      <a class="raw_link no" href="<?php echo $plain_link; ?>">Plain</a> |
+      <a class="raw_link no" href="<?php echo site_url(); ?>">New</a> |
+      <a class="raw_link no" href="<?php echo site_url($id); ?>">Raw</a> |
+      <a class="raw_link no" href="<?php echo site_url($id."/plain"); ?>">Plain</a> |
       Currently: <?php echo $current_highlight; ?> |
-      Timeout: <a class="raw_link no" href="<?php echo $delete_link; ?>" title="delete"><?php echo $timeout; ?></a>
+      Timeout: <a class="raw_link no" href="<?php echo site_url("file/delete/".$id); ?>" title="delete"><?php echo $timeout; ?></a>
       <div style="float:right;">
-        <a class="raw_link no" href="<?php echo $auto_link; ?>">Code</a> |
-        <a class="raw_link no" href="<?php echo $rmd_link; ?>">Render Markdown</a>
+        <a class="raw_link no" href="<?php echo site_url($id)."/"; ?>">Code</a> |
+        <a class="raw_link no" href="<?php echo site_url($id."/rmd"); ?>">Render Markdown</a>
       </div>
     </div>
   <script type="text/javascript">

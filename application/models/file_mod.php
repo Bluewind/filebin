@@ -282,12 +282,7 @@ class File_mod extends CI_Model {
 		}
 
 		$this->data['title'] = htmlspecialchars($filedata['filename']);
-		$this->data['raw_link'] = site_url($id);
-		$this->data['new_link'] = site_url();
-		$this->data['plain_link'] = site_url($id.'/plain');
-		$this->data['auto_link'] = site_url($id).'/';
-		$this->data['rmd_link'] = site_url($id.'/rmd');
-		$this->data['delete_link'] = site_url("file/delete/".$id);
+		$this->data['id'] = $id;
 
 		header("Content-Type: text/html\n");
 
