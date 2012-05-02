@@ -46,8 +46,13 @@ You have to <?=anchor("user/login", "log in"); ?> to be able to upload/paste.
 	<li><span class="example">/&lt;ID&gt;/qr</span> display a qr code containing a link to <span class="example">/&lt;ID&gt;/</span></li>
 	<li><span class="example">/&lt;ID&gt;/rmd</span> convert markdown to HTML</li>
 	<li><span class="example">/&lt;ID&gt;/ascii</span> convert text with ANSI (shell) escape codes to HTML</li>
+	<li><span class="example">/&lt;ID&gt;/info</span> display some information about the ID</li>
 </ul>
-<p>If your upload is not detected as text, only <span class="example">/&lt;ID&gt;/qr</span> and <span class="example">/&lt;ID&gt;/plain</span> will work as above and all others will simply return the file with the detected MIME type.</p>
+<p>If your upload is not detected as text, only 
+<span class="example">/&lt;ID&gt;/qr</span>,
+<span class="example">/&lt;ID&gt;/plain</span> and
+<span class="example">/&lt;ID&gt;/info</span>
+will work as above and all others will simply return the file with the detected MIME type.</p>
 
 <h2>Information</h2>
 <p>This website's primary goal is aiding developers, power users, students and alike in solving problems, debugging software, sharing their configuration, etc. It is not intended to distribute confidential or harmful information, scripts or software.</p>

@@ -10,8 +10,9 @@ How to link your uploads:
  - "/<ID>/qr" display a qr code containing a link to /<ID>/
  - "/<ID>/rmd" convert markdown to HTML
  - "/<ID>/ascii" convert text with ANSI (shell) escape codes to HTML
+ - "/<ID>/info" display some information about the ID
 
-If your upload is not detected as text, only "/<ID>/qr" and "/<ID>/plain"
-will work as above and all others will simply return the file with the
-detected MIME type.
+If your upload is not detected as text, only "/<ID>/qr", "/<ID>/plain"
+and "/<ID>/info" will work as above and all others will simply return
+the file with the detected MIME type.
 
