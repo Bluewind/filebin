@@ -192,8 +192,22 @@ class User extends CI_Controller {
 	
 	function hash_password()
 	{
+		$process = $this->input->post("process");
 		$password = $this->input->post("password");
-		echo "hashing $password: ";
-		echo $this->muser->hash_password($password);
+		$password_confirm = $this->input->post("password_confirm");
+		$this->data["hash"] = false;
+		$this->data["password"] = $password;
+
+		if ($process) {
+			if (!$password || $password != $password_confirm) {
+				$error[]= "No password or passwords don't match.";
+			} else {
+				$this->data["hash"] = $this->muser->hash_password($password);
+			}
+		}
+
+		$this->load->view($this->var->view_dir.'header', $this->data);
+		$this->load->view($this->var->view_dir.'hash_password', $this->data);
+		$this->load->view($this->var->view_dir.'footer', $this->data);
 	}
 }
