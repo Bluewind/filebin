@@ -180,7 +180,46 @@ class File extends CI_Controller {
 		echo $cached;
 	}
 
-	// Allow users to delete their own IDs
+	function do_delete()
+	{
+		$this->muser->require_access();
+
+		$ids = $this->input->post("ids");
+		$errors = array();
+		$msgs = array();
+		$deleted_count = 0;
+		$total_count = 0;
+
+		if (!$ids) {
+			show_error("No IDs specified");
+		}
+
+		foreach ($ids as $id) {
+			$total_count++;
+
+			if (!$this->file_mod->id_exists($id)) {
+				$errors[] = "'$id' didn't exist anymore.";
+				continue;
+			}
+
+			if ($this->file_mod->delete_id($id)) {
+				$msgs[] = "'$id' has been removed.";
+				$deleted_count++;
+			} else {
+				$errors[] = "'$id' couldn't be deleted.";
+			}
+		}
+
+		$this->data["errors"] = $errors;
+		$this->data["msgs"] = $msgs;
+		$this->data["deleted_count"] = $deleted_count;
+		$this->data["total_count"] = $total_count;
+
+		$this->load->view($this->var->view_dir.'/header', $this->data);
+		$this->load->view($this->var->view_dir.'/deleted', $this->data);
+		$this->load->view($this->var->view_dir.'/footer', $this->data);
+	}
+
 	function delete()
 	{
 		$this->muser->require_access();
@@ -188,29 +227,17 @@ class File extends CI_Controller {
 		$id = $this->uri->segment(3);
 		$this->data["id"] = $id;
 
-		$process = $this->input->post("process");
-		if ($this->var->cli_client) {
-			$process = true;
-		}
-
 		if ($id && !$this->file_mod->id_exists($id)) {
 			$this->output->set_status_header(404);
-			$this->data["msg"] = "Unknown ID.";
-		} elseif ($process) {
-			if ($this->file_mod->delete_id($id)) {
-				$this->load->view($this->var->view_dir.'/header', $this->data);
-				$this->load->view($this->var->view_dir.'/deleted', $this->data);
-				$this->load->view($this->var->view_dir.'/footer', $this->data);
-				return;
-			} else {
-				$this->data["msg"] = "Deletion failed. Do you really own that file?";
-			}
+			echo "Unknown ID '$id'.\n";
+			return;
 		}
 
-		$this->data["filedata"] = $this->file_mod->get_filedata($id);
-		$this->data["can_delete"] = $this->data["filedata"]["user"] == $this->muser->get_userid();
-
-		$this->file_mod->display_info($id);
+		if ($this->file_mod->delete_id($id)) {
+			echo "$id has been deleted.\n";
+		} else {
+			echo "Deletion failed. Do you really own that file?\n";
+		}
 	}
 
 	// Handle pastes
