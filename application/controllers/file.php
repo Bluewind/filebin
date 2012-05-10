@@ -224,6 +224,11 @@ class File extends CI_Controller {
 	{
 		$this->muser->require_access();
 
+		if (!$this->var->cli_client) {
+			echo "Not a listed cli client, please use the history to delete uploads.\n";
+			return;
+		}
+
 		$id = $this->uri->segment(3);
 		$this->data["id"] = $id;
 
