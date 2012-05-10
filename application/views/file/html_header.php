@@ -10,8 +10,9 @@
       <a class="raw_link no" href="<?php echo site_url(); ?>">New</a> |
       <a class="raw_link no" href="<?php echo site_url($id); ?>">Raw</a> |
       <a class="raw_link no" href="<?php echo site_url($id."/plain"); ?>">Plain</a> |
+      <a class="raw_link no" href="<?php echo site_url($id."/info"); ?>">Info</a> |
       Currently: <?php echo $current_highlight; ?> |
-      Timeout: <a class="raw_link no" href="<?php echo site_url("file/delete/".$id); ?>" title="delete"><?php echo $timeout; ?></a>
+      Timeout: <?php echo $timeout; ?>
       <div style="float:right;">
         <a class="raw_link no" href="<?php echo site_url($id)."/"; ?>">Code</a> |
         <a class="raw_link no" href="<?php echo site_url($id."/rmd"); ?>">Render Markdown</a>
