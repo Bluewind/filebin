@@ -9,7 +9,7 @@
 
 class File_mod extends CI_Model {
 
-	var $data;
+	public $data;
 
 	function __construct()
 	{

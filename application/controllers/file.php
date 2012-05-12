@@ -9,12 +9,14 @@
 
 class File extends CI_Controller {
 
-	var $data = array();
-	var $var;
+	public $data = array();
+	public $var;
 
 	function __construct()
 	{
 		parent::__construct();
+
+		$this->var = new StdClass();
 
 		$this->load->library('migration');
 		if ( ! $this->migration->current()) {

@@ -2,9 +2,15 @@
 
 class User extends CI_Controller {
 
+	public $data = array();
+	public $var;
+
 	function __construct()
 	{
 		parent::__construct();
+
+		$this->var = new StdClass();
+
 		$this->load->library('migration');
 		if ( ! $this->migration->current()) {
 			show_error($this->migration->error_string());
