@@ -90,7 +90,15 @@ class MemcacheLibrary {
 	*/
 	public function get($key) {
 		$this->logDebugMessage(sprintf("%s key requested from memcache", $key));
-		return $this->memcachedInstance->get($key);
+
+		// hide notice if server is unreachable
+		$old_error_level = error_reporting();
+		error_reporting($old_error_level & ~E_NOTICE);
+
+		$ret = $this->memcachedInstance->get($key);
+
+		error_reporting($old_error_level);
+		return $ret;
 	}
 
 	/**
