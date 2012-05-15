@@ -238,7 +238,6 @@ class File_mod extends CI_Model {
 
 		// helps to keep traffic low when reloading
 		$etag = $filedata["hash"]."-".$filedata["date"];
-		$this->handle_etag($etag);
 
 		$type = $filedata['mimetype'];
 
@@ -255,6 +254,7 @@ class File_mod extends CI_Model {
 
 		// create the qr code for /ID/
 		if ($mode == "qr") {
+			$this->handle_etag($etag);
 			header("Content-disposition: inline; filename=\"".$id."_qr.png\"\n");
 			header("Content-Type: image/png\n");
 			passthru('qrencode -s 10 -o - '.escapeshellarg(site_url($id).'/'));
@@ -263,6 +263,7 @@ class File_mod extends CI_Model {
 
 		// user wants to the the plain file
 		if ($mode == 'plain') {
+			$this->handle_etag($etag);
 			rangeDownload($file, $filedata["filename"], "text/plain");
 			exit();
 		}
@@ -278,6 +279,7 @@ class File_mod extends CI_Model {
 		$filesize_too_big = filesize($file) > $this->config->item('upload_max_text_size');
 
 		if (!$can_highlight || $filesize_too_big || !$mode) {
+			$this->handle_etag($etag);
 			foreach (array("X-WebKit-CSP", "X-Content-Security-Policy") as $header_name) {
 				header("$header_name: allow 'none'; img-src *; media-src *; font-src *; style-src * 'unsafe-inline'; script-src 'none'; object-src *; frame-src 'none'; ");
 			}
