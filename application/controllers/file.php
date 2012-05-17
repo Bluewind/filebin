@@ -31,16 +31,13 @@ class File extends CI_Controller {
 		$this->load->model('file_mod');
 		$this->load->model('muser');
 
-		$this->var->cli_client = false;
-		$this->file_mod->var->cli_client =& $this->var->cli_client;
 		$this->var->latest_client = false;
 		if (file_exists(FCPATH.'data/client/latest')) {
 			$this->var->latest_client = trim(file_get_contents(FCPATH.'data/client/latest'));
 		}
 
-		$this->var->cli_client = is_cli_client();
 
-		if ($this->var->cli_client) {
+		if (is_cli_client()) {
 			$this->var->view_dir = "file_plaintext";
 		} else {
 			$this->var->view_dir = "file";
@@ -85,11 +82,11 @@ class File extends CI_Controller {
 		$this->data['client_link_deb'] = base_url().'data/client/deb/';
 		$this->data['client_link_slackware'] = base_url().'data/client/slackware/';
 
-		if (!$this->var->cli_client) {
+		if (is_cli_client()) {
 			$this->load->view($this->var->view_dir.'/header', $this->data);
 		}
 		$this->load->view($this->var->view_dir.'/client', $this->data);
-		if (!$this->var->cli_client) {
+		if (is_cli_client()) {
 			$this->load->view($this->var->view_dir.'/footer', $this->data);
 		}
 	}
@@ -106,7 +103,7 @@ class File extends CI_Controller {
 
 		$this->load->view($this->var->view_dir.'/header', $this->data);
 		$this->load->view($this->var->view_dir.'/upload_form', $this->data);
-		if ($this->var->cli_client) {
+		if (is_cli_client()) {
 			$this->client();
 		}
 		$this->load->view($this->var->view_dir.'/footer', $this->data);
@@ -155,7 +152,7 @@ class File extends CI_Controller {
 			foreach($query as $key => $item) {
 				$query[$key]["date"] = date("r", $item["date"]);
 				$query[$key]["filesize"] = format_bytes($item["filesize"]);
-				if ($this->var->cli_client) {
+				if (is_cli_client()) {
 					// Keep track of longest string to pad plaintext output correctly
 					foreach($fields as $length_key => $value) {
 						$len = mb_strlen($query[$key][$length_key]);
@@ -226,7 +223,7 @@ class File extends CI_Controller {
 	{
 		$this->muser->require_access();
 
-		if (!$this->var->cli_client) {
+		if (is_cli_client()) {
 			echo "Not a listed cli client, please use the history to delete uploads.\n";
 			return;
 		}

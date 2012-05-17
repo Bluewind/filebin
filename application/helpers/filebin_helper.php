@@ -170,16 +170,25 @@ function mb_str_pad($ps_input, $pn_pad_length, $ps_pad_string = " ", $pn_pad_typ
 	return $ret;
 }
 
-function is_cli_client()
+function is_cli_client($override = null)
 {
-	// official client uses "fb-client/$version" as useragent
-	$clients = array("fb-client", "libcurl", "pyfb");
-	foreach ($clients as $client) {
-		if (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], $client) !== false) {
-			return true;
+	static $is_cli = null;
+
+	if ($override !== null) {
+		$is_cli = $override;
+	}
+
+	if ($is_cli === null) {
+		$is_cli = false;
+		// official client uses "fb-client/$version" as useragent
+		$clients = array("fb-client", "libcurl", "pyfb");
+		foreach ($clients as $client) {
+			if (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], $client) !== false) {
+				$is_cli =  true;
+			}
 		}
 	}
-	return false;
+	return $is_cli;
 }
 
 function random_alphanum($min_length, $max_length = null)

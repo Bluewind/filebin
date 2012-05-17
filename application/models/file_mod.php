@@ -134,7 +134,7 @@ class File_mod extends CI_Model {
 			}
 		}
 
-		if ($this->var->cli_client) {
+		if (is_cli_client()) {
 			$redirect = false;
 		}
 		if ($redirect) {
