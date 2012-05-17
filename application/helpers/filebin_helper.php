@@ -221,4 +221,26 @@ function link_with_mtime($file)
 	return $link;
 }
 
+function handle_etag($etag)
+{
+	$etag = strtolower($etag);
+	$modified = true;
+
+	if(isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
+		$oldtag = trim(strtolower($_SERVER['HTTP_IF_NONE_MATCH']), '"');
+		if($oldtag == $etag) {
+			$modified = false;
+		} else {
+			$modified = true;
+		}
+	}
+
+	header('Etag: "'.$etag.'"');
+
+	if (!$modified) {
+		header("HTTP/1.1 304 Not Modified");
+		exit();
+	}
+}
+
 # vim: set noet:

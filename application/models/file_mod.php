@@ -9,17 +9,13 @@
 
 class File_mod extends CI_Model {
 
-	public $data;
-
 	function __construct()
 	{
 		parent::__construct();
-		$this->data =& get_instance()->data;
 		$this->load->model("muser");
 	}
 
 	// Returns an unused ID
-	// TODO: make threadsafe
 	function new_id()
 	{
 		$id = random_alphanum(3,6);
@@ -79,7 +75,6 @@ class File_mod extends CI_Model {
 	}
 
 	// Add a hash to the DB
-	// TODO: Should only update not insert; see new_id()
 	function add_file($hash, $id, $filename)
 	{
 		$userid = $this->muser->get_userid();
@@ -101,58 +96,6 @@ class File_mod extends CI_Model {
 			SET user = ?
 			WHERE id = ?
 			", array($userid, $id));
-	}
-
-	function show_url($id, $mode)
-	{
-		$redirect = false;
-
-		if (!$this->muser->logged_in()) {
-			// keep the upload but require the user to login
-			$this->session->set_userdata("last_upload", array(
-				"id" => $id,
-				"mode" => $mode
-			));
-			$this->session->set_flashdata("uri", "file/claim_id");
-			$this->muser->require_access();
-		}
-
-		if ($mode) {
-			$this->data['url'] = site_url($id).'/'.$mode;
-		} else {
-			$this->data['url'] = site_url($id).'/';
-
-			$filedata = $this->get_filedata($id);
-			$file = $this->file($filedata['hash']);
-			$type = $filedata['mimetype'];
-			$mode = $this->mime2mode($type);
-
-			// If we detected a highlightable file redirect,
-			// otherwise show the URL because browsers would just show a DL dialog
-			if ($mode) {
-				$redirect = true;
-			}
-		}
-
-		if (is_cli_client()) {
-			$redirect = false;
-		}
-		if ($redirect) {
-			redirect($this->data['url'], "location", 303);
-		} else {
-			$this->load->view($this->var->view_dir.'/header', $this->data);
-			$this->load->view($this->var->view_dir.'/show_url', $this->data);
-			$this->load->view($this->var->view_dir.'/footer', $this->data);
-		}
-	}
-
-	function non_existent()
-	{
-		$this->data["title"] .= " - Not Found";
-		$this->output->set_status_header(404);
-		$this->load->view($this->var->view_dir.'/header', $this->data);
-		$this->load->view($this->var->view_dir.'/non_existent', $this->data);
-		$this->load->view($this->var->view_dir.'/footer', $this->data);
 	}
 
 	// remove old/invalid/broken IDs
@@ -194,140 +137,6 @@ class File_mod extends CI_Model {
 		return true;
 	}
 
-	private function handle_etag($etag) {
-		$etag = strtolower($etag);
-		$modified = true;
-
-		if(isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
-			$oldtag = trim(strtolower($_SERVER['HTTP_IF_NONE_MATCH']), '"');
-			if($oldtag == $etag) {
-				$modified = false;
-			} else {
-				$modified = true;
-			}
-		}
-
-		header('Etag: "'.$etag.'"');
-
-		if (!$modified) {
-			header("HTTP/1.1 304 Not Modified");
-			exit();
-		}
-	}
-
-	// download a given ID
-	// TODO: make smaller
-	function download()
-	{
-		$id = $this->uri->segment(1);
-		$mode = $this->uri->segment(2);
-
-		$filedata = $this->get_filedata($id);
-		$file = $this->file($filedata['hash']);
-
-		if (!$this->valid_id($id)) {
-			$this->non_existent();
-			return;
-		}
-
-		// don't allow unowned files to be downloaded
-		if ($filedata["user"] == 0) {
-			$this->non_existent();
-			return;
-		}
-
-		// helps to keep traffic low when reloading
-		$etag = $filedata["hash"]."-".$filedata["date"];
-
-		$type = $filedata['mimetype'];
-
-		// autodetect the mode for highlighting if the URL contains a / after the ID (/ID/)
-		// /ID/mode disables autodetection
-		$autodetect_mode = !$mode && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1;
-
-		if ($autodetect_mode) {
-			$mode = $this->get_highlight_mode($type, $filedata["filename"]);
-		}
-		// resolve aliases of modes
-		// this is mainly used for compatibility
-		$mode = $this->resolve_mode_alias($mode);
-
-		// create the qr code for /ID/
-		if ($mode == "qr") {
-			$this->handle_etag($etag);
-			header("Content-disposition: inline; filename=\"".$id."_qr.png\"\n");
-			header("Content-Type: image/png\n");
-			passthru('qrencode -s 10 -o - '.escapeshellarg(site_url($id).'/'));
-			exit();
-		}
-
-		// user wants to the the plain file
-		if ($mode == 'plain') {
-			$this->handle_etag($etag);
-			rangeDownload($file, $filedata["filename"], "text/plain");
-			exit();
-		}
-
-		if ($mode == 'info') {
-			$this->display_info($id);
-			return;
-		}
-
-		// if there is no mimetype mapping we can't highlight it
-		$can_highlight = $this->can_highlight($type);
-
-		$filesize_too_big = filesize($file) > $this->config->item('upload_max_text_size');
-
-		if (!$can_highlight || $filesize_too_big || !$mode) {
-			$this->handle_etag($etag);
-			foreach (array("X-WebKit-CSP", "X-Content-Security-Policy") as $header_name) {
-				header("$header_name: allow 'none'; img-src *; media-src *; font-src *; style-src * 'unsafe-inline'; script-src 'none'; object-src *; frame-src 'none'; ");
-			}
-			rangeDownload($file, $filedata["filename"], $type);
-			exit();
-		}
-
-		$this->data['title'] = htmlspecialchars($filedata['filename']);
-		$this->data['id'] = $id;
-
-		header("Content-Type: text/html\n");
-
-		$this->data['current_highlight'] = htmlspecialchars($mode);
-		$this->data['timeout'] = $this->get_timeout_string($id);
-
-		echo $this->load->view($this->var->view_dir.'/html_header', $this->data, true);
-
-		// highlight the file and chache the result
-		$this->load->library("MemcacheLibrary");
-		if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$mode)) {
-			ob_start();
-			if ($mode == "rmd") {
-				echo '<td class="markdownrender">'."\n";
-				passthru('perl '.FCPATH.'scripts/Markdown.pl '.escapeshellarg($file));
-			} elseif ($mode == "ascii") {
-				echo '<td class="code"><pre class="text">'."\n";
-				passthru('perl '.FCPATH.'scripts/ansi2html '.escapeshellarg($file));
-				echo "</pre>\n";
-			} else {
-				echo '<td class="numbers"><pre>';
-				// generate line numbers (links)
-				passthru('perl -ne \'print "<a href=\"#n$.\" class=\"no\" id=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
-				echo '</pre></td><td class="code">'."\n";
-				$this->load->library('geshi');
-				$this->geshi->initialize(array('set_language' => $mode, 'set_source' => file_get_contents($file), 'enable_classes' => 'true'));
-				echo $this->geshi->parse_code();
-			}
-			$cached = ob_get_contents();
-			ob_end_clean();
-			$this->memcachelibrary->set($filedata['hash'].'_'.$mode, $cached, 100);
-		}
-		echo $cached;
-
-		echo $this->load->view($this->var->view_dir.'/html_footer', $this->data, true);
-
-		exit();
-	}
-
 	function get_timeout_string($id)
 	{
 		$filedata = $this->get_filedata($id);
@@ -354,22 +163,6 @@ class File_mod extends CI_Model {
 		} else {
 			return false;
 		}
-	}
-
-	function display_info($id)
-	{
-		$this->data["title"] .= " - Info $id";
-		$this->data["filedata"] = $this->get_filedata($id);
-		$this->data["id"] = $id;
-		$this->data['timeout'] = $this->get_timeout_string($id);
-
-		if (!isset($this->data["can_delete"])) {
-			$this->data["can_delete"] = false;
-		}
-
-		$this->load->view($this->var->view_dir.'/header', $this->data);
-		$this->load->view($this->var->view_dir.'/file_info', $this->data);
-		$this->load->view($this->var->view_dir.'/footer', $this->data);
 	}
 
 	function delete_id($id)
@@ -399,6 +192,13 @@ class File_mod extends CI_Model {
 			@rmdir($this->folder($filedata['hash']));
 		}
 		return true;
+	}
+
+	function should_highlight($type)
+	{
+		if ($this->mime2mode($type)) return true;
+
+		return false;
 	}
 
 	// Allow certain types to be highlight without doing it automatically
