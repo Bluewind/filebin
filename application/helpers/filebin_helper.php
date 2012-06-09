@@ -181,7 +181,7 @@ function is_cli_client($override = null)
 	if ($is_cli === null) {
 		$is_cli = false;
 		// official client uses "fb-client/$version" as useragent
-		$clients = array("fb-client", "libcurl", "pyfb");
+		$clients = array("fb-client", "libcurl", "pyfb", "curl/");
 		foreach ($clients as $client) {
 			if (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], $client) !== false) {
 				$is_cli =  true;
