@@ -167,9 +167,7 @@ class File extends CI_Controller {
 				// generate line numbers (links)
 				passthru('perl -ne \'print "<a href=\"#n$.\" class=\"no\" id=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
 				echo '</pre></td><td class="code">'."\n";
-				$this->load->library('geshi');
-				$this->geshi->initialize(array('set_language' => $mode, 'set_source' => file_get_contents($file), 'enable_classes' => 'true'));
-				echo $this->geshi->parse_code();
+				passthru('pygmentize -F codetagify -O encoding=utf-8 -l '.escapeshellarg($mode).' -f html '.escapeshellarg($file));
 			}
 			$cached = ob_get_contents();
 			ob_end_clean();

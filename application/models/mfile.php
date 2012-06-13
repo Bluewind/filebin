@@ -251,7 +251,7 @@ class Mfile extends CI_Model {
 		'text/html' => 'xml',
 		'text/css' => 'css',
 		'text/x-ocaml' => 'ocaml',
-		'message/rfc822' => 'email',
+		'message/rfc822' => 'text',
 		#'image/svg+xml' => 'xml',
 		'application/x-perl' => 'perl',
 		'application/xml' => 'xml',
@@ -268,7 +268,7 @@ class Mfile extends CI_Model {
 		'application/x-ruby' => 'ruby',
 		'application/x-shellscript' => 'bash',
 		'application/x-x509-ca-cert' => 'text',
-		'application/mbox' => 'email',
+		'application/mbox' => 'text',
 		'application/x-genesis-rom' => 'text',
 		'application/x-applix-spreadsheet' => 'actionscript'
 		);
