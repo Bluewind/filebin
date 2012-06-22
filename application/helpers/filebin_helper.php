@@ -1,10 +1,23 @@
 <?php
 
-// Source: http://ibnuyahya.com/format-bytes-to-kb-mb-gb/
-function format_bytes($size, $precision = 2){
-		$base = log($size) / log(1024);
-		$suffixes = array('B', 'KiB', 'MiB', 'GiB', 'TiB' , 'PiB' , 'EiB');
-		return round(pow(1024, $base - floor($base)), $precision) . $suffixes[floor($base)];
+function format_bytes($size)
+{
+	$suffixes = array('B', 'KiB', 'MiB', 'GiB', 'TiB' , 'PiB' , 'EiB', 'ZiB', 'YiB');
+	$boundary = 2048.0;
+
+	for ($suffix_pos = 0; $suffix_pos + 1 < count($suffixes); $suffix_pos++) {
+		if ($size <= $boundary && $size >= -$boundary) {
+			break;
+		}
+		$size /= 1024.0;
+	}
+
+	# don't print decimals for bytes
+	if ($suffix_pos != 0) {
+		return sprintf("%.2f%s", $size, $suffixes[$suffix_pos]);
+	} else {
+		return sprintf("%.0f%s", $size, $suffixes[$suffix_pos]);
+	}
 }
 
 // Original source: http://www.phpfreaks.com/forums/index.php?topic=198274.msg895468#msg895468
