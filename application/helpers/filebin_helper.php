@@ -94,9 +94,9 @@ function rangeDownload($file, $filename, $type)
 		$length = $end - $start + 1; // Calculate new content length
 		fseek($fp, $start);
 		header('HTTP/1.1 206 Partial Content');
+		// Notify the client the byte range we'll be outputting
+		header("Content-Range: bytes $start-$end/$size");
 	}
-	// Notify the client the byte range we'll be outputting
-	header("Content-Range: bytes $start-$end/$size");
 	header("Content-Length: $length");
 	header("Content-disposition: inline; filename=\"".$filename."\"\n");
 	header("Content-Type: ".$type."\n");
