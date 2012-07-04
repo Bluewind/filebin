@@ -1267,11 +1267,14 @@ class CI_DB_driver {
 
 		// If the item has an alias declaration we remove it and set it aside.
 		// Basically we remove everything to the right of the first space
-		$alias = '';
 		if (strpos($item, ' ') !== FALSE)
 		{
-			$alias = strstr($item, " ");
+			$alias = strstr($item, ' ');
 			$item = substr($item, 0, - strlen($alias));
+		}
+		else
+		{
+			$alias = '';
 		}
 
 		// This is basically a bug fix for queries that use MAX, MIN, etc.
@@ -1387,7 +1390,7 @@ class CI_DB_driver {
 
 		return $item.$alias;
 	}
-	
+
 	// --------------------------------------------------------------------
 
 	/**
@@ -1395,16 +1398,13 @@ class CI_DB_driver {
 	 *
 	 * This function is used extensively by every db driver.
 	 *
-	 * @access	private
 	 * @return	void
 	 */
 	protected function _reset_select()
 	{
-	
 	}
 
 }
-
 
 /* End of file DB_driver.php */
 /* Location: ./system/database/DB_driver.php */
