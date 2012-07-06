@@ -339,9 +339,20 @@ class File extends CI_Controller {
 				}
 			}
 
+			$total_size = $this->db->query("
+				SELECT sum(filesize) sum
+				FROM (
+					SELECT filesize
+					FROM files
+					WHERE user = ?
+					GROUP BY hash
+				) sub
+				", array($user))->row_array();
+
 			$this->data["query"] = $query;
 			$this->data["lengths"] = $lengths;
 			$this->data["fields"] = $fields;
+			$this->data["total_size"] = format_bytes($total_size["sum"]);
 
 			$cached = "";
 			$cached .= $this->load->view($this->var->view_dir.'/header', $this->data, true);

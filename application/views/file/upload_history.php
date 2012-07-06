@@ -24,3 +24,5 @@
 	</table>
 	<input type="submit" value="Delete checked" name="process" />
 </form>
+
+<p>Total sum of your distinct uploads: <?php echo $total_size; ?>.</p>

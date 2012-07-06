@@ -16,4 +16,6 @@ foreach($query as $key => $item) {
 		.$item["hash"]." | "
 		.$item["filesize"]."\n";
 }
+?>
 
+Total sum of your distinct uploads: <?php echo $total_size; ?>.
