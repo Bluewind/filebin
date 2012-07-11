@@ -33,6 +33,7 @@ class Muser extends CI_Model {
 		if (crypt($password, $query["password"]) === $query["password"]) {
 			$this->session->set_userdata('logged_in', true);
 			$this->session->set_userdata('username', $username);
+			$this->session->set_userdata('userid', $query["id"]);
 			return true;
 		} else {
 			return false;
@@ -61,12 +62,7 @@ class Muser extends CI_Model {
 			return 0;
 		}
 
-		$query = $this->db->query("
-			SELECT id
-			FROM users
-			WHERE username = ?
-			", array($this->get_username()))->row_array();
-		return $query["id"];
+		return $this->session->userdata("userid");
 	}
 
 	function require_access()
