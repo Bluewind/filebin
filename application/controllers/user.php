@@ -101,7 +101,7 @@ class User extends CI_Controller {
 		$userid = $this->muser->get_userid();
 
 		$query = $this->db->query("
-			SELECT *
+			SELECT `key`
 			FROM invitations
 			WHERE user = ?
 			", array($userid))->result_array();

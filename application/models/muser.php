@@ -17,7 +17,7 @@ class Muser extends CI_Model {
 	function login($username, $password) 
 	{
 		$query = $this->db->query('
-			SELECT *
+			SELECT username, id, password
 			FROM `users`
 			WHERE `username` = ?
 			', array($username))->row_array();
