@@ -152,6 +152,10 @@ class User extends CI_Controller {
 				$error[]= "Invalid email.";
 			}
 
+			if ($this->muser->username_exists($username)) {
+				$error[] = "Username already exists.";
+			}
+
 			if (!$password || $password != $password_confirm) {
 				$error[]= "No password or passwords don't match.";
 			}
