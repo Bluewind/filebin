@@ -144,7 +144,7 @@ class User extends CI_Controller {
 			$password_confirm = $this->input->post("password_confirm");
 
 			if (!$username || strlen($username) > 32 || !preg_match("/^[a-z0-9]+$/", $username)) {
-				$error[]= "Invalid username (only a-z0-9 are allowed).";
+				$error[]= "Invalid username (only up to 32 chars of a-z0-9 are allowed).";
 			}
 
 			$this->load->helper("email");
