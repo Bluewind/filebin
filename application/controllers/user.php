@@ -216,4 +216,18 @@ class User extends CI_Controller {
 		$this->load->view($this->var->view_dir.'hash_password', $this->data);
 		$this->load->view($this->var->view_dir.'footer', $this->data);
 	}
+
+	function cron()
+	{
+		if (!$this->input->is_cli_request()) return;
+
+		if ($this->config->item('invitations_max_age') == 0) return;
+
+		$oldest_time = (time() - $this->config->item('invitations_max_age'));
+
+		$this->db->query("
+			DELETE FROM invitations
+			WHERE date < ?
+			", array($oldest_time));
+	}
 }
