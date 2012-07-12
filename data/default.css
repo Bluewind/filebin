@@ -65,6 +65,10 @@ p, li {
 	padding-top:13px;
 }
 
+.error h1 {
+	font-size: 18px;
+}
+
 table {
 	border-collapse: collapse;
 }

@@ -14,13 +14,15 @@
 		<?php echo anchor('file/upload_history', 'History'); ?> |
 		<?php echo anchor('user/invite', 'Invite'); ?>
 
-		<div class="right">
-			<?php if(isset($username) && $username) { ?>
-				<?=anchor("user/logout", "Logout"); ?>
-			<?php } else { ?>
-				<?=anchor("user/login", "Login"); ?>
-			<?php } ?>
-		</div>
+		<?php if(!isset($is_error_page)) { ?>
+			<div class="right">
+				<?php if(isset($username) && $username) { ?>
+					<?=anchor("user/logout", "Logout"); ?>
+				<?php } else { ?>
+					<?=anchor("user/login", "Login"); ?>
+				<?php } ?>
+			</div>
+		<?php } ?>
 	</div>
 
 	<div class="content">
