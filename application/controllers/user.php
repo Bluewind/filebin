@@ -78,9 +78,7 @@ class User extends CI_Controller {
 			", array($userid))->row_array();
 
 		if ($query["count"] + 1 > 3) {
-			// TODO: better message
-			echo "You've reached your invitation limit.";
-			return;
+			show_error("You can't create more invitation keys at this time.");
 		}
 
 		$key = random_alphanum(12, 16);
@@ -130,9 +128,7 @@ class User extends CI_Controller {
 			", array($key))->row_array();
 
 		if (!isset($query["key"]) || $key != $query["key"]) {
-			// TODO: better message
-			echo "Unknown key.";
-			return;
+			show_error("Invalid invitation key.");
 		}
 
 		$referrer = $query["user"];
