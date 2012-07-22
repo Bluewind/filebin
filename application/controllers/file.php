@@ -258,11 +258,11 @@ class File extends CI_Controller {
 		$this->data['client_link_deb'] = base_url().'data/client/deb/';
 		$this->data['client_link_slackware'] = base_url().'data/client/slackware/';
 
-		if (is_cli_client()) {
+		if (!is_cli_client()) {
 			$this->load->view($this->var->view_dir.'/header', $this->data);
 		}
 		$this->load->view($this->var->view_dir.'/client', $this->data);
-		if (is_cli_client()) {
+		if (!is_cli_client()) {
 			$this->load->view($this->var->view_dir.'/footer', $this->data);
 		}
 	}
