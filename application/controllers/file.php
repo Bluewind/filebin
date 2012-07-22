@@ -79,13 +79,13 @@ class File extends CI_Controller {
 		$file = $this->file_mod->file($filedata['hash']);
 
 		if (!$this->file_mod->valid_id($id)) {
-			$this->non_existent();
+			$this->_non_existent();
 			return;
 		}
 
 		// don't allow unowned files to be downloaded
 		if ($filedata["user"] == 0) {
-			$this->file_mod->non_existent();
+			$this->_non_existent();
 			return;
 		}
 
