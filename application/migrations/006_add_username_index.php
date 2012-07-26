@@ -14,7 +14,7 @@ class Migration_Add_username_index extends CI_Migration {
 	public function down()
 	{
 		$this->db->query("
-			ALTER TABLE `files`
+			ALTER TABLE `users`
 			DROP INDEX `username`;
 		");
 	}
