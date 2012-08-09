@@ -28,7 +28,7 @@ class File extends CI_Controller {
 
 		mb_internal_encoding('UTF-8');
 		$this->load->helper(array('form', 'filebin'));
-		$this->load->model('file_mod');
+		$this->load->model('mfile');
 		$this->load->model('muser');
 
 		$this->var->latest_client = false;
@@ -61,7 +61,7 @@ class File extends CI_Controller {
 		$id = $this->uri->segment(1);
 		if(isset($_FILES['file'])) {
 			$this->do_upload();
-		} elseif ($id != "file" && $this->file_mod->id_exists($id)) {
+		} elseif ($id != "file" && $this->mfile->id_exists($id)) {
 			$this->_download();
 		} elseif ($id && $id != "file") {
 			$this->_non_existent();
@@ -75,10 +75,10 @@ class File extends CI_Controller {
 		$id = $this->uri->segment(1);
 		$mode = $this->uri->segment(2);
 
-		$filedata = $this->file_mod->get_filedata($id);
-		$file = $this->file_mod->file($filedata['hash']);
+		$filedata = $this->mfile->get_filedata($id);
+		$file = $this->mfile->file($filedata['hash']);
 
-		if (!$this->file_mod->valid_id($id)) {
+		if (!$this->mfile->valid_id($id)) {
 			$this->_non_existent();
 			return;
 		}
@@ -97,12 +97,12 @@ class File extends CI_Controller {
 		$autodetect_mode = !$mode && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1;
 
 		if ($autodetect_mode) {
-			$mode = $this->file_mod->get_highlight_mode($filedata["mimetype"], $filedata["filename"]);
+			$mode = $this->mfile->get_highlight_mode($filedata["mimetype"], $filedata["filename"]);
 		}
 
 		// resolve aliases of modes
 		// this is mainly used for compatibility
-		$mode = $this->file_mod->resolve_mode_alias($mode);
+		$mode = $this->mfile->resolve_mode_alias($mode);
 
 		// create the qr code for /ID/
 		if ($mode == "qr") {
@@ -126,7 +126,7 @@ class File extends CI_Controller {
 		}
 
 		// if there is no mimetype mapping we can't highlight it
-		$can_highlight = $this->file_mod->can_highlight($filedata["mimetype"]);
+		$can_highlight = $this->mfile->can_highlight($filedata["mimetype"]);
 
 		$filesize_too_big = filesize($file) > $this->config->item('upload_max_text_size');
 
@@ -147,7 +147,7 @@ class File extends CI_Controller {
 		header("Content-Type: text/html\n");
 
 		$this->data['current_highlight'] = htmlspecialchars($mode);
-		$this->data['timeout'] = $this->file_mod->get_timeout_string($id);
+		$this->data['timeout'] = $this->mfile->get_timeout_string($id);
 
 		echo $this->load->view($this->var->view_dir.'/html_header', $this->data, true);
 
@@ -185,9 +185,9 @@ class File extends CI_Controller {
 	function _display_info($id)
 	{
 		$this->data["title"] .= " - Info $id";
-		$this->data["filedata"] = $this->file_mod->get_filedata($id);
+		$this->data["filedata"] = $this->mfile->get_filedata($id);
 		$this->data["id"] = $id;
-		$this->data['timeout'] = $this->file_mod->get_timeout_string($id);
+		$this->data['timeout'] = $this->mfile->get_timeout_string($id);
 
 		$this->load->view($this->var->view_dir.'/header', $this->data);
 		$this->load->view($this->var->view_dir.'/file_info', $this->data);
@@ -222,10 +222,10 @@ class File extends CI_Controller {
 		} else {
 			$this->data['url'] = site_url($id).'/';
 
-			$filedata = $this->file_mod->get_filedata($id);
-			$file = $this->file_mod->file($filedata['hash']);
+			$filedata = $this->mfile->get_filedata($id);
+			$file = $this->mfile->file($filedata['hash']);
 			$type = $filedata['mimetype'];
-			$mode = $this->file_mod->should_highlight($type);
+			$mode = $this->mfile->should_highlight($type);
 
 			// If we detected a highlightable file redirect,
 			// otherwise show the URL because browsers would just show a DL dialog
@@ -383,12 +383,12 @@ class File extends CI_Controller {
 		foreach ($ids as $id) {
 			$total_count++;
 
-			if (!$this->file_mod->id_exists($id)) {
+			if (!$this->mfile->id_exists($id)) {
 				$errors[] = "'$id' didn't exist anymore.";
 				continue;
 			}
 
-			if ($this->file_mod->delete_id($id)) {
+			if ($this->mfile->delete_id($id)) {
 				$msgs[] = "'$id' has been removed.";
 				$deleted_count++;
 			} else {
@@ -418,13 +418,13 @@ class File extends CI_Controller {
 		$id = $this->uri->segment(3);
 		$this->data["id"] = $id;
 
-		if ($id && !$this->file_mod->id_exists($id)) {
+		if ($id && !$this->mfile->id_exists($id)) {
 			$this->output->set_status_header(404);
 			echo "Unknown ID '$id'.\n";
 			return;
 		}
 
-		if ($this->file_mod->delete_id($id)) {
+		if ($this->mfile->delete_id($id)) {
 			echo "$id has been deleted.\n";
 		} else {
 			echo "Deletion failed. Do you really own that file?\n";
@@ -455,16 +455,16 @@ class File extends CI_Controller {
 			return;
 		}
 
-		$id = $this->file_mod->new_id();
+		$id = $this->mfile->new_id();
 		$hash = md5($content);
 
-		$folder = $this->file_mod->folder($hash);
+		$folder = $this->mfile->folder($hash);
 		file_exists($folder) || mkdir ($folder);
-		$file = $this->file_mod->file($hash);
+		$file = $this->mfile->file($hash);
 
 		file_put_contents($file, $content);
 		chmod($file, 0600);
-		$this->file_mod->add_file($hash, $id, $filename);
+		$this->mfile->add_file($hash, $id, $filename);
 		$this->_show_url($id, false);
 	}
 
@@ -503,7 +503,7 @@ class File extends CI_Controller {
 			return;
 		}
 
-		$id = $this->file_mod->new_id();
+		$id = $this->mfile->new_id();
 		$hash = md5_file($_FILES['file']['tmp_name']);
 
 		// work around a curl bug and allow the client to send the real filename base64 encoded
@@ -517,13 +517,13 @@ class File extends CI_Controller {
 			$filename = $_FILES['file']['name'];
 		}
 
-		$folder = $this->file_mod->folder($hash);
+		$folder = $this->mfile->folder($hash);
 		file_exists($folder) || mkdir ($folder);
-		$file = $this->file_mod->file($hash);
+		$file = $this->mfile->file($hash);
 
 		move_uploaded_file($_FILES['file']['tmp_name'], $file);
 		chmod($file, 0600);
-		$this->file_mod->add_file($hash, $id, $filename);
+		$this->mfile->add_file($hash, $id, $filename);
 		$this->_show_url($id, $extension);
 	}
 
@@ -534,13 +534,13 @@ class File extends CI_Controller {
 		$last_upload = $this->session->userdata("last_upload");
 		$id = $last_upload["id"];
 
-		$filedata = $this->file_mod->get_filedata($id);
+		$filedata = $this->mfile->get_filedata($id);
 
 		if ($filedata["user"] != 0) {
 			show_error("Someone already owns '$id', can't reassign.");
 		}
 
-		$this->file_mod->adopt($id);
+		$this->mfile->adopt($id);
 
 		$this->session->unset_userdata("last_upload");
 
@@ -570,7 +570,7 @@ class File extends CI_Controller {
 				array($oldest_time, $oldest_session_time));
 
 		foreach($query->result_array() as $row) {
-			$file = $this->file_mod->file($row['hash']);
+			$file = $this->mfile->file($row['hash']);
 			if (!file_exists($file)) {
 				$this->db->query('DELETE FROM files WHERE id = ? LIMIT 1', array($row['id']));
 				continue;
@@ -634,7 +634,7 @@ class File extends CI_Controller {
 		$id = $this->uri->segment(3);
 
 
-		$file_data = $this->file_mod->get_filedata($id);
+		$file_data = $this->mfile->get_filedata($id);
 
 		if (empty($file_data)) {
 			echo "unknown id \"$id\"\n";
@@ -648,7 +648,7 @@ class File extends CI_Controller {
 			WHERE hash = ?
 			", array($hash));
 
-		unlink($this->file_mod->file($hash));
+		unlink($this->mfile->file($hash));
 
 		echo "removed hash \"$hash\"\n";
 	}
@@ -671,7 +671,7 @@ class File extends CI_Controller {
 
 			foreach ($query as $key => $item) {
 				$hash = $item["hash"];
-				$filesize = intval(filesize($this->file_mod->file($hash)));
+				$filesize = intval(filesize($this->mfile->file($hash)));
 				$this->db->query("
 					UPDATE files
 					SET filesize = ?
