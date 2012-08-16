@@ -165,7 +165,7 @@ class File extends CI_Controller {
 			} else {
 				echo '<td class="numbers"><pre>';
 				// generate line numbers (links)
-				passthru('perl -ne \'print "<a href=\"#n$.\" class=\"no\" id=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
+				passthru('perl -ne \'print "<a href=\"#n$.\" id=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
 				echo '</pre></td><td class="code">'."\n";
 				passthru('pygmentize -F codetagify -O encoding=utf-8 -l '.escapeshellarg($mode).' -f html '.escapeshellarg($file));
 			}

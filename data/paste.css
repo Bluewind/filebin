@@ -9,11 +9,13 @@ body {
 	padding-right:4px;
 	left:0;
 	color: gray;
+	text-decoration: none;
 }
 
 .numbers a:target {
 	background: yellow;
 }
+
 div#highlight_line {
 	background: yellow;
 	display: inline;
