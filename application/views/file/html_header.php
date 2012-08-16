@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title><?php echo $title; ?></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" type="text/css" href="<?php echo link_with_mtime("/data/paste.css"); ?>" />
 <?php if (file_exists(FCPATH."/data/paste-$current_highlight.css")) {?>
 	<link rel="stylesheet" type="text/css" href="<?php echo link_with_mtime("/data/paste-$current_highlight.css"); ?>" />
