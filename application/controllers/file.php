@@ -57,6 +57,18 @@ class File extends CI_Controller {
 
 	function index()
 	{
+		if ($this->input->is_cli_request()) {
+			echo "php index.php file <function> [arguments]\n";
+			echo "\n";
+			echo "Functions:\n";
+			echo "  cron               Cronjob\n";
+			echo "  nuke_id <ID>       Nukes all IDs sharing the same hash\n";
+			echo "\n";
+			echo "Functions that shouldn't have to be run:\n";
+			echo "  clean_stale_files  Remove files without database entries\n";
+			echo "  update_file_sizes  Update filesize in database\n";
+			exit;
+		}
 		// Try to guess what the user would like to do.
 		$id = $this->uri->segment(1);
 		if(isset($_FILES['file'])) {
