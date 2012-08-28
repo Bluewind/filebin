@@ -224,7 +224,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = ''; # set this to a 32char random string
+$config['encryption_key'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -381,6 +381,10 @@ $config['invitations_max_age'] = 60*60*24*5; // 5 days
 $config['small_upload_size'] = 1024*10; // 10KB
 
 $config['contact_me_url'] = ''; // ommiting this will remove the "contact me" line.
+
+if (file_exists(FCPATH.'application/config/config-local.php')) {
+        include FCPATH.'application/config/config-local.php';
+}
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
