@@ -4,18 +4,51 @@ class Muser extends CI_Model {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->library("session");
+
+		if ($this->has_session()) {
+			$this->session->keep_flashdata("uri");
+		}
+
 		$this->load->helper("filebin");
-		$this->session->keep_flashdata("uri");
+	}
+
+	function has_session()
+	{
+		// checking $this doesn't work
+		$CI =& get_instance();
+		if (property_exists($CI, "session")) {
+			return true;
+		}
+
+		// Only load the session class if we already have a cookie that might need to be renewed.
+		// Otherwise we just create lots of stale sessions.
+		if (isset($_COOKIE[$this->config->item("sess_cookie_name")])) {
+			$this->load->library("session");
+			return true;
+		}
+
+		return false;
+	}
+
+	function require_session()
+	{
+		if (!$this->has_session()) {
+			$this->load->library("session");
+		}
 	}
 
 	function logged_in()
 	{
-		return $this->session->userdata('logged_in') == true;
+		if ($this->has_session()) {
+			return $this->session->userdata('logged_in') == true;
+		}
+
+		return false;
 	}
 
 	function login($username, $password) 
 	{
+		$this->require_session();
 		$query = $this->db->query('
 			SELECT username, id, password
 			FROM `users`
@@ -42,6 +75,7 @@ class Muser extends CI_Model {
 
 	function logout()
 	{
+		$this->require_session();
 		$this->session->unset_userdata('logged_in');
 		$this->session->unset_userdata('username');
 		$this->session->sess_destroy();
@@ -74,6 +108,7 @@ class Muser extends CI_Model {
 				echo "FileBin requires you to have an account, please go to the homepage for more information.\n";
 				exit();
 			} else {
+				$this->require_session();
 				if (!$this->session->userdata("flash:new:uri")) {
 					$this->session->set_flashdata("uri", $this->uri->uri_string());
 				}

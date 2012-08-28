@@ -36,6 +36,7 @@ class User extends CI_Controller {
 	
 	function login()
 	{
+		$this->muser->require_session();
 		$this->session->keep_flashdata("uri");
 
 		if ($this->input->post('process')) {
