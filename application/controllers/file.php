@@ -218,6 +218,7 @@ class File extends CI_Controller {
 		$redirect = false;
 
 		if (!$this->muser->logged_in()) {
+			$this->muser->require_session();
 			// keep the upload but require the user to login
 			$this->session->set_userdata("last_upload", array(
 				"id" => $id,
