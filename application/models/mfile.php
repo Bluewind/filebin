@@ -251,6 +251,7 @@ class Mfile extends CI_Model {
 		'text/html' => 'xml',
 		'text/css' => 'css',
 		'text/x-ocaml' => 'ocaml',
+		'text/x-tcl' => 'tcl',
 		'message/rfc822' => 'text',
 		#'image/svg+xml' => 'xml',
 		'application/x-perl' => 'perl',
