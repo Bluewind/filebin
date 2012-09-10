@@ -179,7 +179,7 @@ class File extends CI_Controller {
 				// generate line numbers (links)
 				passthru('perl -ne \'print "<a href=\"#n$.\" id=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
 				echo '</pre></td><td class="code">'."\n";
-				passthru('pygmentize -F codetagify -O encoding=utf-8 -l '.escapeshellarg($mode).' -f html '.escapeshellarg($file));
+				passthru('pygmentize -F codetagify -O encoding=guess,outencoding=utf8 -l '.escapeshellarg($mode).' -f html '.escapeshellarg($file));
 			}
 			$cached = ob_get_contents();
 			ob_end_clean();
