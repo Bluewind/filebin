@@ -593,6 +593,9 @@ class File extends CI_Controller {
 					$this->db->query('DELETE FROM files WHERE hash = ?', array($row['hash']));
 				} else {
 					$this->db->query('DELETE FROM files WHERE id = ? LIMIT 1', array($row['id']));
+					if ($this->mfile->stale_hash($row["hash"])) {
+						unlink($file);
+					}
 				}
 			}
 		}

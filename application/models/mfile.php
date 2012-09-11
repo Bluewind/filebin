@@ -47,6 +47,11 @@ class Mfile extends CI_Model {
 		}
 	}
 
+	public function stale_hash($hash)
+	{
+		return $this->unused_file($hash);
+	}
+
 	function get_filedata($id)
 	{
 		$sql = '
