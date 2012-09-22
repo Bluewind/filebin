@@ -1,9 +1,9 @@
 <?php
 
 // fancy error page only works if we can load helpers
-if (class_exists("CI_Controller") || isset($is_error_page)) {
+if (class_exists("CI_Controller") && !isset($GLOBALS["is_error_page"])) {
 	$title = "Error";
-	$is_error_page = true;
+	$GLOBALS["is_error_page"] = true;
 
 	$CI =& get_instance();
 	$CI->load->helper("filebin");
