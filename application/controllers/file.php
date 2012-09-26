@@ -85,7 +85,7 @@ class File extends CI_Controller {
 	function _download()
 	{
 		$id = $this->uri->segment(1);
-		$mode = $this->uri->segment(2);
+		$mode = urldecode($this->uri->segment(2));
 
 		$filedata = $this->mfile->get_filedata($id);
 		$file = $this->mfile->file($filedata['hash']);
