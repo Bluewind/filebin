@@ -189,8 +189,6 @@ class File extends CI_Controller {
 		$this->output->append_output($cached);
 
 		$this->load->view($this->var->view_dir.'/html_footer', $this->data);
-
-		return;
 	}
 
 	function _display_info($id)
