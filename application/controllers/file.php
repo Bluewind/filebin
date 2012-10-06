@@ -161,7 +161,7 @@ class File extends CI_Controller {
 		$this->data['current_highlight'] = htmlspecialchars($mode);
 		$this->data['timeout'] = $this->mfile->get_timeout_string($id);
 
-		echo $this->load->view($this->var->view_dir.'/html_header', $this->data, true);
+		$this->load->view($this->var->view_dir.'/html_header', $this->data);
 
 		// highlight the file and chache the result
 		$this->load->library("MemcacheLibrary");
@@ -185,9 +185,10 @@ class File extends CI_Controller {
 			ob_end_clean();
 			$this->memcachelibrary->set($filedata['hash'].'_'.$mode, $cached, 100);
 		}
-		echo $cached;
 
-		echo $this->load->view($this->var->view_dir.'/html_footer', $this->data, true);
+		$this->output->append_output($cached);
+
+		$this->load->view($this->var->view_dir.'/html_footer', $this->data);
 
 		return;
 	}
