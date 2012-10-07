@@ -27,7 +27,7 @@ if (!$type) {
 			# detect ascii with color codes
 			$file_type = `file -b $file`;
 			chomp $file_type;
-			if ($file_type eq "ASCII text, with escape sequences") {
+			if ($file_type =~ m/ASCII text, (?:with very long lines, )?with escape sequences/) {
 				$type = "text/plain-ascii";
 			}
 		}
