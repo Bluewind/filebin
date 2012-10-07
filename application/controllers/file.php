@@ -169,24 +169,28 @@ class File extends CI_Controller {
 			ob_start();
 			if ($mode == "rmd") {
 				echo '<td class="markdownrender">'."\n";
-				passthru('perl '.FCPATH.'scripts/Markdown.pl '.escapeshellarg($file));
+				passthru('perl '.FCPATH.'scripts/Markdown.pl '.escapeshellarg($file), $return_value);
 			} elseif ($mode == "ascii") {
 				echo '<td class="code"><pre class="text">'."\n";
-				passthru('perl '.FCPATH.'scripts/ansi2html '.escapeshellarg($file));
+				passthru('perl '.FCPATH.'scripts/ansi2html '.escapeshellarg($file), $return_value);
 				echo "</pre>\n";
 			} else {
 				echo '<td class="numbers"><pre>';
 				// generate line numbers (links)
-				passthru('perl -ne \'print "<a href=\"#n$.\" id=\"n$.\">$.</a>\n"\' '.escapeshellarg($file));
+				passthru('perl -ne \'print "<a href=\"#n$.\" id=\"n$.\">$.</a>\n"\' '.escapeshellarg($file), $return_value);
 				echo '</pre></td><td class="code">'."\n";
-				passthru('pygmentize -F codetagify -O encoding=guess,outencoding=utf8 -l '.escapeshellarg($mode).' -f html '.escapeshellarg($file));
+				passthru('pygmentize -F codetagify -O encoding=guess,outencoding=utf8 -l '.escapeshellarg($mode).' -f html '.escapeshellarg($file), $return_value);
 			}
 			$cached = ob_get_contents();
 			ob_end_clean();
 			$this->memcachelibrary->set($filedata['hash'].'_'.$mode, $cached, 100);
 		}
 
-		$this->output->append_output($cached);
+		if ($return_value != 0) {
+			show_error("Error trying to process the file. Either the lexer is unknown or something is broken.\n");
+		} else {
+			$this->output->append_output($cached);
+		}
 
 		$this->load->view($this->var->view_dir.'/html_footer', $this->data);
 	}
