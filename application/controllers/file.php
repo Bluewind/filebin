@@ -85,7 +85,7 @@ class File extends CI_Controller {
 	function _download()
 	{
 		$id = $this->uri->segment(1);
-		$mode = urldecode($this->uri->segment(2));
+		$lexer = urldecode($this->uri->segment(2));
 
 		$filedata = $this->mfile->get_filedata($id);
 		$file = $this->mfile->file($filedata['hash']);
@@ -104,20 +104,20 @@ class File extends CI_Controller {
 		// helps to keep traffic low when reloading
 		$etag = $filedata["hash"]."-".$filedata["date"];
 
-		// autodetect the mode for highlighting if the URL contains a / after the ID (/ID/)
-		// /ID/mode disables autodetection
-		$autodetect_mode = !$mode && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1;
+		// autodetect the lexer for highlighting if the URL contains a / after the ID (/ID/)
+		// /ID/lexer disables autodetection
+		$autodetect_lexer = !$lexer && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1;
 
-		if ($autodetect_mode) {
-			$mode = $this->mfile->get_highlight_mode($filedata["mimetype"], $filedata["filename"]);
+		if ($autodetect_lexer) {
+			$lexer = $this->mfile->autodetect_lexer($filedata["mimetype"], $filedata["filename"]);
 		}
 
-		// resolve aliases of modes
+		// resolve aliases
 		// this is mainly used for compatibility
-		$mode = $this->mfile->resolve_mode_alias($mode);
+		$lexer = $this->mfile->resolve_lexer_alias($lexer);
 
 		// create the qr code for /ID/
-		if ($mode == "qr") {
+		if ($lexer == "qr") {
 			handle_etag($etag);
 			header("Content-disposition: inline; filename=\"".$id."_qr.png\"\n");
 			header("Content-Type: image/png\n");
@@ -125,14 +125,14 @@ class File extends CI_Controller {
 			exit();
 		}
 
-		// user wants to the the plain file
-		if ($mode == 'plain') {
+		// user wants the plain file
+		if ($lexer == 'plain') {
 			handle_etag($etag);
 			rangeDownload($file, $filedata["filename"], "text/plain");
 			exit();
 		}
 
-		if ($mode == 'info') {
+		if ($lexer == 'info') {
 			$this->_display_info($id);
 			return;
 		}
@@ -142,7 +142,7 @@ class File extends CI_Controller {
 
 		$filesize_too_big = filesize($file) > $this->config->item('upload_max_text_size');
 
-		if (!$can_highlight || $filesize_too_big || !$mode) {
+		if (!$can_highlight || $filesize_too_big || !$lexer) {
 			// prevent javascript from being executed and forbid frames
 			// this should allow us to serve user submitted HTML content without huge security risks
 			foreach (array("X-WebKit-CSP", "X-Content-Security-Policy") as $header_name) {
@@ -158,19 +158,19 @@ class File extends CI_Controller {
 
 		header("Content-Type: text/html\n");
 
-		$this->data['current_highlight'] = htmlspecialchars($mode);
+		$this->data['current_highlight'] = htmlspecialchars($lexer);
 		$this->data['timeout'] = $this->mfile->get_timeout_string($id);
 
 		$this->load->view($this->var->view_dir.'/html_header', $this->data);
 
 		// highlight the file and chache the result
 		$this->load->library("MemcacheLibrary");
-		if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$mode)) {
+		if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$lexer)) {
 			ob_start();
-			if ($mode == "rmd") {
+			if ($lexer == "rmd") {
 				echo '<td class="markdownrender">'."\n";
 				passthru('perl '.FCPATH.'scripts/Markdown.pl '.escapeshellarg($file), $return_value);
-			} elseif ($mode == "ascii") {
+			} elseif ($lexer == "ascii") {
 				echo '<td class="code"><pre class="text">'."\n";
 				passthru('perl '.FCPATH.'scripts/ansi2html '.escapeshellarg($file), $return_value);
 				echo "</pre>\n";
@@ -179,11 +179,11 @@ class File extends CI_Controller {
 				// generate line numbers (links)
 				passthru('perl -ne \'print "<a href=\"#n$.\" id=\"n$.\">$.</a>\n"\' '.escapeshellarg($file), $return_value);
 				echo '</pre></td><td class="code">'."\n";
-				passthru('pygmentize -F codetagify -O encoding=guess,outencoding=utf8 -l '.escapeshellarg($mode).' -f html '.escapeshellarg($file), $return_value);
+				passthru('pygmentize -F codetagify -O encoding=guess,outencoding=utf8 -l '.escapeshellarg($lexer).' -f html '.escapeshellarg($file), $return_value);
 			}
 			$cached = ob_get_contents();
 			ob_end_clean();
-			$this->memcachelibrary->set($filedata['hash'].'_'.$mode, $cached, 100);
+			$this->memcachelibrary->set($filedata['hash'].'_'.$lexer, $cached, 100);
 		}
 
 		if ($return_value != 0) {
@@ -216,7 +216,7 @@ class File extends CI_Controller {
 		$this->load->view($this->var->view_dir.'/footer', $this->data);
 	}
 
-	function _show_url($id, $mode)
+	function _show_url($id, $lexer)
 	{
 		$redirect = false;
 
@@ -225,25 +225,25 @@ class File extends CI_Controller {
 			// keep the upload but require the user to login
 			$this->session->set_userdata("last_upload", array(
 				"id" => $id,
-				"mode" => $mode
+				"lexer" => $lexer
 			));
 			$this->session->set_flashdata("uri", "file/claim_id");
 			$this->muser->require_access();
 		}
 
-		if ($mode) {
-			$this->data['url'] = site_url($id).'/'.$mode;
+		if ($lexer) {
+			$this->data['url'] = site_url($id).'/'.$lexer;
 		} else {
 			$this->data['url'] = site_url($id).'/';
 
 			$filedata = $this->mfile->get_filedata($id);
 			$file = $this->mfile->file($filedata['hash']);
 			$type = $filedata['mimetype'];
-			$mode = $this->mfile->should_highlight($type);
+			$lexer = $this->mfile->should_highlight($type);
 
 			// If we detected a highlightable file redirect,
 			// otherwise show the URL because browsers would just show a DL dialog
-			if ($mode) {
+			if ($lexer) {
 				$redirect = true;
 			}
 		}
@@ -558,7 +558,7 @@ class File extends CI_Controller {
 
 		$this->session->unset_userdata("last_upload");
 
-		$this->_show_url($id, $last_upload["mode"]);
+		$this->_show_url($id, $last_upload["lexer"]);
 	}
 
 	/* Functions below this comment can only be run via the CLI

@@ -201,7 +201,7 @@ class Mfile extends CI_Model {
 
 	function should_highlight($type)
 	{
-		if ($this->mime2mode($type)) return true;
+		if ($this->mime2lexer($type)) return true;
 
 		return false;
 	}
@@ -214,27 +214,27 @@ class Mfile extends CI_Model {
 		);
 		if (in_array($type, $typearray)) return true;
 
-		if ($this->mime2mode($type)) return true;
+		if ($this->mime2lexer($type)) return true;
 
 		return false;
 	}
 
-	// Return the mode that should be used for highlighting
-	function get_highlight_mode($type, $filename)
+	// Return the lexer that should be used for highlighting
+	function autodetect_lexer($type, $filename)
 	{
-		$mode = $this->mime2mode($type);
+		$lexer = $this->mime2lexer($type);
 
-		// filename modes overwrite mime type mappings
-		$filename_mode = $this->filename2mode($filename);
-		if ($filename_mode) {
-			return $filename_mode;
+		// filename lexers overwrite mime type mappings
+		$filename_lexer = $this->filename2lexer($filename);
+		if ($filename_lexer) {
+			return $filename_lexer;
 		}
 
-		return $mode;
+		return $lexer;
 	}
 
-	// Map MIME types to modes needed for highlighting
-	private function mime2mode($type)
+	// Map MIME types to lexers needed for highlighting
+	private function mime2lexer($type)
 	{
 		$typearray = array(
 		'text/plain' => 'text',
@@ -286,8 +286,8 @@ class Mfile extends CI_Model {
 		return false;
 	}
 
-	// Map special filenames to modes
-	private function filename2mode($name)
+	// Map special filenames to lexers
+	private function filename2lexer($name)
 	{
 		$namearray = array(
 			'PKGBUILD' => 'bash',
@@ -298,8 +298,8 @@ class Mfile extends CI_Model {
 		return false;
 	}
 
-	// Handle mode aliases
-	function resolve_mode_alias($alias)
+	// Handle lexer aliases
+	function resolve_lexer_alias($alias)
 	{
 		if ($alias === false) return false;
 		$aliasarray = array(
