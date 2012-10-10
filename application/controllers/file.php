@@ -43,11 +43,24 @@ class File extends CI_Controller {
 			$this->var->view_dir = "file";
 		}
 
-		if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW']) && $_SERVER['PHP_AUTH_USER'] && $_SERVER['PHP_AUTH_PW']) {
-			if (!$this->muser->login($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])) {
-				// TODO: better message
-				echo "login failed.\n";
-				exit;
+		if (is_cli_client()) {
+			$username = $this->input->post("username");
+			$password = $this->input->post("password");
+
+			// prefer post parameters if either (username or password) is set
+			if ($username === false && $password === false) {
+				if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
+					$username = $_SERVER['PHP_AUTH_USER'];
+					$password = $_SERVER['PHP_AUTH_PW'];
+				}
+			}
+
+			if ($username !== false && $password !== false) {
+				if (!$this->muser->login($username, $password)) {
+					// TODO: better message
+					echo "login failed.\n";
+					exit;
+				}
 			}
 		}
 
