@@ -50,5 +50,3 @@ if ("onhashchange" in window) {
 }
 /* ]]> */
 </script>
-	<table class="content">
-	  <tr>

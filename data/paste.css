@@ -83,6 +83,12 @@ a.no {
 a.raw_link {
 	color: lightblue;
 }
+
+.error {
+	padding: 10px 20px;
+	background: #fcc;
+}
+
 .hll { background-color: #ffffcc }
 .c { color: #408080; font-style: italic } /* Comment */
 .err { border: 1px solid #FF0000 } /* Error */

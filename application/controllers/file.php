@@ -179,33 +179,66 @@ class File extends CI_Controller {
 		// highlight the file and chache the result
 		$this->load->library("MemcacheLibrary");
 		if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$lexer)) {
-			ob_start();
 			if ($lexer == "rmd") {
+				ob_start();
+
+				echo '<table class="content"><tr>';
 				echo '<td class="markdownrender">'."\n";
 				passthru('perl '.FCPATH.'scripts/Markdown.pl '.escapeshellarg($file), $return_value);
+
+				$cached = ob_get_contents();
+				ob_end_clean();
 			} elseif ($lexer == "ascii") {
+				ob_start();
+
+				echo '<table class="content"><tr>';
 				echo '<td class="code"><pre class="text">'."\n";
 				passthru('perl '.FCPATH.'scripts/ansi2html '.escapeshellarg($file), $return_value);
 				echo "</pre>\n";
+
+				$cached = ob_get_contents();
+				ob_end_clean();
 			} else {
-				echo '<td class="numbers"><pre>';
-				// generate line numbers (links)
-				passthru('perl -ne \'print "<a href=\"#n$.\" id=\"n$.\">$.</a>\n"\' '.escapeshellarg($file), $return_value);
-				echo '</pre></td><td class="code">'."\n";
-				passthru('pygmentize -F codetagify -O encoding=guess,outencoding=utf8 -l '.escapeshellarg($lexer).' -f html '.escapeshellarg($file), $return_value);
+				$ret = $this->_pygmentize($file, $lexer);
+				$return_value = $ret["return_value"];
+				$cached = $ret["output"];
 			}
-			$cached = ob_get_contents();
-			ob_end_clean();
+
+			if ($return_value != 0) {
+				$cached = "<div class=\"error\"><p>Error trying to process the file.
+					Either the lexer is unknown or something is broken.
+					Falling back to plain text.</p></div>\n";
+				$ret = $this->_pygmentize($file, "text");
+				$cached .= $ret["output"];
+			}
 			$this->memcachelibrary->set($filedata['hash'].'_'.$lexer, $cached, 100);
 		}
 
-		if ($return_value != 0) {
-			show_error("Error trying to process the file. Either the lexer is unknown or something is broken.\n");
-		} else {
-			$this->output->append_output($cached);
-		}
+		$this->output->append_output($cached);
 
 		$this->load->view($this->var->view_dir.'/html_footer', $this->data);
+	}
+
+	private function _pygmentize($file, $lexer)
+	{
+		$return_value = 0;
+
+		ob_start();
+
+		echo '<table class="content"><tr>';
+		echo '<td class="numbers"><pre>';
+		// generate line numbers (links)
+		passthru('perl -ne \'print "<a href=\"#n$.\" id=\"n$.\">$.</a>\n"\' '.escapeshellarg($file), $return_value);
+		echo '</pre></td><td class="code">'."\n";
+		passthru('pygmentize -F codetagify -O encoding=guess,outencoding=utf8 -l '.escapeshellarg($lexer).' -f html '.escapeshellarg($file), $return_value);
+
+		$output = ob_get_contents();
+		ob_end_clean();
+
+		return array(
+			"return_value" => $return_value,
+			"output" => $output
+		);
 	}
 
 	function _display_info($id)
