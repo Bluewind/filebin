@@ -34,7 +34,6 @@
 	var max_upload_size = "<?php echo $max_upload_size; ?>";
     /* ]]> */
 </script>
-<script type="text/javascript" src="<?php echo link_with_mtime("/data/js/upload_form.js"); ?>"></script>
 
 <?php } else { ?>
 	<?php echo form_open('user/login'); ?>
