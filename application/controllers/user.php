@@ -29,9 +29,9 @@ class User extends CI_Controller {
 	{
 		$this->data["username"] = $this->muser->get_username();
 
-		$this->load->view($this->var->view_dir.'header', $this->data);
+		$this->load->view('header', $this->data);
 		$this->load->view($this->var->view_dir.'index', $this->data);
-		$this->load->view($this->var->view_dir.'footer', $this->data);
+		$this->load->view('footer', $this->data);
 	}
 	
 	function login()
@@ -39,17 +39,17 @@ class User extends CI_Controller {
 		$this->muser->require_session();
 		$this->session->keep_flashdata("uri");
 
-		if ($this->input->post('process')) {
+		if ($this->input->post('process') !== false) {
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
 
 			$result = $this->muser->login($username, $password);
 
 			if ($result !== true) {
-				$data['login_error'] = true;
-				$this->load->view($this->var->view_dir.'header', $this->data);
+				$this->data['login_error'] = true;
+				$this->load->view('header', $this->data);
 				$this->load->view($this->var->view_dir.'login', $this->data);
-				$this->load->view($this->var->view_dir.'footer', $this->data);
+				$this->load->view('footer', $this->data);
 			} else {
 				$uri = $this->session->flashdata("uri");
 				if ($uri) {
@@ -59,9 +59,9 @@ class User extends CI_Controller {
 				}
 			}
 		} else {
-			$this->load->view($this->var->view_dir.'header', $this->data);
+			$this->load->view('header', $this->data);
 			$this->load->view($this->var->view_dir.'login', $this->data);
-			$this->load->view($this->var->view_dir.'footer', $this->data);
+			$this->load->view('footer', $this->data);
 		}
 	}
 
@@ -100,16 +100,16 @@ class User extends CI_Controller {
 		$userid = $this->muser->get_userid();
 
 		$query = $this->db->query("
-			SELECT `key`
+			SELECT `key`, `date`
 			FROM invitations
 			WHERE user = ?
 			", array($userid))->result_array();
 
 		$this->data["query"] = $query;
 
-		$this->load->view($this->var->view_dir.'header', $this->data);
+		$this->load->view('header', $this->data);
 		$this->load->view($this->var->view_dir.'invite', $this->data);
-		$this->load->view($this->var->view_dir.'footer', $this->data);
+		$this->load->view('footer', $this->data);
 	}
 
 	function register()
@@ -172,9 +172,9 @@ class User extends CI_Controller {
 					DELETE FROM invitations
 					WHERE `key` = ?
 					", array($key));
-				$this->load->view($this->var->view_dir.'header', $this->data);
+				$this->load->view('header', $this->data);
 				$this->load->view($this->var->view_dir.'registered', $this->data);
-				$this->load->view($this->var->view_dir.'footer', $this->data);
+				$this->load->view('footer', $this->data);
 				return;
 			} else {
 				$values["username"] = $username;
@@ -186,9 +186,9 @@ class User extends CI_Controller {
 		$this->data["values"] = $values;
 		$this->data["error"] = $error;
 
-		$this->load->view($this->var->view_dir.'header', $this->data);
+		$this->load->view('header', $this->data);
 		$this->load->view($this->var->view_dir.'register', $this->data);
-		$this->load->view($this->var->view_dir.'footer', $this->data);
+		$this->load->view('footer', $this->data);
 	}
 	
 	function logout()
@@ -213,9 +213,9 @@ class User extends CI_Controller {
 			}
 		}
 
-		$this->load->view($this->var->view_dir.'header', $this->data);
+		$this->load->view('header', $this->data);
 		$this->load->view($this->var->view_dir.'hash_password', $this->data);
-		$this->load->view($this->var->view_dir.'footer', $this->data);
+		$this->load->view('footer', $this->data);
 	}
 
 	function cron()

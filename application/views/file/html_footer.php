@@ -1,5 +1,7 @@
         </td>
       </tr>
     </table>
-  </body>
-</html>
+    </div>
+    </div>
+
+<?php include(FCPATH."application/views/footer.php");

@@ -199,6 +199,27 @@ class Mfile extends CI_Model {
 		return true;
 	}
 
+	public function get_lexers() {
+		$this->load->library("MemcacheLibrary");
+		if (! $lexers = $this->memcachelibrary->get('lexers')) {
+			$lexers = array();
+			$last_desc = "";
+			exec("python ".escapeshellarg(FCPATH."scripts/get_lexer_list.py"), $output);
+
+			foreach ($output as $line) {
+				list($name, $desc) = explode("|", $line);
+				if ($desc == $last_desc) {
+					continue;
+				}
+				$last_desc = $desc;
+				$lexers[$name] = $desc;
+			}
+			$this->memcachelibrary->set('lexers', $lexers, 1800);
+		}
+
+		return $lexers;
+	}
+
 	function should_highlight($type)
 	{
 		if ($this->mime2lexer($type)) return true;

@@ -7,10 +7,10 @@
 	<table>
 		<tr>
 			<td>Username</td>
-			<td> <input type="text" name="username" value="<?=$values["username"]; ?>" /></td>
+			<td> <input type="text" name="username" value="<?php echo $values["username"]; ?>" /></td>
 		</tr><tr>
 			<td>Email</td>
-			<td> <input type="text" name="email" value="<?=$values["email"]; ?>" /></td>
+			<td> <input type="text" name="email" value="<?php echo $values["email"]; ?>" /></td>
 		</tr><tr>
 			<td>Password</td>
 			<td> <input type="password" name="password" /></td>

@@ -15,7 +15,7 @@ if (class_exists("CI_Controller") && !isset($GLOBALS["is_error_page"])) {
 		exit();
 	}
 
-	include 'application/views/file/header.php';
+	include 'application/views/header.php';
 
 	?>
 		<div class="error">
@@ -24,7 +24,7 @@ if (class_exists("CI_Controller") && !isset($GLOBALS["is_error_page"])) {
 		</div>
 
 	<?php
-	include 'application/views/file/footer.php';
+	include 'application/views/footer.php';
 } else {
 	// default CI error page
 ?>

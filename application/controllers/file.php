@@ -173,49 +173,51 @@ class File extends CI_Controller {
 
 		$this->data['current_highlight'] = htmlspecialchars($lexer);
 		$this->data['timeout'] = $this->mfile->get_timeout_string($id);
-
-		$this->load->view($this->var->view_dir.'/html_header', $this->data);
+		$this->data['lexers'] = $this->mfile->get_lexers();
+		$this->data['filedata'] = $filedata;
 
 		// highlight the file and chache the result
 		$this->load->library("MemcacheLibrary");
 		if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$lexer)) {
+			$cached = array();
 			if ($lexer == "rmd") {
 				ob_start();
 
 				echo '<table class="content"><tr>';
 				echo '<td class="markdownrender">'."\n";
-				passthru('perl '.FCPATH.'scripts/Markdown.pl '.escapeshellarg($file), $return_value);
+				passthru('perl '.FCPATH.'scripts/Markdown.pl '.escapeshellarg($file), $cached["return_value"]);
 
-				$cached = ob_get_contents();
+				$cached["output"] = ob_get_contents();
 				ob_end_clean();
 			} elseif ($lexer == "ascii") {
 				ob_start();
 
 				echo '<table class="content"><tr>';
 				echo '<td class="code"><pre class="text">'."\n";
-				passthru('perl '.FCPATH.'scripts/ansi2html '.escapeshellarg($file), $return_value);
+				passthru('perl '.FCPATH.'scripts/ansi2html '.escapeshellarg($file), $cached["return_value"]);
 				echo "</pre>\n";
 
-				$cached = ob_get_contents();
+				$cached["output"] = ob_get_contents();
 				ob_end_clean();
 			} else {
-				$ret = $this->_pygmentize($file, $lexer);
-				$return_value = $ret["return_value"];
-				$cached = $ret["output"];
+				$cached = $this->_pygmentize($file, $lexer);
 			}
 
-			if ($return_value != 0) {
-				$cached = "<div class=\"error\"><p>Error trying to process the file.
-					Either the lexer is unknown or something is broken.
-					Falling back to plain text.</p></div>\n";
+			if ($cached["return_value"] != 0) {
 				$ret = $this->_pygmentize($file, "text");
-				$cached .= $ret["output"];
+				$cached["output"] = $ret["output"];
 			}
 			$this->memcachelibrary->set($filedata['hash'].'_'.$lexer, $cached, 100);
 		}
 
-		$this->output->append_output($cached);
+		if ($cached["return_value"] != 0) {
+			$this->data["error_message"] = "<p>Error trying to process the file.
+				Either the lexer is unknown or something is broken.
+				Falling back to plain text.</p>";
+		}
 
+		$this->load->view($this->var->view_dir.'/html_header', $this->data);
+		$this->output->append_output($cached["output"]);
 		$this->load->view($this->var->view_dir.'/html_footer', $this->data);
 	}
 
@@ -228,7 +230,7 @@ class File extends CI_Controller {
 		echo '<table class="content"><tr>';
 		echo '<td class="numbers"><pre>';
 		// generate line numbers (links)
-		passthru('perl -ne \'print "<a href=\"#n$.\" id=\"n$.\">$.</a>\n"\' '.escapeshellarg($file), $return_value);
+		passthru('perl -ne \'print "<a href=\"#n$.\" ><span class=\"anchor\" id=\"n$.\"> </span>$.</a>\n"\' '.escapeshellarg($file), $return_value);
 		echo '</pre></td><td class="code">'."\n";
 		passthru('pygmentize -F codetagify -O encoding=guess,outencoding=utf8 -l '.escapeshellarg($lexer).' -f html '.escapeshellarg($file), $return_value);
 
@@ -248,18 +250,18 @@ class File extends CI_Controller {
 		$this->data["id"] = $id;
 		$this->data['timeout'] = $this->mfile->get_timeout_string($id);
 
-		$this->load->view($this->var->view_dir.'/header', $this->data);
+		$this->load->view('header', $this->data);
 		$this->load->view($this->var->view_dir.'/file_info', $this->data);
-		$this->load->view($this->var->view_dir.'/footer', $this->data);
+		$this->load->view('footer', $this->data);
 	}
 
 	function _non_existent()
 	{
 		$this->data["title"] .= " - Not Found";
 		$this->output->set_status_header(404);
-		$this->load->view($this->var->view_dir.'/header', $this->data);
+		$this->load->view('header', $this->data);
 		$this->load->view($this->var->view_dir.'/non_existent', $this->data);
-		$this->load->view($this->var->view_dir.'/footer', $this->data);
+		$this->load->view('footer', $this->data);
 	}
 
 	function _show_url($id, $lexer)
@@ -300,9 +302,9 @@ class File extends CI_Controller {
 		if ($redirect) {
 			redirect($this->data['url'], "location", 303);
 		} else {
-			$this->load->view($this->var->view_dir.'/header', $this->data);
+			$this->load->view('header', $this->data);
 			$this->load->view($this->var->view_dir.'/show_url', $this->data);
-			$this->load->view($this->var->view_dir.'/footer', $this->data);
+			$this->load->view('footer', $this->data);
 		}
 	}
 
@@ -319,11 +321,11 @@ class File extends CI_Controller {
 		$this->data['client_link_slackware'] = base_url().'data/client/slackware/';
 
 		if (!is_cli_client()) {
-			$this->load->view($this->var->view_dir.'/header', $this->data);
+			$this->load->view('header', $this->data);
 		}
 		$this->load->view($this->var->view_dir.'/client', $this->data);
 		if (!is_cli_client()) {
-			$this->load->view($this->var->view_dir.'/footer', $this->data);
+			$this->load->view('footer', $this->data);
 		}
 	}
 
@@ -337,12 +339,12 @@ class File extends CI_Controller {
 
 		$this->data['username'] = $this->muser->get_username();
 
-		$this->load->view($this->var->view_dir.'/header', $this->data);
+		$this->load->view('header', $this->data);
 		$this->load->view($this->var->view_dir.'/upload_form', $this->data);
 		if (is_cli_client()) {
 			$this->client();
 		}
-		$this->load->view($this->var->view_dir.'/footer', $this->data);
+		$this->load->view('footer', $this->data);
 	}
 
 	// Allow CLI clients to query the server for the maxium filesize so they can
@@ -415,9 +417,9 @@ class File extends CI_Controller {
 			$this->data["total_size"] = format_bytes($total_size["sum"]);
 
 			$cached = "";
-			$cached .= $this->load->view($this->var->view_dir.'/header', $this->data, true);
+			$cached .= $this->load->view('header', $this->data, true);
 			$cached .= $this->load->view($this->var->view_dir.'/upload_history', $this->data, true);
-			$cached .= $this->load->view($this->var->view_dir.'/footer', $this->data, true);
+			$cached .= $this->load->view('footer', $this->data, true);
 
 			// disable for now. reenable if it causes too much load
 			//$this->memcachelibrary->set('history_'.$this->var->view_dir."_".$user, $cached, 42);
@@ -461,9 +463,9 @@ class File extends CI_Controller {
 		$this->data["deleted_count"] = $deleted_count;
 		$this->data["total_count"] = $total_count;
 
-		$this->load->view($this->var->view_dir.'/header', $this->data);
+		$this->load->view('header', $this->data);
 		$this->load->view($this->var->view_dir.'/deleted', $this->data);
-		$this->load->view($this->var->view_dir.'/footer', $this->data);
+		$this->load->view('footer', $this->data);
 	}
 
 	function delete()
@@ -501,17 +503,17 @@ class File extends CI_Controller {
 		if(!$content) {
 			$this->output->set_status_header(400);
 			$this->data["msg"] = "Nothing was pasted, content is empty.";
-			$this->load->view($this->var->view_dir.'/header', $this->data);
+			$this->load->view('header', $this->data);
 			$this->load->view($this->var->view_dir.'/upload_error', $this->data);
-			$this->load->view($this->var->view_dir.'/footer');
+			$this->load->view('footer');
 			return;
 		}
 
 		if ($filesize > $this->config->item('upload_max_size')) {
 			$this->output->set_status_header(413);
-			$this->load->view($this->var->view_dir.'/header', $this->data);
+			$this->load->view('header', $this->data);
 			$this->load->view($this->var->view_dir.'/too_big');
-			$this->load->view($this->var->view_dir.'/footer');
+			$this->load->view('footer');
 			return;
 		}
 
@@ -548,18 +550,18 @@ class File extends CI_Controller {
 			if (isset($_FILES["file"])) {
 				$this->data["msg"] = $errors[$_FILES['file']['error']];
 			}
-			$this->load->view($this->var->view_dir.'/header', $this->data);
+			$this->load->view('header', $this->data);
 			$this->load->view($this->var->view_dir.'/upload_error', $this->data);
-			$this->load->view($this->var->view_dir.'/footer');
+			$this->load->view('footer');
 			return;
 		}
 
 		$filesize = filesize($_FILES['file']['tmp_name']);
 		if ($filesize > $this->config->item('upload_max_size')) {
 			$this->output->set_status_header(413);
-			$this->load->view($this->var->view_dir.'/header', $this->data);
+			$this->load->view('header', $this->data);
 			$this->load->view($this->var->view_dir.'/too_big');
-			$this->load->view($this->var->view_dir.'/footer');
+			$this->load->view('footer');
 			return;
 		}
 

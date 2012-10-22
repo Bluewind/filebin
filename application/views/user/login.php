@@ -1,7 +1,7 @@
 <?php 
-if (isset($login_error)) {
-	echo '<font style="color: rgb(238, 51, 51);">The entered credentials are invalid.</font>';
-} ?>
+if (isset($login_error)) { ?>
+	<div class="alert alert-error">The entered credentials are invalid.</div>
+<?php } ?>
 
 <?php echo form_open('user/login'); ?>
 	<table>
@@ -14,5 +14,5 @@ if (isset($login_error)) {
       <td><input type="password" name="password" /></td>
     </tr>
   </table>
-  <input type="submit" value="Login" name="process" />
+  <input type="submit" class="btn btn-primary" value="Login" name="process" />
 </form>

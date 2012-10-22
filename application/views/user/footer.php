@@ -1,1 +1,0 @@
-../file/footer.php
