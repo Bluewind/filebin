@@ -54,12 +54,15 @@ body {
     border-right: 1px solid #ddd;
     text-align: right;
     padding: 10px 6px;
+    vertical-align: top;
 }
 .content .numbers a {
     color: #aaa;
 }
 .content .code {
     width: 100%;
+    vertical-align: top;
+    padding-top: 10px;
 }
 .content .code > .highlight {
     position: relative;
