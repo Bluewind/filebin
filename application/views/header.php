@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<?php
+if (is_cli_client() && !isset($force_full_html)) {
+	return;
+}
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>

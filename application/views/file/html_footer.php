@@ -4,4 +4,6 @@
     </div>
     </div>
 
-<?php include(FCPATH."application/views/footer.php");
+<?php
+$force_full_html = true;
+include(FCPATH."application/views/footer.php");

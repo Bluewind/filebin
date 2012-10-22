@@ -1,4 +1,6 @@
-<?php include(FCPATH."application/views/header.php"); ?>
+<?php
+$force_full_html = true;
+include(FCPATH."application/views/header.php"); ?>
 
 	</div>
 
