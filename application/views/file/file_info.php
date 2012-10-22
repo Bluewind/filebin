@@ -7,7 +7,7 @@
 			</tr>
 			<tr>
 				<td class="title">Filename</td>
-				<td class="text"><?php echo $filedata["filename"]; ?></td>
+				<td class="text"><?php echo htmlspecialchars($filedata["filename"]); ?></td>
 			</tr>
 			<tr>
 				<td class="title">Date of upload</td>
