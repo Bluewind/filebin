@@ -18,7 +18,7 @@
                     <td><a href="<?php echo site_url("/".$item["id"]) ?>/"><?php echo $item["id"] ?></a></td>
                     <td><?php echo htmlspecialchars($item["filename"]); ?></td>
                     <td><?php echo $item["mimetype"] ?></td>
-                    <td><?php echo $item["date"] ?></td>
+                    <td class="nowrap"><?php echo $item["date"] ?></td>
                     <td><?php echo $item["hash"] ?></td>
                     <td><?php echo $item["filesize"] ?></td>
                 </tr>
