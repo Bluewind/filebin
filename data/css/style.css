@@ -28,6 +28,10 @@ body {
 
 }
 
+code, pre {
+	font-family: "Dejavu sans mono", Monaco, monospace;
+}
+
 .content {
 	width: 100%;
 	background: #fff;
