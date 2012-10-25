@@ -41,6 +41,15 @@ code, pre {
 	background: #fff;
 }
 
+.paste-container {
+	padding-top: 40px;
+	background: #eee;
+	padding: 3px;
+	width: auto;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
 .content .numbers > pre, .content .highlight > pre {
 	background-color: transparent;
 	border: 0;

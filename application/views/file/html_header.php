@@ -17,7 +17,7 @@ include(FCPATH."application/views/header.php"); ?>
 		</div>
 	<?php } ?>
 
-	<div class="container" style="padding-top:40px;background:#eee;padding:3px;">
+	<div class="container paste-container">
 		<div style="border:1px solid #ccc;">
 		<div class="navbar navbar-static-top">
 			<div class="navbar-inner" style="box-shadow: none;">
@@ -84,4 +84,4 @@ include(FCPATH."application/views/header.php"); ?>
 				</div>
 			</div>
 		</div>
-		<div id="paste-container">
+		<div>
