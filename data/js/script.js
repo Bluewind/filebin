@@ -1,3 +1,7 @@
+function fixedEncodeURIComponent (str) {
+	return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(/\*/g, "%2A");
+}
+
 (function($) {
 
 	$(function() {
@@ -28,7 +32,7 @@
 		$('#language').autocomplete({
 			source: lexer_source,
 			select: function(event, ui) {
-				window.location = window.paste_base + '/' + ui.item.value;
+				window.location = window.paste_base + '/' + fixedEncodeURIComponent(ui.item.value);
 			}
 		});
 
