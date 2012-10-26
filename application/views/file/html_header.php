@@ -26,7 +26,7 @@ include(FCPATH."application/views/header.php"); ?>
 					<li class="divider-vertical"></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="language-toggle">
-							Language: <?php echo $current_highlight; ?>
+							Language: <?php echo htmlspecialchars($current_highlight); ?>
 							<b class="caret"></b>
 						</a>
 						<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
