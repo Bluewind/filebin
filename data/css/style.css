@@ -32,7 +32,7 @@ body {
 	white-space: nowrap;
 }
 
-code, pre {
+code, pre, textarea {
 	font-family: "Dejavu sans mono", Monaco, monospace;
 }
 
