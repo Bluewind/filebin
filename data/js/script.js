@@ -59,6 +59,18 @@ function fixedEncodeURIComponent (str) {
 		return this;
 		});
 
+		window.lines_wrapped = false;
+		$('#linewrap').click(function() {
+			if (window.lines_wrapped == true) {
+				$(".content .numbers").show();
+				$(".content .code > .highlight > pre").css("white-space", "pre");
+			} else {
+				$(".content .numbers").hide();
+				$(".content .code > .highlight > pre").css("white-space", "pre-wrap");
+			}
+			window.lines_wrapped = !window.lines_wrapped;
+		});
+
 		// check file size before uploading if browser support html5
 		if (window.File && window.FileList) {
 			function checkFileUpload(evt) {
