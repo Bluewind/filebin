@@ -63,7 +63,7 @@
 	<div class="span6">
 		<div class="page-header"><h1>Information</h1></div>
 		<p>This website's primary goal is aiding developers, power users, students and alike in solving problems, debugging software, sharing their configuration, etc. It is not intended to distribute confidential or harmful information, scripts or software.</p>
-		<p>If you believe you deserve an account, ask someone who is already using this service to <a href="http://test.paste.xinu.at/index.php/user/invite">invite</a> you.</p>
+		<p>If you believe you deserve an account, ask someone who is already using this service to <a href="<?php echo site_url("user/invite"); ?>">invite</a> you.</p>
 		<?php if(isset($contact_me_url) && $contact_me_url) { ?>
 			<p>If you experience any problems feel free to <a href="<?php echo $contact_me_url; ?>">contact me</a>.</p>
 		<?php } ?>
