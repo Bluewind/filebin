@@ -12,14 +12,12 @@
 machine <?php echo $domain; ?> login my_username password my_secret_password
 </pre>
 
-<?php /*
 <p>
-	If you are using fb-client &ge;1.1 you can also use
-	<code>~/.config/fb-client/config</code>. Please refer to
+	If you are using fb-client &ge;1.1 you can use
+	<code>~/.config/fb-client/config</code> to upload to a different
+	pastebin URL (https or you own installation). Please refer to
 	<code>man 1 fb</code> for further details.
 </p>
- */
-?>
 
 <h2>Packages</h2>
 
