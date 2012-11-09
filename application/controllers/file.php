@@ -320,6 +320,12 @@ class File extends CI_Controller {
 		$this->data['client_link_deb'] = base_url().'data/client/deb/';
 		$this->data['client_link_slackware'] = base_url().'data/client/slackware/';
 
+		if(preg_match('#^https?://(.*?)/.*$#', site_url(), $matches) === 1) {
+			$this->data["domain"] = $matches[1];
+		} else {
+			$this->data["domain"] = "unknown domain";
+		}
+
 		if (!is_cli_client()) {
 			$this->load->view('header', $this->data);
 		}
