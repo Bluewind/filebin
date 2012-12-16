@@ -142,15 +142,15 @@ class User extends CI_Controller {
 
 			if (!$username || strlen($username) > 32 || !preg_match("/^[a-z0-9]+$/", $username)) {
 				$error[]= "Invalid username (only up to 32 chars of a-z0-9 are allowed).";
+			} else {
+				if ($this->muser->username_exists($username)) {
+					$error[] = "Username already exists.";
+				}
 			}
 
 			$this->load->helper("email");
 			if (!valid_email($email)) {
 				$error[]= "Invalid email.";
-			}
-
-			if ($this->muser->username_exists($username)) {
-				$error[] = "Username already exists.";
 			}
 
 			if (!$password || $password != $password_confirm) {
