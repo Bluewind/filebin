@@ -1,4 +1,11 @@
 <?php
+/*
+ * Copyright 2012-2013 Florian "Bluewind" Pritz <bluewind@server-speed.net>
+ *
+ * Licensed under GPLv3
+ * (see COPYING for full license text)
+ *
+ */
 
 class User extends CI_Controller {
 
