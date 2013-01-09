@@ -53,7 +53,7 @@ class Muser extends CI_Model {
 		return false;
 	}
 
-	function login($username, $password) 
+	function login($username, $password)
 	{
 		$this->require_session();
 		$query = $this->db->query('

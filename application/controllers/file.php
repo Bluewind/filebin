@@ -674,7 +674,7 @@ class File extends CI_Controller {
 			$dh = opendir($upload_path."/".$dir);
 
 			$empty = true;
-			
+
 			while (($file = readdir($dh)) !== false) {
 				if ($file == ".." || $file == ".") {
 					continue;

@@ -25,13 +25,13 @@ class User extends CI_Controller {
 
 		$this->load->model("muser");
 		$this->data["title"] = "FileBin";
-		
+
 		$this->load->helper(array('form', 'filebin'));
 
 		$this->var->view_dir = "user/";
 		$this->data['username'] = $this->muser->get_username();
 	}
-	
+
 	function index()
 	{
 		$this->data["username"] = $this->muser->get_username();
@@ -40,7 +40,7 @@ class User extends CI_Controller {
 		$this->load->view($this->var->view_dir.'index', $this->data);
 		$this->load->view('footer', $this->data);
 	}
-	
+
 	function login()
 	{
 		$this->muser->require_session();
@@ -197,13 +197,13 @@ class User extends CI_Controller {
 		$this->load->view($this->var->view_dir.'register', $this->data);
 		$this->load->view('footer', $this->data);
 	}
-	
+
 	function logout()
 	{
 		$this->muser->logout();
 		redirect('/');
 	}
-	
+
 	function hash_password()
 	{
 		$process = $this->input->post("process");
