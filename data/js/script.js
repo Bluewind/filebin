@@ -84,7 +84,7 @@ function fixedEncodeURIComponent (str) {
 			  }
 			}
 
-			document.getElementById('file').addEventListener('change', checkFileUpload, false);
+			$('#file').bind('change', checkFileUpload);
 		}
 	});
 
