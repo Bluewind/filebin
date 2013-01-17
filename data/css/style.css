@@ -28,6 +28,10 @@ body {
 
 }
 
+.error h1 {
+	font-size: 19px;
+}
+
 .nowrap {
 	white-space: nowrap;
 }
