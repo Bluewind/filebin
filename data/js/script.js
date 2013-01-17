@@ -74,17 +74,25 @@ function fixedEncodeURIComponent (str) {
 		// check file size before uploading if browser support html5
 		if (window.File && window.FileList) {
 			function checkFileUpload(evt) {
-			  var f = evt.target.files[0];
-			  if (f.size > max_upload_size) {
-				document.getElementById('upload_button').innerHTML = "File too big";
-				document.getElementById('upload_button').disabled = true;
-			  } else {
-				document.getElementById('upload_button').innerHTML = "Upload it!";
-				document.getElementById('upload_button').disabled = false;
-			  }
+				var sum = 0;
+				var files = evt.target.files;
+
+				// TODO: check all forms, not only the one we are called from
+				for (var i = 0; i < files.length; i++) {
+					var f = evt.target.files[i];
+					sum += f.size;
+				}
+
+				if (sum > max_upload_size) {
+					document.getElementById('upload_button').innerHTML = "File(s) too big";
+					document.getElementById('upload_button').disabled = true;
+				} else {
+					document.getElementById('upload_button').innerHTML = "Upload it!";
+					document.getElementById('upload_button').disabled = false;
+				}
 			}
 
-			$('#file').bind('change', checkFileUpload);
+			$('.file-upload').bind('change', checkFileUpload);
 		}
 	});
 

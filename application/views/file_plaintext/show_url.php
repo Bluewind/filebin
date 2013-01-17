@@ -1,2 +1,3 @@
-<?php echo $url; ?>
+<?php
+echo implode(" ", $urls)."\n";
 

@@ -13,7 +13,7 @@
 		<div class="span6">
 			<?php echo form_open_multipart('file/do_upload'); ?>
 				<h2>File upload</h2>
-				<input id="file" type="file" name="file"><br>
+				<input class="file-upload" type="file" name="file[]" multiple="multiple"><br>
 				<button type="submit" id="upload_button" class="btn btn-primary">Upload it!</button>
 			</form>
 			<div class="alert alert-block alert-info">
@@ -22,7 +22,8 @@
 					Uploads/pastes are deleted after <?php echo $upload_max_age; ?> days
 					<?php if($small_upload_size > 0) {
 						echo "unless they are smaller than ".format_bytes($small_upload_size);
-					} ?>. Maximum upload size is <?php echo format_bytes($max_upload_size); ?>
+					} ?>. Maximum upload size is <?php echo format_bytes($max_upload_size); ?>.
+					You can upload a maximum of <?php echo ini_get("max_file_uploads"); ?> files at once.
 				</p>
 			</div>
 		</div>

@@ -256,4 +256,32 @@ function handle_etag($etag)
 	}
 }
 
+// Reference: http://php.net/manual/en/features.file-upload.multiple.php#109437
+// This is a little different because we don't care about the fieldname
+function getNormalizedFILES()
+{
+	$newfiles = array();
+	$ret = array();
+
+	foreach($_FILES as $fieldname => $fieldvalue)
+		foreach($fieldvalue as $paramname => $paramvalue)
+			foreach((array)$paramvalue as $index => $value)
+				$newfiles[$fieldname][$index][$paramname] = $value;
+
+	$i = 0;
+	foreach ($newfiles as $fieldname => $field) {
+		foreach ($field as $file) {
+			// skip empty fields
+			if ($file["error"] === 4) {
+				continue;
+			}
+			$ret[$i] = $file;
+			$ret[$i]["formfield"] = $fieldname;
+			$i++;
+		}
+	}
+
+	return $ret;
+}
+
 # vim: set noet:

@@ -1,5 +1,6 @@
 Uploads/pastes are deleted after <?php echo $upload_max_age; ?> days<?php if($small_upload_size > 0): ?> unless they are smaller than <?php echo format_bytes($small_upload_size); ?><?php endif; ?>.
 Maximum upload size is <?php echo format_bytes($max_upload_size); ?>.
+You can upload a maximum of <?php echo ini_get("max_file_uploads"); ?> files at once.
 
 How to link your uploads:
  - "/<ID>/" automatically highlight the uploads

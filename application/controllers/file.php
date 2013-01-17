@@ -84,7 +84,7 @@ class File extends CI_Controller {
 		}
 		// Try to guess what the user would like to do.
 		$id = $this->uri->segment(1);
-		if(isset($_FILES['file'])) {
+		if(!empty($_FILES)) {
 			$this->do_upload();
 		} elseif ($id != "file" && $this->mfile->id_exists($id)) {
 			$this->_download();
@@ -264,7 +264,7 @@ class File extends CI_Controller {
 		$this->load->view('footer', $this->data);
 	}
 
-	function _show_url($id, $lexer)
+	function _show_url($ids, $lexer)
 	{
 		$redirect = false;
 
@@ -272,35 +272,40 @@ class File extends CI_Controller {
 			$this->muser->require_session();
 			// keep the upload but require the user to login
 			$this->session->set_userdata("last_upload", array(
-				"id" => $id,
+				"ids" => $ids,
 				"lexer" => $lexer
 			));
 			$this->session->set_flashdata("uri", "file/claim_id");
 			$this->muser->require_access();
 		}
 
-		if ($lexer) {
-			$this->data['url'] = site_url($id).'/'.$lexer;
-		} else {
-			$this->data['url'] = site_url($id).'/';
-
-			$filedata = $this->mfile->get_filedata($id);
-			$file = $this->mfile->file($filedata['hash']);
-			$type = $filedata['mimetype'];
-			$lexer = $this->mfile->should_highlight($type);
-
-			// If we detected a highlightable file redirect,
-			// otherwise show the URL because browsers would just show a DL dialog
+		foreach ($ids as $id) {
 			if ($lexer) {
-				$redirect = true;
+				$this->data['urls'][] = site_url($id).'/'.$lexer;
+			} else {
+				$this->data['urls'][] = site_url($id).'/';
+
+				if (count($ids) == 1) {
+					$filedata = $this->mfile->get_filedata($id);
+					$file = $this->mfile->file($filedata['hash']);
+					$type = $filedata['mimetype'];
+					$lexer = $this->mfile->should_highlight($type);
+
+					// If we detected a highlightable file redirect,
+					// otherwise show the URL because browsers would just show a DL dialog
+					if ($lexer) {
+						$redirect = true;
+					}
+				}
 			}
 		}
 
 		if (is_cli_client()) {
 			$redirect = false;
 		}
-		if ($redirect) {
-			redirect($this->data['url'], "location", 303);
+
+		if ($redirect && count($ids) == 1) {
+			redirect($this->data['urls'][0], "location", 303);
 		} else {
 			$this->load->view('header', $this->data);
 			$this->load->view($this->var->view_dir.'/show_url', $this->data);
@@ -533,66 +538,85 @@ class File extends CI_Controller {
 		file_put_contents($file, $content);
 		chmod($file, 0600);
 		$this->mfile->add_file($hash, $id, $filename);
-		$this->_show_url($id, false);
+		$this->_show_url(array($id), false);
 	}
 
 	// Handles uploaded files
 	function do_upload()
 	{
+		$ids = array();
+
 		$extension = $this->input->post('extension');
-		if(!isset($_FILES['file']) || $_FILES['file']['error'] !== 0) {
-			$this->output->set_status_header(400);
-			$errors = array(
-				0=>"There is no error, the file uploaded with success",
-				1=>"The uploaded file exceeds the upload_max_filesize directive in php.ini",
-				2=>"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form",
-				3=>"The uploaded file was only partially uploaded",
-				4=>"No file was uploaded",
-				6=>"Missing a temporary folder"
-			);
 
-			$this->data["msg"] = "Unknown error.";
+		$files = getNormalizedFILES();
 
-			if (isset($_FILES["file"])) {
-				$this->data["msg"] = $errors[$_FILES['file']['error']];
+		if (empty($files)) {
+			show_error("No file was uploaded or unknown error occured.");
+		}
+
+		// Check for errors before doing anything
+		// First error wins and is displayed, these shouldn't happen that often anyway.
+		foreach ($files as $key => $file) {
+			// getNormalizedFILES() removes any file with error == 4
+			if ($file['error'] !== 0) {
+				$this->output->set_status_header(400);
+				$errors = array(
+					0=>"There is no error, the file uploaded with success",
+					1=>"The uploaded file exceeds the upload_max_filesize directive in php.ini",
+					2=>"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form",
+					3=>"The uploaded file was only partially uploaded",
+					4=>"No file was uploaded",
+					6=>"Missing a temporary folder"
+				);
+
+				$this->data["msg"] = "Unknown error.";
+
+				if (isset($file)) {
+					$this->data["msg"] = $errors[$file['error']];
+				}
+				$this->load->view('header', $this->data);
+				$this->load->view($this->var->view_dir.'/upload_error', $this->data);
+				$this->load->view('footer');
+				return;
 			}
-			$this->load->view('header', $this->data);
-			$this->load->view($this->var->view_dir.'/upload_error', $this->data);
-			$this->load->view('footer');
-			return;
+
+			$filesize = filesize($file['tmp_name']);
+			if ($filesize > $this->config->item('upload_max_size')) {
+				$this->output->set_status_header(413);
+				$this->load->view('header', $this->data);
+				$this->load->view($this->var->view_dir.'/too_big');
+				$this->load->view('footer');
+				return;
+			}
 		}
 
-		$filesize = filesize($_FILES['file']['tmp_name']);
-		if ($filesize > $this->config->item('upload_max_size')) {
-			$this->output->set_status_header(413);
-			$this->load->view('header', $this->data);
-			$this->load->view($this->var->view_dir.'/too_big');
-			$this->load->view('footer');
-			return;
+		foreach ($files as $key => $file) {
+			$id = $this->mfile->new_id();
+			$hash = md5_file($file['tmp_name']);
+
+			// work around a curl bug and allow the client to send the real filename base64 encoded
+			// TODO: this interface currently sets the same filename for every file if you use multiupload
+			$filename = $this->input->post("filename");
+			if ($filename !== false) {
+				$filename = trim(base64_decode($filename, true), "\r\n\0\t\x0B");
+			}
+
+			// fall back if base64_decode failed
+			if ($filename === false) {
+				$filename = $file['name'];
+			}
+
+			$folder = $this->mfile->folder($hash);
+			file_exists($folder) || mkdir ($folder);
+			$file_path = $this->mfile->file($hash);
+
+			move_uploaded_file($file['tmp_name'], $file_path);
+			chmod($file_path, 0600);
+			$this->mfile->add_file($hash, $id, $filename);
+			$ids[] = $id;
 		}
 
-		$id = $this->mfile->new_id();
-		$hash = md5_file($_FILES['file']['tmp_name']);
-
-		// work around a curl bug and allow the client to send the real filename base64 encoded
-		$filename = $this->input->post("filename");
-		if ($filename !== false) {
-			$filename = trim(base64_decode($filename, true), "\r\n\0\t\x0B");
-		}
-
-		// fall back if base64_decode failed
-		if ($filename === false) {
-			$filename = $_FILES['file']['name'];
-		}
-
-		$folder = $this->mfile->folder($hash);
-		file_exists($folder) || mkdir ($folder);
-		$file = $this->mfile->file($hash);
-
-		move_uploaded_file($_FILES['file']['tmp_name'], $file);
-		chmod($file, 0600);
-		$this->mfile->add_file($hash, $id, $filename);
-		$this->_show_url($id, $extension);
+		$this->_show_url($ids, $extension);
 	}
 
 	function claim_id()
@@ -600,15 +624,22 @@ class File extends CI_Controller {
 		$this->muser->require_access();
 
 		$last_upload = $this->session->userdata("last_upload");
-		$id = $last_upload["id"];
+		$ids = $last_upload["ids"];
+		$errors = array();
 
-		$filedata = $this->mfile->get_filedata($id);
+		foreach ($ids as $key => $id) {
+			$filedata = $this->mfile->get_filedata($id);
 
-		if ($filedata["user"] != 0) {
-			show_error("Someone already owns '$id', can't reassign.");
+			if ($filedata["user"] != 0) {
+				$errors[] = $id;
+			}
+
+			$this->mfile->adopt($id);
 		}
 
-		$this->mfile->adopt($id);
+		if (!empty($errors)) {
+			show_error("Someone already owns '".implode(", ", $errors)."', can't reassign.");
+		}
 
 		$this->session->unset_userdata("last_upload");
 
