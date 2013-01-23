@@ -391,11 +391,13 @@ class File extends CI_Controller {
 				$lengths[$length_key] = mb_strlen($value);
 			}
 
+			$order = is_cli_client() ? "ASC" : "DESC";
+
 			$query = $this->db->query("
 				SELECT ".implode(",", array_keys($fields))."
 				FROM files
 				WHERE user = ?
-				ORDER BY date
+				ORDER BY date $order
 				", array($user))->result_array();
 
 			foreach($query as $key => $item) {
