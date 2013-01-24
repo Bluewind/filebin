@@ -127,6 +127,10 @@ class Muser extends CI_Model {
 
 	function username_exists($username)
 	{
+		if ($username === false) {
+			return false;
+		}
+
 		$query = $this->db->query("
 			SELECT id
 			FROM users
