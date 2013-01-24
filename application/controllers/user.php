@@ -81,8 +81,9 @@ class User extends CI_Controller {
 		// TODO: count both, invited users and key
 		$query = $this->db->query("
 			SELECT count(*) as count
-			FROM invitations
-			WHERE user = ?
+			FROM `actions`
+			WHERE `user` = ?
+			AND `action` = 'invitation'
 			", array($userid))->row_array();
 
 		if ($query["count"] + 1 > 3) {
@@ -92,9 +93,9 @@ class User extends CI_Controller {
 		$key = random_alphanum(12, 16);
 
 		$this->db->query("
-			INSERT INTO invitations
-			(`key`, `user`, `date`)
-			VALUES (?, ?, ?)
+			INSERT INTO `actions`
+			(`key`, `user`, `date`, `action`)
+			VALUES (?, ?, ?, 'invitation')
 		", array($key, $userid, time()));
 
 		redirect("user/invite");
@@ -108,8 +109,9 @@ class User extends CI_Controller {
 
 		$query = $this->db->query("
 			SELECT `key`, `date`
-			FROM invitations
-			WHERE user = ?
+			FROM `actions`
+			WHERE `user` = ?
+			AND `action` = 'invitation'
 			", array($userid))->result_array();
 
 		$this->data["query"] = $query;
@@ -131,8 +133,9 @@ class User extends CI_Controller {
 
 		$query = $this->db->query("
 			SELECT `user`, `key`
-			FROM invitations
+			FROM actions
 			WHERE `key` = ?
+			AND `action` = 'invitation'
 			", array($key))->row_array();
 
 		if (!isset($query["key"]) || $key != $query["key"]) {
@@ -176,7 +179,7 @@ class User extends CI_Controller {
 						$referrer
 					));
 				$this->db->query("
-					DELETE FROM invitations
+					DELETE FROM actions
 					WHERE `key` = ?
 					", array($key));
 				$this->load->view('header', $this->data);
@@ -229,12 +232,12 @@ class User extends CI_Controller {
 	{
 		if (!$this->input->is_cli_request()) return;
 
-		if ($this->config->item('invitations_max_age') == 0) return;
+		if ($this->config->item('actions_max_age') == 0) return;
 
-		$oldest_time = (time() - $this->config->item('invitations_max_age'));
+		$oldest_time = (time() - $this->config->item('actions_max_age'));
 
 		$this->db->query("
-			DELETE FROM invitations
+			DELETE FROM actions
 			WHERE date < ?
 			", array($oldest_time));
 	}

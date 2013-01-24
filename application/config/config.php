@@ -375,7 +375,7 @@ $config['upload_max_text_size'] = 2*1024*1024;
 
 // 0 disables deletion
 $config['upload_max_age'] = 60*60*24*5; // 5 days
-$config['invitations_max_age'] = 60*60*24*5; // 5 days
+$config['actions_max_age'] = 60*60*24*5; // 5 days
 
 // won't be deleted
 $config['small_upload_size'] = 1024*10; // 10KB
