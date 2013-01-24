@@ -201,6 +201,137 @@ class User extends CI_Controller {
 		$this->load->view('footer', $this->data);
 	}
 
+	// This routes the different steps of a password reset
+	function reset_password()
+	{
+		$key = $this->uri->segment(3);
+
+		if ($_SERVER["REQUEST_METHOD"] == "GET" && $key === false) {
+			return $this->_reset_password_username_form();
+		}
+
+		if ($key === false) {
+			return $this->_reset_password_send_mail();
+		}
+
+		if ($key !== false) {
+			return $this->_reset_password_form();
+		}
+	}
+
+	// This simply queries the username
+	function _reset_password_username_form()
+	{
+		$this->load->view('header', $this->data);
+		$this->load->view($this->var->view_dir.'reset_password_username_form', $this->data);
+		$this->load->view('footer', $this->data);
+	}
+
+	// This sends a mail to the user containing the reset link
+	function _reset_password_send_mail()
+	{
+		$key = random_alphanum(12, 16);
+		$username = $this->input->post("username");
+
+		if (!$this->muser->username_exists($username)) {
+			show_error("Invalid username");
+		}
+
+		$userinfo = $this->db->query("
+			SELECT id, email, username
+			FROM users
+			WHERE username = ?
+			", array($username))->row_array();
+
+		$this->load->library("email");
+
+		$this->db->query("
+			INSERT INTO `actions`
+			(`key`, `user`, `date`, `action`)
+			VALUES (?, ?, ?, 'passwordreset')
+			", array($key, $userinfo["id"], time()));
+
+		$admininfo = $this->db->query("
+			SELECT email
+			FROM users
+			WHERE referrer = 0
+			ORDER BY id asc
+			LIMIT 1
+			")->row_array();
+
+		$this->email->from($admininfo["email"]);
+		$this->email->to($userinfo["email"]);
+		$this->email->subject("FileBin password reset");
+		$this->email->message(""
+			."Someone requested a password reset for the account '${userinfo["username"]}'\n"
+			."from the IP address '${_SERVER["REMOTE_ADDR"]}'.\n"
+			."\n"
+			."Please follow this link to reset your password:\n"
+			.site_url("user/reset_password/$key")
+			);
+		$this->email->send();
+
+		$this->data["email"] = $userinfo["email"];
+
+		$this->load->view('header', $this->data);
+		$this->load->view($this->var->view_dir.'reset_password_link_sent', $this->data);
+		$this->load->view('footer', $this->data);
+	}
+
+	// This displays a form and handles the reset if the form has been filled out correctly
+	function _reset_password_form()
+	{
+		$process = $this->input->post("process");
+		$key = $this->uri->segment(3);
+		$error = array();
+
+		// TODO: refactor into common function
+		$query = $this->db->query("
+			SELECT `user`, `key`
+			FROM actions
+			WHERE `key` = ?
+			AND `action` = 'passwordreset'
+			", array($key))->row_array();
+
+		if (!isset($query["key"]) || $key != $query["key"]) {
+			show_error("Invalid reset key.");
+		}
+
+		$userid = $query["user"];
+
+		if ($process !== false) {
+			$password = $this->input->post("password");
+			$password_confirm = $this->input->post("password_confirm");
+
+			if (!$password || $password != $password_confirm) {
+				$error[]= "No password or passwords don't match.";
+			}
+
+			if (empty($error)) {
+				$this->db->query("
+					UPDATE users
+					SET `password` = ?
+					WHERE `id` = ?
+					", array($this->muser->hash_password($password), $userid));
+				$this->db->query("
+					DELETE FROM actions
+					WHERE `key` = ?
+					", array($key));
+				$this->load->view('header', $this->data);
+				$this->load->view($this->var->view_dir.'reset_password_success', $this->data);
+				$this->load->view('footer', $this->data);
+				return;
+			}
+		}
+
+		$this->data["key"] = $key;
+		$this->data["error"] = $error;
+
+		$this->load->view('header', $this->data);
+		$this->load->view($this->var->view_dir.'reset_password_form', $this->data);
+		$this->load->view('footer', $this->data);
+	}
+
 	function logout()
 	{
 		$this->muser->logout();

@@ -41,6 +41,7 @@
 		<input type="text" name="username" placeholder="Username" />
 		<input type="password" name="password" placeholder="Password" />
 		<input type="submit" class="btn btn-primary" value="Login" name="process" style="margin-bottom: 9px" />
+		<p style="display: inline"><?php echo anchor("user/reset_password", "Forgot your password?"); ?></p>
 	</form>
 <?php } ?>
 <div class="row">

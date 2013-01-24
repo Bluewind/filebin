@@ -31,6 +31,7 @@ if (is_cli_client() && !isset($force_full_html)) {
 							<li class="dropdown">
 										<a class="dropdown-toggle" href="#" data-toggle="dropdown">Login <b class="caret"></b></a>
 										<div class="dropdown-menu" style="padding: 15px;">
+										<p><?php echo anchor("user/reset_password", "Forgot your password?"); ?></p>
 										<?php echo form_open("user/login"); ?>
 											<input type="text" name="username" placeholder="Username" class="input-medium">
 											<input type="password" name="password" placeholder="Password" class="input-medium">
