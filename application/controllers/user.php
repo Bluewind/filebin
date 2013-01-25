@@ -131,16 +131,7 @@ class User extends CI_Controller {
 		);
 		$error = array();
 
-		$query = $this->db->query("
-			SELECT `user`, `key`
-			FROM actions
-			WHERE `key` = ?
-			AND `action` = 'invitation'
-			", array($key))->row_array();
-
-		if (!isset($query["key"]) || $key != $query["key"]) {
-			show_error("Invalid invitation key.");
-		}
+		$query = $this->muser->get_action("invitation", $key);
 
 		$referrer = $query["user"];
 
@@ -285,17 +276,7 @@ class User extends CI_Controller {
 		$key = $this->uri->segment(3);
 		$error = array();
 
-		// TODO: refactor into common function
-		$query = $this->db->query("
-			SELECT `user`, `key`
-			FROM actions
-			WHERE `key` = ?
-			AND `action` = 'passwordreset'
-			", array($key))->row_array();
-
-		if (!isset($query["key"]) || $key != $query["key"]) {
-			show_error("Invalid reset key.");
-		}
+		$query = $this->muser->get_action("passwordreset", $key);
 
 		$userid = $query["user"];
 

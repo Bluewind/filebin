@@ -144,6 +144,22 @@ class Muser extends CI_Model {
 		}
 	}
 
+	function get_action($action, $key)
+	{
+		$query = $this->db->query("
+			SELECT *
+			FROM actions
+			WHERE `key` = ?
+			AND `action` = ?
+			", array($key, $action))->row_array();
+
+		if (!isset($query["key"]) || $key != $query["key"]) {
+			show_error("Invalid action key");
+		}
+
+		return $query;
+	}
+
 	function hash_password($password)
 	{
 
