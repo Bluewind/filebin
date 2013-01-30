@@ -382,6 +382,9 @@ $config['small_upload_size'] = 1024*10; // 10KB
 
 $config['contact_me_url'] = ''; // ommiting this will remove the "contact me" line.
 
+// for possible drivers look into ./application/libraries/Duser/drivers/
+$config['authentication_driver'] = 'db';
+
 if (file_exists(FCPATH.'application/config/config-local.php')) {
 	include FCPATH.'application/config/config-local.php';
 }

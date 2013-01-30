@@ -43,8 +43,9 @@ class Duser extends CI_Driver_Library {
 
 	function __construct()
 	{
-		// TODO: read config
-		$this->_adapter = 'db';
+		$CI =& get_instance();
+
+		$this->_adapter = $CI->config->item("authentication_driver");
 	}
 
 	// require an optional function to be implemented
