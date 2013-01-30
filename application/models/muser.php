@@ -17,6 +17,7 @@ class Muser extends CI_Model {
 		}
 
 		$this->load->helper("filebin");
+		$this->load->driver("duser");
 	}
 
 	function has_session()
@@ -56,28 +57,7 @@ class Muser extends CI_Model {
 	function login($username, $password)
 	{
 		$this->require_session();
-		$query = $this->db->query('
-			SELECT username, id, password
-			FROM `users`
-			WHERE `username` = ?
-			', array($username))->row_array();
-
-		if (!isset($query["username"]) || $query["username"] !== $username) {
-			return false;
-		}
-
-		if (!isset($query["password"])) {
-			return false;
-		}
-
-		if (crypt($password, $query["password"]) === $query["password"]) {
-			$this->session->set_userdata('logged_in', true);
-			$this->session->set_userdata('username', $username);
-			$this->session->set_userdata('userid', $query["id"]);
-			return true;
-		} else {
-			return false;
-		}
+		return $this->duser->login($username, $password);
 	}
 
 	function logout()
@@ -127,21 +107,7 @@ class Muser extends CI_Model {
 
 	function username_exists($username)
 	{
-		if ($username === false) {
-			return false;
-		}
-
-		$query = $this->db->query("
-			SELECT id
-			FROM users
-			WHERE username = ?
-			", array($username));
-
-		if ($query->num_rows() > 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return $this->duser->username_exists($username);
 	}
 
 	function get_action($action, $key)

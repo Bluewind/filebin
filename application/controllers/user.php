@@ -74,6 +74,7 @@ class User extends CI_Controller {
 
 	function create_invitation_key()
 	{
+		$this->duser->require_implemented("can_register_new_users");
 		$this->muser->require_access();
 
 		$userid = $this->muser->get_userid();
@@ -103,6 +104,7 @@ class User extends CI_Controller {
 
 	function invite()
 	{
+		$this->duser->require_implemented("can_register_new_users");
 		$this->muser->require_access();
 
 		$userid = $this->muser->get_userid();
@@ -123,6 +125,7 @@ class User extends CI_Controller {
 
 	function register()
 	{
+		$this->duser->require_implemented("can_register_new_users");
 		$key = $this->uri->segment(3);
 		$process = $this->input->post("process");
 		$values = array(
@@ -195,6 +198,7 @@ class User extends CI_Controller {
 	// This routes the different steps of a password reset
 	function reset_password()
 	{
+		$this->duser->require_implemented("can_reset_password");
 		$key = $this->uri->segment(3);
 
 		if ($_SERVER["REQUEST_METHOD"] == "GET" && $key === false) {
