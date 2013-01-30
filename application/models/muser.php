@@ -65,6 +65,7 @@ class Muser extends CI_Model {
 		$this->require_session();
 		$this->session->unset_userdata('logged_in');
 		$this->session->unset_userdata('username');
+		$this->session->unset_userdata('userid');
 		$this->session->sess_destroy();
 	}
 
