@@ -9,7 +9,7 @@
 
 abstract class Duser_Driver extends CI_Driver {
 
-	// List of optional functions or function group that are implemented
+	// List of optional functions or function groups that are implemented
 	//
 	// Possible values are names of functions already implemented in this
 	// abstract class or the function groups listed below.
@@ -20,8 +20,8 @@ abstract class Duser_Driver extends CI_Driver {
 	public $optional_functions = array();
 
 	/*
-	 * The array should contain the following keys:
-	 *  - username VARCHAR
+	 * The returned array should contain the following keys:
+	 *  - username string
 	 *  - userid INT > 0
 	 *
 	 * @return mixed array on success, false on failure
