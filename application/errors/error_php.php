@@ -8,3 +8,4 @@
 <p>Line Number: <?php echo $line; ?></p>
 
 </div>
+<?php exit();
