@@ -84,7 +84,9 @@ class Mfile extends CI_Model {
 	{
 		$userid = $this->muser->get_userid();
 
-		$mimetype = exec("perl ".FCPATH.'scripts/mimetype '.escapeshellarg($filename).' '.escapeshellarg($this->file($hash)));
+		$fileinfo = new finfo(FILEINFO_MIME_TYPE);
+		$mimetype = $fileinfo->file($this->file($hash));
+
 		$filesize = filesize($this->file($hash));
 		$query = $this->db->query('
 			INSERT INTO `files` (`hash`, `id`, `filename`, `user`, `date`, `mimetype`, `filesize`)

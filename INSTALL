@@ -2,7 +2,7 @@
 
 * run install.php to make sure all dependencies are installed
   - if you are only creating a basic development installation you will only need:
-     perl, File::MimeInfo::Magic
+     perl
      pygmentize (part of pygments)
      PHP Memache extension
 

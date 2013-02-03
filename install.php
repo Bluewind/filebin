@@ -32,7 +32,6 @@ $buf == "works" || $errors .= "passthru() failed\n";
 // test perl deps
 $perldeps = array(
 	"HTML::FromANSI",
-	"File::MimeInfo::Magic",
 	"Text::Markdown"
 );
 foreach ($perldeps as $dep) {
