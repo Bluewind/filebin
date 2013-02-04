@@ -268,6 +268,7 @@ class Mfile extends CI_Model {
 		'text/x-c++hdr' => 'c',
 		'text/x-c++src' => 'cpp',
 		'text/x-patch' => 'diff',
+		'text/x-diff' => 'diff',
 		'text/x-lua' => 'lua',
 		'text/x-java' => 'java',
 		'text/x-haskell' => 'haskell',
