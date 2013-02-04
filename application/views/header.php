@@ -16,9 +16,18 @@ if (is_cli_client() && !isset($force_full_html)) {
 	<link href="<?php echo link_with_mtime("/data/css/bootstrap-2.1.1.min.css"); ?>" rel="stylesheet">
 	<link href="<?php echo link_with_mtime("/data/css/bootstrap-responsive-2.1.1.min.css"); ?>" rel="stylesheet">
 	<link href="<?php echo link_with_mtime("/data/css/style.css"); ?>" rel="stylesheet">
+	<?php
+		if (file_exists(FCPATH."data/local/style.css")) {
+			echo '<link href="'.link_with_mtime("/data/local/style.css").'" rel="stylesheet">';
+		}
+?>
+
 </head>
 
 <body>
+<?php if (file_exists(FCPATH."data/local/header.inc.php")) {
+	include FCPATH."data/local/header.inc.php";
+}?>
 	<div class="navbar navbar-fixed-top navbar-inverse">
 		<div class="navbar-inner">
 			<div class="container">
