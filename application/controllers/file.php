@@ -645,7 +645,7 @@ class File extends CI_Controller {
 
 		$this->session->unset_userdata("last_upload");
 
-		$this->_show_url($id, $last_upload["lexer"]);
+		$this->_show_url($ids, $last_upload["lexer"]);
 	}
 
 	/* Functions below this comment can only be run via the CLI
