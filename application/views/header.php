@@ -8,6 +8,7 @@ if (is_cli_client() && !isset($force_full_html)) {
 <head>
 	<meta charset="utf-8">
 	<title><?php echo isset($title) ? $title : 'FileBin'; ?></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="robots" content="noindex,nofollow" />
 	<meta name="description" content="">
 	<meta name="author" content="">
