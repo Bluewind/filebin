@@ -2,7 +2,7 @@
 /*
  * Copyright 2009-2013 Florian "Bluewind" Pritz <bluewind@server-speed.net>
  *
- * Licensed under GPLv3
+ * Licensed under AGPLv3
  * (see COPYING for full license text)
  *
  */
