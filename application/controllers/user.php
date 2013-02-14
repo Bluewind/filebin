@@ -84,6 +84,71 @@ class User extends CI_Controller {
 		}
 	}
 
+	function create_apikey()
+	{
+		$this->muser->require_access();
+
+		$userid = $this->muser->get_userid();
+		$comment = $this->input->post("comment");
+
+
+		if (strlen($comment) > 255 || !preg_match("/^[a-zA-Z0-9 ]*$/", $comment)) {
+			// display better error for
+			show_error("Comment invalid. Only 255 chars of a-zA-Z0-9 and space allowed");
+		}
+
+		$key = random_alphanum(32);
+
+		$this->db->query("
+			INSERT INTO `apikeys`
+			(`key`, `user`, `comment`)
+			VALUES (?, ?, ?)
+		", array($key, $userid, $comment));
+
+		if (is_cli_client()) {
+			echo "$key\n";
+		} else {
+			redirect("user/apikeys");
+		}
+	}
+
+	function delete_apikey()
+	{
+		$this->muser->require_access();
+
+		$userid = $this->muser->get_userid();
+		$key = $this->input->post("key");
+
+		var_dump($userid, $key);
+
+		$this->db->query("
+			DELETE FROM `apikeys`
+			WHERE `user` = ?
+			AND `key` = ?
+			", array($userid, $key));
+
+		redirect("user/apikeys");
+	}
+
+	function apikeys()
+	{
+		$this->muser->require_access();
+
+		$userid = $this->muser->get_userid();
+
+		$query = $this->db->query("
+			SELECT `key`, UNIX_TIMESTAMP(`created`) `created`, `comment`
+			FROM `apikeys`
+			WHERE `user` = ? order by created desc
+			", array($userid))->result_array();
+
+		$this->data["query"] = $query;
+
+		$this->load->view('header', $this->data);
+		$this->load->view($this->var->view_dir.'apikeys', $this->data);
+		$this->load->view('footer', $this->data);
+	}
+
 	function create_invitation_key()
 	{
 		$this->duser->require_implemented("can_register_new_users");

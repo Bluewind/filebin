@@ -282,7 +282,7 @@ class File extends CI_Controller {
 				"lexer" => $lexer
 			));
 			$this->session->set_flashdata("uri", "file/claim_id");
-			$this->muser->require_access();
+			$this->muser->require_access("apikey");
 		}
 
 		foreach ($ids as $id) {
@@ -444,7 +444,7 @@ class File extends CI_Controller {
 
 	function upload_history()
 	{
-		$this->muser->require_access();
+		$this->muser->require_access("apikey");
 
 		$user = $this->muser->get_userid();
 
@@ -523,7 +523,7 @@ class File extends CI_Controller {
 
 	function do_delete()
 	{
-		$this->muser->require_access();
+		$this->muser->require_access("apikey");
 
 		$ids = $this->input->post("ids");
 		$errors = array();
@@ -563,7 +563,7 @@ class File extends CI_Controller {
 
 	function delete()
 	{
-		$this->muser->require_access();
+		$this->muser->require_access("apikey");
 
 		if (!is_cli_client()) {
 			echo "Not a listed cli client, please use the history to delete uploads.\n";
@@ -634,7 +634,7 @@ class File extends CI_Controller {
 	{
 		// desktop clients get a cookie to claim the ID later
 		if (is_cli_client()) {
-			$this->muser->require_access();
+			$this->muser->require_access("apikey");
 		}
 
 		$ids = array();
