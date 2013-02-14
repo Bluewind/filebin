@@ -43,27 +43,6 @@ class File extends CI_Controller {
 			$this->var->view_dir = "file";
 		}
 
-		if (is_cli_client()) {
-			$username = $this->input->post("username");
-			$password = $this->input->post("password");
-
-			// prefer post parameters if either (username or password) is set
-			if ($username === false && $password === false) {
-				if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
-					$username = $_SERVER['PHP_AUTH_USER'];
-					$password = $_SERVER['PHP_AUTH_PW'];
-				}
-			}
-
-			if ($username !== false && $password !== false) {
-				if (!$this->muser->login($username, $password)) {
-					// TODO: better message
-					echo "login failed.\n";
-					exit;
-				}
-			}
-		}
-
 		$this->data['username'] = $this->muser->get_username();
 		$this->data['title'] = "FileBin";
 	}

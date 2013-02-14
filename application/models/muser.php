@@ -18,6 +18,27 @@ class Muser extends CI_Model {
 
 		$this->load->helper("filebin");
 		$this->load->driver("duser");
+
+		if (is_cli_client()) {
+			$username = $this->input->post("username");
+			$password = $this->input->post("password");
+
+			// prefer post parameters if either (username or password) is set
+			if ($username === false && $password === false) {
+				if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
+					$username = $_SERVER['PHP_AUTH_USER'];
+					$password = $_SERVER['PHP_AUTH_PW'];
+				}
+			}
+
+			if ($username !== false && $password !== false) {
+				if (!$this->login($username, $password)) {
+					// TODO: better message
+					echo "login failed.\n";
+					exit;
+				}
+			}
+		}
 	}
 
 	function has_session()
