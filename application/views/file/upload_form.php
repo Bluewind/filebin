@@ -1,31 +1,31 @@
 <?php if (isset($username) && $username) { ?>
 <div class="well">
 	<div class="row-fluid">
-		<div class="span6">
-			<div style="border-right:1px solid #ddd;padding-right:25px;">
+		<div class="span12 text-upload-form">
 			<?php echo form_open_multipart('file/do_paste'); ?>
 				<h2>Text paste</h2>
-				<textarea name="content" style="width:98%; height:300px;"></textarea>
+				<textarea name="content" class="text-upload span12" style="height: 300px;"></textarea>
 				<button type="submit" class="btn btn-primary">Paste it!</button>
 			</form>
-			</div>
 		</div>
+	</div>
+	<div class="row-fluid">
 		<div class="span6">
 			<?php echo form_open_multipart('file/do_upload'); ?>
 				<h2>File upload</h2>
 				<input class="file-upload" type="file" name="file[]" multiple="multiple"><br>
 				<button type="submit" id="upload_button" class="btn btn-primary">Upload it!</button>
 			</form>
-			<div class="alert alert-block alert-info">
-				<h4 class="alert-heading">Notice!</h4>
-				<p>
-					Uploads/pastes are deleted after <?php echo $upload_max_age; ?> days
-					<?php if($small_upload_size > 0) {
-						echo "unless they are smaller than ".format_bytes($small_upload_size);
-					} ?>. Maximum upload size is <?php echo format_bytes($max_upload_size); ?>.
-					You can upload a maximum of <?php echo ini_get("max_file_uploads"); ?> files at once.
-				</p>
-			</div>
+		</div>
+		<div class="span6 alert alert-block alert-info">
+			<h4 class="alert-heading">Notice!</h4>
+			<p>
+				Uploads/pastes are deleted after <?php echo $upload_max_age; ?> days
+				<?php if($small_upload_size > 0) {
+					echo "unless they are smaller than ".format_bytes($small_upload_size);
+				} ?>. Maximum upload size is <?php echo format_bytes($max_upload_size); ?>.
+				You can upload a maximum of <?php echo ini_get("max_file_uploads"); ?> files at once.
+			</p>
 		</div>
 	</div>
 </div>
