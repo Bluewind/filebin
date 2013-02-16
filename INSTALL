@@ -20,7 +20,7 @@
 
 # Generate the first user
 
-* Go to base_url/user/hash_password to generate a password hash
+* Go to http://yourdomain.com/some/where/index.php/user/hash_password to generate a password hash
 
 * Run the following SQL command
    insert into users
