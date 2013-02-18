@@ -13,6 +13,14 @@ machine <?php echo $domain; ?> login my_username password my_secret_password
 </pre>
 
 <p>
+	If you are using fb-client &ge;1.2 you can
+	<a href="<?php echo	site_url("user/apikeys"); ?>">create an API key</a>,
+	save it in <code>~/.config/fb-client/apikey</code> and remove
+	your password from <code>.netrc</code>. Please refer to <code>man
+	1 fb</code> for further details.
+</p>
+
+<p>
 	If you are using fb-client &ge;1.1 you can use
 	<code>~/.config/fb-client/config</code> to upload to a different
 	pastebin URL (https or you own installation). Please refer to
