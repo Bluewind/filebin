@@ -57,8 +57,8 @@ class File extends CI_Controller {
 			echo "  nuke_id <ID>       Nukes all IDs sharing the same hash\n";
 			echo "\n";
 			echo "Functions that shouldn't have to be run:\n";
-			echo "  clean_stale_files  Remove files without database entries\n";
-			echo "  update_file_sizes  Update filesize in database\n";
+			echo "  clean_stale_files     Remove files without database entries\n";
+			echo "  update_file_metadata  Update filesize and mimetype in database\n";
 			exit;
 		}
 		// Try to guess what the user would like to do.
@@ -736,7 +736,7 @@ class File extends CI_Controller {
 		echo "removed hash \"$hash\"\n";
 	}
 
-	function update_file_sizes()
+	function update_file_metadata()
 	{
 		if (!$this->input->is_cli_request()) return;
 
@@ -755,15 +755,15 @@ class File extends CI_Controller {
 			foreach ($query as $key => $item) {
 				$hash = $item["hash"];
 				$filesize = intval(filesize($this->mfile->file($hash)));
+				$mimetype = $this->mfile->mimetype($this->mfile->file($hash));
+
 				$this->db->query("
 					UPDATE files
-					SET filesize = ?
+					SET filesize = ?, mimetype = ?
 					WHERE hash = ?
-					", array($filesize, $hash));
+					", array($filesize, $mimetype, $hash));
 			}
 		}
-
-
 	}
 }
 

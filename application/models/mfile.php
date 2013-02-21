@@ -79,13 +79,20 @@ class Mfile extends CI_Model {
 		return $this->folder($hash).'/'.$hash;
 	}
 
+	// Return mimetype of file
+	function mimetype($file) {
+		$fileinfo = new finfo(FILEINFO_MIME_TYPE);
+		$mimetype = $fileinfo->file($file);
+
+		return $mimetype;
+	}
+
 	// Add a hash to the DB
 	function add_file($hash, $id, $filename)
 	{
 		$userid = $this->muser->get_userid();
 
-		$fileinfo = new finfo(FILEINFO_MIME_TYPE);
-		$mimetype = $fileinfo->file($this->file($hash));
+		$mimetype = $this->mimetype($this->file($hash));
 
 		$filesize = filesize($this->file($hash));
 		$query = $this->db->query('
