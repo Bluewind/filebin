@@ -109,7 +109,7 @@ code, pre, textarea {
 	font-size: 12px;
 	line-height: 1.4;
 	white-space: pre-wrap;
-	word-break: break-all;
+	word-break: break-word;
 	word-wrap: normal;
 }
 .code {
