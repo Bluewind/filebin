@@ -209,7 +209,7 @@ class File extends CI_Controller {
 		$output .= '<div class="highlight"><pre>'."\n";
 
 		ob_start();
-		passthru('pygmentize -F codetagify -O encoding=guess,outencoding=utf8 -l '.escapeshellarg($lexer).' -f html '.escapeshellarg($file), $return_value);
+		passthru('pygmentize -F codetagify -O encoding=guess,outencoding=utf8,stripnl=False -l '.escapeshellarg($lexer).' -f html '.escapeshellarg($file), $return_value);
 		$buf = ob_get_contents();
 		ob_end_clean();
 
