@@ -74,7 +74,7 @@ include(FCPATH."application/views/header.php"); ?>
 					</li>
 				</ul>
 				<div class="btn-group pull-right" style="margin-top: 7px; margin-right:-10px;">
-					<a id="linewrap" class="btn btn-small" rel="tooltip" title="Wrap long lines">Linewrap</a>
+					<a id="linewrap" class="btn btn-small" rel="tooltip" title="Toggle wrapping of long lines">Linewrap</a>
 					<a href="<?php echo site_url($id."/plain") ?>" class="btn btn-small" rel="tooltip" title="View as plain text">Plain</a>
 					<a href="<?php echo site_url($id) ?>" class="btn btn-small" rel="tooltip" title="View as raw file (org. mime type)">Raw</a>
 					<?php if ($current_highlight === 'rmd') { ?>

@@ -9,17 +9,14 @@ function fixedEncodeURIComponent (str) {
 		$(window).bind('hashchange', function(e) {
 			var hash = window.location.hash;
 
-			$('#highlight_line').remove();
+			$('.highlight_line').removeClass("highlight_line");
 
 			if (hash.match(/^#n\d+$/) === null) {
 				return;
 			}
 
-			var link = $(hash);
-
-			$('<div id="highlight_line" />').prependTo('.highlight').css({
-				top: link.get(0).offsetTop - 10 + parseInt(link.css("padding-top")) + 'px'
-			});
+			var line = $(hash).parent().parent();
+			line.addClass("highlight_line");
 		});
 
 		$(window).trigger('hashchange');
@@ -59,14 +56,12 @@ function fixedEncodeURIComponent (str) {
 		return this;
 		});
 
-		window.lines_wrapped = false;
+		window.lines_wrapped = true;
 		$('#linewrap').click(function() {
 			if (window.lines_wrapped == true) {
-				$(".content .numbers").show();
-				$(".content .code > .highlight > pre").css("white-space", "pre");
+				$(".highlight > pre").css("white-space", "pre");
 			} else {
-				$(".content .numbers").hide();
-				$(".content .code > .highlight > pre").css("white-space", "pre-wrap");
+				$(".highlight > pre").css("white-space", "pre-wrap");
 			}
 			window.lines_wrapped = !window.lines_wrapped;
 		});

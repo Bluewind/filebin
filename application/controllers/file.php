@@ -203,18 +203,42 @@ class File extends CI_Controller {
 	private function _pygmentize($file, $lexer)
 	{
 		$return_value = 0;
+		$output = "";
+
+		$output .= '<div class="code content table">'."\n";
+		$output .= '<div class="highlight"><pre>'."\n";
 
 		ob_start();
-
-		echo '<table class="content"><tr>';
-		echo '<td class="numbers"><pre>';
-		// generate line numbers (links)
-		passthru('perl -ne \'print "<a href=\"#n$.\" ><span class=\"anchor\" id=\"n$.\"> </span>$.</a>\n"\' '.escapeshellarg($file), $return_value);
-		echo '</pre></td><td class="code">'."\n";
 		passthru('pygmentize -F codetagify -O encoding=guess,outencoding=utf8 -l '.escapeshellarg($lexer).' -f html '.escapeshellarg($file), $return_value);
-
-		$output = ob_get_contents();
+		$buf = ob_get_contents();
 		ob_end_clean();
+
+
+		$buf = explode("\n", $buf);
+		$line_count = count($buf);
+
+		// Last 2 items are just "</pre></div>" and ""
+		// We don't need those
+		unset($buf[$line_count - 2]);
+		unset($buf[$line_count - 1]);
+
+		foreach ($buf as $key => $line) {
+			$line_number = $key + 1;
+			if ($key == 0) {
+				$line = str_replace("<div class=\"highlight\"><pre>", "", $line);
+			}
+
+			// Be careful not to add superflous whitespace here (we are in a <pre>)
+			$output .= "<div class=\"table-row\">"
+							."<a href=\"#n$line_number\" class=\"linenumber table-cell\">"
+								."<span class=\"anchor\" id=\"n$line_number\"> </span>"
+							."</a>"
+							."<span class=\"line table-cell\">".$line."</span>\n";
+			$output .= "</div>";
+		}
+
+		$output .= "</pre></div>";
+		$output .= "</div>";
 
 		return array(
 			"return_value" => $return_value,

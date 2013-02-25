@@ -54,7 +54,53 @@ code, pre, textarea {
 	margin-right: 20px;
 }
 
-.content .numbers > pre, .content .highlight > pre {
+.code pre {
+	counter-reset: line-numbering;
+}
+
+.code {display: table; margin: 0;}
+.code .table-row {display: table-row;}
+.code .table-cell {display: table-cell;}
+
+.code pre a.linenumber {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.code pre a.linenumber::before {
+	content: counter(line-numbering);
+	counter-increment: line-numbering;
+}
+
+.code pre a.linenumber {
+	padding: 0 6px; /* space after numbers */
+	text-align: right;
+
+	background: #ececec;
+	border-right: 1px solid #ddd;
+	text-align: right;
+	margin-left: -2px;
+	color: #aaa;
+	word-break: normal;
+}
+
+.code pre :last-child a {
+	padding-bottom: 10px;
+}
+
+.code pre :first-child a {
+	padding-top: 10px;
+}
+
+.code pre .table-row .line {
+	padding-left: 10px;
+}
+
+.content .highlight > pre {
 	background-color: transparent;
 	border: 0;
 	border-radius: 0;
@@ -62,41 +108,23 @@ code, pre, textarea {
 	padding: 0;
 	font-size: 12px;
 	line-height: 1.4;
-	white-space: pre;
-	word-break: normal;
+	white-space: pre-wrap;
+	word-break: break-all;
 	word-wrap: normal;
 }
-.content .numbers {
-	background: #ececec;
-	border-right: 1px solid #ddd;
-	text-align: right;
-	padding: 10px 6px;
-	vertical-align: top;
-}
-.content .numbers a {
-	color: #aaa;
-}
-.content .code {
+.code {
 	width: 100%;
-	vertical-align: top;
-	padding-top: 10px;
+	padding-top: 0;
 }
-.content .code > .highlight {
+.code .highlight {
 	position: relative;
-	padding-left: 10px;
+	padding-left: 0;
 }
-.content .code > .highlight > pre {
+.code .highlight pre {
 	position: relative;
-	z-index: 2;
 }
-#highlight_line {
+.highlight_line {
 	background: #ffffcc;
-	position: absolute;
-	left: 0;
-	right: 0;
-	width: 100%;
-	height: 16px;
-	z-index: 1;
 }
 #file-info {
 	display: none;
