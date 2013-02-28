@@ -110,7 +110,15 @@ class MemcacheLibrary {
 		$this->logDebugMessage(
 				sprintf("%s key set to memcache. (expire: %s)",$key, $expire)
 			);
-		return $this->memcachedInstance->set($key, $value, null, $expire);
+
+		// hide notice if server is unreachable
+		$old_error_level = error_reporting();
+		error_reporting($old_error_level & ~E_NOTICE);
+
+		$ret =  $this->memcachedInstance->set($key, $value, null, $expire);
+
+		error_reporting($old_error_level);
+		return $ret;
 	}
 
 	/**
@@ -120,7 +128,14 @@ class MemcacheLibrary {
 	*/
 	public function delete($key) {
 		$this->logDebugMessage(sprintf("%s key deleted from memcache.", $key));
-		return $this->memcachedInstance->delete($key);
+		// hide notice if server is unreachable
+		$old_error_level = error_reporting();
+		error_reporting($old_error_level & ~E_NOTICE);
+
+		$ret = $this->memcachedInstance->delete($key);
+
+		error_reporting($old_error_level);
+		return $ret;
 	}
 
 	/**
