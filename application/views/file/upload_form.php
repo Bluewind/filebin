@@ -4,7 +4,7 @@
 		<div class="span12 text-upload-form">
 			<?php echo form_open_multipart('file/do_paste'); ?>
 				<h2>Text paste</h2>
-				<textarea name="content" class="text-upload span12" style="height: 300px;"></textarea>
+				<textarea name="content" class="text-upload span12"></textarea><br>
 				<button type="submit" class="btn btn-primary">Paste it!</button>
 			</form>
 		</div>

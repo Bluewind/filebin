@@ -89,21 +89,6 @@ function fixedEncodeURIComponent (str) {
 
 			$('.file-upload').bind('change', checkFileUpload);
 		}
-		$('.text-upload').css('height', '100px');
-		$('.text-upload').bind('blur', function() {
-			$('.text-upload').animate({height: "100px"}, 300);
-		});
-		$('.text-upload').bind('focus', function() {
-			$('.text-upload').animate({height: "300px"}, 300);
-		});
-
-		// work around to submit the form if the click causes the
-		// textarea to shrink and you can't relase the mouse fast enough
-		// so mouseup will be outside the button area and not trigger
-		// submission properly
-		$('.text-upload-form :submit').bind('mousedown', function() {
-			$(this).click();
-		});
 	});
 
 })(jQuery);
