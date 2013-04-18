@@ -385,6 +385,24 @@ $config['contact_me_url'] = ''; // ommiting this will remove the "contact me" li
 // for possible drivers look into ./application/libraries/Duser/drivers/
 $config['authentication_driver'] = 'db';
 
+// This is only used it the driver is set to ldap
+if (extension_loaded("ldap")) {
+	$config['auth_ldap'] = array(
+		"host" => 'ldaps://ldap.example.com',
+		"port" => 636,
+		"basedn" => "dc=example,dc=com",
+		"scope" => "one", // possible values: base, one, subtree
+		"options" => array(
+			// key/values pairs for ldap_set_option
+			// http://php.net/manual/en/function.ldap-set-option.php
+			LDAP_OPT_PROTOCOL_VERSION => 3
+		),
+		// Please note that php-ldap converts attributes to lowercase
+		"userid_field" => "uidnumber", // This has to be a unique integer
+		"username_field" => "uid" // This is the value the user supplies on the login form
+	);
+}
+
 if (file_exists(FCPATH.'application/config/config-local.php')) {
 	include FCPATH.'application/config/config-local.php';
 }
