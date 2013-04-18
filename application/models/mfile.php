@@ -18,9 +18,17 @@ class Mfile extends CI_Model {
 	// Returns an unused ID
 	function new_id()
 	{
+		static $id_blacklist = NULL;
+
 		$id = random_alphanum(3,6);
 
-		if ($this->id_exists($id) || $id == 'file' || $id == 'user') {
+		if ($id_blacklist == NULL) {
+			$id_blacklist = scandir(FCPATH);
+			$id_blacklist[] = "file";
+			$id_blacklist[] = "user";
+		}
+
+		if ($this->id_exists($id) || in_array($id, $id_blacklist)) {
 			return $this->new_id();
 		} else {
 			return $id;
