@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# Put something along those lines into your munin-node config
+#
+# [filebin_stats]
+# env.mysqlopts --defaults-file=/var/lib/munin/.my.cnf
+# env.database filebin
+
+case $1 in
+        config)
+                cat <<'EOM'
+graph_title FileBin
+graph_args --base 1024 --logarithmic --units=si
+graph_vlabel Space
+used.label Storage used
+dedup.label Storage saved by deduplication
+EOM
+                exit 0;;
+esac
+
+echo -n "used.value "
+mysql $mysqlopts -sr $database <<<"select sum(filesize) as 'Used storage' from (select filesize from files group by hash) a;" || echo "a"
+
+echo -n "dedup.value "
+mysql $mysqlopts -sr $database <<<"select sum((c - 1) * sub.filesize) 'Space saved by deduplication' from (select hash, filesize, count(*) c from files group by hash having c > 1 order by c) sub;" || echo "a"
