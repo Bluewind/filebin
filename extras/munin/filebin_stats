@@ -19,7 +19,7 @@ EOM
 esac
 
 echo -n "used.value "
-mysql $mysqlopts -sr $database <<<"select sum(filesize) as 'Used storage' from (select filesize from files group by hash) a;" || echo "a"
+mysql $mysqlopts -sr $database <<<"select coalesce(sum(filesize), 0) as 'Used storage' from (select filesize from files group by hash) a;" || echo "a"
 
 echo -n "dedup.value "
-mysql $mysqlopts -sr $database <<<"select sum((c - 1) * sub.filesize) 'Space saved by deduplication' from (select hash, filesize, count(*) c from files group by hash having c > 1 order by c) sub;" || echo "a"
+mysql $mysqlopts -sr $database <<<"select coalesce(sum((c - 1) * sub.filesize), 0) 'Space saved by deduplication' from (select hash, filesize, count(*) c from files group by hash having c > 1 order by c) sub;" || echo "a"
