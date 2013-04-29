@@ -54,7 +54,8 @@ class Duser_ldap extends Duser_Driver {
 			return false;
 		}
 
-		if (ldap_bind($ds, $result[0]['dn'], $password)) {
+		// ignore errors from ldap_bind as it will throw an error if the password is incorrect
+		if (@ldap_bind($ds, $result[0]['dn'], $password)) {
 			ldap_unbind($ds);
 			return array(
 				"username" => $result[0][$config["username_field"]][0],
