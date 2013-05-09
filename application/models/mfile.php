@@ -231,6 +231,7 @@ class Mfile extends CI_Model {
 				$last_desc = $desc;
 				$lexers[$name] = $desc;
 			}
+			$lexers["text"] = "Plain text";
 			$this->memcachelibrary->set('lexers', $lexers, 1800);
 		}
 
