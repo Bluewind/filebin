@@ -284,4 +284,19 @@ function getNormalizedFILES()
 	return $ret;
 }
 
+// Allow simple checking inside views
+function auth_driver_function_implemented($function)
+{
+	static $result = array();
+	if (isset($result[$function])) {
+		return $result[$function];
+	}
+
+	$CI =& get_instance();
+	$CI->load->driver("duser");
+	$result[$function] = $CI->duser->is_implemented($function);;
+
+	return $result[$function];
+}
+
 # vim: set noet:
