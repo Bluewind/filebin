@@ -22,7 +22,6 @@ if (is_cli_client() && !isset($force_full_html)) {
 			echo '<link href="'.link_with_mtime("/data/local/style.css").'" rel="stylesheet">';
 		}
 ?>
-
 </head>
 
 <body>
