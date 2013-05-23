@@ -3,7 +3,6 @@ function fixedEncodeURIComponent (str) {
 }
 
 (function($) {
-
 	$(function() {
 
 		$(window).bind('hashchange', function(e) {
@@ -89,6 +88,80 @@ function fixedEncodeURIComponent (str) {
 
 			$('.file-upload').bind('change', checkFileUpload);
 		}
-	});
 
+		if (typeof $.tablesorter !== 'undefined') {
+			// source: https://projects.archlinux.org/archweb.git/tree/sitestatic/archweb.js
+			$.tablesorter.addParser({
+				id: 'filesize',
+				re: /^(\d+(?:\.\d+)?)(bytes?|[KMGTPEZY]i?B|B)$/,
+				is: function(s) {
+					return this.re.test(s);
+				},
+				format: function(s) {
+					var matches = this.re.exec(s);
+					if (!matches) {
+						return 0;
+					}
+					var size = parseFloat(matches[1]),
+						suffix = matches[2];
+
+					switch(suffix) {
+						/* intentional fall-through at each level */
+						case 'YB':
+						case 'YiB':
+							size *= 1024;
+						case 'ZB':
+						case 'ZiB':
+							size *= 1024;
+						case 'EB':
+						case 'EiB':
+							size *= 1024;
+						case 'PB':
+						case 'PiB':
+							size *= 1024;
+						case 'TB':
+						case 'TiB':
+							size *= 1024;
+						case 'GB':
+						case 'GiB':
+							size *= 1024;
+						case 'MB':
+						case 'MiB':
+							size *= 1024;
+						case 'KB':
+						case 'KiB':
+							size *= 1024;
+					}
+					return size;
+				},
+				type: 'numeric'
+			});
+			$.tablesorter.addParser({
+				// set a unique id
+				id: 'mydate',
+				re: /t=([0-9]+)$/,
+				is: function(s) {
+					// return false so this parser is not auto detected
+					return false;
+				},
+				format: function(s) {
+					var matches = this.re.exec(s);
+					if (!matches) {
+						return 0;
+					}
+					//console.log(s, matches);
+					return matches[1];
+				},
+				type: 'numeric'
+			});
+			$("#upload_history:has(tbody tr)").tablesorter({
+				headers: {
+					0: {sorter: false},
+					4: {sorter: "mydate"},
+				},
+				sortList: [[4,1]],
+			});
+		}
+
+	});
 })(jQuery);

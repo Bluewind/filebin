@@ -1,5 +1,6 @@
+<?php register_js_include("/data/js/jquery.tablesorter.min.js"); ?>
 <?php echo form_open("file/do_delete") ?>
-    <table class="table table-striped">
+    <table id="upload_history" class="table table-striped tablesorter">
         <thead>
             <tr>
                 <th><input type="checkbox" name="all-ids" id="history-all"></th>
@@ -18,7 +19,7 @@
                     <td><a href="<?php echo site_url("/".$item["id"]) ?>/"><?php echo $item["id"] ?></a></td>
                     <td><?php echo htmlspecialchars($item["filename"]); ?></td>
                     <td><?php echo $item["mimetype"] ?></td>
-                    <td class="nowrap"><?php echo $item["date"] ?></td>
+                    <td class="nowrap"><?php echo date("r", $item["date"]); ?><span class="hidden">t=<?php echo $item["date"]; ?></span></td>
                     <td><?php echo $item["hash"] ?></td>
                     <td><?php echo $item["filesize"] ?></td>
                 </tr>

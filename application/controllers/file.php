@@ -404,7 +404,6 @@ class File extends CI_Controller {
 				", array($user))->result_array();
 
 			foreach($query as $key => $item) {
-				$query[$key]["date"] = date("r", $item["date"]);
 				$query[$key]["filesize"] = format_bytes($item["filesize"]);
 				if (is_cli_client()) {
 					// Keep track of longest string to pad plaintext output correctly
