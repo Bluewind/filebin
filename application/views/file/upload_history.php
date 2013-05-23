@@ -8,7 +8,6 @@
                 <th>Filename</th>
                 <th>Mimetype
                 <th>Date</th>
-                <th>Hash</th>
                 <th>Size</th>
             </tr>
         </thead>
@@ -20,7 +19,6 @@
                     <td><?php echo htmlspecialchars($item["filename"]); ?></td>
                     <td><?php echo $item["mimetype"] ?></td>
                     <td class="nowrap"><?php echo date("r", $item["date"]); ?><span class="hidden">t=<?php echo $item["date"]; ?></span></td>
-                    <td><?php echo $item["hash"] ?></td>
                     <td><?php echo $item["filesize"] ?></td>
                 </tr>
             <?php endforeach; ?>
