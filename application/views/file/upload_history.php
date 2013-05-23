@@ -16,7 +16,7 @@
                 <tr>
                     <td><input type="checkbox" name="ids[<?php echo $item["id"] ?>]" value="<?php echo $item["id"] ?>" class="delete-history"></td>
                     <td><a href="<?php echo site_url("/".$item["id"]) ?>/"><?php echo $item["id"] ?></a></td>
-                    <td><?php echo htmlspecialchars($item["filename"]); ?></td>
+                    <td class="wrap"><?php echo htmlspecialchars($item["filename"]); ?></td>
                     <td><?php echo $item["mimetype"] ?></td>
                     <td class="nowrap"><?php echo date("r", $item["date"]); ?><span class="hidden">t=<?php echo $item["date"]; ?></span></td>
                     <td><?php echo $item["filesize"] ?></td>

@@ -52,6 +52,11 @@ body {
 	white-space: nowrap;
 }
 
+.wrap {
+	word-break: break-word;
+	word-wrap: normal;
+}
+
 code, pre, textarea {
 	font-family: "Dejavu sans mono", Monaco, monospace;
 }
@@ -289,6 +294,7 @@ code, pre, textarea {
 /* tables */
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
 	background-color: #e6EEEE;
+	padding-right: 20px;
 }
 table.tablesorter thead tr .header {
 	background-image: url(../img/bg.gif);
