@@ -602,13 +602,15 @@ class File extends CI_Controller {
 			// TODO: this interface currently sets the same filename for every file if you use multiupload
 			$filename = $this->input->post("filename");
 			if ($filename !== false) {
-				$filename = trim(base64_decode($filename, true), "\r\n\0\t\x0B");
+				$filename = base64_decode($filename, true);
 			}
 
 			// fall back if base64_decode failed
 			if ($filename === false) {
 				$filename = $file['name'];
 			}
+
+			$filename = trim($filename, "\r\n\0\t\x0B");
 
 			$folder = $this->mfile->folder($hash);
 			file_exists($folder) || mkdir ($folder);
