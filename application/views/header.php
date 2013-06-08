@@ -14,8 +14,7 @@ if (is_cli_client() && !isset($force_full_html)) {
 	<meta name="author" content="">
 
 	<link href="<?php echo link_with_mtime("/data/css/ui-lightness/jquery-ui-1.8.23.custom.css"); ?>" rel="stylesheet">
-	<link href="<?php echo link_with_mtime("/data/css/bootstrap-2.1.1.min.css"); ?>" rel="stylesheet">
-	<link href="<?php echo link_with_mtime("/data/css/bootstrap-responsive-2.1.1.min.css"); ?>" rel="stylesheet">
+	<link href="<?php echo link_with_mtime("/data/css/bootstrap-2.3.2.min.css"); ?>" rel="stylesheet">
 	<link href="<?php echo link_with_mtime("/data/css/style.css"); ?>" rel="stylesheet">
 	<?php
 		if (file_exists(FCPATH."data/local/style.css")) {
