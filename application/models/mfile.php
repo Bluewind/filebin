@@ -16,11 +16,9 @@ class Mfile extends CI_Model {
 	}
 
 	// Returns an unused ID
-	function new_id()
+	function new_id($min = 3, $max = 6)
 	{
 		static $id_blacklist = NULL;
-
-		$id = random_alphanum(3,6);
 
 		if ($id_blacklist == NULL) {
 			$id_blacklist = scandir(FCPATH);
@@ -28,11 +26,19 @@ class Mfile extends CI_Model {
 			$id_blacklist[] = "user";
 		}
 
-		if ($this->id_exists($id) || in_array($id, $id_blacklist)) {
-			return $this->new_id();
-		} else {
+		$max_tries = 100;
+
+		for ($try = 0; $try < $max_tries; $try++) {
+			$id = random_alphanum($min, $max);
+
+			if ($this->id_exists($id) || in_array($id, $id_blacklist)) {
+				continue;
+			}
+
 			return $id;
 		}
+
+		show_error("Failed to find unused ID after $max_tries tries.");
 	}
 
 	function id_exists($id)
