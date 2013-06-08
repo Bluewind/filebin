@@ -353,6 +353,16 @@ class File extends CI_Controller {
 
 		$this->data['username'] = $this->muser->get_username();
 
+		$repaste_id = $this->input->get("repaste");
+
+		if ($repaste_id) {
+			$filedata = $this->mfile->get_filedata($repaste_id);
+
+			if ($filedata !== false && $this->mfile->can_highlight($filedata["mimetype"])) {
+				$this->data["textarea_content"] = file_get_contents($this->mfile->file($filedata["hash"]));
+			}
+		}
+
 		$this->load->view('header', $this->data);
 		$this->load->view($this->var->view_dir.'/upload_form', $this->data);
 		if (is_cli_client()) {

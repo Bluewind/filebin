@@ -72,6 +72,8 @@ include(FCPATH."application/views/header.php"); ?>
 							</div>
 						</div>
 					</li>
+					<li class="divider-vertical"></li>
+					<li><a href="<?php echo site_url('file/index?repaste='.$id); ?>" role="button">Repaste</a></li>
 				</ul>
 				<div class="btn-group pull-right" style="margin-top: 7px; margin-right:-10px;">
 					<a id="linewrap" class="btn btn-small" rel="tooltip" title="Toggle wrapping of long lines">Linewrap</a>
