@@ -46,15 +46,6 @@ function fixedEncodeURIComponent (str) {
 			$('.delete-history').prop('checked', $(this).is(':checked'));
 		});
 
-		$('.modal').on('shown', function(e) {
-			var modal = $(this);
-
-			modal.css('margin-top', (modal.outerHeight() / 2) * -1)
-			.css('margin-left', (modal.outerWidth() / 2) * -1);
-
-		return this;
-		});
-
 		window.lines_wrapped = true;
 		$('#linewrap').click(function() {
 			if (window.lines_wrapped == true) {

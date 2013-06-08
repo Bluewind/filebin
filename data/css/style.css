@@ -151,6 +151,11 @@ code, pre, textarea {
 	display: none;
 }
 
+.ui-autocomplete {
+	z-index: 1500;
+}
+
+
 /* highlighting theme */
 .hll { background-color: #ffffcc }
 .c { color: #999988; font-style: italic } /* Comment */
