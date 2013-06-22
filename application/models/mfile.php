@@ -244,7 +244,7 @@ class Mfile extends CI_Model {
 		return $lexers;
 	}
 
-	function should_highlight($type)
+	public function should_highlight($type)
 	{
 		if ($this->mime2lexer($type)) return true;
 
@@ -252,7 +252,7 @@ class Mfile extends CI_Model {
 	}
 
 	// Allow certain types to be highlight without doing it automatically
-	function can_highlight($type)
+	public function can_highlight($type)
 	{
 		$typearray = array(
 			'image/svg+xml',
@@ -265,8 +265,12 @@ class Mfile extends CI_Model {
 	}
 
 	// Return the lexer that should be used for highlighting
-	function autodetect_lexer($type, $filename)
+	public function autodetect_lexer($type, $filename)
 	{
+		if (!$this->can_highlight($type)) {
+			return false;
+		}
+
 		$lexer = $this->mime2lexer($type);
 
 		// filename lexers overwrite mime type mappings
@@ -351,11 +355,23 @@ class Mfile extends CI_Model {
 		);
 		if (array_key_exists($name, $namearray)) return $namearray[$name];
 
+
+		if (strpos($name, ".") !== false) {
+			$extension = substr($name, strrpos($name, ".") + 1);
+
+			$extensionarray = array(
+				'ml' => 'ocaml',
+				'tcl' => 'tcl',
+				'tex' => 'tex',
+			);
+			if (array_key_exists($extension, $extensionarray)) return $extensionarray[$extension];
+		}
+
 		return false;
 	}
 
 	// Handle lexer aliases
-	function resolve_lexer_alias($alias)
+	public function resolve_lexer_alias($alias)
 	{
 		if ($alias === false) return false;
 		$aliasarray = array(
