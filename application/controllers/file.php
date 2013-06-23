@@ -572,22 +572,30 @@ class File extends CI_Controller {
 		// First error wins and is displayed, these shouldn't happen that often anyway.
 		foreach ($files as $key => $file) {
 			// getNormalizedFILES() removes any file with error == 4
-			if ($file['error'] !== 0) {
+			if ($file['error'] !== UPLOAD_ERR_OK) {
 				$this->output->set_status_header(400);
+				$message = "";
+
+				// ERR_OK only for completeness, if above ignores it
 				$errors = array(
-					0=>"There is no error, the file uploaded with success",
-					1=>"The uploaded file exceeds the upload_max_filesize directive in php.ini",
-					2=>"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form",
-					3=>"The uploaded file was only partially uploaded",
-					4=>"No file was uploaded",
-					6=>"Missing a temporary folder"
+					UPLOAD_ERR_OK => "There is no error, the file uploaded with success",
+					UPLOAD_ERR_INI_SIZE => "The uploaded file exceeds the upload_max_filesize directive in php.ini",
+					UPLOAD_ERR_FORM_SIZE => "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form",
+					UPLOAD_ERR_PARTIAL => "The uploaded file was only partially uploaded",
+					UPLOAD_ERR_NO_FILE => "No file was uploaded",
+					UPLOAD_ERR_NO_TMP_DIR => "Missing a temporary folder",
+					UPLOAD_ERR_CANT_WRITE => "Failed to write file to disk",
+					UPLOAD_ERR_EXTENSION => "A PHP extension stopped the file upload",
 				);
 
 				$this->data["msg"] = "Unknown error.";
 
-				if (isset($file)) {
+				if (isset($errors[$file['error']])) {
 					$this->data["msg"] = $errors[$file['error']];
+				} else {
+					$this->data["msg"] = "Unknown error code: ".$file['error'].". Please report a bug.";
 				}
+
 				$this->load->view('header', $this->data);
 				$this->load->view($this->var->view_dir.'/upload_error', $this->data);
 				$this->load->view('footer');
