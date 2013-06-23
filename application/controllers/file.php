@@ -574,7 +574,6 @@ class File extends CI_Controller {
 			// getNormalizedFILES() removes any file with error == 4
 			if ($file['error'] !== UPLOAD_ERR_OK) {
 				$this->output->set_status_header(400);
-				$message = "";
 
 				// ERR_OK only for completeness, if above ignores it
 				$errors = array(
