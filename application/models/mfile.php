@@ -360,6 +360,7 @@ class Mfile extends CI_Model {
 			$extension = substr($name, strrpos($name, ".") + 1);
 
 			$extensionarray = array(
+				'coffee' => 'coffee-script',
 				'mli' => 'ocaml',
 				'mll' => 'ocaml',
 				'ml' => 'ocaml',
