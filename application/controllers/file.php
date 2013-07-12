@@ -575,7 +575,7 @@ class File extends CI_Controller {
 			if ($file['error'] !== UPLOAD_ERR_OK) {
 				$this->output->set_status_header(400);
 
-				// ERR_OK only for completeness, if above ignores it
+				// ERR_OK only for completeness, condition above ignores it
 				$errors = array(
 					UPLOAD_ERR_OK => "There is no error, the file uploaded with success",
 					UPLOAD_ERR_INI_SIZE => "The uploaded file exceeds the upload_max_filesize directive in php.ini",
