@@ -32,6 +32,12 @@ function fixedEncodeURIComponent (str) {
 			}
 		});
 
+		$(document).on("keyup", "#language", function(event) {
+			if (event.keyCode == 13) {
+				window.location = window.paste_base + '/' + fixedEncodeURIComponent($(this).val());
+			}
+		});
+
 		$('#language-toggle').click(function() {
 			setTimeout(function() {
 				$('#language').focus();
