@@ -1,1 +1,3 @@
-Momentan eingeloggt als "<?php echo $username; ?>".<br />
+<ul class="nav">
+<?php include "nav.php"; ?>
+</ul>

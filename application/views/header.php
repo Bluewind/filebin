@@ -56,9 +56,14 @@ if (is_cli_client() && !isset($force_full_html)) {
 						<?php if(isset($username) && $username) { ?>
 							<li><a href="<?php echo site_url("file/index") ?>"><i class="icon-pencil icon-white"></i> New</a></li>
 							<li><a href="<?php echo site_url("file/upload_history") ?>"><i class="icon-book icon-white"></i> History</a></li>
-							<?php if(auth_driver_function_implemented("can_register_new_users")) { ?>
-								<li><a href="<?php echo site_url("user/invite") ?>"><i class="icon-plus icon-white"></i> Invite</a></li>
-							<?php } ?>
+							<li class="dropdown">
+								<a href="<?php echo site_url("user/index"); ?>" class="dropdown-toggle" data-toggle="dropdown">
+									<i class="icon-user icon-white"></i> Account <b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu">
+									<?php include "user/nav.php"; ?>
+								</ul>
+							</li>
 						<?php } ?>
 					</ul>
 			</div>
