@@ -317,6 +317,65 @@ class User extends CI_Controller {
 		$this->load->view('footer', $this->data);
 	}
 
+	function profile()
+	{
+		$this->muser->require_access();
+
+		$this->data["profile_data"] = $this->muser->get_profile_data();
+
+		$this->load->view('header', $this->data);
+		$this->load->view($this->var->view_dir.'profile', $this->data);
+		$this->load->view('footer', $this->data);
+	}
+
+	function save_profile()
+	{
+		$this->muser->require_access();
+
+		/*
+		 * Key = name of the form field
+		 * Value = function that sanatizes the value and returns it
+		 * TODO: some kind of error handling that doesn't loose correctly filled out fields
+		 */
+		$value_processor = array();
+
+		$value_processor["upload_id_limits"] = function($value) {
+			$values = explode("-", $value);
+
+			if (!is_array($values) || count($values) != 2) {
+				show_error("Invalid upload id limit value");
+			}
+
+			$lower = intval($values[0]);
+			$upper = intval($values[1]);
+
+			if ($lower > $upper) {
+				show_error("lower limit > upper limit");
+			}
+
+			if ($lower < 3 || $upper > 64) {
+				show_error("upper or lower limit out of bounds (3-64)");
+			}
+
+			return $lower."-".$upper;
+		};
+
+		$data = array();
+		foreach (array_keys($value_processor) as $field) {
+			$value = $this->input->post($field);
+
+			if ($value !== false) {
+				$data[$field] = $value_processor[$field]($value);
+			}
+		}
+
+		if (!empty($data)) {
+			$this->muser->update_profile($data);
+		}
+
+		redirect("user/profile");
+	}
+
 	function logout()
 	{
 		$this->muser->logout();

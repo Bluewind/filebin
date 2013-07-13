@@ -542,7 +542,8 @@ class File extends CI_Controller {
 			return;
 		}
 
-		$id = $this->mfile->new_id();
+		$limits = $this->muser->get_upload_id_limits();
+		$id = $this->mfile->new_id($limits[0], $limits[1]);
 		$hash = md5($content);
 
 		$folder = $this->mfile->folder($hash);
@@ -612,7 +613,8 @@ class File extends CI_Controller {
 		}
 
 		foreach ($files as $key => $file) {
-			$id = $this->mfile->new_id();
+			$limits = $this->muser->get_upload_id_limits();
+			$id = $this->mfile->new_id($limits[0], $limits[1]);
 			$hash = md5_file($file['tmp_name']);
 
 			// work around a curl bug and allow the client to send the real filename base64 encoded

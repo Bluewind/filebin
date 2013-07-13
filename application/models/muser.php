@@ -8,6 +8,9 @@
  */
 
 class Muser extends CI_Model {
+
+	private $default_upload_id_limits = "3-6";
+
 	function __construct()
 	{
 		parent::__construct();
@@ -155,6 +158,62 @@ class Muser extends CI_Model {
 		}
 
 		return $query;
+	}
+
+	public function get_profile_data()
+	{
+		$userid = $this->get_userid();
+
+		$fields = array(
+			"user" => $userid,
+			"upload_id_limits" => $this->default_upload_id_limits,
+		);
+
+		$query = $this->db->query("
+			SELECT ".implode(", ", array_keys($fields))."
+			FROM `profiles`
+			WHERE user = ?
+			", array($userid))->row_array();
+
+		$extra_fields = array(
+			"username" => $this->get_username(),
+			"email" => $this->get_email($userid),
+		);
+
+		return array_merge($fields, $query, $extra_fields);
+	}
+
+	public function update_profile($data)
+	{
+		assert(is_array($data));
+
+		$data["user"] = $this->get_userid();
+
+		$exists_in_db = $this->db->get_where("profiles", array("user" => $data["user"]))->num_rows() > 0;
+
+		if ($exists_in_db) {
+			$this->db->where("user", $data["user"]);
+			$this->db->update("profiles", $data);
+		} else {
+			$this->db->insert("profiles", $data);
+		}
+	}
+
+	public function get_upload_id_limits()
+	{
+		$userid = $this->get_userid();
+
+		$query = $this->db->query("
+			SELECT upload_id_limits
+			FROM `profiles`
+			WHERE user = ?
+			", array($userid))->row_array();
+
+		if (empty($query)) {
+			return $this->default_upload_id_limits;
+		}
+
+		return explode("-", $query["upload_id_limits"]);
 	}
 
 	function hash_password($password)
