@@ -3,24 +3,39 @@
 	echo implode("<br />\n", $error);
 	echo "</p>";
 } ?>
-<?php echo form_open('user/register/'.$key); ?>
-	<table>
-		<tr>
-			<td>Username</td>
-			<td> <input type="text" name="username" value="<?php echo $values["username"]; ?>" /></td>
-		</tr><tr>
-			<td>Email</td>
-			<td> <input type="text" name="email" value="<?php echo $values["email"]; ?>" /></td>
-		</tr><tr>
-			<td>Password</td>
-			<td> <input type="password" name="password" /></td>
-		</tr><tr>
-			<td>Confirm password</td>
-			<td> <input type="password" name="password_confirm" /></td>
-		</tr><tr>
-			<td></td>
-			<td><input type="submit" value="Register" name="process" /></td>
-		</tr>
-	</table>
+<?php echo form_open('user/register/'.$key, array("class" => "form-horizontal")); ?>
+	<div class="control-group">
+		<label class="control-label" for="inputUsername">Username</label>
+		<div class="controls">
+			<input type="text" id="inputUsername" name="username" placeholder="Username" value="<?php echo $values["username"]; ?>">
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label" for="inputEmail">Email</label>
+		<div class="controls">
+			<input type="text" id="inputEmail" name="email" placeholder="Email" value="<?php echo $values["email"]; ?>">
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label" for="inputPassword">Password</label>
+		<div class="controls">
+			<input type="password" id="inputPassword" name="password" placeholder="Password">
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label" for="inputPassword">Confirm password</label>
+		<div class="controls">
+			<input type="password" id="inputPasswordConfirm" name="password_confirm" placeholder="Password confirmation">
+		</div>
+	</div>
+
+	<div class="control-group">
+		<div class="controls">
+			<button type="submit" class="btn btn-primary" name="process">Register</button>
+		</div>
+	</div>
 </form>
 

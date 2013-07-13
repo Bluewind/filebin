@@ -138,7 +138,7 @@ class User extends CI_Controller {
 
 		$referrer = $query["user"];
 
-		if ($process) {
+		if ($process !== false) {
 			$username = $this->input->post("username");
 			$email = $this->input->post("email");
 			$password = $this->input->post("password");
@@ -390,7 +390,7 @@ class User extends CI_Controller {
 		$this->data["hash"] = false;
 		$this->data["password"] = $password;
 
-		if ($process) {
+		if ($process !== false) {
 			if (!$password || $password != $password_confirm) {
 				$error[]= "No password or passwords don't match.";
 			} else {
