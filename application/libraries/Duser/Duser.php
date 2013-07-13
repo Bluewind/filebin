@@ -92,4 +92,11 @@ class Duser extends CI_Driver_Library {
 
 		return $this->{$this->_adapter}->username_exists($username);
 	}
+
+	public function get_email($userid)
+	{
+		$this->require_implemented(__FUNCTION__);
+
+		return $this->{$this->_adapter}->get_email($userid);
+	}
 }

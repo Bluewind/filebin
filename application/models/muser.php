@@ -108,6 +108,15 @@ class Muser extends CI_Model {
 		return $this->session->userdata("userid");
 	}
 
+	function get_email($userid)
+	{
+		if (!$this->duser->is_implemented("get_email")) {
+			return false;
+		}
+
+		return $this->duser->get_email($userid);
+	}
+
 	function require_access()
 	{
 		if ($this->logged_in()) {

@@ -12,7 +12,8 @@ class Duser_db extends Duser_Driver {
 	public $optional_functions = array(
 		'username_exists',
 		'can_reset_password',
-		'can_register_new_users'
+		'can_register_new_users',
+		'get_email',
 	);
 
 	public function login($username, $password)
@@ -58,6 +59,23 @@ class Duser_db extends Duser_Driver {
 		} else {
 			return false;
 		}
+	}
+
+	public function get_email($userid)
+	{
+		$CI =& get_instance();
+
+		$query = $CI->db->query("
+			SELECT email
+			FROM users
+			WHERE id = ?
+			", array($userid))->row_array();
+
+		if (empty($query)) {
+			show_error("Failed to get email address from db");
+		}
+
+		return $query["email"];
 	}
 
 }
