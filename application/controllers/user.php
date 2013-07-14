@@ -321,6 +321,10 @@ class User extends CI_Controller {
 	{
 		$this->muser->require_access();
 
+		if ($this->input->post("process") !== false) {
+			$this->_save_profile();
+		}
+
 		$this->data["profile_data"] = $this->muser->get_profile_data();
 
 		$this->load->view('header', $this->data);
@@ -328,7 +332,7 @@ class User extends CI_Controller {
 		$this->load->view('footer', $this->data);
 	}
 
-	function save_profile()
+	private function _save_profile()
 	{
 		$this->muser->require_access();
 
@@ -373,7 +377,12 @@ class User extends CI_Controller {
 			$this->muser->update_profile($data);
 		}
 
-		redirect("user/profile");
+		$this->data["alerts"][] = array(
+			"type" => "success",
+			"message" => "Changes saved",
+		);
+
+		return true;
 	}
 
 	function logout()

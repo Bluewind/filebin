@@ -71,3 +71,14 @@ if (is_cli_client() && !isset($force_full_html)) {
 	</div>
 
 	<div class="container">
+	<?php
+	if (isset($alerts)) {
+		foreach ($alerts as $alert) { ?>
+			<div class="alert alert-block alert-<?php echo $alert["type"]; ?>" style="text-align: center">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<?php echo $alert["message"]; ?>
+			</div>
+			<?php
+		}
+	}
+	?>

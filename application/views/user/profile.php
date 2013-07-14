@@ -1,4 +1,4 @@
-<?php echo form_open("user/save_profile", array("class" => "form-horizontal")); ?>
+<?php echo form_open("user/profile", array("class" => "form-horizontal")); ?>
 
 	<div class="control-group">
 		<label class="control-label" for="inputUsername">Username</label>
@@ -29,5 +29,4 @@
 			<button type="submit" class="btn btn-primary" name="process">Save changes</button>
 		</div>
 	</div>
-
 </form>
