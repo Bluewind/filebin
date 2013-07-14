@@ -20,7 +20,7 @@
 
 	<div class="control-group">
 		<div class="controls">
-			<button type="submit" class="btn btn-primary" name="process">Send mail</button>
+			<button type="submit" class="btn btn-primary" name="process">Change password</button>
 		</div>
 	</div>
 </form>
