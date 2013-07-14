@@ -210,7 +210,7 @@ class Muser extends CI_Model {
 			", array($userid))->row_array();
 
 		if (empty($query)) {
-			return $this->default_upload_id_limits;
+			return explode("-", $this->default_upload_id_limits);
 		}
 
 		return explode("-", $query["upload_id_limits"]);
