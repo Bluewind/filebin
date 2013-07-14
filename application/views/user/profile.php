@@ -26,7 +26,7 @@
 
 	<div class="control-group">
 		<div class="controls">
-			<button type="submit" class="btn btn-primary" name="process">Update</button>
+			<button type="submit" class="btn btn-primary" name="process">Save changes</button>
 		</div>
 	</div>
 
