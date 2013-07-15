@@ -41,6 +41,18 @@ class User extends CI_Controller {
 		$this->load->view('footer', $this->data);
 	}
 
+	function test_login()
+	{
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+
+		if ($this->muser->login($username, $password)) {
+			$this->output->set_status_header(204);
+		} else {
+			$this->output->set_status_header(401);
+		}
+	}
+
 	function login()
 	{
 		$this->muser->require_session();

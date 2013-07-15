@@ -37,6 +37,7 @@ class Muser extends CI_Model {
 			if ($username !== false && $password !== false) {
 				if (!$this->login($username, $password)) {
 					// TODO: better message
+					$this->output->set_status_header(401);
 					echo "login failed.\n";
 					exit;
 				}
