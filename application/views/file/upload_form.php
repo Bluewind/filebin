@@ -74,8 +74,5 @@
 		<?php if(auth_driver_function_implemented("can_register_new_users")) { ?>
 			<p>If you believe you deserve an account, ask someone who is already using this service to <a href="<?php echo site_url("user/invite"); ?>">invite</a> you.</p>
 		<?php } ?>
-		<?php if(isset($contact_me_url) && $contact_me_url) { ?>
-			<p>If you experience any problems feel free to <a href="<?php echo $contact_me_url; ?>">contact me</a>.</p>
-		<?php } ?>
 	</div>
 </div>

@@ -24,6 +24,8 @@ if (is_cli_client() && !isset($force_full_html)) {
 </head>
 
 <body>
+<div id="wrap">
+<div id="navbar-height"></div>
 <?php if (file_exists(FCPATH."data/local/header.inc.php")) {
 	include FCPATH."data/local/header.inc.php";
 }?>

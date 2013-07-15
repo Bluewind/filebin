@@ -349,7 +349,6 @@ class File extends CI_Controller {
 		$this->data['small_upload_size'] = $this->config->item('small_upload_size');
 		$this->data['max_upload_size'] = $this->config->item('upload_max_size');
 		$this->data['upload_max_age'] = $this->config->item('upload_max_age')/60/60/24;
-		$this->data['contact_me_url'] = $this->config->item('contact_me_url');
 
 		$this->data['username'] = $this->muser->get_username();
 
@@ -679,6 +678,20 @@ class File extends CI_Controller {
 		$this->session->unset_userdata("last_upload");
 
 		$this->_show_url($ids, $last_upload["lexer"]);
+	}
+
+	function contact()
+	{
+		$file = FCPATH."data/local/contact-info.php";
+		if (file_exists($file)) {
+			$this->data["contact_info"] = file_get_contents($file);
+		} else {
+			$this->data["contact_info"] = '<p>Contact info not available.</p>';
+		}
+
+		$this->load->view('header', $this->data);
+		$this->load->view('contact', $this->data);
+		$this->load->view('footer', $this->data);
 	}
 
 	/* Functions below this comment can only be run via the CLI

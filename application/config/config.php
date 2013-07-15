@@ -380,8 +380,6 @@ $config['actions_max_age'] = 60*60*24*5; // 5 days
 // won't be deleted
 $config['small_upload_size'] = 1024*10; // 10KB
 
-$config['contact_me_url'] = ''; // ommiting this will remove the "contact me" line.
-
 // for possible drivers look into ./application/libraries/Duser/drivers/
 $config['authentication_driver'] = 'db';
 

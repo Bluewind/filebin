@@ -4,10 +4,6 @@
 	margin-top: -20px;
 }
 
-body {
-	padding-bottom: 30px;
-}
-
 @media (max-width: 767px) {
 	.navbar-static-top {
 		margin-left: 0;
@@ -16,8 +12,8 @@ body {
 }
 
 @media (min-width: 980px) {
-	body {
-		padding-top: 60px;
+	#navbar-height {
+		height: 60px;
 	}
 
 	.anchor {
@@ -64,6 +60,64 @@ code, pre, textarea {
 .content {
 	width: 100%;
 	background: #fff;
+}
+
+/* Sticky footer styles
+ * Source: http://twitter.github.io/bootstrap/examples/sticky-footer.html
+-------------------------------------------------- */
+.footer {
+	background-color: #f5f5f5;
+	border-top: 1px solid #e5e5e5;
+	/*padding: 30px 0;*/
+	/*margin-top: 70px;*/
+	text-align: center;
+}
+
+
+html,
+body {
+	height: 100%;
+	/* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	/* Negative indent footer by it's height */
+	margin: 0 auto -131px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+	height: 130px;
+}
+
+/* Set to footer height + 70px "padding" */
+#push {
+	height: 200px;
+}
+
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+	#footer {
+		margin-left: -20px;
+		margin-right: -20px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+}
+
+.footer-links {
+	margin: 10px 0;
+}
+.footer-links li {
+	display: inline;
+	padding: 0 2px;
+}
+.footer-links li:first-child {
+	padding-left: 0;
 }
 
 .paste-container {
