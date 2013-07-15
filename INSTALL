@@ -17,6 +17,7 @@
 
 * Add ./crontab or something similar to the user's crontab
 
+* Copy ./data/local/examples/contact-info.php to ./data/local/ and edit it
 
 # Generate the first user
 
