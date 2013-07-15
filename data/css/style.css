@@ -98,9 +98,8 @@ code, pre, textarea {
 }
 
 .code pre a.linenumber {
-	padding: 0 6px; /* space after numbers */
+	padding: 0 6px 0 16px;
 	text-align: right;
-
 	background: #ececec;
 	border-right: 1px solid #ddd;
 	text-align: right;
@@ -119,6 +118,7 @@ code, pre, textarea {
 
 .code pre .table-row .line {
 	padding-left: 10px;
+	width: 100%
 }
 
 .content .highlight > pre {
