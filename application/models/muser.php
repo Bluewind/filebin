@@ -21,28 +21,6 @@ class Muser extends CI_Model {
 
 		$this->load->helper("filebin");
 		$this->load->driver("duser");
-
-		if (is_cli_client()) {
-			$username = $this->input->post("username");
-			$password = $this->input->post("password");
-
-			// prefer post parameters if either (username or password) is set
-			if ($username === false && $password === false) {
-				if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
-					$username = $_SERVER['PHP_AUTH_USER'];
-					$password = $_SERVER['PHP_AUTH_PW'];
-				}
-			}
-
-			if ($username !== false && $password !== false) {
-				if (!$this->login($username, $password)) {
-					// TODO: better message
-					$this->output->set_status_header(401);
-					echo "login failed.\n";
-					exit;
-				}
-			}
-		}
 	}
 
 	function has_session()
@@ -85,6 +63,31 @@ class Muser extends CI_Model {
 		return $this->duser->login($username, $password);
 	}
 
+	private function login_cli_client()
+	{
+		$username = $this->input->post("username");
+		$password = $this->input->post("password");
+
+		// prefer post parameters if either (username or password) is set
+		if ($username === false && $password === false) {
+			if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
+				$username = $_SERVER['PHP_AUTH_USER'];
+				$password = $_SERVER['PHP_AUTH_PW'];
+			}
+		}
+
+		if ($username !== false && $password !== false) {
+			if ($this->login($username, $password)) {
+				return true;
+			} else {
+				// TODO: better message
+				$this->output->set_status_header(401);
+				echo "login failed.\n";
+				exit;
+			}
+		}
+	}
+
 	function logout()
 	{
 		$this->require_session();
@@ -125,18 +128,24 @@ class Muser extends CI_Model {
 	{
 		if ($this->logged_in()) {
 			return true;
-		} else {
-			if (is_cli_client()) {
-				echo "FileBin requires you to have an account, please go to the homepage for more information.\n";
-				exit();
-			} else {
-				$this->require_session();
-				if (!$this->session->userdata("flash:new:uri")) {
-					$this->session->set_flashdata("uri", $this->uri->uri_string());
-				}
-				redirect('user/login');
-			}
 		}
+
+		// handle cli clients
+		if (is_cli_client()) {
+			if ($this->login_cli_client()) {
+				return true;
+			}
+
+			echo "FileBin requires you to have an account, please go to the homepage for more information.\n";
+			exit();
+		}
+
+		// desktop clients get redirected to the login form
+		$this->require_session();
+		if (!$this->session->userdata("flash:new:uri")) {
+			$this->session->set_flashdata("uri", $this->uri->uri_string());
+		}
+		redirect('user/login');
 		exit();
 	}
 

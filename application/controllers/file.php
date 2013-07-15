@@ -521,6 +521,11 @@ class File extends CI_Controller {
 	// Handle pastes
 	function do_paste()
 	{
+		// desktop clients get a cookie to claim the ID later
+		if (is_cli_client()) {
+			$this->muser->require_access();
+		}
+
 		$content = $this->input->post("content");
 		$filesize = strlen($content);
 		$filename = "stdin";
@@ -559,6 +564,11 @@ class File extends CI_Controller {
 	// Handles uploaded files
 	function do_upload()
 	{
+		// desktop clients get a cookie to claim the ID later
+		if (is_cli_client()) {
+			$this->muser->require_access();
+		}
+
 		$ids = array();
 
 		$extension = $this->input->post('extension');
