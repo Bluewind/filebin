@@ -86,17 +86,24 @@ body {
 	height: auto !important;
 	height: 100%;
 	/* Negative indent footer by it's height */
-	margin: 0 auto -131px;
+	margin: 0 auto -81px;
 }
 
 /* Set the fixed height of the footer here */
 #footer {
-	height: 130px;
+	height: 50px;
+	font-size: 12px;
+	padding: 15px 0;
+}
+
+#footer,
+#footer li {
+	line-height: 12px;
 }
 
 /* Set to footer height + 70px "padding" */
 #push {
-	height: 200px;
+	height: 120px;
 }
 
 /* Lastly, apply responsive CSS fixes as necessary */
@@ -109,8 +116,9 @@ body {
 	}
 }
 
+#footer p,
 .footer-links {
-	margin: 10px 0;
+	margin: 4px 0;
 }
 .footer-links li {
 	display: inline;

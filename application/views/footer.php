@@ -7,8 +7,7 @@ if (is_cli_client() && !isset($force_full_html)) {
 <div id="push"></div>
 </div>
 <footer class="footer" id="footer">
-	<div class="container">
-		<p class="muted credits">
+	<div class="container muted credits">
 			<p>Site code licensed under <a href="http://www.gnu.org/licenses/agpl-3.0.html" target="_blank">AGPL v3</a>.</p>
 			<p><a href="http://glyphicons.com">Glyphicons Free</a> licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
 			<ul class="footer-links">
@@ -16,7 +15,6 @@ if (is_cli_client() && !isset($force_full_html)) {
 				<li class="muted">&middot;</li>
 				<li><a href="<?php echo site_url("file/contact"); ?>">Contact</a></li>
 			</ul>
-		</p>
 	</div>
 </footer>
 <?php echo include_js("/data/js/jquery-2.0.2.min.js"); ?>
