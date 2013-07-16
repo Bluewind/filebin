@@ -142,6 +142,9 @@ class Mfile extends CI_Model {
 			return false;
 		}
 
+		// 0 age disables age checks
+		if ($this->config->item('upload_max_age') == 0) return true;
+
 		// small files don't expire
 		if (filesize($file) <= $this->config->item("small_upload_size")) {
 			return true;

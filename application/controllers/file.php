@@ -703,6 +703,7 @@ class File extends CI_Controller {
 	{
 		if (!$this->input->is_cli_request()) return;
 
+		// 0 age disables age checks
 		if ($this->config->item('upload_max_age') == 0) return;
 
 		$oldest_time = (time() - $this->config->item('upload_max_age'));
