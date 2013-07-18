@@ -415,6 +415,10 @@ class File extends CI_Controller {
 				ORDER BY date $order
 				", array($user))->result_array();
 
+			if ($this->input->get("json") !== false) {
+				return send_json_reply($query);
+			}
+
 			foreach($query as $key => $item) {
 				$query[$key]["filesize"] = format_bytes($item["filesize"]);
 				if (is_cli_client()) {

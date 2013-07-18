@@ -323,4 +323,11 @@ function auth_driver_function_implemented($function)
 	return $result[$function];
 }
 
+function send_json_reply($array)
+{
+	$CI =& get_instance();
+	$CI->output->set_content_type('application/json');
+	$CI->output->set_output(json_encode($array));
+}
+
 # vim: set noet:
