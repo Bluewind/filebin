@@ -195,9 +195,12 @@ class File extends CI_Controller {
 				Falling back to plain text.</p>";
 		}
 
-		$this->load->view($this->var->view_dir.'/html_header', $this->data);
-		$this->output->append_output($cached["output"]);
-		$this->load->view($this->var->view_dir.'/html_footer', $this->data);
+		// Don't use append_output because the output class does too
+		// much magic ({elapsed_time} and {memory_usage}).
+		// Direct echo puts us on the safe side.
+		echo $this->load->view($this->var->view_dir.'/html_header', $this->data, true);
+		echo $cached["output"];
+		echo $this->load->view($this->var->view_dir.'/html_footer', $this->data, true);
 	}
 
 	private function _pygmentize($file, $lexer)
