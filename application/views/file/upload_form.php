@@ -24,9 +24,13 @@
 		<div class="span6 alert alert-block alert-info">
 			<h4 class="alert-heading">Notice!</h4>
 			<p>
-				Uploads/pastes are deleted after <?php echo $upload_max_age; ?> days
-				<?php if($small_upload_size > 0) {
-					echo "unless they are smaller than ".format_bytes($small_upload_size);
+				Uploads/pastes are <?php if ($upload_max_age > 0) {
+					echo "deleted after ".$upload_max_age." days";
+					if ($small_upload_size > 0) {
+						echo " unless they are smaller than ".format_bytes($small_upload_size);
+					}
+				} else {
+					echo "stored forever";
 				} ?>. Maximum upload size is <?php echo format_bytes($max_upload_size); ?>.
 				You can upload a maximum of <?php echo ini_get("max_file_uploads"); ?> files at once.
 			</p>
