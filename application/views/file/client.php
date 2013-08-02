@@ -19,12 +19,16 @@ machine <?php echo $domain; ?> login my_username password my_secret_password
 	<code>man 1 fb</code> for further details.
 </p>
 
-<h2>Packages</h2>
-
+<h2>Linux</h2>
 <p>
 	Arch Linux: pacman -S fb-client<br />
 	Debian: <?php echo anchor($client_link_deb); ?><br />
 	Slackware: <?php echo anchor($client_link_slackware); ?>
+</p>
+
+<h2>OS X</h2>
+<p>
+	Get <a href="http://brew.sh">Homebrew</a> and run <code>brew install fb-client</code>.
 </p>
 
 <h1>Shell</h1>
