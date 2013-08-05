@@ -217,6 +217,27 @@ body {
 	z-index: 1500;
 }
 
+.popover {
+	word-break: break-word;
+	word-wrap: normal;
+}
+
+.upload_history_thumbnails {
+	margin: 0 auto;
+	padding-bottom: 50px;
+}
+
+.upload_history_thumbnails img.thumb,
+.upload_history_thumbnails a {
+	width: 150px;
+	height: 150px;
+}
+
+.upload_history_thumbnails a {
+	margin: 1px;
+	display: inline-block;
+}
+
 
 /* highlighting theme */
 .hll { background-color: #ffffcc }

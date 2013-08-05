@@ -1,4 +1,5 @@
 <?php register_js_include("/data/js/jquery.tablesorter.min.js"); ?>
+<?php include 'nav_history.php'; ?>
 <?php echo form_open("file/do_delete") ?>
     <table id="upload_history" class="table table-striped tablesorter">
         <thead>

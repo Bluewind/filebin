@@ -380,6 +380,68 @@ class File extends CI_Controller {
 		echo $this->config->item('upload_max_size');
 	}
 
+	function thumbnail()
+	{
+		$id = $this->uri->segment(3);
+
+		if (!$this->mfile->valid_id($id)) {
+			return $this->_non_existent();
+		}
+
+		$etag = "$id-thumb";
+		handle_etag($etag);
+
+		$thumb = $this->mfile->makeThumb($id, 150, IMAGETYPE_JPEG);
+
+		if ($thumb === false) {
+			show_error("Failed to generate thumbnail");
+		}
+
+		$filedata = $this->mfile->get_filedata($id);
+		if (!$filedata) {
+			show_error("Failed to get file data");
+		}
+
+		$this->output->set_header("Cache-Control:max-age=31536000, public");
+		$this->output->set_header("Expires: ".date("r", time() + 365 * 24 * 60 * 60));
+		$this->output->set_content_type("image/jpeg");
+		$this->output->set_output($thumb);
+	}
+
+	function upload_history_thumbnails()
+	{
+		$this->muser->require_access();
+
+		$user = $this->muser->get_userid();
+
+		$query = $this->db->query("
+			SELECT `id`, `filename`, `mimetype`, `date`, `hash`, `filesize`
+			FROM files
+			WHERE user = ?
+			AND mimetype IN ('image/jpeg', 'image/png', 'image/gif')
+			ORDER BY date ASC
+			", array($user))->result_array();
+
+		foreach($query as $key => $item) {
+			$filesize = format_bytes($item["filesize"]);
+			$dimensions = $this->mfile->image_dimension($this->mfile->file($item["hash"]));
+			$upload_date = date("r", $item["date"]);
+
+			$query[$key]["filesize"] = $filesize;
+			$query[$key]["tooltip"] = "
+				${item["id"]} - $filesize<br>
+				$upload_date
+				$dimensions - ${item["mimetype"]}<br>
+				";
+		}
+
+		$this->data["query"] = $query;
+
+		$this->load->view('header', $this->data);
+		$this->load->view($this->var->view_dir.'/upload_history_thumbnails', $this->data);
+		$this->load->view('footer', $this->data);
+	}
+
 	function upload_history()
 	{
 		$this->muser->require_access();

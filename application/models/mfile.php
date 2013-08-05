@@ -101,6 +101,118 @@ class Mfile extends CI_Model {
 		return $mimetype;
 	}
 
+	public function image_dimension($file)
+	{
+		list($width, $height) = getimagesize($file);
+
+		return "${width}x${height}";
+	}
+
+	/*
+	 * This returns a square thumbnail for the input image
+	 * Source: http://salman-w.blogspot.co.at/2009/04/crop-to-fit-image-using-aspphp.html
+	 */
+	public function makeThumb($id, $size = 150, $target_type = null)
+	{
+		$filedata = $this->get_filedata($id);
+		if (!$filedata) {
+			return false;
+		}
+
+		$source_path = $this->file($filedata["hash"]);
+
+		list($source_width, $source_height, $source_type) = getimagesize($source_path);
+
+		if ($target_type === null) {
+			$target_type = $source_type;
+		}
+
+		$target_width = $size;
+		$target_height = $size;
+
+		switch ($source_type) {
+			case IMAGETYPE_GIF:
+				$source_gdim = imagecreatefromgif($source_path);
+				break;
+			case IMAGETYPE_JPEG:
+				$source_gdim = imagecreatefromjpeg($source_path);
+				break;
+			case IMAGETYPE_PNG:
+				$source_gdim = imagecreatefrompng($source_path);
+				break;
+			default:
+				show_error("Unsupported image type");
+		}
+
+		$source_aspect_ratio = $source_width / $source_height;
+		$desired_aspect_ratio = $target_width / $target_height;
+
+		if ($source_aspect_ratio > $desired_aspect_ratio) {
+			// Triggered when source image is wider
+			$temp_height = $target_height;
+			$temp_width = round(($target_height * $source_aspect_ratio));
+		} else {
+			// Triggered otherwise (i.e. source image is similar or taller)
+			$temp_width = $target_width;
+			$temp_height = round(($target_width / $source_aspect_ratio));
+		}
+
+		/*
+		 * Resize the image into a temporary GD image
+		 */
+
+		$temp_gdim = imagecreatetruecolor($temp_width, $temp_height);
+		imagecopyresampled(
+			$temp_gdim,
+			$source_gdim,
+			0, 0,
+			0, 0,
+			$temp_width, $temp_height,
+			$source_width, $source_height
+		);
+
+		/*
+		 * Copy cropped region from temporary image into the desired GD image
+		 */
+
+		$x0 = ($temp_width - $target_width) / 2;
+		$y0 = ($temp_height - $target_height) / 2;
+		$thumb = imagecreatetruecolor($target_width, $target_height);
+		imagecopy(
+			$thumb,
+			$temp_gdim,
+			0, 0,
+			$x0, $y0,
+			$target_width, $target_height
+		);
+
+		ob_start();
+		switch ($target_type) {
+			case IMAGETYPE_GIF:
+				$ret = imagegif($thumb);
+				break;
+			case IMAGETYPE_JPEG:
+				$ret = imagejpeg($thumb);
+				break;
+			case IMAGETYPE_PNG:
+				$ret = imagepng($thumb);
+				break;
+			default:
+				assert(0);
+		}
+		$result = ob_get_clean();
+
+		if (!$ret) {
+			show_error("Failed to create thumbnail");
+		}
+
+		imagedestroy($thumb);
+		imagedestroy($temp_gdim);
+		imagedestroy($source_gdim);
+
+		return $result;
+	}
+
 	// Add a hash to the DB
 	function add_file($hash, $id, $filename)
 	{

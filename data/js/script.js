@@ -62,6 +62,22 @@ function fixedEncodeURIComponent (str) {
 			window.lines_wrapped = !window.lines_wrapped;
 		});
 
+		$('.upload_history_thumbnails a').popover({
+			trigger: "hover",
+			placement: "bottom",
+			html: true,
+		});
+
+		function handle_resize() {
+			var div = $('.upload_history_thumbnails');
+			div.width(div.parent().width() - (div.parent().width() % div.find('a').outerWidth(true)));
+		}
+
+		$(window).resize(function() {
+			handle_resize();
+		});
+		handle_resize();
+
 		// check file size before uploading if browser support html5
 		if (window.File && window.FileList) {
 			function checkFileUpload(evt) {
