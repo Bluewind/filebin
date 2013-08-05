@@ -419,7 +419,7 @@ class File extends CI_Controller {
 			FROM files
 			WHERE user = ?
 			AND mimetype IN ('image/jpeg', 'image/png', 'image/gif')
-			ORDER BY date ASC
+			ORDER BY date DESC
 			", array($user))->result_array();
 
 		foreach($query as $key => $item) {
