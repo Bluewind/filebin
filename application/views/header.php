@@ -20,7 +20,11 @@ if (is_cli_client() && !isset($force_full_html)) {
 		if (file_exists(FCPATH."data/local/style.css")) {
 			echo '<link href="'.link_with_mtime("/data/local/style.css").'" rel="stylesheet">';
 		}
-?>
+
+		if (file_exists(FCPATH."data/local/favicon.png")) {
+			echo '<link href="'.link_with_mtime("/data/local/favicon.png").'" rel="shortcut icon">';
+		}
+	?>
 </head>
 
 <body>
