@@ -68,6 +68,10 @@ include(FCPATH."application/views/header.php"); ?>
 								</table>
 							</div>
 							<div class="modal-footer">
+								<?php echo form_open("file/do_delete/", array("style" => "display: inline")); ?>
+									<input type="hidden" name="ids[<?php echo $id; ?>]" value="<?php echo $id; ?>">
+									<button class="btn btn-danger pull-left" aria-hidden="true">Delete</button>
+								</form>
 								<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 							</div>
 						</div>
