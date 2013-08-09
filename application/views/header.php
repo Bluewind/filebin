@@ -35,7 +35,14 @@ if (is_cli_client() && !isset($force_full_html)) {
 	<div class="navbar navbar-fixed-top navbar-inverse">
 		<div class="navbar-inner">
 			<div class="container">
-				<a class="brand" href="<?php echo site_url(); ?>">FileBin</a>
+				<a class="brand" href="<?php echo site_url(); ?>"><?php
+					if (file_exists(FCPATH."data/local/logo.svg")) {
+						echo '<img src="'.link_with_mtime("/data/local/logo.svg").'" style="height: 20px"> FileBin';
+					} else {
+						echo "FileBin";
+					}
+					?>
+				</a>
 				<?php if(!isset($GLOBALS["is_error_page"])) { ?>
 					<ul class="nav pull-right">
 						<?php if(isset($username) && $username) { ?>
