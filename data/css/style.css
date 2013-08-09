@@ -238,6 +238,14 @@ body {
 	display: inline-block;
 }
 
+.upload_history_thumbnails .marked {
+	background: red;
+}
+
+.upload_history_thumbnails .marked img {
+	opacity: 0.4;
+}
+
 
 /* highlighting theme */
 .hll { background-color: #ffffcc }

@@ -68,6 +68,41 @@ function fixedEncodeURIComponent (str) {
 			html: true,
 		});
 
+		$('#toggle_delete_mode').on("click", function() {
+			switch (window.page_mode) {
+				case "delete":
+					window.page_mode = "normal";
+					$('#delete_button').hide();
+					$("#delete_form input[id^='delete_']").remove();
+					$(".upload_history_thumbnails .marked").removeClass("marked");
+					break;
+				default:
+					window.page_mode = "delete";
+					$('#delete_button').show();
+					break;
+			}
+		});
+
+		$('.upload_history_thumbnails a').on("click", function(event) {
+			if (window.page_mode == "delete") {
+				event.preventDefault();
+				var data_id = $(event.target).parent().attr("data-id");
+
+				if ($('#delete_'+data_id).length == 0) {
+					$('<input>').attr({
+						type: "hidden",
+						name: "ids["+data_id+"]",
+						value: data_id,
+						id: "delete_"+data_id,
+					}).appendTo('#delete_form');
+					$(event.target).parent().addClass("marked");
+				} else {
+					$('#delete_'+data_id).remove();
+					$(event.target).parent().removeClass("marked");
+				}
+			}
+		});
+
 		function handle_resize() {
 			var div = $('.upload_history_thumbnails');
 			div.width(div.parent().width() - (div.parent().width() % div.find('a').outerWidth(true)));
