@@ -97,18 +97,15 @@ class Muser extends CI_Model {
 	{
 		$this->require_session();
 
-		// FIXME: get username/id from duser or move them to apikeys table
-		// (users is empty when using any other driver than duser_db)
 		$query = $this->db->query("
-			SELECT a.user userid, u.username
+			SELECT a.user userid
 			FROM apikeys a
-			JOIN users u on a.user = u.id
 			WHERE a.key = ?
 			", array($apikey))->row_array();
 
 		if (isset($query["userid"])) {
 			$this->session->set_userdata('logged_in', true);
-			$this->session->set_userdata('username', $query["username"]);
+			$this->session->set_userdata('username', "");
 			$this->session->set_userdata('userid', $query["userid"]);
 			$this->session->set_userdata('access_level', 'apikey');
 			return true;
