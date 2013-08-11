@@ -67,6 +67,14 @@ class Muser extends CI_Model {
 	{
 		$username = $this->input->post("username");
 		$password = $this->input->post("password");
+		$apikey = $this->input->post("apikey");
+
+		if ($apikey !== false) {
+			if ($this->apilogin(trim($apikey))) {
+				return true;
+			}
+			show_error("API key login failed", 401);
+		}
 
 		// prefer post parameters if either (username or password) is set
 		if ($username === false && $password === false) {
@@ -76,16 +84,34 @@ class Muser extends CI_Model {
 			}
 		}
 
-		if ($username !== false && $password !== false) {
+		if ($apikey === false && $username !== false && $password !== false) {
 			if ($this->login($username, $password)) {
 				return true;
 			} else {
-				// TODO: better message
-				$this->output->set_status_header(401);
-				echo "login failed.\n";
-				exit;
+				show_error("Login failed", 401);
 			}
 		}
+	}
+
+	function apilogin($apikey)
+	{
+		$this->require_session();
+
+		$query = $this->db->query("
+			SELECT a.user userid
+			FROM apikeys a
+			WHERE a.key = ?
+			", array($apikey))->row_array();
+
+		if (isset($query["userid"])) {
+			$this->session->set_userdata('logged_in', true);
+			$this->session->set_userdata('username', "");
+			$this->session->set_userdata('userid', $query["userid"]);
+			$this->session->set_userdata('access_level', 'apikey');
+			return true;
+		}
+
+		return false;
 	}
 
 	function logout()
@@ -124,16 +150,36 @@ class Muser extends CI_Model {
 		return $this->duser->get_email($userid);
 	}
 
-	function require_access()
+	private function check_access_level($wanted_level)
 	{
-		if ($this->logged_in()) {
+		$session_level = $this->session->userdata("access_level");
+
+		// last level has the most access
+		$levels = array("apikey", "full");
+
+		$wanted = array_search($wanted_level, $levels);
+		$have = array_search($session_level, $levels);
+
+		if ($wanted === false || $have === false) {
+			show_error("Failed to determine access level");
+		}
+
+		if ($have >= $wanted) {
 			return true;
 		}
 
-		// handle cli clients
+		show_error("Access denied", 403);
+	}
+
+	function require_access($wanted_level = "full")
+	{
+		if ($this->logged_in()) {
+			return $this->check_access_level($wanted_level);
+		}
+
 		if (is_cli_client()) {
 			if ($this->login_cli_client()) {
-				return true;
+				return $this->check_access_level($wanted_level);
 			}
 
 			echo "FileBin requires you to have an account, please go to the homepage for more information.\n";

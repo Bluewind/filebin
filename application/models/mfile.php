@@ -310,7 +310,7 @@ class Mfile extends CI_Model {
 
 	function delete_id($id)
 	{
-		$this->muser->require_access();
+		$this->muser->require_access("apikey");
 		$filedata = $this->get_filedata($id);
 		$userid = $this->muser->get_userid();
 

@@ -45,7 +45,7 @@ if (is_cli_client() && !isset($force_full_html)) {
 				</a>
 				<?php if(!isset($GLOBALS["is_error_page"])) { ?>
 					<ul class="nav pull-right">
-						<?php if(isset($username) && $username) { ?>
+						<?php if(user_logged_in()) { ?>
 							<li><a href="<?php echo site_url("/user/logout"); ?>">Logout</a></li>
 						<?php } else { ?>
 							<li class="dropdown">
@@ -65,7 +65,7 @@ if (is_cli_client() && !isset($force_full_html)) {
 					</ul>
 					<?php }; ?>
 					<ul class="nav">
-						<?php if(isset($username) && $username) { ?>
+						<?php if(user_logged_in()) { ?>
 							<li><a href="<?php echo site_url("file/index") ?>"><i class="icon-pencil icon-white"></i> New</a></li>
 							<li><a href="<?php echo site_url("file/upload_history") ?>"><i class="icon-book icon-white"></i> History</a></li>
 							<li class="dropdown">

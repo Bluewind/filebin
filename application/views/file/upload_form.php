@@ -1,4 +1,4 @@
-<?php if (isset($username) && $username) { ?>
+<?php if (user_logged_in()) { ?>
 <div class="well">
 	<div class="row-fluid">
 		<div class="span12 text-upload-form">
