@@ -448,77 +448,68 @@ class File extends CI_Controller {
 
 		$user = $this->muser->get_userid();
 
-		$this->load->library("MemcacheLibrary");
-		if (! $cached = $this->memcachelibrary->get("history_".$this->var->view_dir."_".$user)) {
-			$query = array();
-			$lengths = array();
+		$query = array();
+		$lengths = array();
 
-			// key: database field name; value: display name
-			$fields = array(
-				"id" => "ID",
-				"filename" => "Filename",
-				"mimetype" => "Mimetype",
-				"date" => "Date",
-				"hash" => "Hash",
-				"filesize" => "Size"
-			);
+		// key: database field name; value: display name
+		$fields = array(
+			"id" => "ID",
+			"filename" => "Filename",
+			"mimetype" => "Mimetype",
+			"date" => "Date",
+			"hash" => "Hash",
+			"filesize" => "Size"
+		);
 
-			$this->data['title'] .= ' - Upload history';
-			foreach($fields as $length_key => $value) {
-				$lengths[$length_key] = mb_strlen($value);
-			}
+		$this->data['title'] .= ' - Upload history';
+		foreach($fields as $length_key => $value) {
+			$lengths[$length_key] = mb_strlen($value);
+		}
 
-			$order = is_cli_client() ? "ASC" : "DESC";
+		$order = is_cli_client() ? "ASC" : "DESC";
 
-			$query = $this->db->query("
-				SELECT ".implode(",", array_keys($fields))."
-				FROM files
-				WHERE user = ?
-				ORDER BY date $order
-				", array($user))->result_array();
+		$query = $this->db->query("
+			SELECT ".implode(",", array_keys($fields))."
+			FROM files
+			WHERE user = ?
+			ORDER BY date $order
+			", array($user))->result_array();
 
-			if ($this->input->get("json") !== false) {
-				return send_json_reply($query);
-			}
+		if ($this->input->get("json") !== false) {
+			return send_json_reply($query);
+		}
 
-			foreach($query as $key => $item) {
-				$query[$key]["filesize"] = format_bytes($item["filesize"]);
-				if (is_cli_client()) {
-					// Keep track of longest string to pad plaintext output correctly
-					foreach($fields as $length_key => $value) {
-						$len = mb_strlen($query[$key][$length_key]);
-						if ($len > $lengths[$length_key]) {
-							$lengths[$length_key] = $len;
-						}
+		foreach($query as $key => $item) {
+			$query[$key]["filesize"] = format_bytes($item["filesize"]);
+			if (is_cli_client()) {
+				// Keep track of longest string to pad plaintext output correctly
+				foreach($fields as $length_key => $value) {
+					$len = mb_strlen($query[$key][$length_key]);
+					if ($len > $lengths[$length_key]) {
+						$lengths[$length_key] = $len;
 					}
 				}
 			}
-
-			$total_size = $this->db->query("
-				SELECT sum(filesize) sum
-				FROM (
-					SELECT filesize
-					FROM files
-					WHERE user = ?
-					GROUP BY hash
-				) sub
-				", array($user))->row_array();
-
-			$this->data["query"] = $query;
-			$this->data["lengths"] = $lengths;
-			$this->data["fields"] = $fields;
-			$this->data["total_size"] = format_bytes($total_size["sum"]);
-
-			$cached = "";
-			$cached .= $this->load->view('header', $this->data, true);
-			$cached .= $this->load->view($this->var->view_dir.'/upload_history', $this->data, true);
-			$cached .= $this->load->view('footer', $this->data, true);
-
-			// disable for now. reenable if it causes too much load
-			//$this->memcachelibrary->set('history_'.$this->var->view_dir."_".$user, $cached, 42);
 		}
 
-		echo $cached;
+		$total_size = $this->db->query("
+			SELECT sum(filesize) sum
+			FROM (
+				SELECT filesize
+				FROM files
+				WHERE user = ?
+				GROUP BY hash
+			) sub
+			", array($user))->row_array();
+
+		$this->data["query"] = $query;
+		$this->data["lengths"] = $lengths;
+		$this->data["fields"] = $fields;
+		$this->data["total_size"] = format_bytes($total_size["sum"]);
+
+		$this->load->view('header', $this->data);
+		$this->load->view($this->var->view_dir.'/upload_history', $this->data);
+		$this->load->view('footer', $this->data);
 	}
 
 	function do_delete()
