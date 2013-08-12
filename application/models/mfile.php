@@ -43,7 +43,7 @@ class Mfile extends CI_Model {
 
 	function id_exists($id)
 	{
-		if(!$id) {
+		if (!$id) {
 			return false;
 		}
 
@@ -314,7 +314,7 @@ class Mfile extends CI_Model {
 		$filedata = $this->get_filedata($id);
 		$userid = $this->muser->get_userid();
 
-		if(!$this->id_exists($id)) {
+		if (!$this->id_exists($id)) {
 			return false;
 		}
 
@@ -326,11 +326,11 @@ class Mfile extends CI_Model {
 			LIMIT 1';
 		$this->db->query($sql, array($id, $userid));
 
-		if($this->id_exists($id))  {
+		if ($this->id_exists($id))  {
 			return false;
 		}
 
-		if($this->unused_file($filedata['hash'])) {
+		if ($this->unused_file($filedata['hash'])) {
 			unlink($this->file($filedata['hash']));
 			@rmdir($this->folder($filedata['hash']));
 		}

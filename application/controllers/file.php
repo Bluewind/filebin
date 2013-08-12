@@ -36,7 +36,6 @@ class File extends CI_Controller {
 			$this->var->latest_client = trim(file_get_contents(FCPATH.'data/client/latest'));
 		}
 
-
 		if (is_cli_client()) {
 			$this->var->view_dir = "file_plaintext";
 		} else {
@@ -63,7 +62,7 @@ class File extends CI_Controller {
 		}
 		// Try to guess what the user would like to do.
 		$id = $this->uri->segment(1);
-		if(!empty($_FILES)) {
+		if (!empty($_FILES)) {
 			$this->do_upload();
 		} elseif ($id != "file" && $this->mfile->id_exists($id)) {
 			$this->_download();
@@ -331,7 +330,7 @@ class File extends CI_Controller {
 		$this->data['client_link_deb'] = base_url().'data/client/deb/';
 		$this->data['client_link_slackware'] = base_url().'data/client/slackware/';
 
-		if(preg_match('#^https?://(.*?)/.*$#', site_url(), $matches) === 1) {
+		if (preg_match('#^https?://(.*?)/.*$#', site_url(), $matches) === 1) {
 			$this->data["domain"] = $matches[1];
 		} else {
 			$this->data["domain"] = "unknown domain";
@@ -589,7 +588,7 @@ class File extends CI_Controller {
 		$filesize = strlen($content);
 		$filename = "stdin";
 
-		if(!$content) {
+		if (!$content) {
 			$this->output->set_status_header(400);
 			$this->data["msg"] = "Nothing was pasted, content is empty.";
 			$this->load->view('header', $this->data);
