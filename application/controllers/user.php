@@ -92,9 +92,8 @@ class User extends CI_Controller {
 		$comment = $this->input->post("comment");
 
 
-		if (strlen($comment) > 255 || !preg_match("/^[a-zA-Z0-9 -@,]*$/", $comment)) {
-			// display better error for
-			show_error("Comment invalid. Only 255 chars of a-zA-Z0-9, @, -, space and comma allowed");
+		if (strlen($comment) > 255) {
+			show_error("Comment may only be 255 chars long.");
 		}
 
 		$key = random_alphanum(32);

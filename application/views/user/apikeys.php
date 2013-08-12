@@ -15,7 +15,7 @@
 			<tr>
 				<td><?php echo $i++; ?></td>
 				<td><?php echo $item["key"]; ?></td>
-				<td><?php echo $item["comment"]; ?></td>
+				<td><?php echo htmlentities($item["comment"]); ?></td>
 				<td><?php echo date("Y/m/d H:i", $item["created"]); ?></td>
 				<td>
 					<?php echo form_open("user/delete_apikey", array("style" => "margin-bottom: 0")); ?>
