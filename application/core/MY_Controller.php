@@ -11,7 +11,7 @@ class MY_Controller extends CI_Controller {
 	public $data = array();
 	public $var;
 
-	private $json_enabled_functions = array(
+	protected $json_enabled_functions = array(
 	);
 
 	function __construct()
@@ -30,6 +30,16 @@ class MY_Controller extends CI_Controller {
 
 		mb_internal_encoding('UTF-8');
 		$this->load->helper(array('form', 'filebin'));
+
+		if (isset($_SERVER["HTTP_ACCEPT"])) {
+			if ($_SERVER["HTTP_ACCEPT"] == "application/json") {
+				request_type("json");
+			}
+		}
+
+		if (request_type() == "json" && ! in_array($this->uri->rsegment(2), $this->json_enabled_functions)) {
+			show_error("Function not JSON enabled");
+		}
 
 		$this->data['title'] = "FileBin";
 	}

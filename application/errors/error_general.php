@@ -9,6 +9,16 @@ if (class_exists("CI_Controller") && !isset($GLOBALS["is_error_page"])) {
 	$CI->load->helper("filebin");
 	$CI->load->helper("url");
 
+	if (request_type() == "json") {
+		$array = array(
+			"status" => "error",
+			"message" => strip_tags($message),
+		);
+		header('Content-type: application/json');
+		echo json_encode($array);
+		exit();
+	}
+
 	if (is_cli_client()) {
 		$message = strip_tags($message);
 		echo "$heading: $message\n";

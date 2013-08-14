@@ -9,6 +9,12 @@
 
 class File extends MY_Controller {
 
+	protected $json_enabled_functions = array(
+		"upload_history",
+		"do_upload",
+		"do_delete",
+	);
+
 	function __construct()
 	{
 		parent::__construct();
@@ -280,6 +286,10 @@ class File extends MY_Controller {
 			}
 		}
 
+		if (request_type() == "json") {
+			return send_json_reply($this->data["urls"]);
+		}
+
 		if (is_cli_client()) {
 			$redirect = false;
 		}
@@ -456,7 +466,7 @@ class File extends MY_Controller {
 			ORDER BY date $order
 			", array($user))->result_array();
 
-		if ($this->input->get("json") !== false) {
+		if (request_type() == "json") {
 			return send_json_reply($query);
 		}
 
@@ -499,11 +509,11 @@ class File extends MY_Controller {
 
 		$ids = $this->input->post("ids");
 		$errors = array();
-		$msgs = array();
+		$deleted = array();
 		$deleted_count = 0;
 		$total_count = 0;
 
-		if (!$ids) {
+		if (!$ids || !is_array($ids)) {
 			show_error("No IDs specified");
 		}
 
@@ -511,20 +521,34 @@ class File extends MY_Controller {
 			$total_count++;
 
 			if (!$this->mfile->id_exists($id)) {
-				$errors[] = "'$id' didn't exist anymore.";
+				$errors[] = array(
+					"id" => $id,
+					"reason" => "doesn't exist",
+				);
 				continue;
 			}
 
 			if ($this->mfile->delete_id($id)) {
-				$msgs[] = "'$id' has been removed.";
+				$deleted[] = $id;
 				$deleted_count++;
 			} else {
-				$errors[] = "'$id' couldn't be deleted.";
+				$errors[] = array(
+					"id" => $id,
+					"reason" => "unknown error",
+				);
 			}
 		}
 
+		if (request_type() == "json") {
+			return send_json_reply(array(
+				"errors" => $errors,
+				"deleted" => $deleted,
+				"total_count" => $total_count,
+				"deleted_count" => $deleted_count,
+			));
+		}
+
 		$this->data["errors"] = $errors;
-		$this->data["msgs"] = $msgs;
 		$this->data["deleted_count"] = $deleted_count;
 		$this->data["total_count"] = $total_count;
 
@@ -571,20 +595,11 @@ class File extends MY_Controller {
 		$filename = "stdin";
 
 		if (!$content) {
-			$this->output->set_status_header(400);
-			$this->data["msg"] = "Nothing was pasted, content is empty.";
-			$this->load->view('header', $this->data);
-			$this->load->view($this->var->view_dir.'/upload_error', $this->data);
-			$this->load->view('footer');
-			return;
+			show_error("Nothing was pasted, content is empty.", 400);
 		}
 
 		if ($filesize > $this->config->item('upload_max_size')) {
-			$this->output->set_status_header(413);
-			$this->load->view('header', $this->data);
-			$this->load->view($this->var->view_dir.'/too_big');
-			$this->load->view('footer');
-			return;
+			show_error("Error while uploading: File too big", 413);
 		}
 
 		$limits = $this->muser->get_upload_id_limits();
@@ -624,8 +639,6 @@ class File extends MY_Controller {
 		foreach ($files as $key => $file) {
 			// getNormalizedFILES() removes any file with error == 4
 			if ($file['error'] !== UPLOAD_ERR_OK) {
-				$this->output->set_status_header(400);
-
 				// ERR_OK only for completeness, condition above ignores it
 				$errors = array(
 					UPLOAD_ERR_OK => "There is no error, the file uploaded with success",
@@ -646,19 +659,12 @@ class File extends MY_Controller {
 					$this->data["msg"] = "Unknown error code: ".$file['error'].". Please report a bug.";
 				}
 
-				$this->load->view('header', $this->data);
-				$this->load->view($this->var->view_dir.'/upload_error', $this->data);
-				$this->load->view('footer');
-				return;
+				show_error("Error while uploading: ".$this->data["msg"], 400);
 			}
 
 			$filesize = filesize($file['tmp_name']);
 			if ($filesize > $this->config->item('upload_max_size')) {
-				$this->output->set_status_header(413);
-				$this->load->view('header', $this->data);
-				$this->load->view($this->var->view_dir.'/too_big');
-				$this->load->view('footer');
-				return;
+				show_error("Error while uploading: File too big", 413);
 			}
 		}
 

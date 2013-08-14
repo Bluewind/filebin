@@ -1,12 +1,9 @@
 <div class="center">
 	<?php if (!empty($errors)) {
 		echo "<p>";
-		echo implode("<br />\n", $errors);
-		echo "</p>";
-	} ?>
-	<?php if (!empty($msgs)) {
-		echo "<p>";
-		echo implode("<br />\n", $msgs);
+		foreach ($errors as $error) {
+			echo "${error["id"]}: ${error["reason"]}<br>\n";
+		}
 		echo "</p>";
 	} ?>
 
