@@ -31,7 +31,6 @@ $buf == "works" || $errors .= "passthru() failed\n";
 
 // test perl deps
 $perldeps = array(
-	"HTML::FromANSI",
 	"Text::Markdown"
 );
 foreach ($perldeps as $dep) {
@@ -56,6 +55,14 @@ passthru("pygmentize -V 2>&1", $buf);
 ob_end_clean();
 if ($buf != "0") {
 	$errors .= " - Error when testing pygmentize: Return code was \"$buf\".\n";
+}
+
+// test ansi2html
+ob_start();
+passthru("ansi2html -h 2>&1", $buf);
+ob_end_clean();
+if ($buf != "0") {
+	$errors .= " - Error when testing ansi2html: Return code was \"$buf\".\n";
 }
 
 // test qrencode

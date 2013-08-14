@@ -167,22 +167,12 @@ class File extends CI_Controller {
 
 				$cached["output"] = ob_get_contents();
 				ob_end_clean();
-			} elseif ($lexer == "ascii") {
-				ob_start();
-
-				echo '<table class="content"><tr>';
-				echo '<td class="code"><pre class="text">'."\n";
-				passthru('perl '.FCPATH.'scripts/ansi2html '.escapeshellarg($file), $cached["return_value"]);
-				echo "</pre>\n";
-
-				$cached["output"] = ob_get_contents();
-				ob_end_clean();
 			} else {
-				$cached = $this->_pygmentize($file, $lexer);
+				$cached = $this->_colorify($file, $lexer);
 			}
 
 			if ($cached["return_value"] != 0) {
-				$ret = $this->_pygmentize($file, "text");
+				$ret = $this->_colorify($file, "text");
 				$cached["output"] = $ret["output"];
 			}
 			$this->memcachelibrary->set($filedata['hash'].'_'.$lexer, $cached, 100);
@@ -202,7 +192,7 @@ class File extends CI_Controller {
 		echo $this->load->view($this->var->view_dir.'/html_footer', $this->data, true);
 	}
 
-	private function _pygmentize($file, $lexer)
+	private function _colorify($file, $lexer)
 	{
 		$return_value = 0;
 		$output = "";
@@ -211,7 +201,11 @@ class File extends CI_Controller {
 		$output .= '<div class="highlight"><pre>'."\n";
 
 		ob_start();
-		passthru('pygmentize -F codetagify -O encoding=guess,outencoding=utf8,stripnl=False -l '.escapeshellarg($lexer).' -f html '.escapeshellarg($file), $return_value);
+		if ($lexer == "ascii") {
+			passthru('ansi2html -p < '.escapeshellarg($file), $return_value);
+		} else {
+			passthru('pygmentize -F codetagify -O encoding=guess,outencoding=utf8,stripnl=False -l '.escapeshellarg($lexer).' -f html '.escapeshellarg($file), $return_value);
+		}
 		$buf = ob_get_contents();
 		ob_end_clean();
 
