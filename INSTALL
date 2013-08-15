@@ -4,7 +4,6 @@
   - if you are only creating a basic development installation you will only need:
      perl
      pygmentize (part of pygments)
-     PHP Memache extension
 
 * Copy all files from ./application/config/example to ./application/config
 * Change them to fit your needs

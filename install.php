@@ -44,11 +44,6 @@ foreach ($perldeps as $dep) {
 	}
 }
 
-// test memcache
-if (!class_exists("Memcache")) {
-	$errors .= " - Missing \"Memcache\" php class. Please install your distribution's package of http://pecl.php.net/package/memcache\n";
-}
-
 // test pygmentize
 ob_start();
 passthru("pygmentize -V 2>&1", $buf);

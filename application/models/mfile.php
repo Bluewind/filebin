@@ -338,8 +338,8 @@ class Mfile extends CI_Model {
 	}
 
 	public function get_lexers() {
-		$this->load->library("MemcacheLibrary");
-		if (! $lexers = $this->memcachelibrary->get('lexers')) {
+		$this->load->driver('cache', array('adapter' => $this->config->item("cache_backend")));
+		if (! $lexers = $this->cache->get('lexers')) {
 			$lexers = array();
 			$last_desc = "";
 			exec("python ".escapeshellarg(FCPATH."scripts/get_lexer_list.py"), $output);
@@ -353,7 +353,7 @@ class Mfile extends CI_Model {
 				$lexers[$name] = $desc;
 			}
 			$lexers["text"] = "Plain text";
-			$this->memcachelibrary->set('lexers', $lexers, 1800);
+			$this->cache->save('lexers', $lexers, 1800);
 		}
 
 		return $lexers;

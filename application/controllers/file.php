@@ -155,8 +155,8 @@ class File extends CI_Controller {
 		$this->data['filedata'] = $filedata;
 
 		// highlight the file and chache the result
-		$this->load->library("MemcacheLibrary");
-		if (! $cached = $this->memcachelibrary->get($filedata['hash'].'_'.$lexer)) {
+		$this->load->driver('cache', array('adapter' => $this->config->item("cache_backend")));
+		if (! $cached = $this->cache->get($filedata['hash'].'_'.$lexer)) {
 			$cached = array();
 			if ($lexer == "rmd") {
 				ob_start();
@@ -175,7 +175,7 @@ class File extends CI_Controller {
 				$ret = $this->_colorify($file, "text");
 				$cached["output"] = $ret["output"];
 			}
-			$this->memcachelibrary->set($filedata['hash'].'_'.$lexer, $cached, 100);
+			$this->cache->save($filedata['hash'].'_'.$lexer, $cached, 100);
 		}
 
 		if ($cached["return_value"] != 0) {

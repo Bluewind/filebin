@@ -380,6 +380,13 @@ $config['actions_max_age'] = 60*60*24*5; // 5 days
 // won't be deleted
 $config['small_upload_size'] = 1024*10; // 10KB
 
+// possible values:
+// - apc: needs the apc module and is only useful on long running php processes
+// - file: you will have to clean up the cache directory yourself (application/cache/)
+// - memcached: config in application/config/memcached.php; you need the memcached module (with the D)
+// - dummy: disables caching
+$config['cache_backend'] = "dummy";
+
 // for possible drivers look into ./application/libraries/Duser/drivers/
 $config['authentication_driver'] = 'db';
 
