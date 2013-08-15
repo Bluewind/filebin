@@ -2,7 +2,6 @@
 
 * run install.php to make sure all dependencies are installed
   - if you are only creating a basic development installation you will only need:
-     perl
      pygmentize (part of pygments)
 
 * Copy all files from ./application/config/example to ./application/config
