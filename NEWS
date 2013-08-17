@@ -1,0 +1,4 @@
+This file lists major, incompatible or otherwise important changes, you should look at it after every update.
+
+2013-08-15 Use CI's caching class. The default disables caching, adjust the config (cache_backend) if you want it back.
+2013-08-14 Use python-ansi2html instead of HTML::FromANSI
