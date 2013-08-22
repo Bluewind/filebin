@@ -21,6 +21,8 @@ class Mfile extends CI_Model {
 		static $id_blacklist = NULL;
 
 		if ($id_blacklist == NULL) {
+			// This prevents people from being unable to access their uploads
+			// because of URL rewriting
 			$id_blacklist = scandir(FCPATH);
 			$id_blacklist[] = "file";
 			$id_blacklist[] = "user";
