@@ -173,6 +173,7 @@ class File extends MY_Controller {
 	{
 		$return_value = 0;
 		$output = "";
+		$lines_to_remove = 0;
 
 		$output .= '<div class="code content table">'."\n";
 		$output .= '<div class="highlight"><pre>'."\n";
@@ -180,8 +181,12 @@ class File extends MY_Controller {
 		ob_start();
 		if ($lexer == "ascii") {
 			passthru('ansi2html -p < '.escapeshellarg($file), $return_value);
+			// Last line is empty
+			$lines_to_remove = 1;
 		} else {
 			passthru('pygmentize -F codetagify -O encoding=guess,outencoding=utf8,stripnl=False -l '.escapeshellarg($lexer).' -f html '.escapeshellarg($file), $return_value);
+			// Last 2 items are "</pre></div>" and ""
+			$lines_to_remove = 2;
 		}
 		$buf = ob_get_contents();
 		ob_end_clean();
@@ -190,10 +195,9 @@ class File extends MY_Controller {
 		$buf = explode("\n", $buf);
 		$line_count = count($buf);
 
-		// Last 2 items are just "</pre></div>" and ""
-		// We don't need those
-		unset($buf[$line_count - 2]);
-		unset($buf[$line_count - 1]);
+		for ($i = 1; $i <= $lines_to_remove; $i++) {
+			unset($buf[$line_count - $i]);
+		}
 
 		foreach ($buf as $key => $line) {
 			$line_number = $key + 1;
