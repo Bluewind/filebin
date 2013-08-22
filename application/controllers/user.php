@@ -7,29 +7,15 @@
  *
  */
 
-class User extends CI_Controller {
-
-	public $data = array();
-	public $var;
+class User extends MY_Controller {
 
 	function __construct()
 	{
 		parent::__construct();
 
-		$this->var = new StdClass();
-
-		$this->load->library('migration');
-		if ( ! $this->migration->current()) {
-			show_error($this->migration->error_string());
-		}
-
 		$this->load->model("muser");
-		$this->data["title"] = "FileBin";
-
-		$this->load->helper(array('form', 'filebin'));
 
 		$this->var->view_dir = "user/";
-		$this->data['username'] = $this->muser->get_username();
 	}
 
 	function index()
@@ -293,6 +279,8 @@ class User extends CI_Controller {
 	// This simply queries the username
 	function _reset_password_username_form()
 	{
+		$this->data['username'] = $this->muser->get_username();
+
 		$this->load->view('header', $this->data);
 		$this->load->view($this->var->view_dir.'reset_password_username_form', $this->data);
 		$this->load->view('footer', $this->data);

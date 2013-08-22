@@ -7,27 +7,12 @@
  *
  */
 
-class File extends CI_Controller {
-
-	public $data = array();
-	public $var;
+class File extends MY_Controller {
 
 	function __construct()
 	{
 		parent::__construct();
 
-		$this->var = new StdClass();
-
-		$this->load->library('migration');
-		if ( ! $this->migration->current()) {
-			show_error($this->migration->error_string());
-		}
-
-		$old_path = getenv("PATH");
-		putenv("PATH=$old_path:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin");
-
-		mb_internal_encoding('UTF-8');
-		$this->load->helper(array('form', 'filebin'));
 		$this->load->model('mfile');
 		$this->load->model('muser');
 
@@ -36,9 +21,6 @@ class File extends CI_Controller {
 		} else {
 			$this->var->view_dir = "file";
 		}
-
-		$this->data['username'] = $this->muser->get_username();
-		$this->data['title'] = "FileBin";
 	}
 
 	function index()
