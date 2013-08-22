@@ -416,6 +416,11 @@ class File extends CI_Controller {
 			", array($user))->result_array();
 
 		foreach($query as $key => $item) {
+			if (!$this->mfile->valid_id($item["id"])) {
+				unset($query[$key]);
+				continue;
+			}
+
 			$filesize = format_bytes($item["filesize"]);
 			$dimensions = $this->mfile->image_dimension($this->mfile->file($item["hash"]));
 			$upload_date = date("r", $item["date"]);
