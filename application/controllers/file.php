@@ -31,11 +31,6 @@ class File extends CI_Controller {
 		$this->load->model('mfile');
 		$this->load->model('muser');
 
-		$this->var->latest_client = false;
-		if (file_exists(FCPATH.'data/client/latest')) {
-			$this->var->latest_client = trim(file_get_contents(FCPATH.'data/client/latest'));
-		}
-
 		if (is_cli_client()) {
 			$this->var->view_dir = "file_plaintext";
 		} else {
@@ -315,7 +310,9 @@ class File extends CI_Controller {
 	function client()
 	{
 		$this->data['title'] .= ' - Client';
-		if ($this->var->latest_client) {
+
+		if (file_exists(FCPATH.'data/client/latest')) {
+			$this->var->latest_client = trim(file_get_contents(FCPATH.'data/client/latest'));
 			$this->data['client_link'] = base_url().'data/client/fb-'.$this->var->latest_client.'.tar.gz';
 		} else {
 			$this->data['client_link'] = false;
