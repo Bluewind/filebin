@@ -1,5 +1,10 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
+ * MODIFIED:
+ * _detect_uri(): ltrim instead of trim at the end to preserve tailing slashes
+ */
+
+/**
  * CodeIgniter
  *
  * An open source application development framework for PHP 5.1.6 or newer
