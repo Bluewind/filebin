@@ -326,6 +326,7 @@ function auth_driver_function_implemented($function)
 function user_logged_in()
 {
 	$CI =& get_instance();
+	$CI->load->model("muser");
 	return $CI->muser->logged_in();
 }
 
