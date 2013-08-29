@@ -32,10 +32,16 @@ class MY_Controller extends CI_Controller {
 		mb_internal_encoding('UTF-8');
 		$this->load->helper(array('form', 'filebin'));
 
+		// TODO: proper accept header handling or is this enough?
 		if (isset($_SERVER["HTTP_ACCEPT"])) {
 			if ($_SERVER["HTTP_ACCEPT"] == "application/json") {
 				request_type("json");
 			}
+		}
+
+		// Allow for easier testing in browser
+		if ($this->input->get("json") !== false) {
+			request_type("json");
 		}
 
 		if (request_type() == "json" && ! in_array($this->uri->rsegment(2), $this->json_enabled_functions)) {
