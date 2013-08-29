@@ -1,6 +1,6 @@
 Shell (binary safe):
-  curl -n -F "file=@/home/user/foo" <?php echo site_url()."\n"; ?>
-  cat file | curl -n -F "file=@-;filename=stdin" <?php echo site_url()."\n"; ?>
+  curl -n -F "file=@/home/user/foo" <?php echo site_url("file/do_upload")."\n"; ?>
+  cat file | curl -n -F "file=@-;filename=stdin" <?php echo site_url("file/do_upload")."\n"; ?>
 
 Client:
 Development (git): http://git.server-speed.net/users/flo/fb
