@@ -562,17 +562,14 @@ class File extends MY_Controller {
 		$this->muser->require_access("apikey");
 
 		if (!is_cli_client()) {
-			echo "Not a listed cli client, please use the history to delete uploads.\n";
-			return;
+			show_error("Not a listed cli client, please use the history to delete uploads.\n", 403);
 		}
 
 		$id = $this->uri->segment(3);
 		$this->data["id"] = $id;
 
 		if ($id && !$this->mfile->id_exists($id)) {
-			$this->output->set_status_header(404);
-			echo "Unknown ID '$id'.\n";
-			return;
+			show_error("Unknown ID '$id'.", 404);
 		}
 
 		if ($this->mfile->delete_id($id)) {
@@ -586,6 +583,7 @@ class File extends MY_Controller {
 	function do_paste()
 	{
 		// desktop clients get a cookie to claim the ID later
+		// don't force them to log in just yet
 		if (is_cli_client()) {
 			$this->muser->require_access();
 		}
@@ -620,6 +618,7 @@ class File extends MY_Controller {
 	function do_upload()
 	{
 		// desktop clients get a cookie to claim the ID later
+		// don't force them to log in just yet
 		if (is_cli_client()) {
 			$this->muser->require_access("apikey");
 		}
@@ -651,15 +650,15 @@ class File extends MY_Controller {
 					UPLOAD_ERR_EXTENSION => "A PHP extension stopped the file upload",
 				);
 
-				$this->data["msg"] = "Unknown error.";
+				$msg = "Unknown error.";
 
 				if (isset($errors[$file['error']])) {
-					$this->data["msg"] = $errors[$file['error']];
+					$msg = $errors[$file['error']];
 				} else {
-					$this->data["msg"] = "Unknown error code: ".$file['error'].". Please report a bug.";
+					$msg = "Unknown error code: ".$file['error'].". Please report a bug.";
 				}
 
-				show_error("Error while uploading: ".$this->data["msg"], 400);
+				show_error("Error while uploading: ".$msg, 400);
 			}
 
 			$filesize = filesize($file['tmp_name']);
