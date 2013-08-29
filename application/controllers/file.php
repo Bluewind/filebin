@@ -704,8 +704,15 @@ class File extends MY_Controller {
 		$this->muser->require_access();
 
 		$last_upload = $this->session->userdata("last_upload");
+
+		if ($last_upload === false) {
+			show_error("Failed to get last upload data");
+		}
+
 		$ids = $last_upload["ids"];
 		$errors = array();
+
+		assert(is_array($ids));
 
 		foreach ($ids as $key => $id) {
 			$filedata = $this->mfile->get_filedata($id);
