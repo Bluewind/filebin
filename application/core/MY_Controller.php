@@ -85,7 +85,7 @@ class MY_Controller extends CI_Controller {
 			$csrf_protection = false;
 		}
 
-		if ($csrf_protection) {
+		if ($csrf_protection && !$this->input->is_cli_request()) {
 			// 2 functions for accessing config options, really?
 			$this->config->set_item('csrf_protection', true);
 			config_item("csrf_protection", true);
