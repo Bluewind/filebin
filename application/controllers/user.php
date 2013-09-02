@@ -330,7 +330,8 @@ class User extends MY_Controller {
 			);
 		$this->email->send();
 
-		$this->data["email"] = $userinfo["email"];
+		// don't disclose full email addresses
+		$this->data["email_domain"] = substr($userinfo["email"], strpos($userinfo["email"], "@") + 1);
 
 		$this->load->view('header', $this->data);
 		$this->load->view($this->var->view_dir.'reset_password_link_sent', $this->data);
