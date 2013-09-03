@@ -67,14 +67,6 @@ class Muser extends CI_Model {
 	{
 		$username = $this->input->post("username");
 		$password = $this->input->post("password");
-		$apikey = $this->input->post("apikey");
-
-		if ($apikey !== false) {
-			if ($this->apilogin(trim($apikey))) {
-				return true;
-			}
-			show_error("API key login failed", 401);
-		}
 
 		// prefer post parameters if either (username or password) is set
 		if ($username === false && $password === false) {
@@ -84,18 +76,23 @@ class Muser extends CI_Model {
 			}
 		}
 
-		if ($apikey === false && $username !== false && $password !== false) {
+		if ($username !== false && $password !== false) {
 			if ($this->login($username, $password)) {
 				return true;
 			} else {
 				show_error("Login failed", 401);
 			}
 		}
+
+		return null;
 	}
 
 	function apilogin($apikey)
 	{
 		$this->require_session();
+
+		// get rid of spaces and newlines
+		$apikey = trim($apikey);
 
 		$query = $this->db->query("
 			SELECT a.user userid
@@ -111,7 +108,7 @@ class Muser extends CI_Model {
 			return true;
 		}
 
-		return false;
+		show_error("API key login failed", 401);
 	}
 
 	function logout()
@@ -168,22 +165,26 @@ class Muser extends CI_Model {
 			return true;
 		}
 
-		show_error("Access denied", 403);
+		show_error("Access denied: Access level too low", 403);
 	}
 
 	function require_access($wanted_level = "full")
 	{
+		if ($this->input->post("apikey") !== false) {
+			$this->apilogin($this->input->post("apikey"));
+		}
+
+		if (is_cli_client()) {
+			$this->login_cli_client();
+		}
+
 		if ($this->logged_in()) {
 			return $this->check_access_level($wanted_level);
 		}
 
+		// if a CLI client reaches this point it failed to log in
 		if (is_cli_client()) {
-			if ($this->login_cli_client()) {
-				return $this->check_access_level($wanted_level);
-			}
-
-			echo "FileBin requires you to have an account, please go to the homepage for more information.\n";
-			exit();
+			show_error("Not authenticated. FileBin requires you to have an account, please go to the homepage for more information.\n", 401);
 		}
 
 		// desktop clients get redirected to the login form

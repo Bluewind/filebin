@@ -8,6 +8,10 @@
  */
 
 class User extends MY_Controller {
+	protected $json_enabled_functions = array(
+		"apikeys",
+	);
+
 
 	function __construct()
 	{
@@ -126,6 +130,10 @@ class User extends MY_Controller {
 			FROM `apikeys`
 			WHERE `user` = ? order by created desc
 			", array($userid))->result_array();
+
+		if (request_type() == "json") {
+			return send_json_reply($query);
+		}
 
 		$this->data["query"] = $query;
 

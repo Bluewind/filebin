@@ -1,5 +1,10 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
+ * MODIFIED
+ * config_item(): option to override returned values
+ */
+
+/**
  * CodeIgniter
  *
  * An open source application development framework for PHP 5.1.6 or newer
@@ -268,7 +273,7 @@ if ( ! function_exists('get_config'))
 */
 if ( ! function_exists('config_item'))
 {
-	function config_item($item)
+	function config_item($item, $value = null)
 	{
 		static $_config_item = array();
 
@@ -281,6 +286,10 @@ if ( ! function_exists('config_item'))
 				return FALSE;
 			}
 			$_config_item[$item] = $config[$item];
+		}
+
+		if ($value !== null) {
+			$_config_item[$item] = $value;
 		}
 
 		return $_config_item[$item];

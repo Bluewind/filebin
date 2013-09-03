@@ -46,7 +46,7 @@
 
 <?php } else { ?>
 	<?php echo form_open('user/login'); ?>
-		<input type="text" name="username" placeholder="Username" />
+		<input type="text" name="username" placeholder="Username" autofocus />
 		<input type="password" name="password" placeholder="Password" />
 		<input type="submit" class="btn btn-primary" value="Login" name="process" style="margin-bottom: 9px" />
 		<?php if(auth_driver_function_implemented("can_reset_password")) { ?>

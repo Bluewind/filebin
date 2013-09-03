@@ -42,7 +42,7 @@ machine <?php echo $domain; ?> login my_username password my_secret_password
 <h1>Shell</h1>
 
 <pre>
-curl -n -F "file=@/home/user/foo" <?php echo site_url(); ?>   (binary safe)
-cat file | curl -n -F "file=@-;filename=stdin" <?php echo site_url(); ?>   (binary safe)
+curl -n -F "file=@/home/user/foo" <?php echo site_url("file/do_upload"); ?>   (binary safe)
+cat file | curl -n -F "file=@-;filename=stdin" <?php echo site_url("file/do_upload"); ?>   (binary safe)
 </pre>
 

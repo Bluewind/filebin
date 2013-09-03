@@ -326,14 +326,30 @@ function auth_driver_function_implemented($function)
 function user_logged_in()
 {
 	$CI =& get_instance();
+	$CI->load->model("muser");
 	return $CI->muser->logged_in();
 }
 
-function send_json_reply($array)
+function send_json_reply($array, $status = "success")
 {
+	$reply = array();
+	$reply["status"] = $status;
+	$reply["data"] = $array;
+
 	$CI =& get_instance();
 	$CI->output->set_content_type('application/json');
-	$CI->output->set_output(json_encode($array));
+	$CI->output->set_output(json_encode($reply));
+}
+
+function request_type($set_type = null)
+{
+	static $type = null;
+
+	if ($set_type !== null) {
+		$type = $set_type;
+	}
+
+	return $type;
 }
 
 # vim: set noet:
