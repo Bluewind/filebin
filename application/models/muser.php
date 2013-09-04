@@ -184,8 +184,7 @@ class Muser extends CI_Model {
 			return $this->check_access_level($wanted_level);
 		}
 
-		// if a CLI client reaches this point it failed to log in
-		if (is_cli_client()) {
+		if (!stateful_client()) {
 			show_error("Not authenticated. FileBin requires you to have an account, please go to the homepage for more information.\n", 401);
 		}
 

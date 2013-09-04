@@ -582,9 +582,9 @@ class File extends MY_Controller {
 	// Handle pastes
 	function do_paste()
 	{
-		// desktop clients get a cookie to claim the ID later
+		// stateful clients get a cookie to claim the ID later
 		// don't force them to log in just yet
-		if (is_cli_client()) {
+		if (!stateful_client()) {
 			$this->muser->require_access();
 		}
 
@@ -617,9 +617,9 @@ class File extends MY_Controller {
 	// Handles uploaded files
 	function do_upload()
 	{
-		// desktop clients get a cookie to claim the ID later
+		// stateful clients get a cookie to claim the ID later
 		// don't force them to log in just yet
-		if (is_cli_client()) {
+		if (!stateful_client()) {
 			$this->muser->require_access("apikey");
 		}
 

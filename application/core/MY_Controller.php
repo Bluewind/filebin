@@ -80,7 +80,6 @@ class MY_Controller extends CI_Controller {
 			$csrf_protection = false;
 		}
 
-		// TODO: replace cli client with request_type("plain")?
 		if (is_cli_client() && in_array($uri_start, $csrf_whitelisted_handlers["cli_client"])) {
 			$csrf_protection = false;
 		}
