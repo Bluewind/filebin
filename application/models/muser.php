@@ -15,7 +15,7 @@ class Muser extends CI_Model {
 	{
 		parent::__construct();
 
-		if ($this->has_session()) {
+		if ($this->has_session() && !$this->logged_in()) {
 			$this->session->keep_flashdata("uri");
 		}
 
