@@ -108,8 +108,6 @@ class User extends MY_Controller {
 		$userid = $this->muser->get_userid();
 		$key = $this->input->post("key");
 
-		var_dump($userid, $key);
-
 		$this->db->query("
 			DELETE FROM `apikeys`
 			WHERE `user` = ?
