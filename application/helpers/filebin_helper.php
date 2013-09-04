@@ -218,7 +218,7 @@ function random_alphanum($min_length, $max_length = null)
 
 	for($i = 0; $i < $max_length; $i++) {
 		if (strlen($random) == $length) break;
-		$random .= substr($char_list, mt_rand(0, strlen($char_list)), 1);
+		$random .= substr($char_list, mt_rand(0, strlen($char_list) - 1), 1);
 	}
 	return $random;
 }
