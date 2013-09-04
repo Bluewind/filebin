@@ -341,15 +341,19 @@ function send_json_reply($array, $status = "success")
 	$CI->output->set_output(json_encode($reply));
 }
 
-function request_type($set_type = null)
+function static_storage($key, $value = null)
 {
-	static $type = null;
+	static $storage = array();
 
-	if ($set_type !== null) {
-		$type = $set_type;
+	if ($value !== null) {
+		$storage[$key] = $value;
 	}
 
-	return $type;
+	if (!isset($storage[$key])) {
+		$storage[$key] = null;
+	}
+
+	return $storage[$key];
 }
 
 # vim: set noet:

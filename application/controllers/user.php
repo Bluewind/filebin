@@ -131,7 +131,7 @@ class User extends MY_Controller {
 			WHERE `user` = ? order by created desc
 			", array($userid))->result_array();
 
-		if (request_type() == "json") {
+		if (static_storage("response_type") == "json") {
 			return send_json_reply($query);
 		}
 

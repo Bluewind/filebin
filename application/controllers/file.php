@@ -286,7 +286,7 @@ class File extends MY_Controller {
 			}
 		}
 
-		if (request_type() == "json") {
+		if (static_storage("response_type") == "json") {
 			return send_json_reply($this->data["urls"]);
 		}
 
@@ -466,7 +466,7 @@ class File extends MY_Controller {
 			ORDER BY date $order
 			", array($user))->result_array();
 
-		if (request_type() == "json") {
+		if (static_storage("response_type") == "json") {
 			return send_json_reply($query);
 		}
 
@@ -539,7 +539,7 @@ class File extends MY_Controller {
 			}
 		}
 
-		if (request_type() == "json") {
+		if (static_storage("response_type") == "json") {
 			return send_json_reply(array(
 				"errors" => $errors,
 				"deleted" => $deleted,

@@ -9,7 +9,7 @@ if (class_exists("CI_Controller") && !isset($GLOBALS["is_error_page"])) {
 	$CI->load->helper("filebin");
 	$CI->load->helper("url");
 
-	if (request_type() == "json") {
+	if (static_storage("response_type") == "json") {
 		$array = array(
 			"status" => "error",
 			"message" => strip_tags($message),

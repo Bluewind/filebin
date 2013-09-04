@@ -35,16 +35,16 @@ class MY_Controller extends CI_Controller {
 		// TODO: proper accept header handling or is this enough?
 		if (isset($_SERVER["HTTP_ACCEPT"])) {
 			if ($_SERVER["HTTP_ACCEPT"] == "application/json") {
-				request_type("json");
+				static_storage("response_type", "json");
 			}
 		}
 
 		// Allow for easier testing in browser
 		if ($this->input->get("json") !== false) {
-			request_type("json");
+			static_storage("response_type", "json");
 		}
 
-		if (request_type() == "json" && ! in_array($this->uri->rsegment(2), $this->json_enabled_functions)) {
+		if (static_storage("response_type") == "json" && ! in_array($this->uri->rsegment(2), $this->json_enabled_functions)) {
 			show_error("Function not JSON enabled");
 		}
 
