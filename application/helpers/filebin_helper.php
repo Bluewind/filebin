@@ -356,4 +356,19 @@ function static_storage($key, $value = null)
 	return $storage[$key];
 }
 
+function stateful_client()
+{
+	$CI =& get_instance();
+
+	if ($CI->input->post("apikey")) {
+		return false;
+	}
+
+	if (is_cli_client()) {
+		return false;
+	}
+
+	return true;
+}
+
 # vim: set noet:
