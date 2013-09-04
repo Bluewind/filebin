@@ -92,6 +92,10 @@ class MY_Controller extends CI_Controller {
 			$this->security->csrf_verify();
 		}
 
+		if ($this->config->item("environment") == "development" && static_storage("response_type") != "json") {
+			$this->output->enable_profiler(true);
+		}
+
 		$this->data['title'] = "FileBin";
 	}
 }

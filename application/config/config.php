@@ -408,6 +408,9 @@ if (extension_loaded("ldap")) {
 	);
 }
 
+// possible values: production, development
+$config['environment'] = "production";
+
 if (file_exists(FCPATH.'application/config/config-local.php')) {
 	include FCPATH.'application/config/config-local.php';
 }
