@@ -101,10 +101,12 @@ class Muser extends CI_Model {
 			", array($apikey))->row_array();
 
 		if (isset($query["userid"])) {
-			$this->session->set_userdata('logged_in', true);
-			$this->session->set_userdata('username', "");
-			$this->session->set_userdata('userid', $query["userid"]);
-			$this->session->set_userdata('access_level', 'apikey');
+			$this->session->set_userdata(array(
+				'logged_in' => true,
+				'username' => '',
+				'userid' => $query["userid"],
+				'access_level' => 'apikey',
+			));
 			return true;
 		}
 

@@ -75,10 +75,12 @@ class Duser extends CI_Driver_Library {
 
 		$CI =& get_instance();
 
-		$CI->session->set_userdata('logged_in', true);
-		$CI->session->set_userdata('username', $login_info["username"]);
-		$CI->session->set_userdata('userid', $login_info["userid"]);
-		$CI->session->set_userdata('access_level', 'full');
+		$CI->session->set_userdata(array(
+			'logged_in' => true,
+			'username' => $login_info["username"],
+			'userid' => $login_info["userid"],
+			'access_level' => 'full',
+		));
 
 		return true;
 	}
