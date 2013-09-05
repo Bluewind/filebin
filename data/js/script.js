@@ -45,7 +45,8 @@ function fixedEncodeURIComponent (str) {
 		});
 
 		$('[rel="tooltip"]').tooltip({
-			placement: 'bottom'
+			placement: 'bottom',
+			container: 'body',
 		});
 
 		$('#history-all').bind('change', function() {
