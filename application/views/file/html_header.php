@@ -12,11 +12,9 @@ include(FCPATH."application/views/header.php"); ?>
 	</script>
 
 	<?php if (isset($error_message)) { ?>
-	    <div class="container">
-		<div class="alert alert-danger" style="text-align: center">
+		<div class="alert alert-danger" style="text-align: center; border-radius: 0;">
 			<?php echo $error_message; ?>
 		</div>
-	    </div>
 	<?php } ?>
 
 	<div class="container paste-container">
