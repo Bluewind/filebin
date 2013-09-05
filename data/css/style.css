@@ -132,11 +132,12 @@ body {
 	height: auto !important;
 	height: 100%;
 	/* Negative indent footer by it's height */
-	margin: 0 auto -81px;
+	margin: 0 auto -83px;
 }
 
 /* Set the fixed height of the footer here */
 #footer {
+	height: 83px;
 	font-size: 12px;
 	padding: 15px 0;
 }
@@ -148,7 +149,7 @@ body {
 
 /* Set to footer height + 70px "padding" */
 #push {
-	height: 120px;
+	height: 153px;
 }
 
 #footer p,
