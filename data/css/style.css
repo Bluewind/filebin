@@ -3,32 +3,47 @@
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
 }
+
 .form-signin input[type="password"] {
 	margin-bottom: 10px;
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 }
+
 .form-signin a,
 .form-signin a:visited,
 .form-signin a:active {
 	color: inherit !important;
 }
+
 .login-page {
 	max-width: 300px;
 }
+
 .divider {
 	height:50px;
 	margin:0 9px;
 	border-left:1px solid #e1e1e1;
 }
+
 .nav-history {
 	margin-bottom: 1em;
 }
+
 .navbar-paste {
 	margin-bottom: 0;
 }
+
 .inline-input {
 	width: 200px;
+}
+
+.navbar-nav > li > .dropdown-menu {
+	margin-top: 2px;
+}
+
+.col-topfix {
+	margin: 1em 0;
 }
 
 .anchor {
@@ -36,25 +51,23 @@
 	padding-top: 20px;
 	margin-top: -20px;
 }
-#navbar-height {
-	height: 70px;
-}
 
 @media (max-width: 767px) {
-	.navbar-static-top {
-		margin-left: 0;
-		margin-right: 0;
+	.navbar-fixed-top {
+		position: relative;
 	}
 }
 
-@media (min-width: 980px) {
-
+@media (min-width: 768px) {
 	.anchor {
 		visibility: hidden;
 		padding-top: 60px;
 		margin-top: -60px;
 	}
 
+	#navbar-height {
+		height: 70px;
+	}
 }
 
 .text-upload {
@@ -124,7 +137,6 @@ body {
 
 /* Set the fixed height of the footer here */
 #footer {
-	/* height: 50px; */
 	font-size: 12px;
 	padding: 15px 0;
 }
@@ -137,16 +149,6 @@ body {
 /* Set to footer height + 70px "padding" */
 #push {
 	height: 120px;
-}
-
-/* Lastly, apply responsive CSS fixes as necessary */
-@media (max-width: 767px) {
-	#footer {
-		margin-left: -20px;
-		margin-right: -20px;
-		padding-left: 20px;
-		padding-right: 20px;
-	}
 }
 
 #footer p,
