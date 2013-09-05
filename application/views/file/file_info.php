@@ -1,6 +1,6 @@
 <div class="center">
 	<?php if($filedata): ?>
-		<table style="margin: auto">
+		<table class="table" style="margin: auto">
 			<tr>
 				<td class="title">ID</td>
 				<td class="text"><a href="<?php echo site_url($id); ?>/"><?php echo $id; ?></a></td>
