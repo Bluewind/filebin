@@ -1,10 +1,10 @@
 <?php if (user_logged_in()) { ?>
 <div class="well">
-	<div class="row-fluid">
-		<div class="span12 text-upload-form">
+	<div class="row">
+		<div class="col-lg-12 text-upload-form">
 			<?php echo form_open_multipart('file/do_paste'); ?>
 				<h2>Text paste</h2>
-				<textarea name="content" class="text-upload span12"><?php
+				<textarea name="content" class="col-lg-12 form-control" rows="15"><?php
 					if (isset($textarea_content)) {
 						echo $textarea_content;
 					}
@@ -13,15 +13,15 @@
 			</form>
 		</div>
 	</div>
-	<div class="row-fluid">
-		<div class="span6">
+	<div class="row">
+		<div class="col-lg-6">
 			<?php echo form_open_multipart('file/do_upload'); ?>
 				<h2>File upload</h2>
 				<input class="file-upload" type="file" name="file[]" multiple="multiple"><br>
 				<button type="submit" id="upload_button" class="btn btn-primary">Upload it!</button>
 			</form>
 		</div>
-		<div class="span6 alert alert-block alert-info">
+		<div class="col-lg-6 alert alert-info">
 			<h4 class="alert-heading">Notice!</h4>
 			<p>
 				Uploads/pastes are <?php if ($upload_max_age > 0) {
@@ -45,17 +45,17 @@
 </script>
 
 <?php } else { ?>
-	<?php echo form_open('user/login'); ?>
-		<input type="text" name="username" placeholder="Username" autofocus />
-		<input type="password" name="password" placeholder="Password" />
-		<input type="submit" class="btn btn-primary" value="Login" name="process" style="margin-bottom: 9px" />
+	<?php echo form_open('user/login', array('class' => 'form-inline')); ?>
+		<input type="text" name="username" placeholder="Username" autofocus class="form-control inline-input"/>
+		<input type="password" name="password" placeholder="Password" class="form-control inline-input"/>
+		<input type="submit" class="btn btn-primary" value="Login" name="process" />
 		<?php if(auth_driver_function_implemented("can_reset_password")) { ?>
-			<p style="display: inline"><?php echo anchor("user/reset_password", "Forgot your password?"); ?></p>
+			<p class="help-block"><?php echo anchor("user/reset_password", "Forgot your password?"); ?></p>
 		<?php } ?>
 	</form>
 <?php } ?>
 <div class="row">
-	<div class="span6">
+	<div class="col-lg-6">
 		<div class="page-header"><h1>Features</h1></div>
 		<p>For shell uploading/pasting and download information for the client go to <a href="<?php echo site_url("file/client"); ?>"><?php echo site_url("file/client"); ?></a></p>
 		<p>You can use the <?php echo anchor("file/upload_history", "history"); ?> to find old uploads.</p>
@@ -72,7 +72,7 @@
 		</dl>
 		<p>If your upload is not detected as text, only <b>/&lt;ID&gt;/qr</b>, <b>/&lt;ID&gt;/plain</b> and <b>/&lt;ID&gt;/info</b> will work as above and all others will simply return the file with the detected MIME type.</p>
 	</div>
-	<div class="span6">
+	<div class="col-lg-6">
 		<div class="page-header"><h1>Information</h1></div>
 		<p>This website's primary goal is aiding developers, power users, students and alike in solving problems, debugging software, sharing their configuration, etc. It is not intended to distribute confidential or harmful information, scripts or software.</p>
 		<?php if(auth_driver_function_implemented("can_register_new_users")) { ?>

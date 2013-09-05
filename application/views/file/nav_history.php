@@ -1,4 +1,4 @@
-<ul class="nav nav-tabs">
+<ul class="nav nav-pills nav-history">
 <?php
 $nav = array(
 	"List" => "file/upload_history",

@@ -1,4 +1,4 @@
-<div class="alert alert-block">
+<div class="alert alert-warning">
 	<p>
 		<b>Watch out!</b>
 	</p>

@@ -1,5 +1,5 @@
 <?php if (!empty($error)) {
-	echo "<p class='alert alert-error'>";
+	echo "<p class='alert alert-danger'>";
 	echo implode("<br />\n", $error);
 	echo "</p>";
 } ?>

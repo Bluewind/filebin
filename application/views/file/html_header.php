@@ -12,30 +12,32 @@ include(FCPATH."application/views/header.php"); ?>
 	</script>
 
 	<?php if (isset($error_message)) { ?>
-		<div class="alert alert-block alert-error" style="text-align: center">
+	    <div class="container">
+		<div class="alert alert-danger" style="text-align: center">
 			<?php echo $error_message; ?>
 		</div>
+	    </div>
 	<?php } ?>
 
 	<div class="container paste-container">
 		<div style="border:1px solid #ccc;">
-		<div class="navbar navbar-static-top">
+		<div class="navbar navbar-default navbar-static-top navbar-paste">
 			<div class="navbar-inner" style="box-shadow: none;">
-				<ul class="nav">
-					<li><a href="#file-info" class="brand" data-toggle="modal"><?php echo $title ?></a></li>
-					<li class="divider-vertical"></li>
+				<ul class="nav navbar-nav">
+					<li><a href="#file-info" class="navbar-brand" data-toggle="modal"><?php echo $title ?></a></li>
+					<li class="divider"></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="language-toggle">
 							Language: <?php echo htmlspecialchars($current_highlight); ?>
 							<b class="caret"></b>
 						</a>
-						<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+						<div class="dropdown-menu" style="padding: 15px;">
 							<form>
-								<input type="text" id="language" placeholder="Language" class="input-medium">
+								<input type="text" id="language" placeholder="Language" class="form-control">
 							</form>
 						</div>
 					</li>
-					<li class="divider-vertical"></li>
+					<li class="divider"></li>
 					<li>
 						<a href="#file-info" role="button" data-toggle="modal">Info</a>
 						<div id="file-info" class="modal hide fade">
@@ -72,21 +74,21 @@ include(FCPATH."application/views/header.php"); ?>
 									<input type="hidden" name="ids[<?php echo $id; ?>]" value="<?php echo $id; ?>">
 									<button class="btn btn-danger pull-left" aria-hidden="true">Delete</button>
 								</form>
-								<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+								<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
 							</div>
 						</div>
 					</li>
-					<li class="divider-vertical"></li>
+					<li class="divider"></li>
 					<li><a href="<?php echo site_url('file/index?repaste='.$id); ?>" role="button">Repaste</a></li>
 				</ul>
-				<div class="btn-group pull-right" style="margin-top: 7px; margin-right:-10px;">
-					<a id="linewrap" class="btn btn-small" rel="tooltip" title="Toggle wrapping of long lines">Linewrap</a>
-					<a href="<?php echo site_url($id."/plain") ?>" class="btn btn-small" rel="tooltip" title="View as plain text">Plain</a>
-					<a href="<?php echo site_url($id) ?>" class="btn btn-small" rel="tooltip" title="View as raw file (org. mime type)">Raw</a>
+				<div class="btn-group pull-right" style="margin-top: 7px; margin-right: 10px;">
+					<a id="linewrap" class="btn btn-default" rel="tooltip" title="Toggle wrapping of long lines">Linewrap</a>
+					<a href="<?php echo site_url($id."/plain") ?>" class="btn btn-default" rel="tooltip" title="View as plain text">Plain</a>
+					<a href="<?php echo site_url($id) ?>" class="btn btn-default" rel="tooltip" title="View as raw file (org. mime type)">Raw</a>
 					<?php if ($current_highlight === 'rmd') { ?>
-						<a href="<?php echo site_url($id)."/" ?>" class="btn btn-small" rel="tooltip" title="Render as Code">Code</a>
+						<a href="<?php echo site_url($id)."/" ?>" class="btn btn-default" rel="tooltip" title="Render as Code">Code</a>
 					<?php } else { ?>
-						<a href="<?php echo site_url($id."/rmd") ?>" class="btn btn-small" rel="tooltip" title="Render as Markdown">Markdown</a>
+						<a href="<?php echo site_url($id."/rmd") ?>" class="btn btn-default" rel="tooltip" title="Render as Markdown">Markdown</a>
 					<?php } ?>
 				</div>
 			</div>

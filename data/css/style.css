@@ -1,7 +1,43 @@
+.form-signin input[type="text"] {
+	margin-bottom: -1px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+.form-signin a,
+.form-signin a:visited,
+.form-signin a:active {
+	color: inherit !important;
+}
+.login-page {
+	max-width: 300px;
+}
+.divider {
+	height:50px;
+	margin:0 9px;
+	border-left:1px solid #e1e1e1;
+}
+.nav-history {
+	margin-bottom: 1em;
+}
+.navbar-paste {
+	margin-bottom: 0;
+}
+.inline-input {
+	width: 200px;
+}
+
 .anchor {
 	visibility: hidden;
 	padding-top: 20px;
 	margin-top: -20px;
+}
+#navbar-height {
+	height: 70px;
 }
 
 @media (max-width: 767px) {
@@ -12,9 +48,6 @@
 }
 
 @media (min-width: 980px) {
-	#navbar-height {
-		height: 60px;
-	}
 
 	.anchor {
 		visibility: hidden;
@@ -64,7 +97,7 @@ code, pre, textarea {
 
 /* Sticky footer styles
  * Source: http://twitter.github.io/bootstrap/examples/sticky-footer.html
--------------------------------------------------- */
+ -------------------------------------------------- */
 .footer {
 	background-color: #f5f5f5;
 	border-top: 1px solid #e5e5e5;
@@ -91,7 +124,7 @@ body {
 
 /* Set the fixed height of the footer here */
 #footer {
-	height: 50px;
+	/* height: 50px; */
 	font-size: 12px;
 	padding: 15px 0;
 }
@@ -132,7 +165,7 @@ body {
 	padding-top: 40px;
 	background: #eee;
 	padding: 3px;
-	width: auto;
+	max-width: 100%;
 	margin-left: 20px;
 	margin-right: 20px;
 }
