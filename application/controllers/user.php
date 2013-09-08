@@ -9,6 +9,7 @@
 
 class User extends MY_Controller {
 	protected $json_enabled_functions = array(
+		"create_apikey",
 		"apikeys",
 	);
 
@@ -93,6 +94,10 @@ class User extends MY_Controller {
 			(`key`, `user`, `comment`)
 			VALUES (?, ?, ?)
 		", array($key, $userid, $comment));
+
+		if (static_storage("response_type") == "json") {
+			return send_json_reply(array("new_key" => $key));
+		}
 
 		if (is_cli_client()) {
 			echo "$key\n";
