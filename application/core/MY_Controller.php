@@ -75,6 +75,7 @@ class MY_Controller extends CI_Controller {
 				"file/delete",
 				"file/upload_history",
 				"user/create_apikey",
+				"file/get_max_size",
 			),
 		);
 		if (in_array($uri_start, $csrf_whitelisted_handlers["always"])) {
