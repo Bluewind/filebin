@@ -31,6 +31,10 @@ abstract class Duser_Driver extends CI_Driver {
 	public function username_exists($username) {
 		return false;
 	}
+
+	public function get_email($userid) {
+		return null;
+	}
 }
 
 class Duser extends CI_Driver_Library {
@@ -98,8 +102,6 @@ class Duser extends CI_Driver_Library {
 
 	public function get_email($userid)
 	{
-		$this->require_implemented(__FUNCTION__);
-
 		return $this->{$this->_adapter}->get_email($userid);
 	}
 }
