@@ -7,7 +7,7 @@
 		</div>
 	</div>
 
-	<?php if(auth_driver_function_implemented("get_email")) { ?>
+	<?php if($profile_data["email"] !== null) { ?>
 	<div class="control-group">
 		<label class="control-label" for="inputEmail">Email</label>
 		<div class="controls">

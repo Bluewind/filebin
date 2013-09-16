@@ -9,14 +9,11 @@
 
 abstract class Duser_Driver extends CI_Driver {
 
-	// List of optional functions or function groups that are implemented
+	// List of optional functions that are implemented
 	//
-	// Possible values are names of functions already implemented in this
-	// abstract class or the function groups listed below.
-	//
-	// Possible function groups are:
-	//  - can_register_new_users
-	//  - can_reset_password
+	// Possible values are:
+	//  - can_register_new_users (only supported with the DB driver!)
+	//  - can_reset_password (only supported with the DB driver!)
 	public $optional_functions = array();
 
 	/*
@@ -101,8 +98,6 @@ class Duser extends CI_Driver_Library {
 
 	public function username_exists($username)
 	{
-		$this->require_implemented(__FUNCTION__);
-
 		if ($username === false) {
 			return false;
 		}
