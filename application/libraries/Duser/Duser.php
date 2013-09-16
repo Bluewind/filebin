@@ -29,7 +29,7 @@ abstract class Duser_Driver extends CI_Driver {
 	abstract public function login($username, $password);
 
 	public function username_exists($username) {
-		return false;
+		return null;
 	}
 
 	public function get_email($userid) {
