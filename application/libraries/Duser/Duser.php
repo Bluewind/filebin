@@ -24,14 +24,24 @@ abstract class Duser_Driver extends CI_Driver {
 	 *  - username string
 	 *  - userid INT > 0
 	 *
+	 * @param username
+	 * @param password
 	 * @return mixed array on success, false on failure
 	 */
 	abstract public function login($username, $password);
 
+	/*
+	 * @param username
+	 * @return boolean true is username exists, false otherwise
+	 */
 	public function username_exists($username) {
 		return null;
 	}
 
+	/*
+	 * @param userid
+	 * @return string email address of the user
+	 */
 	public function get_email($userid) {
 		return null;
 	}

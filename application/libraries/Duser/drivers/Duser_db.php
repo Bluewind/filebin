@@ -9,6 +9,10 @@
 
 class Duser_db extends Duser_Driver {
 
+	/* FIXME: If you use this driver as a template, remove can_reset_password
+	 * and can_register_new_users. These features require the DB driver and
+	 * will NOT work with other drivers.
+	 */
 	public $optional_functions = array(
 		'username_exists',
 		'can_reset_password',
