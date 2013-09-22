@@ -20,7 +20,6 @@ class File extends MY_Controller {
 		parent::__construct();
 
 		$this->load->model('mfile');
-		$this->load->model('muser');
 
 		if (is_cli_client()) {
 			$this->var->view_dir = "file_plaintext";

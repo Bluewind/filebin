@@ -18,8 +18,6 @@ class User extends MY_Controller {
 	{
 		parent::__construct();
 
-		$this->load->model("muser");
-
 		$this->var->view_dir = "user/";
 	}
 

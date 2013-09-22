@@ -54,7 +54,7 @@ if (is_cli_client() && !isset($force_full_html)) {
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<?php if(!isset($GLOBALS["is_error_page"])) { ?>
 				<ul class="nav navbar-nav navbar-right">
-					<?php if(user_logged_in()) { ?>
+					<?php if (isset($user_logged_in) && $user_logged_in) { ?>
 						<li><a class="navbar-link" href="<?php echo site_url("/user/logout"); ?>">Logout</a></li>
 					<?php } else { ?>
 						<li class="dropdown">
@@ -74,7 +74,7 @@ if (is_cli_client() && !isset($force_full_html)) {
 				</ul>
 				<?php }; ?>
 				<ul class="nav navbar-nav">
-					<?php if(user_logged_in()) { ?>
+					<?php if (isset($user_logged_in) && $user_logged_in) { ?>
 						<li><a href="<?php echo site_url("file/index") ?>"><span class="glyphicon glyphicon-pencil"></span> New</a></li>
 						<li><a href="<?php echo site_url("file/upload_history") ?>"><span class="glyphicon glyphicon-book"></span> History</a></li>
 						<li class="dropdown">

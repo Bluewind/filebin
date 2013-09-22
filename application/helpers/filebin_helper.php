@@ -323,13 +323,6 @@ function auth_driver_function_implemented($function)
 	return $result[$function];
 }
 
-function user_logged_in()
-{
-	$CI =& get_instance();
-	$CI->load->model("muser");
-	return $CI->muser->logged_in();
-}
-
 function send_json_reply($array, $status = "success")
 {
 	$reply = array();
