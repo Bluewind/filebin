@@ -90,18 +90,18 @@
 	}
 }
 
-.text-upload {
+textarea.text-upload {
 	height: 200px;
 }
 
 @media (min-height: 700px) {
-	.text-upload {
+	textarea.text-upload {
 		height: 300px;
 	}
 }
 
 @media (min-height: 800px) {
-	.text-upload {
+	textarea.text-upload {
 		height: 400px;
 	}
 }

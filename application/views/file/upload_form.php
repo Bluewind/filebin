@@ -4,7 +4,7 @@
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-upload-form">
 			<?php echo form_open_multipart('file/do_paste'); ?>
 				<h2>Text paste</h2>
-				<textarea name="content" class="form-control" rows="15"><?php
+				<textarea name="content" class="form-control text-upload"><?php
 					if (isset($textarea_content)) {
 						echo $textarea_content;
 					}
