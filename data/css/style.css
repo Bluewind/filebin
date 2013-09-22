@@ -25,6 +25,26 @@
 	margin:0 9px;
 	border-left:1px solid #e1e1e1;
 }
+@media (max-width: 768px) {
+	.dont-float {
+		float: left;
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+	.dont-float > li {
+		float: left;
+	}
+	.dont-float > li > a {
+		padding-top: 15px;
+		padding-bottom: 15px;
+	}
+	.dont-float:first-child {
+		margin-left: 0px;
+	}
+	.dont-float.navbar-right:last-child {
+		margin-right: -15px;
+	}
+}
 
 .nav-history {
 	margin-bottom: 1em;
