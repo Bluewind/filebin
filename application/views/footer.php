@@ -17,6 +17,13 @@ if (is_cli_client() && !isset($force_full_html)) {
 			</ul>
 	</div>
 </footer>
+
+<?php
+$CI = &get_instance();
+if ($CI->config->item("environment") == "development" && property_exists($CI, "email")) {
+	echo $CI->email->print_debugger();
+}
+?>
 <?php echo include_js("/data/js/jquery-2.0.3.min.js"); ?>
 <?php echo include_js("/data/js/jquery-ui-1.10.3.custom.min.js"); ?>
 <?php echo include_js("/data/js/bootstrap-2.3.2.min.js"); ?>
