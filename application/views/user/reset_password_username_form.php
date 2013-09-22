@@ -1,4 +1,4 @@
-<?php echo form_open('user/reset_password', array("class" => "form-horizontal")); ?>
+<?php echo form_open('user/reset_password'); ?>
 <div class="row">
 	<div class="form-group col-lg-8 col-md-10">
 		<label class="control-label col-lg-2 col-md-2" for="inputUsername">Username</label>

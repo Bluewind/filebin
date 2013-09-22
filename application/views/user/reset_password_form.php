@@ -3,7 +3,7 @@
 	echo implode("<br />\n", $error);
 	echo "</p>";
 } ?>
-<?php echo form_open('user/reset_password/'.$key, array("class" => "form-horizontal")); ?>
+<?php echo form_open('user/reset_password/'.$key); ?>
 <div class="row">
 	<div class="form-group col-lg-8 col-md-10">
 		<label class="control-label col-lg-2 col-md-2" for="inputPassword">Password</label>

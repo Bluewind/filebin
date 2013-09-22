@@ -1,4 +1,4 @@
-<?php echo form_open("user/profile", array("class" => "form-horizontal")); ?>
+<?php echo form_open("user/profile"); ?>
 
 <div class="row">
 	<div class="form-group col-lg-8 col-md-10">
