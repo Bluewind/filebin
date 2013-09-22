@@ -28,11 +28,7 @@ class Duser_db extends Duser_Driver {
 			WHERE `username` = ?
 			', array($username))->row_array();
 
-		if (!isset($query["username"]) || $query["username"] !== $username) {
-			return false;
-		}
-
-		if (!isset($query["password"])) {
+		if (empty($query)) {
 			return false;
 		}
 
