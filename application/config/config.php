@@ -408,6 +408,11 @@ if (extension_loaded("ldap")) {
 	);
 }
 
+// This is only used it the driver is set to fluxbb
+$config['auth_fluxbb'] = array(
+	'database' => 'fluxbb'
+);
+
 // possible values: production, development
 $config['environment'] = "production";
 

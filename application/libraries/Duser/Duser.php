@@ -49,7 +49,7 @@ class Duser extends CI_Driver_Library {
 	protected $_adapter = null;
 
 	protected $valid_drivers = array(
-		'duser_db', 'duser_ldap'
+		'duser_db', 'duser_ldap', 'duser_fluxbb'
 	);
 
 	function __construct()
