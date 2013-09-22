@@ -23,7 +23,7 @@ class Duser_fluxbb extends Duser_Driver {
 		$query = $this->CI->db->query('
 			SELECT username, id
 			FROM '.$this->config['database'].'.users
-			WHERE username LIKE ? AND password = ?
+			WHERE username = ? AND password = ?
 			', array($username, sha1($password)))->row_array();
 
 		if (!empty($query)) {
@@ -41,7 +41,7 @@ class Duser_fluxbb extends Duser_Driver {
 		$query = $this->CI->db->query('
 			SELECT id
 			FROM '.$this->config['database'].'.users
-			WHERE username LIKE ?
+			WHERE username = ?
 			', array($username));
 
 		if ($query->num_rows() > 0) {
