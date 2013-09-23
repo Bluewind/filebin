@@ -416,6 +416,22 @@ $config['auth_fluxbb'] = array(
 // possible values: production, development
 $config['environment'] = "production";
 
+// This sets the download implementation. Possible values are php, nginx and lighttpd
+// The nginx and lighttpd drivers make use of the server's sendfile feature.
+$config['download_driver'] = 'php';
+// The lighttpd driver requires the following directive to be set in your fastcgi.server configuration:
+//	"allow-x-send-file" => "enable"
+// See http://redmine.lighttpd.net/projects/lighttpd/wiki/Docs_ModFastCGI#X-Sendfile
+//
+// When using the nginx download driver you need to define an internal location
+// from which nginx will serve your uploads:
+//	location ^~ /protected-uploads/ {
+//		internal;
+//		alias <upload_path>/;
+//	}
+// See http://wiki.nginx.org/X-accel
+$config['download_nginx_location'] = '/protected-uploads';
+
 if (file_exists(FCPATH.'application/config/config-local.php')) {
 	include FCPATH.'application/config/config-local.php';
 }
