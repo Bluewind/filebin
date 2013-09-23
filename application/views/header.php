@@ -33,8 +33,8 @@ if (is_cli_client() && !isset($force_full_html)) {
 	include FCPATH."data/local/header.inc.php";
 }?>
 	<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-		<div class="navbar-header">
-			<div class="container">
+		<div class="container">
+			<div class="navbar-header">
 			    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
 				  <span class="sr-only">Toggle navigation</span>
 				  <span class="icon-bar"></span>
@@ -50,43 +50,43 @@ if (is_cli_client() && !isset($force_full_html)) {
 					?>
 				</a>
 			</div>
-		</div>
-		<div class="collapse navbar-collapse navbar-ex1-collapse">
-			<?php if(!isset($GLOBALS["is_error_page"])) { ?>
-				<ul class="nav navbar-nav navbar-right">
-					<?php if (isset($user_logged_in) && $user_logged_in) { ?>
-						<li><a class="navbar-link" href="<?php echo site_url("/user/logout"); ?>">Logout</a></li>
-					<?php } else { ?>
-						<li class="dropdown">
-									<a class="dropdown-toggle" href="#" data-toggle="dropdown">Login <b class="caret"></b></a>
-									<div class="dropdown-menu" style="padding: 5px;">
-									<?php if(auth_driver_function_implemented("can_reset_password")) { ?>
-										<p><?php echo anchor("user/reset_password", "Forgot your password?"); ?></p>
-									<?php } ?>
-									<?php echo form_open("user/login", array("class" => "form-signin")); ?>
-										<input type="text" name="username" placeholder="Username" class="form-control">
-										<input type="password" name="password" placeholder="Password" class="form-control">
-										<button type="submit" name="process" class="btn btn-default btn-block">Login</button>
-									</form>
-								</div>
-						</li>
-					<?php } ?>
-				</ul>
-				<?php }; ?>
-				<ul class="nav navbar-nav">
-					<?php if (isset($user_logged_in) && $user_logged_in) { ?>
-						<li><a href="<?php echo site_url("file/index") ?>"><span class="glyphicon glyphicon-pencil"></span> New</a></li>
-						<li><a href="<?php echo site_url("file/upload_history") ?>"><span class="glyphicon glyphicon-book"></span> History</a></li>
-						<li class="dropdown">
-							<a href="<?php echo site_url("user/index"); ?>" class="dropdown-toggle" data-toggle="dropdown">
-								<span class="glyphicon glyphicon-user"></span> Account <b class="caret"></b>
-							</a>
-							<ul class="dropdown-menu">
-								<?php include "user/nav.php"; ?>
-							</ul>
-						</li>
-					<?php } ?>
-				</ul>
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<?php if(!isset($GLOBALS["is_error_page"])) { ?>
+					<ul class="nav navbar-nav navbar-right">
+						<?php if (isset($user_logged_in) && $user_logged_in) { ?>
+							<li><a class="navbar-link" href="<?php echo site_url("/user/logout"); ?>">Logout</a></li>
+						<?php } else { ?>
+							<li class="dropdown">
+										<a class="dropdown-toggle" href="#" data-toggle="dropdown">Login <b class="caret"></b></a>
+										<div class="dropdown-menu" style="padding: 5px;">
+										<?php if(auth_driver_function_implemented("can_reset_password")) { ?>
+											<p><?php echo anchor("user/reset_password", "Forgot your password?"); ?></p>
+										<?php } ?>
+										<?php echo form_open("user/login", array("class" => "form-signin")); ?>
+											<input type="text" name="username" placeholder="Username" class="form-control">
+											<input type="password" name="password" placeholder="Password" class="form-control">
+											<button type="submit" name="process" class="btn btn-default btn-block">Login</button>
+										</form>
+									</div>
+							</li>
+						<?php } ?>
+					</ul>
+					<?php }; ?>
+					<ul class="nav navbar-nav">
+						<?php if (isset($user_logged_in) && $user_logged_in) { ?>
+							<li><a href="<?php echo site_url("file/index") ?>"><span class="glyphicon glyphicon-pencil"></span> New</a></li>
+							<li><a href="<?php echo site_url("file/upload_history") ?>"><span class="glyphicon glyphicon-book"></span> History</a></li>
+							<li class="dropdown">
+								<a href="<?php echo site_url("user/index"); ?>" class="dropdown-toggle" data-toggle="dropdown">
+									<span class="glyphicon glyphicon-user"></span> Account <b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu">
+									<?php include "user/nav.php"; ?>
+								</ul>
+							</li>
+						<?php } ?>
+					</ul>
+			</div>
 		</div>
 	</nav>
 	<div id="navbar-height"></div>
