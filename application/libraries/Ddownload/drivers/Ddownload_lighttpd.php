@@ -16,7 +16,6 @@ class Ddownload_lighttpd extends Ddownload_Driver {
 
 		if (strpos($file, $upload_path) !== 0) {
 			show_error('Invalid file path');
-			return;
 		}
 
 		header('Content-disposition: inline; filename="'.$filename."\"\n");

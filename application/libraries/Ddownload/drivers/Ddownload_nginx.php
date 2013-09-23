@@ -19,7 +19,6 @@ class Ddownload_nginx extends Ddownload_Driver {
 			$file_path = substr($file, strlen($upload_path));
 		} else {
 			show_error('Invalid file path');
-			return;
 		}
 
 		header('Content-disposition: inline; filename="'.$filename."\"\n");
