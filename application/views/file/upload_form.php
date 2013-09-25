@@ -1,43 +1,57 @@
 <?php if (isset($user_logged_in) && $user_logged_in) { ?>
-<div class="well">
-	<div class="row">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-upload-form">
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-upload-form">
 			<?php echo form_open_multipart('file/do_paste'); ?>
-			<h2>Text paste</h2>
-			<textarea name="content" class="form-control text-upload"><?php
-				if (isset($textarea_content)) {
-					echo $textarea_content;
-				}
-				?></textarea><br>
-				<button type="submit" class="btn btn-primary">Paste it!</button>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Text paste</h3>
+				</div>
+				<div class="panel-body">
+					<textarea name="content" class="form-control text-upload">
+						<?php if (isset($textarea_content)) {
+							echo $textarea_content;
+						} ?>
+					</textarea><br>
+					<button type="submit" class="btn btn-primary">Paste it!</button>
+				</div>
 			</form>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<?php echo form_open_multipart('file/do_upload'); ?>
-			<h2>File upload</h2>
-			<input class="file-upload" type="file" name="file[]" multiple="multiple"><br>
-			<button type="submit" id="upload_button" class="btn btn-primary">Upload it!</button>
+</div>
+<div class="row">
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+		<?php echo form_open_multipart('file/do_upload'); ?>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">File upload</h3>
+			</div>
+			<div class="panel-body">
+				<input class="file-upload" type="file" name="file[]" multiple="multiple"><br>
+				<button type="submit" id="upload_button" class="btn btn-primary">Upload it!</button>
+			</div>
+		</div>
 		</form>
 	</div>
-	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-topfix">
-		<div class="alert alert-info">
-			<h4 class="alert-heading">Notice!</h4>
-			<p>
-				Uploads/pastes are <?php if ($upload_max_age > 0) {
-					echo "deleted after ".$upload_max_age." days";
-					if ($small_upload_size > 0) {
-						echo " unless they are smaller than ".format_bytes($small_upload_size);
-					}
-				} else {
-					echo "stored forever";
-				} ?>. Maximum upload size is <?php echo format_bytes($max_upload_size); ?>.
-				You can upload a maximum of <?php echo ini_get("max_file_uploads"); ?> files at once.
-			</p>
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">Notice!</h3>
+			</div>
+			<div class="panel-body">
+				<p>
+					Uploads/pastes are <?php if ($upload_max_age > 0) {
+						echo "deleted after ".$upload_max_age." days";
+						if ($small_upload_size > 0) {
+							echo " unless they are smaller than ".format_bytes($small_upload_size);
+						}
+					} else {
+						echo "stored forever";
+					} ?>. Maximum upload size is <?php echo format_bytes($max_upload_size); ?>.
+					You can upload a maximum of <?php echo ini_get("max_file_uploads"); ?> files at once.
+				</p>
+			</div>
 		</div>
 	</div>
-</div>
 </div>
 
 <script type="text/javascript">
