@@ -610,7 +610,6 @@ class File extends MY_Controller {
 		$file = $this->mfile->file($hash);
 
 		file_put_contents($file, $content);
-		chmod($file, 0600);
 		$this->mfile->add_file($hash, $id, $filename);
 		$this->_show_url(array($id), false);
 	}
@@ -692,7 +691,6 @@ class File extends MY_Controller {
 			$file_path = $this->mfile->file($hash);
 
 			move_uploaded_file($file['tmp_name'], $file_path);
-			chmod($file_path, 0600);
 			$this->mfile->add_file($hash, $id, $filename);
 			$ids[] = $id;
 		}
