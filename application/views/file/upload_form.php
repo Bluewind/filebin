@@ -7,11 +7,11 @@
 					<h3 class="panel-title">Text paste</h3>
 				</div>
 				<div class="panel-body">
-					<textarea name="content" class="form-control text-upload">
-						<?php if (isset($textarea_content)) {
+					<textarea name="content" class="form-control text-upload"><?php
+						if (isset($textarea_content)) {
 							echo $textarea_content;
-						} ?>
-					</textarea><br>
+						}
+					?></textarea><br>
 					<button type="submit" class="btn btn-primary">Paste it!</button>
 				</div>
 			</form>
