@@ -9,11 +9,13 @@
 
 class Duser_db extends Duser_Driver {
 
+	/* FIXME: If you use this driver as a template, remove can_reset_password
+	 * and can_register_new_users. These features require the DB driver and
+	 * will NOT work with other drivers.
+	 */
 	public $optional_functions = array(
-		'username_exists',
 		'can_reset_password',
 		'can_register_new_users',
-		'get_email',
 	);
 
 	public function login($username, $password)
@@ -26,11 +28,7 @@ class Duser_db extends Duser_Driver {
 			WHERE `username` = ?
 			', array($username))->row_array();
 
-		if (!isset($query["username"]) || $query["username"] !== $username) {
-			return false;
-		}
-
-		if (!isset($query["password"])) {
+		if (empty($query)) {
 			return false;
 		}
 

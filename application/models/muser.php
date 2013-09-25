@@ -142,10 +142,6 @@ class Muser extends CI_Model {
 
 	function get_email($userid)
 	{
-		if (!$this->duser->is_implemented("get_email")) {
-			return false;
-		}
-
 		return $this->duser->get_email($userid);
 	}
 

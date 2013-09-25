@@ -99,5 +99,8 @@ class MY_Controller extends CI_Controller {
 		}
 
 		$this->data['title'] = "FileBin";
+
+		$this->load->model("muser");
+		$this->data["user_logged_in"] = $this->muser->logged_in();
 	}
 }

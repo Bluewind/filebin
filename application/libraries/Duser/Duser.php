@@ -9,14 +9,11 @@
 
 abstract class Duser_Driver extends CI_Driver {
 
-	// List of optional functions or function groups that are implemented
+	// List of optional functions that are implemented
 	//
-	// Possible values are names of functions already implemented in this
-	// abstract class or the function groups listed below.
-	//
-	// Possible function groups are:
-	//  - can_register_new_users
-	//  - can_reset_password
+	// Possible values are:
+	//  - can_register_new_users (only supported with the DB driver!)
+	//  - can_reset_password (only supported with the DB driver!)
 	public $optional_functions = array();
 
 	/*
@@ -24,12 +21,26 @@ abstract class Duser_Driver extends CI_Driver {
 	 *  - username string
 	 *  - userid INT > 0
 	 *
+	 * @param username
+	 * @param password
 	 * @return mixed array on success, false on failure
 	 */
 	abstract public function login($username, $password);
 
+	/*
+	 * @param username
+	 * @return boolean true is username exists, false otherwise
+	 */
 	public function username_exists($username) {
-		return false;
+		return null;
+	}
+
+	/*
+	 * @param userid
+	 * @return string email address of the user
+	 */
+	public function get_email($userid) {
+		return null;
 	}
 }
 
@@ -38,7 +49,7 @@ class Duser extends CI_Driver_Library {
 	protected $_adapter = null;
 
 	protected $valid_drivers = array(
-		'duser_db', 'duser_ldap'
+		'duser_db', 'duser_ldap', 'duser_fluxbb'
 	);
 
 	function __construct()
@@ -87,8 +98,6 @@ class Duser extends CI_Driver_Library {
 
 	public function username_exists($username)
 	{
-		$this->require_implemented(__FUNCTION__);
-
 		if ($username === false) {
 			return false;
 		}
@@ -98,8 +107,6 @@ class Duser extends CI_Driver_Library {
 
 	public function get_email($userid)
 	{
-		$this->require_implemented(__FUNCTION__);
-
 		return $this->{$this->_adapter}->get_email($userid);
 	}
 }

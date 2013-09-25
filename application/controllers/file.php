@@ -20,7 +20,6 @@ class File extends MY_Controller {
 		parent::__construct();
 
 		$this->load->model('mfile');
-		$this->load->model('muser');
 
 		if (is_cli_client()) {
 			$this->var->view_dir = "file_plaintext";
@@ -99,10 +98,12 @@ class File extends MY_Controller {
 			exit();
 		}
 
+		$this->load->driver("ddownload");
+
 		// user wants the plain file
 		if ($lexer == 'plain') {
 			handle_etag($etag);
-			rangeDownload($file, $filedata["filename"], "text/plain");
+			$this->ddownload->serveFile($file, $filedata["filename"], "text/plain");
 			exit();
 		}
 
@@ -123,7 +124,7 @@ class File extends MY_Controller {
 				header("$header_name: allow 'none'; img-src *; media-src *; font-src *; style-src * 'unsafe-inline'; script-src 'none'; object-src *; frame-src 'none'; ");
 			}
 			handle_etag($etag);
-			rangeDownload($file, $filedata["filename"], $filedata["mimetype"]);
+			$this->ddownload->serveFile($file, $filedata["filename"], $filedata["mimetype"]);
 			exit();
 		}
 
