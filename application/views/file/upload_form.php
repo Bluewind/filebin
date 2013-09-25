@@ -3,11 +3,11 @@
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-upload-form">
 			<?php echo form_open_multipart('file/do_paste'); ?>
-				<h2>Text paste</h2>
-				<textarea name="content" class="form-control text-upload"><?php
-					if (isset($textarea_content)) {
-						echo $textarea_content;
-					}
+			<h2>Text paste</h2>
+			<textarea name="content" class="form-control text-upload"><?php
+				if (isset($textarea_content)) {
+					echo $textarea_content;
+				}
 				?></textarea><br>
 				<button type="submit" class="btn btn-primary">Paste it!</button>
 			</form>
@@ -16,13 +16,13 @@
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<?php echo form_open_multipart('file/do_upload'); ?>
-				<h2>File upload</h2>
-				<input class="file-upload" type="file" name="file[]" multiple="multiple"><br>
-				<button type="submit" id="upload_button" class="btn btn-primary">Upload it!</button>
-			</form>
-		</div>
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-topfix">
-			<div class="alert alert-info">
+			<h2>File upload</h2>
+			<input class="file-upload" type="file" name="file[]" multiple="multiple"><br>
+			<button type="submit" id="upload_button" class="btn btn-primary">Upload it!</button>
+		</form>
+	</div>
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-topfix">
+		<div class="alert alert-info">
 			<h4 class="alert-heading">Notice!</h4>
 			<p>
 				Uploads/pastes are <?php if ($upload_max_age > 0) {
@@ -35,9 +35,9 @@
 				} ?>. Maximum upload size is <?php echo format_bytes($max_upload_size); ?>.
 				You can upload a maximum of <?php echo ini_get("max_file_uploads"); ?> files at once.
 			</p>
-</div>
 		</div>
 	</div>
+</div>
 </div>
 
 <script type="text/javascript">
