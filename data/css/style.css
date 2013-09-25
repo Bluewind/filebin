@@ -16,6 +16,10 @@
 	color: inherit !important;
 }
 
+.brand-icon {
+	vertical-align: bottom;
+}
+
 .login-page {
 	max-width: 300px;
 }

@@ -43,7 +43,7 @@ if (is_cli_client() && !isset($force_full_html)) {
 				</button>
 				<a class="navbar-brand" href="<?php echo site_url(); ?>"><?php
 					if (file_exists(FCPATH."data/local/logo.svg")) {
-						echo '<img src="'.link_with_mtime("/data/local/logo.svg").'" style="height: 20px"> FileBin';
+						echo '<img class="brand-icon" src="'.link_with_mtime("/data/local/logo.svg").'" style="height: 20px"> FileBin';
 					} else {
 						echo "FileBin";
 					}
