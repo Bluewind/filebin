@@ -149,6 +149,8 @@ class File extends MY_Controller {
 				echo '<td class="markdownrender">'."\n";
 				passthru('perl '.FCPATH.'scripts/Markdown.pl '.escapeshellarg($file), $cached["return_value"]);
 
+				echo '</td></table>';
+				
 				$cached["output"] = ob_get_contents();
 				ob_end_clean();
 			} else {
