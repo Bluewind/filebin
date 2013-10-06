@@ -151,6 +151,8 @@ class File extends MY_Controller {
 				passthru('perl '.FCPATH.'scripts/Markdown.pl '.escapeshellarg($file), $cached["return_value"]);
 				echo '</div></div></div>';
 
+				echo '</td></table>';
+				
 				$cached["output"] = ob_get_contents();
 				ob_end_clean();
 			} else {
