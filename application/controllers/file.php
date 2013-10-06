@@ -145,9 +145,11 @@ class File extends MY_Controller {
 			if ($lexer == "rmd") {
 				ob_start();
 
-				echo '<table class="content"><tr>';
-				echo '<td class="markdownrender">'."\n";
+				echo '<div class="code content table markdownrender">'."\n";
+				echo '<div class="table-row">'."\n";
+				echo '<div class="table-cell">'."\n";
 				passthru('perl '.FCPATH.'scripts/Markdown.pl '.escapeshellarg($file), $cached["return_value"]);
+				echo '</div></div></div>';
 
 				$cached["output"] = ob_get_contents();
 				ob_end_clean();
