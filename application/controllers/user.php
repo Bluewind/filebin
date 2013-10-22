@@ -150,7 +150,6 @@ class User extends MY_Controller {
 
 		$userid = $this->muser->get_userid();
 
-		// TODO: count both, invited users and key
 		$query = $this->db->query("
 			SELECT count(*) count
 			FROM `actions`
