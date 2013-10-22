@@ -121,7 +121,7 @@ class File extends MY_Controller {
 			// prevent javascript from being executed and forbid frames
 			// this should allow us to serve user submitted HTML content without huge security risks
 			foreach (array("X-WebKit-CSP", "X-Content-Security-Policy", "Content-Security-Policy") as $header_name) {
-				header("$header_name: allow 'none'; img-src *; media-src *; font-src *; style-src * 'unsafe-inline'; script-src 'none'; object-src *; frame-src 'none'; ");
+				header("$header_name: default-src 'none'; img-src *; media-src *; font-src *; style-src 'unsafe-inline' *; script-src 'none'; object-src *; frame-src 'none'; ");
 			}
 			handle_etag($etag);
 			$this->ddownload->serveFile($file, $filedata["filename"], $filedata["mimetype"]);
