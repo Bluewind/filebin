@@ -1,4 +1,6 @@
 <?php
+$dateformat = "r";
+$lengths["date"] = max($lengths["date"], strlen(date($dateformat, time())));
 echo
 	mb_str_pad($fields["id"], $lengths["id"])." | "
 	.mb_str_pad($fields["filename"], $lengths["filename"])." | "
@@ -12,7 +14,7 @@ foreach($query as $key => $item) {
 		mb_str_pad($item["id"], $lengths["id"])." | "
 		.mb_str_pad($item["filename"], $lengths["filename"])." | "
 		.mb_str_pad($item["mimetype"], $lengths["mimetype"])." | "
-		.date("r", $item["date"])." | "
+		.date($dateformat, $item["date"])." | "
 		.$item["hash"]." | "
 		.$item["filesize"]."\n";
 }
