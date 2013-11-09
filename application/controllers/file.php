@@ -380,16 +380,24 @@ class File extends MY_Controller {
 		$etag = "$id-thumb";
 		handle_etag($etag);
 
-		$thumb = $this->mfile->makeThumb($id, 150, IMAGETYPE_JPEG);
-
-		if ($thumb === false) {
-			show_error("Failed to generate thumbnail");
-		}
+		$thumb_size = 150;
 
 		$filedata = $this->mfile->get_filedata($id);
 		if (!$filedata) {
 			show_error("Failed to get file data");
 		}
+
+		$cache_key = $filedata['hash'].'_thumb_'.$thumb_size;
+
+		$thumb = cache_function($cache_key, 100, function() use ($id, $thumb_size){
+			$thumb = $this->mfile->makeThumb($id, $thumb_size, IMAGETYPE_JPEG);
+
+			if ($thumb === false) {
+				show_error("Failed to generate thumbnail");
+			}
+
+			return $thumb;
+		});
 
 		$this->output->set_header("Cache-Control:max-age=31536000, public");
 		$this->output->set_header("Expires: ".date("r", time() + 365 * 24 * 60 * 60));
