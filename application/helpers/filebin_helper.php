@@ -265,4 +265,22 @@ function stateful_client()
 	return true;
 }
 
+/**
+ * Cache the result of the function call
+ * @param key cache key to use
+ * @param ttl time to live for the cache entry
+ * @param function function to call
+ * @return return value of function (will be cached)
+ */
+function cache_function($key, $ttl, $function)
+{
+	$CI =& get_instance();
+	$CI->load->driver('cache', array('adapter' => $CI->config->item("cache_backend")));
+	if (! $content = $CI->cache->get($key)) {
+		$content = $function();
+		$CI->cache->save($key, $content, $ttl);
+	}
+	return $content;
+}
+
 # vim: set noet:
