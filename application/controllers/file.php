@@ -138,33 +138,31 @@ class File extends MY_Controller {
 		$this->data['lexers'] = $this->mfile->get_lexers();
 		$this->data['filedata'] = $filedata;
 
-		// highlight the file and chache the result
-		$this->load->driver('cache', array('adapter' => $this->config->item("cache_backend")));
-		if (! $cached = $this->cache->get($filedata['hash'].'_'.$lexer)) {
-			$cached = array();
+		// highlight the file and cache the result
+		$highlit = cache_function($filedata['hash'].'_'.$lexer, 100, function() use ($file, $lexer){
+			$ret = array();
 			if ($lexer == "rmd") {
 				ob_start();
 
 				echo '<div class="code content table markdownrender">'."\n";
 				echo '<div class="table-row">'."\n";
 				echo '<div class="table-cell">'."\n";
-				passthru('perl '.FCPATH.'scripts/Markdown.pl '.escapeshellarg($file), $cached["return_value"]);
+				passthru('perl '.FCPATH.'scripts/Markdown.pl '.escapeshellarg($file), $ret["return_value"]);
 				echo '</div></div></div>';
 
-				$cached["output"] = ob_get_contents();
-				ob_end_clean();
+				$ret["output"] = ob_get_clean();
 			} else {
-				$cached = $this->_colorify($file, $lexer);
+				$ret = $this->_colorify($file, $lexer);
 			}
 
-			if ($cached["return_value"] != 0) {
-				$ret = $this->_colorify($file, "text");
-				$cached["output"] = $ret["output"];
+			if ($ret["return_value"] != 0) {
+				$tmp = $this->_colorify($file, "text");
+				$ret["output"] = $tmp["output"];
 			}
-			$this->cache->save($filedata['hash'].'_'.$lexer, $cached, 100);
-		}
+			return $ret;
+		});
 
-		if ($cached["return_value"] != 0) {
+		if ($highlit["return_value"] != 0) {
 			$this->data["error_message"] = "<p>Error trying to process the file.
 				Either the lexer is unknown or something is broken.
 				Falling back to plain text.</p>";
@@ -174,7 +172,7 @@ class File extends MY_Controller {
 		// much magic ({elapsed_time} and {memory_usage}).
 		// Direct echo puts us on the safe side.
 		echo $this->load->view($this->var->view_dir.'/html_header', $this->data, true);
-		echo $cached["output"];
+		echo $highlit["output"];
 		echo $this->load->view($this->var->view_dir.'/html_footer', $this->data, true);
 	}
 

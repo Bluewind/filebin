@@ -339,8 +339,7 @@ class Mfile extends CI_Model {
 	}
 
 	public function get_lexers() {
-		$this->load->driver('cache', array('adapter' => $this->config->item("cache_backend")));
-		if (! $lexers = $this->cache->get('lexers')) {
+		return cache_function('lexers', 1800, function() {
 			$lexers = array();
 			$last_desc = "";
 			exec("python ".escapeshellarg(FCPATH."scripts/get_lexer_list.py"), $output);
@@ -354,10 +353,8 @@ class Mfile extends CI_Model {
 				$lexers[$name] = $desc;
 			}
 			$lexers["text"] = "Plain text";
-			$this->cache->save('lexers', $lexers, 1800);
-		}
-
-		return $lexers;
+			return $lexers;
+		});
 	}
 
 	public function should_highlight($type)
