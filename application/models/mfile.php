@@ -123,6 +123,11 @@ class Mfile extends CI_Model {
 
 		$source_path = $this->file($filedata["hash"]);
 
+		$source_gdim = imagecreatefromstring(file_get_contents($source_path));
+		if ($source_gdim === false) {
+			show_error("Unsupported image type");
+		}
+
 		list($source_width, $source_height, $source_type) = getimagesize($source_path);
 
 		if ($target_type === null) {
@@ -131,20 +136,6 @@ class Mfile extends CI_Model {
 
 		$target_width = $size;
 		$target_height = $size;
-
-		switch ($source_type) {
-			case IMAGETYPE_GIF:
-				$source_gdim = imagecreatefromgif($source_path);
-				break;
-			case IMAGETYPE_JPEG:
-				$source_gdim = imagecreatefromjpeg($source_path);
-				break;
-			case IMAGETYPE_PNG:
-				$source_gdim = imagecreatefrompng($source_path);
-				break;
-			default:
-				show_error("Unsupported image type");
-		}
 
 		$source_aspect_ratio = $source_width / $source_height;
 		$desired_aspect_ratio = $target_width / $target_height;
