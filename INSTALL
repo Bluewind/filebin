@@ -11,7 +11,7 @@
 * The necessary database tables are created/updated automatically when accessing your pastebin
 
 * Copy htaccess.txt to .htaccess if you want shorter URLs
-  (also change the config setting)
+  (also set "$config['index_page'] = '';" in config-local.php)
 
 * Add ./crontab or something similar to the user's crontab
 
