@@ -486,7 +486,6 @@ class Mfile extends CI_Model {
 				'rb' => 'ruby',
 				's' => 'asm',
 				'sh' => 'bash',
-				'svg' => 'xml',
 				'tcl' => 'tcl',
 				'tex' => 'tex',
 			);
