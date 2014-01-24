@@ -31,6 +31,7 @@ machine <?php echo $domain; ?> login my_username password my_secret_password
 <p>
 	Arch Linux: pacman -S fb-client<br />
 	Debian: <?php echo anchor($client_link_deb); ?><br />
+	Gentoo: Add <a href="http://git.rout0r.org/fluxnet/overlay/blobs/master/README.md">this overlay</a> and run <code>emerge -a fb-client</code><br />
 	Slackware: <?php echo anchor($client_link_slackware); ?>
 </p>
 
