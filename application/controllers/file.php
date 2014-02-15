@@ -140,6 +140,7 @@ class File extends MY_Controller {
 
 		// highlight the file and cache the result
 		$highlit = cache_function($filedata['hash'].'_'.$lexer, 100, function() use ($file, $lexer){
+			$CI =& get_instance();
 			$ret = array();
 			if ($lexer == "rmd") {
 				ob_start();
@@ -152,11 +153,11 @@ class File extends MY_Controller {
 
 				$ret["output"] = ob_get_clean();
 			} else {
-				$ret = $this->_colorify($file, $lexer);
+				$ret = $CI->_colorify($file, $lexer);
 			}
 
 			if ($ret["return_value"] != 0) {
-				$tmp = $this->_colorify($file, "text");
+				$tmp = $CI->_colorify($file, "text");
 				$ret["output"] = $tmp["output"];
 			}
 			return $ret;
@@ -388,7 +389,8 @@ class File extends MY_Controller {
 		$cache_key = $filedata['hash'].'_thumb_'.$thumb_size;
 
 		$thumb = cache_function($cache_key, 100, function() use ($id, $thumb_size){
-			$thumb = $this->mfile->makeThumb($id, $thumb_size, IMAGETYPE_JPEG);
+			$CI =& get_instance();
+			$thumb = $CI->mfile->makeThumb($id, $thumb_size, IMAGETYPE_JPEG);
 
 			if ($thumb === false) {
 				show_error("Failed to generate thumbnail");
