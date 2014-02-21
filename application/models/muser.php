@@ -11,6 +11,9 @@ class Muser extends CI_Model {
 
 	private $default_upload_id_limits = "3-6";
 
+	// last level has the most access
+	private $access_levels = array("basic", "apikey", "full");
+
 	function __construct()
 	{
 		parent::__construct();
@@ -95,7 +98,7 @@ class Muser extends CI_Model {
 		$apikey = trim($apikey);
 
 		$query = $this->db->query("
-			SELECT a.user userid
+			SELECT a.user userid, a.access_level
 			FROM apikeys a
 			WHERE a.key = ?
 			", array($apikey))->row_array();
@@ -105,7 +108,7 @@ class Muser extends CI_Model {
 				'logged_in' => true,
 				'username' => '',
 				'userid' => $query["userid"],
-				'access_level' => 'apikey',
+				'access_level' => $query["access_level"],
 			));
 			return true;
 		}
@@ -145,15 +148,17 @@ class Muser extends CI_Model {
 		return $this->duser->get_email($userid);
 	}
 
+	public function get_access_levels()
+	{
+		return $this->access_levels;
+	}
+
 	private function check_access_level($wanted_level)
 	{
 		$session_level = $this->session->userdata("access_level");
 
-		// last level has the most access
-		$levels = array("apikey", "full");
-
-		$wanted = array_search($wanted_level, $levels);
-		$have = array_search($session_level, $levels);
+		$wanted = array_search($wanted_level, $this->access_levels);
+		$have = array_search($session_level, $this->access_levels);
 
 		if ($wanted === false || $have === false) {
 			show_error("Failed to determine access level");

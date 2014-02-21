@@ -264,7 +264,7 @@ class File extends MY_Controller {
 				"lexer" => $lexer
 			));
 			$this->session->set_flashdata("uri", "file/claim_id");
-			$this->muser->require_access("apikey");
+			$this->muser->require_access("basic");
 		}
 
 		foreach ($ids as $id) {
@@ -630,7 +630,7 @@ class File extends MY_Controller {
 		// stateful clients get a cookie to claim the ID later
 		// don't force them to log in just yet
 		if (!stateful_client()) {
-			$this->muser->require_access("apikey");
+			$this->muser->require_access("basic");
 		}
 
 		$ids = array();

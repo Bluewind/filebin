@@ -79,7 +79,16 @@ class User extends MY_Controller {
 
 		$userid = $this->muser->get_userid();
 		$comment = $this->input->post("comment");
+		$access_level = $this->input->post("access_level");
 
+		if ($access_level === false) {
+			$access_level = "apikey";
+		}
+
+		$valid_levels = $this->muser->get_access_levels();
+		if (array_search($access_level, $valid_levels) === false) {
+			show_error("Invalid access levels requested.");
+		}
 
 		if (strlen($comment) > 255) {
 			show_error("Comment may only be 255 chars long.");
@@ -89,9 +98,9 @@ class User extends MY_Controller {
 
 		$this->db->query("
 			INSERT INTO `apikeys`
-			(`key`, `user`, `comment`)
-			VALUES (?, ?, ?)
-		", array($key, $userid, $comment));
+			(`key`, `user`, `comment`, `access_level`)
+			VALUES (?, ?, ?, ?)
+		", array($key, $userid, $comment, $access_level));
 
 		if (static_storage("response_type") == "json") {
 			return send_json_reply(array("new_key" => $key));
@@ -127,7 +136,7 @@ class User extends MY_Controller {
 		$userid = $this->muser->get_userid();
 
 		$query = $this->db->query("
-			SELECT `key`, UNIX_TIMESTAMP(`created`) `created`, `comment`
+			SELECT `key`, UNIX_TIMESTAMP(`created`) `created`, `comment`, `access_level`
 			FROM `apikeys`
 			WHERE `user` = ? order by created desc
 			", array($userid))->result_array();
