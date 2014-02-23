@@ -79,6 +79,7 @@ class User extends MY_Controller {
 
 		$userid = $this->muser->get_userid();
 		$comment = $this->input->post("comment");
+		$comment = $comment === false ? "" : $comment;
 		$access_level = $this->input->post("access_level");
 
 		if ($access_level === false) {
