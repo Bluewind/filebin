@@ -359,35 +359,40 @@ $config['proxy_ips'] = '';
 
 /*
 |--------------------------------------------------------------------------
-| Filebin
-|-------------------------------------------------------------------------
-|
-| upload_path should NOT be readable/served by the server, but only by 
-|   the script
-| sizes are in bytes
-| max_age in seconds
-|
+| FileBin
+|--------------------------------------------------------------------------
  */
 
+// upload_path should NOT be readable/served by the server, but only by the script
 $config['upload_path'] = FCPATH.'data/uploads';
-$config['upload_max_size'] = 256*1024*1024;
-$config['upload_max_text_size'] = 2*1024*1024;
 
-// 0 disables deletion
+// Make sure to adjust PHP's limits (post_max_size, upload_max_filesize) if necessary
+$config['upload_max_size'] = 256*1024*1024; // 256MiB
+
+// Files smaller than this will be highlit, larger ones will simply be downloaded
+// even if requested to be highlit.
+$config['upload_max_text_size'] = 2*1024*1024; // 2MiB
+
+// Files older than this will be deleted by the cron job.
+// 0 disables deletion.
 $config['upload_max_age'] = 60*60*24*5; // 5 days
 $config['actions_max_age'] = 60*60*24*5; // 5 days
 
-// won't be deleted
-$config['small_upload_size'] = 1024*10; // 10KB
+// Files smaller than this won't be deleted (even if they are old enough)
+$config['small_upload_size'] = 1024*10; // 10KiB
 
-// possible values:
+
+// Possible values:
 // - apc: needs the apc module and is only useful on long running php processes
-// - file: you will have to clean up the cache directory yourself (application/cache/)
+// - file: you will have to clean up the cache directory yourself (./application/cache/)
 // - memcached: config in application/config/memcached.php; you need the memcached module (with the D)
 // - dummy: disables caching
+//
+// It is highly suggested to enable the cache.
 $config['cache_backend'] = "dummy";
 
-// for possible drivers look into ./application/libraries/Duser/drivers/
+
+// For possible drivers look into ./application/libraries/Duser/drivers/
 $config['authentication_driver'] = 'db';
 
 // This is only used it the driver is set to ldap
@@ -413,12 +418,15 @@ $config['auth_fluxbb'] = array(
 	'database' => 'fluxbb'
 );
 
-// possible values: production, development
+
+// Possible values: production, development
+// "development" enables features like profiling and display of SQL queries.
 $config['environment'] = "production";
 
-// This sets the download implementation. Possible values are php, nginx and lighttpd
+
+// This sets the download implementation. Possible values are php, nginx and lighttpd.
 // The nginx and lighttpd drivers make use of the server's sendfile feature.
-$config['download_driver'] = 'php';
+//
 // The lighttpd driver requires the following directive to be set in your fastcgi.server configuration:
 //	"allow-x-send-file" => "enable"
 // See http://redmine.lighttpd.net/projects/lighttpd/wiki/Docs_ModFastCGI#X-Sendfile
@@ -430,6 +438,8 @@ $config['download_driver'] = 'php';
 //		alias <upload_path>/;
 //	}
 // See http://wiki.nginx.org/X-accel
+$config['download_driver'] = 'php';
+
 $config['download_nginx_location'] = '/protected-uploads';
 
 if (file_exists(FCPATH.'application/config/config-local.php')) {
