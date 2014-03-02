@@ -21,7 +21,6 @@
 
 * Go to http://yourdomain.com/some/where/index.php/user/hash_password to generate a password hash
 
-* Run the following SQL command
-   insert into users
-   (username, password, email, referrer)
-   values ("your_name", "hash_from_above", "you@foo.com", 0)
+* Run the following SQL command in your database:
+   insert into users (username, password, email, referrer)
+   values ("your_name", "hash_from_above", "you@foo.com", 0);
