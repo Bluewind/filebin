@@ -23,4 +23,4 @@
 
 * Run the following SQL command in your database:
    insert into users (username, password, email, referrer)
-   values ("your_name", "hash_from_above", "you@foo.com", 0);
+   values ("your_name", "hash_from_above", "you@foo.com", NULL);

@@ -331,7 +331,7 @@ class User extends MY_Controller {
 		$admininfo = $this->db->query("
 			SELECT email
 			FROM users
-			WHERE referrer = 0
+			WHERE referrer is null
 			ORDER BY id asc
 			LIMIT 1
 			")->row_array();
