@@ -17,7 +17,7 @@ class Migration_Repurpose_invitations extends CI_Migration {
 		");
 
 		$this->db->query("
-			RENAME TABLE `invitations` TO `actions` ;
+			ALTER TABLE `invitations` RENAME `actions`;
 		");
 
 	}
@@ -25,7 +25,7 @@ class Migration_Repurpose_invitations extends CI_Migration {
 	public function down()
 	{
 		$this->db->query("
-			RENAME TABLE `actions` TO `invitations` ;
+			ALTER TABLE `actions` RENAME `invitations`;
 		");
 
 		$this->db->query("
