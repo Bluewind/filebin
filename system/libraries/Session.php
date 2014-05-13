@@ -154,9 +154,16 @@ class CI_Session {
 			// encryption was not used, so we need to check the md5 hash
 			$hash	 = substr($session, strlen($session)-32); // get last 32 chars
 			$session = substr($session, 0, strlen($session)-32);
+			$hash_check = md5($session.$this->encryption_key);
+
+			$diff = 0;
+			for ($i = 0; $i < 32; $i++)
+			{
+				$diff |= ord($hash[$i]) ^ ord($hash_check[$i]);
+			}
 
 			// Does the md5 hash match?  This is to prevent manipulation of session data in userspace
-			if ($hash !==  md5($session.$this->encryption_key))
+			if ($diff !== 0)
 			{
 				log_message('error', 'The session cookie data did not match what was expected. This could be a possible hacking attempt.');
 				$this->sess_destroy();
