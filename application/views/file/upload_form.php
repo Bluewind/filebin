@@ -92,7 +92,8 @@
 		<div class="page-header"><h1>Information</h1></div>
 		<p>This website's primary goal is aiding developers, power users, students and alike in solving problems, debugging software, sharing their configuration, etc. It is not intended to distribute confidential or harmful information, scripts or software.</p>
 		<?php if(auth_driver_function_implemented("can_register_new_users")) { ?>
-			<p>If you believe you deserve an account, ask someone who is already using this service to <a href="<?php echo site_url("user/invite"); ?>">invite</a> you.</p>
+			<p>If you want an account, ask someone who is already using this service to <a href="<?php echo site_url("user/invite"); ?>">invite</a> you.</p>
+			<p>Invitations are used to control abuse and encourage users to "be nice". They are not intended as a means of exclusivity. In case of abuse reports, involved accounts may be banned and the user who invited them may also be banned. The invitation tree will be followed upwards if necessary.</p>
 		<?php } ?>
 	</div>
 </div>
