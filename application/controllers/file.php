@@ -31,16 +31,8 @@ class File extends MY_Controller {
 	function index()
 	{
 		if ($this->input->is_cli_request()) {
-			echo "php index.php file <function> [arguments]\n";
-			echo "\n";
-			echo "Functions:\n";
-			echo "  cron               Cronjob\n";
-			echo "  nuke_id <ID>       Nukes all IDs sharing the same hash\n";
-			echo "\n";
-			echo "Functions that shouldn't have to be run:\n";
-			echo "  clean_stale_files     Remove files without database entries\n";
-			echo "  update_file_metadata  Update filesize and mimetype in database\n";
-			exit;
+			$this->load->library("../controllers/tools");
+			return $this->tools->index();
 		}
 		// Try to guess what the user would like to do.
 		$id = $this->uri->segment(1);

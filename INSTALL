@@ -8,7 +8,7 @@
 * Change them to fit your needs
   - don't change config.php, use config-local.php to override it when needed
 
-* The necessary database tables are created/updated automatically when accessing your pastebin
+* run `php index.php tools update_database` to initialize your database
 
 * Copy htaccess.txt to .htaccess if you want shorter URLs
   (also set "$config['index_page'] = '';" in config-local.php)

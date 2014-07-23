@@ -23,6 +23,11 @@ class User extends MY_Controller {
 
 	function index()
 	{
+		if ($this->input->is_cli_request()) {
+			$this->load->library("../controllers/tools");
+			return $this->tools->index();
+		}
+
 		$this->data["username"] = $this->muser->get_username();
 
 		$this->load->view('header', $this->data);

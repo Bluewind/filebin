@@ -21,9 +21,22 @@ class MY_Controller extends CI_Controller {
 		$this->var = new StdClass();
 		$csrf_protection = true;
 
-		$this->load->library('migration');
-		if ( ! $this->migration->current()) {
-			show_error($this->migration->error_string());
+		// check if DB is up to date
+		if (!$this->input->is_cli_request()) {
+			if (!$this->db->table_exists('migrations')){
+				show_error("Database not initialized. Can't find migrations table. Please run the migration script.");
+			} else {
+				$this->config->load("migration", true);
+				$target_version = $this->config->item("migration_version", "migration");
+
+				// TODO: wait 20 seconds for an update so requests don't get lost for short updates?
+				$row = $this->db->get('migrations')->row();
+
+				$current_version = $row ? $row->version : 0;
+				if ($current_version != $target_version) {
+					show_error("Database version is $current_version, we want $target_version. Please run the migration script.");
+				}
+			}
 		}
 
 		$old_path = getenv("PATH");
