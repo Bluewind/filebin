@@ -185,30 +185,19 @@ function fixedEncodeURIComponent (str) {
 				},
 				type: 'numeric'
 			});
-			$.tablesorter.addParser({
-				// set a unique id
-				id: 'mydate',
-				re: /t=([0-9]+)$/,
-				is: function(s) {
-					// return false so this parser is not auto detected
-					return false;
-				},
-				format: function(s) {
-					var matches = this.re.exec(s);
-					if (!matches) {
-						return 0;
+
+			$(".tablesorter").tablesorter({
+				textExtraction: function(node) {
+					var attr = $(node).attr('data-sort-value');
+					if (typeof attr !== 'undefined' && attr !== false) {
+						var intAttr = parseInt(attr);
+						if (!isNaN(intAttr)) {
+							return intAttr;
+						}
+						return attr;
 					}
-					//console.log(s, matches);
-					return matches[1];
-				},
-				type: 'numeric'
-			});
-			$("#upload_history:has(tbody tr)").tablesorter({
-				headers: {
-					0: {sorter: false},
-					4: {sorter: "mydate"},
-				},
-				sortList: [[4,1]],
+					return $(node).text();
+				}
 			});
 		}
 

@@ -1,11 +1,12 @@
 <?php register_js_include("/data/js/jquery.tablesorter.min.js"); ?>
+<?php register_js_include("/data/js/jquery.metadata.js"); ?>
 <?php include 'nav_history.php'; ?>
 <?php echo form_open("file/do_delete") ?>
     <div class="table-responsive">
-        <table id="upload_history" class="table table-striped tablesorter">
+        <table id="upload_history" class="table table-striped tablesorter {sortlist: [[4,1]]}">
             <thead>
                 <tr>
-                    <th><input type="checkbox" name="all-ids" id="history-all"></th>
+                    <th class="{sorter: false}"><input type="checkbox" name="all-ids" id="history-all"></th>
                     <th>ID</th>
                     <th>Filename</th>
                     <th>Mimetype
@@ -20,7 +21,7 @@
                         <td><a href="<?php echo site_url("/".$item["id"]) ?>/"><?php echo $item["id"] ?></a></td>
                         <td class="wrap"><?php echo htmlspecialchars($item["filename"]); ?></td>
                         <td><?php echo $item["mimetype"] ?></td>
-                        <td class="nowrap"><?php echo date("r", $item["date"]); ?><span class="hidden">t=<?php echo $item["date"]; ?></span></td>
+                        <td class="nowrap" data-sort-value="<?=$item["date"]; ?>"><?php echo date("r", $item["date"]); ?></td>
                         <td><?php echo $item["filesize"] ?></td>
                     </tr>
                 <?php endforeach; ?>
