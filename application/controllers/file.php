@@ -65,12 +65,14 @@ class File extends MY_Controller {
 				return $this->_non_existent();
 			}
 			$files = $this->mmultipaste->get_files($id);
+			$this->data["title"] = "Multipaste";
 		} elseif ($this->mfile->id_exists($id)) {
 			if (!$this->mfile->valid_id($id)) {
 				return $this->_non_existent();
 			}
 
 			$files = array($this->mfile->get_filedata($id));
+			$this->data["title"] = htmlspecialchars($files[0]["filename"]);
 		} else {
 			assert(0);
 		}
