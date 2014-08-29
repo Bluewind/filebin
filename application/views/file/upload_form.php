@@ -91,6 +91,13 @@
 			<dt>/&lt;ID&gt;/info</dt><dd>display some information about the ID</dd>
 		</dl>
 		<p>If your upload is not detected as text, only <b>/&lt;ID&gt;/qr</b>, <b>/&lt;ID&gt;/plain</b> and <b>/&lt;ID&gt;/info</b> will work as above and all others will simply return the file with the detected MIME type.</p>
+		<h3>How to link your multipastes:</h3>
+		<p>Multipaste IDs begin with <code>m-</code> and only support the following features.</p>
+		<dl class="dl-horizontal">
+			<dt>/&lt;ID&gt;/</dt><dd>automatically display everything in a sensible way</dd>
+			<dt>/&lt;ID&gt;/qr</dt><dd>display a qr code containing a link to <span class="example">/&lt;ID&gt;/</span></dd>
+			<dt>/&lt;ID&gt;/info</dt><dd>display some information about the multipaste</dd>
+		</dl>
 	</div>
 	<div class="col-lg-6">
 		<div class="page-header"><h1>Information</h1></div>
