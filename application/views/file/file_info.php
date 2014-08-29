@@ -1,4 +1,4 @@
-<div class="center">
+<div class="center simple-container">
 	<?php if($filedata): ?>
 		<div class="table-responive">
 			<table class="table" style="margin: auto">

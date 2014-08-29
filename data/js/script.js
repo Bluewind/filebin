@@ -10,7 +10,7 @@ function fixedEncodeURIComponent (str) {
 
 			$('.highlight_line').removeClass("highlight_line");
 
-			if (hash.match(/^#n\d+$/) === null) {
+			if (hash.match(/^#n(?:-.+-)?\d+$/) === null) {
 				return;
 			}
 
@@ -25,22 +25,24 @@ function fixedEncodeURIComponent (str) {
 			lexer_source.push({ label: window.lexers[key], value: key });
 		}
 
-		$('#language').autocomplete({
+		$('[id^=language-]').autocomplete({
 			source: lexer_source,
 			select: function(event, ui) {
-				window.location = window.paste_base + '/' + fixedEncodeURIComponent(ui.item.value);
+				event.preventDefault();
+				window.location = $(event.target).data("base-url") + '/' + fixedEncodeURIComponent(ui.item.value);
 			}
 		});
 
-		$(document).on("keyup", "#language", function(event) {
+		$(document).on("keyup", "[id^=language-]", function(event) {
 			if (event.keyCode == 13) {
-				window.location = window.paste_base + '/' + fixedEncodeURIComponent($(this).val());
+				event.preventDefault();
+				window.location = $(event.target).data("base-url") + '/' + fixedEncodeURIComponent($(this).val());
 			}
 		});
 
-		$('#language-toggle').click(function() {
+		$('[id^=language-toggle-]').click(function(event) {
 			setTimeout(function() {
-				$('#language').focus();
+				$(event.target).parent().find('[id^=language-]').focus();
 			}, 0);
 		});
 
@@ -54,7 +56,7 @@ function fixedEncodeURIComponent (str) {
 		});
 
 		window.lines_wrapped = true;
-		$('#linewrap').click(function() {
+		$('[id^=linewrap-]').click(function() {
 			if (window.lines_wrapped == true) {
 				$(".highlight > pre").css("white-space", "pre");
 			} else {
@@ -63,7 +65,7 @@ function fixedEncodeURIComponent (str) {
 			window.lines_wrapped = !window.lines_wrapped;
 		});
 
-		$('.upload_history_thumbnails a').popover({
+		$('.upload_thumbnails a').popover({
 			trigger: "hover",
 			placement: "bottom",
 			html: true,
@@ -75,7 +77,7 @@ function fixedEncodeURIComponent (str) {
 					window.page_mode = "normal";
 					$('#delete_button').hide();
 					$("#delete_form input[id^='delete_']").remove();
-					$(".upload_history_thumbnails .marked").removeClass("marked");
+					$(".upload_thumbnails .marked").removeClass("marked");
 					break;
 				default:
 					window.page_mode = "delete";
@@ -84,7 +86,7 @@ function fixedEncodeURIComponent (str) {
 			}
 		});
 
-		$('.upload_history_thumbnails a').on("click", function(event) {
+		$('.upload_thumbnails a').on("click", function(event) {
 			if (window.page_mode == "delete") {
 				event.preventDefault();
 				var data_id = $(event.target).parent().attr("data-id");
@@ -105,8 +107,14 @@ function fixedEncodeURIComponent (str) {
 		});
 
 		function handle_resize() {
-			var div = $('.upload_history_thumbnails');
-			div.width(div.parent().width() - (div.parent().width() % div.find('a').outerWidth(true)));
+			$('.upload_thumbnails').each(function() {
+				var div = $(this);
+
+				need_multiple_lines = div.parent().width() < (div.find('a').outerWidth(true) * div.find('a').size());
+
+				div.css('margin-left', need_multiple_lines ? "auto" : "0");
+				div.width(div.parent().width() - (div.parent().width() % div.find('a').outerWidth(true)));
+			});
 		}
 
 		$(window).resize(function() {
@@ -118,15 +126,26 @@ function fixedEncodeURIComponent (str) {
 		if (window.File && window.FileList) {
 			function checkFileUpload(evt) {
 				var sum = 0;
-				var files = evt.target.files;
+				var filenum = 0;
+				var files = [];
 
-				// TODO: check all forms, not only the one we are called from
+				$('.file-upload').each(function() {
+					for (var i = 0; i < this.files.length; i++) {
+						var file = this.files[i];
+						files.push(file);
+					}
+				});
+
 				for (var i = 0; i < files.length; i++) {
-					var f = evt.target.files[i];
+					var f = files[i];
 					sum += f.size;
+					filenum++;
 				}
 
-				if (sum > max_upload_size) {
+				if (filenum > max_files_per_upload) {
+					document.getElementById('upload_button').innerHTML = "Too many files";
+					document.getElementById('upload_button').disabled = true;
+				} else if (sum > max_upload_size) {
 					document.getElementById('upload_button').innerHTML = "File(s) too big";
 					document.getElementById('upload_button').disabled = true;
 				} else {
@@ -135,8 +154,24 @@ function fixedEncodeURIComponent (str) {
 				}
 			}
 
-			$('.file-upload').bind('change', checkFileUpload);
+			$(document).on('change', '.file-upload', checkFileUpload);
 		}
+
+		$(document).on("change", '.file-upload', function() {
+			var need_new = true;
+
+			$('.file-upload').each(function() {
+				if ($(this).prop("files").length == 0) {
+					need_new = false;
+					return;
+				}
+			});
+
+			if (need_new) {
+				$(this).parent().append('<input class="file-upload" type="file" name="file[]" multiple="multiple"><br>');
+			}
+
+		});
 
 		if (typeof $.tablesorter !== 'undefined') {
 			// source: https://projects.archlinux.org/archweb.git/tree/sitestatic/archweb.js
@@ -185,30 +220,19 @@ function fixedEncodeURIComponent (str) {
 				},
 				type: 'numeric'
 			});
-			$.tablesorter.addParser({
-				// set a unique id
-				id: 'mydate',
-				re: /t=([0-9]+)$/,
-				is: function(s) {
-					// return false so this parser is not auto detected
-					return false;
-				},
-				format: function(s) {
-					var matches = this.re.exec(s);
-					if (!matches) {
-						return 0;
+
+			$(".tablesorter").tablesorter({
+				textExtraction: function(node) {
+					var attr = $(node).attr('data-sort-value');
+					if (typeof attr !== 'undefined' && attr !== false) {
+						var intAttr = parseInt(attr);
+						if (!isNaN(intAttr)) {
+							return intAttr;
+						}
+						return attr;
 					}
-					//console.log(s, matches);
-					return matches[1];
-				},
-				type: 'numeric'
-			});
-			$("#upload_history:has(tbody tr)").tablesorter({
-				headers: {
-					0: {sorter: false},
-					4: {sorter: "mydate"},
-				},
-				sortList: [[4,1]],
+					return $(node).text();
+				}
 			});
 		}
 
