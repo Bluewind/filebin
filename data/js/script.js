@@ -118,15 +118,26 @@ function fixedEncodeURIComponent (str) {
 		if (window.File && window.FileList) {
 			function checkFileUpload(evt) {
 				var sum = 0;
-				var files = evt.target.files;
+				var filenum = 0;
+				var files = [];
 
-				// TODO: check all forms, not only the one we are called from
+				$('.file-upload').each(function() {
+					for (var i = 0; i < this.files.length; i++) {
+						var file = this.files[i];
+						files.push(file);
+					}
+				});
+
 				for (var i = 0; i < files.length; i++) {
-					var f = evt.target.files[i];
+					var f = files[i];
 					sum += f.size;
+					filenum++;
 				}
 
-				if (sum > max_upload_size) {
+				if (filenum > max_files_per_upload) {
+					document.getElementById('upload_button').innerHTML = "Too many files";
+					document.getElementById('upload_button').disabled = true;
+				} else if (sum > max_upload_size) {
 					document.getElementById('upload_button').innerHTML = "File(s) too big";
 					document.getElementById('upload_button').disabled = true;
 				} else {
@@ -135,8 +146,24 @@ function fixedEncodeURIComponent (str) {
 				}
 			}
 
-			$('.file-upload').bind('change', checkFileUpload);
+			$(document).on('change', '.file-upload', checkFileUpload);
 		}
+
+		$(document).on("change", '.file-upload', function() {
+			var need_new = true;
+
+			$('.file-upload').each(function() {
+				if ($(this).prop("files").length == 0) {
+					need_new = false;
+					return;
+				}
+			});
+
+			if (need_new) {
+				$(this).parent().append('<input class="file-upload" type="file" name="file[]" multiple="multiple"><br>');
+			}
+
+		});
 
 		if (typeof $.tablesorter !== 'undefined') {
 			// source: https://projects.archlinux.org/archweb.git/tree/sitestatic/archweb.js

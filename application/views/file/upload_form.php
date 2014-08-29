@@ -26,7 +26,9 @@
 				<h3 class="panel-title">File upload</h3>
 			</div>
 			<div class="panel-body">
-				<input class="file-upload" type="file" name="file[]" multiple="multiple"><br>
+				<div>
+					<input class="file-upload" type="file" name="file[]" multiple="multiple"><br>
+				</div>
 				<button type="submit" id="upload_button" class="btn btn-primary">Upload it!</button>
 			</div>
 		</div>
@@ -57,6 +59,7 @@
 <script type="text/javascript">
     /* <![CDATA[ */
 	var max_upload_size = "<?php echo $max_upload_size; ?>";
+	var max_files_per_upload = "<?php echo ini_get("max_file_uploads"); ?>";
     /* ]]> */
 </script>
 
