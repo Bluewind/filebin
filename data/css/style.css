@@ -85,8 +85,8 @@
 @media (min-width: 768px) {
 	.anchor {
 		visibility: hidden;
-		padding-top: 60px;
-		margin-top: -60px;
+		padding-top: 70px;
+		margin-top: -70px;
 	}
 
 	#navbar-height {
