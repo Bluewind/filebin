@@ -29,6 +29,7 @@
 				<div>
 					<input class="file-upload" type="file" name="file[]" multiple="multiple"><br>
 				</div>
+				<label><input type="checkbox" name="multipaste" value="1"> Create multipaste</label><br>
 				<button type="submit" id="upload_button" class="btn btn-primary">Upload it!</button>
 			</div>
 		</div>

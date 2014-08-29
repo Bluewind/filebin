@@ -10,7 +10,7 @@ function fixedEncodeURIComponent (str) {
 
 			$('.highlight_line').removeClass("highlight_line");
 
-			if (hash.match(/^#n\d+$/) === null) {
+			if (hash.match(/^#n(?:-.+-)?\d+$/) === null) {
 				return;
 			}
 
@@ -25,22 +25,24 @@ function fixedEncodeURIComponent (str) {
 			lexer_source.push({ label: window.lexers[key], value: key });
 		}
 
-		$('#language').autocomplete({
+		$('[id^=language-]').autocomplete({
 			source: lexer_source,
 			select: function(event, ui) {
-				window.location = window.paste_base + '/' + fixedEncodeURIComponent(ui.item.value);
+				event.preventDefault();
+				window.location = $(event.target).data("base-url") + '/' + fixedEncodeURIComponent(ui.item.value);
 			}
 		});
 
-		$(document).on("keyup", "#language", function(event) {
+		$(document).on("keyup", "[id^=language-]", function(event) {
 			if (event.keyCode == 13) {
-				window.location = window.paste_base + '/' + fixedEncodeURIComponent($(this).val());
+				event.preventDefault();
+				window.location = $(event.target).data("base-url") + '/' + fixedEncodeURIComponent($(this).val());
 			}
 		});
 
-		$('#language-toggle').click(function() {
+		$('[id^=language-toggle-]').click(function(event) {
 			setTimeout(function() {
-				$('#language').focus();
+				$(event.target).parent().find('[id^=language-]').focus();
 			}, 0);
 		});
 
@@ -54,7 +56,7 @@ function fixedEncodeURIComponent (str) {
 		});
 
 		window.lines_wrapped = true;
-		$('#linewrap').click(function() {
+		$('[id^=linewrap-]').click(function() {
 			if (window.lines_wrapped == true) {
 				$(".highlight > pre").css("white-space", "pre");
 			} else {
@@ -63,7 +65,7 @@ function fixedEncodeURIComponent (str) {
 			window.lines_wrapped = !window.lines_wrapped;
 		});
 
-		$('.upload_history_thumbnails a').popover({
+		$('.upload_thumbnails a').popover({
 			trigger: "hover",
 			placement: "bottom",
 			html: true,
@@ -75,7 +77,7 @@ function fixedEncodeURIComponent (str) {
 					window.page_mode = "normal";
 					$('#delete_button').hide();
 					$("#delete_form input[id^='delete_']").remove();
-					$(".upload_history_thumbnails .marked").removeClass("marked");
+					$(".upload_thumbnails .marked").removeClass("marked");
 					break;
 				default:
 					window.page_mode = "delete";
@@ -84,7 +86,7 @@ function fixedEncodeURIComponent (str) {
 			}
 		});
 
-		$('.upload_history_thumbnails a').on("click", function(event) {
+		$('.upload_thumbnails a').on("click", function(event) {
 			if (window.page_mode == "delete") {
 				event.preventDefault();
 				var data_id = $(event.target).parent().attr("data-id");
@@ -105,8 +107,14 @@ function fixedEncodeURIComponent (str) {
 		});
 
 		function handle_resize() {
-			var div = $('.upload_history_thumbnails');
-			div.width(div.parent().width() - (div.parent().width() % div.find('a').outerWidth(true)));
+			$('.upload_thumbnails').each(function() {
+				var div = $(this);
+
+				need_multiple_lines = div.parent().width() < (div.find('a').outerWidth(true) * div.find('a').size());
+
+				div.css('margin-left', need_multiple_lines ? "auto" : "0");
+				div.width(div.parent().width() - (div.parent().width() % div.find('a').outerWidth(true)));
+			});
 		}
 
 		$(window).resize(function() {

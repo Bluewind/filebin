@@ -3,9 +3,9 @@ if (is_cli_client() && !isset($force_full_html)) {
 	return;
 }
 ?>
-	</div>
+	</div><!-- .container -->
 <div id="push"></div>
-</div>
+</div> <!-- #wrap -->
 <footer class="footer" id="footer">
 	<div class="container muted credits">
 			<p>Site code licensed under <a href="http://www.gnu.org/licenses/agpl-3.0.html" target="_blank">AGPL v3</a>.</p>

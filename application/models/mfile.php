@@ -71,15 +71,14 @@ class Mfile extends CI_Model {
 	function get_filedata($id)
 	{
 		$sql = '
-			SELECT hash, filename, mimetype, date, user, filesize
+			SELECT id, hash, filename, mimetype, date, user, filesize
 			FROM `files`
 			WHERE `id` = ?
 			LIMIT 1';
 		$query = $this->db->query($sql, array($id));
 
-		if ($query->num_rows() == 1) {
-			$return = $query->result_array();
-			return $return[0];
+		if ($query->num_rows() > 0) {
+			return $query->row_array();
 		} else {
 			return false;
 		}
@@ -214,10 +213,15 @@ class Mfile extends CI_Model {
 		$mimetype = $this->mimetype($this->file($hash));
 
 		$filesize = filesize($this->file($hash));
-		$query = $this->db->query('
-			INSERT INTO `files` (`hash`, `id`, `filename`, `user`, `date`, `mimetype`, `filesize`)
-			VALUES (?, ?, ?, ?, ?, ?, ?)',
-			array($hash, $id, $filename, $userid, time(), $mimetype, $filesize));
+		$this->db->insert("files", array(
+			"id" => $id,
+			"hash" => $hash,
+			"filename" => $filename,
+			"date" => time(),
+			"user" => $userid,
+			"mimetype" => $mimetype,
+			"filesize" => $filesize,
+		));
 	}
 
 	function adopt($id)
@@ -241,9 +245,7 @@ class Mfile extends CI_Model {
 		$file = $this->file($filedata['hash']);
 
 		if (!file_exists($file)) {
-			if (isset($filedata["hash"])) {
-				$this->db->query('DELETE FROM files WHERE hash = ?', array($filedata['hash']));
-			}
+			$this->delete_hash($filedata["hash"]);
 			return false;
 		}
 
@@ -262,10 +264,9 @@ class Mfile extends CI_Model {
 			// if the file has been uploaded multiple times the mtime is the time
 			// of the last upload
 			if (filemtime($file) < $remove_before) {
-				unlink($file);
-				$this->db->query('DELETE FROM files WHERE hash = ?', array($filedata['hash']));
+				$this->delete_hash($filedata["hash"]);
 			} else {
-				$this->db->query('DELETE FROM files WHERE id = ? LIMIT 1', array($id));
+				$this->delete_id($id);
 			}
 			return false;
 		}
@@ -273,13 +274,28 @@ class Mfile extends CI_Model {
 		return true;
 	}
 
-	function get_timeout_string($id)
+	public function get_timeout($id)
 	{
 		$filedata = $this->get_filedata($id);
 		$file = $this->file($filedata["hash"]);
 
+		if ($this->config->item("upload_max_age") == 0) {
+			return -1;
+		}
+
 		if (filesize($file) > $this->config->item("small_upload_size")) {
-			return date("r", $filedata["date"] + $this->config->item("upload_max_age"));
+			return $filedata["date"] + $this->config->item("upload_max_age");
+		} else {
+			return -1;
+		}
+	}
+
+	public function get_timeout_string($id)
+	{
+		$timeout = $this->get_timeout($id);
+
+		if ($timeout >= 0) {
+			return date("r", $timeout);
 		} else {
 			return "unknown";
 		}
@@ -301,32 +317,70 @@ class Mfile extends CI_Model {
 		}
 	}
 
-	function delete_id($id)
+	public function delete_id($id)
 	{
 		$filedata = $this->get_filedata($id);
-		$userid = $this->muser->get_userid();
 
-		if (!$this->id_exists($id)) {
-			return false;
-		}
-
-		$sql = '
-			DELETE
-			FROM `files`
-			WHERE `id` = ?
-			AND user = ?
-			LIMIT 1';
-		$this->db->query($sql, array($id, $userid));
+		// Delete the file and all multipastes using it
+		// Note that this does not delete all relations in multipaste_file_map
+		// which is actually done by a SQL contraint.
+		// TODO: make it work properly without the constraint
+		$this->db->query('
+			DELETE m, mfm, f
+			FROM files f
+			LEFT JOIN multipaste_file_map mfm ON f.id = mfm.file_url_id
+			LEFT JOIN multipaste m ON mfm.multipaste_id = m.multipaste_id
+			WHERE f.id = ?
+			', array($id));
 
 		if ($this->id_exists($id))  {
 			return false;
 		}
 
-		if ($this->unused_file($filedata['hash'])) {
-			unlink($this->file($filedata['hash']));
-			@rmdir($this->folder($filedata['hash']));
+		if ($filedata !== false) {
+			assert(isset($filedata["hash"]));
+			if ($this->unused_file($filedata['hash'])) {
+				unlink($this->file($filedata['hash']));
+				$dir = $this->folder($filedata['hash']);
+				if (count(scandir($dir)) == 2) {
+					rmdir($dir);
+				}
+			}
 		}
 		return true;
+	}
+
+	public function delete_hash($hash)
+	{
+		// Delete all files with this hash and all multipastes using any of those files
+		// Note that this does not delete all relations in multipaste_file_map
+		// which is actually done by a SQL contraint.
+		// TODO: make it work properly without the constraint
+		$this->db->query('
+			DELETE m, mfm, f
+			FROM files f
+			LEFT JOIN multipaste_file_map mfm ON f.id = mfm.file_url_id
+			LEFT JOIN multipaste m ON mfm.multipaste_id = m.multipaste_id
+			WHERE f.hash = ?
+			', array($hash));
+
+		if (file_exists($this->file($hash))) {
+			unlink($this->file($hash));
+			$dir = $this->folder($hash);
+			if (count(scandir($dir)) == 2) {
+				rmdir($dir);
+			}
+		}
+		return true;
+	}
+
+	public function get_owner($id)
+	{
+		return $this->db->query("
+			SELECT user
+			FROM files
+			WHERE id = ?
+			", array($id))->row_array()["user"];
 	}
 
 	public function get_lexers() {

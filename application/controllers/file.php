@@ -13,6 +13,7 @@ class File extends MY_Controller {
 		"upload_history",
 		"do_upload",
 		"do_delete",
+		"do_multipaste",
 	);
 
 	function __construct()
@@ -20,6 +21,7 @@ class File extends MY_Controller {
 		parent::__construct();
 
 		$this->load->model('mfile');
+		$this->load->model('mmultipaste');
 
 		if (is_cli_client()) {
 			$this->var->view_dir = "file_plaintext";
@@ -34,10 +36,13 @@ class File extends MY_Controller {
 			$this->load->library("../controllers/tools");
 			return $this->tools->index();
 		}
+
 		// Try to guess what the user would like to do.
 		$id = $this->uri->segment(1);
 		if (!empty($_FILES)) {
 			$this->do_upload();
+		} elseif (strpos($id, "m-") === 0 && $this->mmultipaste->id_exists($id)) {
+			$this->_download();
 		} elseif ($id != "file" && $this->mfile->id_exists($id)) {
 			$this->_download();
 		} elseif ($id && $id != "file") {
@@ -52,124 +57,151 @@ class File extends MY_Controller {
 		$id = $this->uri->segment(1);
 		$lexer = urldecode($this->uri->segment(2));
 
-		$filedata = $this->mfile->get_filedata($id);
-		$file = $this->mfile->file($filedata['hash']);
+		$is_multipaste = false;
+		if ($this->mmultipaste->id_exists($id)) {
+			$is_multipaste = true;
 
-		if (!$this->mfile->valid_id($id)) {
-			$this->_non_existent();
-			return;
+			if(!$this->mmultipaste->valid_id($id)) {
+				return $this->_non_existent();
+			}
+			$files = $this->mmultipaste->get_files($id);
+		} elseif ($this->mfile->id_exists($id)) {
+			if (!$this->mfile->valid_id($id)) {
+				return $this->_non_existent();
+			}
+
+			$files = array($this->mfile->get_filedata($id));
+		} else {
+			assert(0);
 		}
+
+		assert($files !== false);
+		assert(is_array($files));
+		assert(count($files) >= 1);
 
 		// don't allow unowned files to be downloaded
-		if ($filedata["user"] == 0) {
-			$this->_non_existent();
-			return;
+		foreach ($files as $filedata) {
+			if ($filedata["user"] == 0) {
+				return $this->_non_existent();
+			}
 		}
 
-		// helps to keep traffic low when reloading
-		$etag = $filedata["hash"]."-".$filedata["date"];
-
-		// autodetect the lexer for highlighting if the URL contains a / after the ID (/ID/)
-		// /ID/lexer disables autodetection
-		$autodetect_lexer = !$lexer && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1;
-
-		if ($autodetect_lexer) {
-			$lexer = $this->mfile->autodetect_lexer($filedata["mimetype"], $filedata["filename"]);
+		$etag = "";
+		foreach ($files as $filedata) {
+			$etag = sha1($etag.$filedata["hash"]);
 		}
 
-		// resolve aliases
-		// this is mainly used for compatibility
-		$lexer = $this->mfile->resolve_lexer_alias($lexer);
+		// handle some common "lexers" here
+		switch ($lexer) {
+		case "":
+			break;
 
-		// create the qr code for /ID/
-		if ($lexer == "qr") {
+		case "qr":
 			handle_etag($etag);
 			header("Content-disposition: inline; filename=\"".$id."_qr.png\"\n");
 			header("Content-Type: image/png\n");
 			passthru('qrencode -s 10 -o - '.escapeshellarg(site_url($id).'/'));
 			exit();
+
+		case "info":
+			return $this->_display_info($id);
+
+		default:
+			if ($is_multipaste) {
+				show_error("Invalid action \"".htmlspecialchars($lexer)."\"");
+			}
+			break;
 		}
 
 		$this->load->driver("ddownload");
 
 		// user wants the plain file
 		if ($lexer == 'plain') {
+			assert(count($files) == 1);
 			handle_etag($etag);
-			$this->ddownload->serveFile($file, $filedata["filename"], "text/plain");
+
+			$filedata = $files[0];
+			$filepath = $this->mfile->file($filedata["hash"]);
+			$this->ddownload->serveFile($filepath, $filedata["filename"], "text/plain");
 			exit();
 		}
 
-		if ($lexer == 'info') {
-			$this->_display_info($id);
-			return;
-		}
+		$this->load->library("output_cache");
 
-		// if there is no mimetype mapping we can't highlight it
-		$can_highlight = $this->mfile->can_highlight($filedata["mimetype"]);
+		foreach ($files as $key => $filedata) {
+			$file = $this->mfile->file($filedata['hash']);
 
-		$filesize_too_big = filesize($file) > $this->config->item('upload_max_text_size');
-
-		if (!$can_highlight || $filesize_too_big || !$lexer) {
-			// prevent javascript from being executed and forbid frames
-			// this should allow us to serve user submitted HTML content without huge security risks
-			foreach (array("X-WebKit-CSP", "X-Content-Security-Policy", "Content-Security-Policy") as $header_name) {
-				header("$header_name: default-src 'none'; img-src *; media-src *; font-src *; style-src 'unsafe-inline' *; script-src 'none'; object-src *; frame-src 'none'; ");
+			// autodetect the lexer for highlighting if the URL contains a / after the ID (/ID/)
+			// /ID/lexer disables autodetection
+			$autodetect_lexer = !$lexer && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1;
+			$autodetect_lexer = $is_multipaste ? true : $autodetect_lexer;
+			if ($autodetect_lexer) {
+				$lexer = $this->mfile->autodetect_lexer($filedata["mimetype"], $filedata["filename"]);
 			}
-			handle_etag($etag);
-			$this->ddownload->serveFile($file, $filedata["filename"], $filedata["mimetype"]);
-			exit();
+
+			// resolve aliases
+			// this is mainly used for compatibility
+			$lexer = $this->mfile->resolve_lexer_alias($lexer);
+
+			// if there is no mimetype mapping we can't highlight it
+			$can_highlight = $this->mfile->can_highlight($filedata["mimetype"]);
+
+			$filesize_too_big = filesize($file) > $this->config->item('upload_max_text_size');
+
+			if (!$can_highlight || $filesize_too_big || !$lexer) {
+				if (!$is_multipaste) {
+					// prevent javascript from being executed and forbid frames
+					// this should allow us to serve user submitted HTML content without huge security risks
+					foreach (array("X-WebKit-CSP", "X-Content-Security-Policy", "Content-Security-Policy") as $header_name) {
+						header("$header_name: default-src 'none'; img-src *; media-src *; font-src *; style-src 'unsafe-inline' *; script-src 'none'; object-src *; frame-src 'none'; ");
+					}
+					handle_etag($etag);
+					$this->ddownload->serveFile($file, $filedata["filename"], $filedata["mimetype"]);
+					exit();
+				} else {
+					switch ($filedata["mimetype"]) {
+						// TODO: handle video/audio
+						// TODO: handle more image formats (thumbnails needs to be improved)
+					case "image/jpeg":
+					case "image/png":
+					case "image/gif":
+						$filedata["tooltip"] = $this->_tooltip_for_image($filedata);
+						$this->output_cache->add_merge(
+							array("items" => array($filedata)),
+							'file/fragments/thumbnail'
+						);
+
+						break;
+
+					default:
+						$this->output_cache->add_merge(
+							array("items" => array($filedata)),
+							'file/fragments/uploads_table'
+						);
+						break;
+					}
+					continue;
+				}
+			}
+
+			$this->output_cache->add_function(function() use ($filedata, $lexer, $is_multipaste) {
+				$this->_highlight_file($filedata, $lexer, $is_multipaste);
+			});
 		}
 
-		$this->data['title'] = htmlspecialchars($filedata['filename']);
-		$this->data['id'] = $id;
-
-		header("Content-Type: text/html\n");
-
-		$this->data['current_highlight'] = htmlspecialchars($lexer);
-		$this->data['timeout'] = $this->mfile->get_timeout_string($id);
+		// TODO: move lexers json to dedicated URL
 		$this->data['lexers'] = $this->mfile->get_lexers();
-		$this->data['filedata'] = $filedata;
 
-		// highlight the file and cache the result
-		$highlit = cache_function($filedata['hash'].'_'.$lexer, 100, function() use ($file, $lexer){
-			$CI =& get_instance();
-			$ret = array();
-			if ($lexer == "rmd") {
-				ob_start();
-
-				echo '<div class="code content table markdownrender">'."\n";
-				echo '<div class="table-row">'."\n";
-				echo '<div class="table-cell">'."\n";
-				passthru('perl '.FCPATH.'scripts/Markdown.pl '.escapeshellarg($file), $ret["return_value"]);
-				echo '</div></div></div>';
-
-				$ret["output"] = ob_get_clean();
-			} else {
-				$ret = $CI->_colorify($file, $lexer);
-			}
-
-			if ($ret["return_value"] != 0) {
-				$tmp = $CI->_colorify($file, "text");
-				$ret["output"] = $tmp["output"];
-			}
-			return $ret;
-		});
-
-		if ($highlit["return_value"] != 0) {
-			$this->data["error_message"] = "<p>Error trying to process the file.
-				Either the lexer is unknown or something is broken.
-				Falling back to plain text.</p>";
-		}
-
-		// Don't use append_output because the output class does too
+		// Output everything
+		// Don't use the output class/append_output because it does too
 		// much magic ({elapsed_time} and {memory_usage}).
 		// Direct echo puts us on the safe side.
 		echo $this->load->view($this->var->view_dir.'/html_header', $this->data, true);
-		echo $highlit["output"];
+		$this->output_cache->render();
 		echo $this->load->view($this->var->view_dir.'/html_footer', $this->data, true);
 	}
 
-	private function _colorify($file, $lexer)
+	private function _colorify($file, $lexer, $anchor_id = false)
 	{
 		$return_value = 0;
 		$output = "";
@@ -205,10 +237,15 @@ class File extends MY_Controller {
 				$line = str_replace("<div class=\"highlight\"><pre>", "", $line);
 			}
 
+			$anchor = "n$line_number";
+			if ($anchor_id !== false) {
+				$anchor = "n-$anchor_id-$line_number";
+			}
+
 			// Be careful not to add superflous whitespace here (we are in a <pre>)
 			$output .= "<div class=\"table-row\">"
-							."<a href=\"#n$line_number\" class=\"linenumber table-cell\">"
-								."<span class=\"anchor\" id=\"n$line_number\"> </span>"
+							."<a href=\"#$anchor\" class=\"linenumber table-cell\">"
+								."<span class=\"anchor\" id=\"$anchor\"> </span>"
 							."</a>"
 							."<span class=\"line table-cell\">".$line."</span>\n";
 			$output .= "</div>";
@@ -223,16 +260,111 @@ class File extends MY_Controller {
 		);
 	}
 
-	function _display_info($id)
+	private function _highlight_file($filedata, $lexer, $is_multipaste)
 	{
-		$this->data["title"] .= " - Info $id";
-		$this->data["filedata"] = $this->mfile->get_filedata($id);
-		$this->data["id"] = $id;
-		$this->data['timeout'] = $this->mfile->get_timeout_string($id);
+		// highlight the file and cache the result, fall back to plain text if $lexer fails
+		foreach (array($lexer, "text") as $lexer) {
+			$highlit = cache_function($filedata['hash'].'_'.$lexer, 100,
+									  function() use ($filedata, $lexer, $is_multipaste) {
+				$file = $this->mfile->file($filedata['hash']);
+				if ($lexer == "rmd") {
+					ob_start();
 
-		$this->load->view('header', $this->data);
-		$this->load->view($this->var->view_dir.'/file_info', $this->data);
-		$this->load->view('footer', $this->data);
+					echo '<div class="code content table markdownrender">'."\n";
+					echo '<div class="table-row">'."\n";
+					echo '<div class="table-cell">'."\n";
+					passthru('perl '.FCPATH.'scripts/Markdown.pl '.escapeshellarg($file), $return_value);
+					echo '</div></div></div>';
+
+					return array(
+						"output" => ob_get_clean(),
+						"return_value" => $return_value,
+					);
+				} else {
+					return get_instance()->_colorify($file, $lexer, $is_multipaste ? $filedata["id"] : false);
+				}
+			});
+
+			if ($highlit["return_value"] == 0) {
+				break;
+			} else {
+				$message = "Error trying to process the file. Either the lexer is unknown or something is broken.";
+				if ($lexer != "text") {
+					$message .= " Falling back to plain text.";
+				}
+				$this->output_cache->render_now(
+					array("error_message" => "<p>$message</p>"),
+					"file/fragments/alert-wide"
+				);
+			}
+		}
+
+		$data = array_merge($this->data, array(
+			'title' => htmlspecialchars($filedata['filename']),
+			'id' => $filedata["id"],
+			'current_highlight' => htmlspecialchars($lexer),
+			'timeout' => $this->mfile->get_timeout_string($filedata["id"]),
+			'filedata' => $filedata,
+		));
+
+		$this->output_cache->render_now($data, $this->var->view_dir.'/html_paste_header');
+		$this->output_cache->render_now($highlit["output"]);
+		$this->output_cache->render_now($data, $this->var->view_dir.'/html_paste_footer');
+	}
+
+	private function _tooltip_for_image($filedata)
+	{
+		$filesize = format_bytes($filedata["filesize"]);
+		$dimensions = $this->mfile->image_dimension($this->mfile->file($filedata["hash"]));
+		$upload_date = date("r", $filedata["date"]);
+
+		$tooltip  = "${filedata["id"]} - $filesize<br>";
+		$tooltip .= "$upload_date<br>";
+		$tooltip .= "$dimensions - ${filedata["mimetype"]}<br>";
+
+		return $tooltip;
+	}
+
+	private function _display_info($id)
+	{
+		if ($this->mmultipaste->id_exists($id)) {
+			$files = $this->mmultipaste->get_files($id);
+
+			$this->data["title"] .= " - Info $id";
+
+			$multipaste = $this->mmultipaste->get_multipaste($id);
+			$total_size = 0;
+			$timeout = -1;
+			foreach($files as $filedata) {
+				$total_size += $filedata["filesize"];
+				$file_timeout = $this->mfile->get_timeout($filedata["id"]);
+				if ($timeout == -1 || ($timeout > $file_timeout && $file_timeout >= 0)) {
+					$timeout = $file_timeout;
+				}
+			}
+
+			$data = array_merge($this->data, array(
+				'timeout_string' => $timeout >= 0 ? date("r", $timeout) : "Never",
+				'upload_date' => $multipaste["date"],
+				'id' => $id,
+				'size' => $total_size,
+				'file_count' => count($files),
+			));
+
+			$this->load->view('header', $this->data);
+			$this->load->view($this->var->view_dir.'/multipaste_info', $data);
+			$this->load->view('footer', $this->data);
+			return;
+		} elseif ($this->mfile->id_exists($id)) {
+			$this->data["title"] .= " - Info $id";
+			$this->data["filedata"] = $this->mfile->get_filedata($id);
+			$this->data["id"] = $id;
+			$this->data['timeout'] = $this->mfile->get_timeout_string($id);
+
+			$this->load->view('header', $this->data);
+			$this->load->view($this->var->view_dir.'/file_info', $this->data);
+			$this->load->view('footer', $this->data);
+		}
 	}
 
 	function _non_existent()
@@ -416,20 +548,10 @@ class File extends MY_Controller {
 				unset($query[$key]);
 				continue;
 			}
-
-			$filesize = format_bytes($item["filesize"]);
-			$dimensions = $this->mfile->image_dimension($this->mfile->file($item["hash"]));
-			$upload_date = date("r", $item["date"]);
-
-			$query[$key]["filesize"] = $filesize;
-			$query[$key]["tooltip"] = "
-				${item["id"]} - $filesize<br>
-				$upload_date
-				$dimensions - ${item["mimetype"]}<br>
-				";
+			$query[$key]["tooltip"] = $this->_tooltip_for_image($item);
 		}
 
-		$this->data["query"] = $query;
+		$this->data["items"] = $query;
 
 		$this->load->view('header', $this->data);
 		$this->load->view($this->var->view_dir.'/upload_history_thumbnails', $this->data);
@@ -462,23 +584,40 @@ class File extends MY_Controller {
 
 		$order = is_cli_client() ? "ASC" : "DESC";
 
-		$query = $this->db->query("
+		$items = $this->db->query("
 			SELECT ".implode(",", array_keys($fields))."
 			FROM files
 			WHERE user = ?
-			ORDER BY date $order
 			", array($user))->result_array();
 
+		$query = $this->db->query("
+			SELECT m.url_id id, sum(f.filesize) filesize, m.date, '' hash, '' mimetype, concat(count(*), ' file(s)') filename
+			FROM multipaste m
+			JOIN multipaste_file_map mfm ON m.multipaste_id = mfm.multipaste_id
+			JOIN files f ON f.id = mfm.file_url_id
+			WHERE m.user_id = ?
+			GROUP BY m.url_id
+			", array($user))->result_array();
+
+		$items = array_merge($items, $query);
+		uasort($items, function($a, $b) use ($order) {
+			if ($order == "ASC") {
+				return $a["date"] - $b["date"];
+			} else {
+				return $b["date"] - $a["date"];
+			}
+		});
+
 		if (static_storage("response_type") == "json") {
-			return send_json_reply($query);
+			return send_json_reply($items);
 		}
 
-		foreach($query as $key => $item) {
-			$query[$key]["filesize"] = format_bytes($item["filesize"]);
+		foreach($items as $key => $item) {
+			$items[$key]["filesize"] = format_bytes($item["filesize"]);
 			if (is_cli_client()) {
 				// Keep track of longest string to pad plaintext output correctly
 				foreach($fields as $length_key => $value) {
-					$len = mb_strlen($query[$key][$length_key]);
+					$len = mb_strlen($items[$key][$length_key]);
 					if ($len > $lengths[$length_key]) {
 						$lengths[$length_key] = $len;
 					}
@@ -496,7 +635,7 @@ class File extends MY_Controller {
 			) sub
 			", array($user))->row_array();
 
-		$this->data["query"] = $query;
+		$this->data["items"] = $items;
 		$this->data["lengths"] = $lengths;
 		$this->data["fields"] = $fields;
 		$this->data["total_size"] = format_bytes($total_size["sum"]);
@@ -511,6 +650,7 @@ class File extends MY_Controller {
 		$this->muser->require_access("apikey");
 
 		$ids = $this->input->post("ids");
+		$userid = $this->muser->get_userid();
 		$errors = array();
 		$deleted = array();
 		$deleted_count = 0;
@@ -522,24 +662,38 @@ class File extends MY_Controller {
 
 		foreach ($ids as $id) {
 			$total_count++;
+			$next = false;
 
-			if (!$this->mfile->id_exists($id)) {
-				$errors[] = array(
-					"id" => $id,
-					"reason" => "doesn't exist",
-				);
+			foreach (array($this->mfile, $this->mmultipaste) as $model) {
+				if ($model->id_exists($id)) {
+					if ($model->get_owner($id) !== $userid) {
+						$errors[] = array(
+							"id" => $id,
+							"reason" => "wrong owner",
+						);
+						continue;
+					}
+					if ($model->delete_id($id)) {
+						$deleted[] = $id;
+						$deleted_count++;
+						$next = true;
+					} else {
+						$errors[] = array(
+							"id" => $id,
+							"reason" => "unknown error",
+						);
+					}
+				}
+			}
+
+			if ($next) {
 				continue;
 			}
 
-			if ($this->mfile->delete_id($id)) {
-				$deleted[] = $id;
-				$deleted_count++;
-			} else {
-				$errors[] = array(
-					"id" => $id,
-					"reason" => "unknown error",
-				);
-			}
+			$errors[] = array(
+				"id" => $id,
+				"reason" => "doesn't exist",
+			);
 		}
 
 		if (static_storage("response_type") == "json") {
@@ -560,6 +714,62 @@ class File extends MY_Controller {
 		$this->load->view('footer', $this->data);
 	}
 
+	function do_multipaste()
+	{
+		$this->muser->require_access("apikey");
+
+		$ids = $this->input->post("ids");
+		$errors = array();
+
+		if (!$ids || !is_array($ids)) {
+			show_error("No IDs specified");
+		}
+
+		if (count(array_unique($ids)) != count($ids)) {
+			show_error("Duplicate IDs are not supported");
+		}
+
+		foreach ($ids as $id) {
+			if (!$this->mfile->id_exists($id)) {
+				$errors[] = array(
+					"id" => $id,
+					"reason" => "doesn't exist",
+				);
+			}
+
+			$filedata = $this->mfile->get_filedata($id);
+			if ($filedata["user"] != $this->muser->get_userid()) {
+				$errors[] = array(
+					"id" => $id,
+					"reason" => "not owned by you",
+				);
+			}
+		}
+
+		if (!empty($errors)) {
+			$errorstring = "";
+			foreach ($errors as $error) {
+				$errorstring .= $error["id"]." ".$error["reason"]."<br>\n";
+			}
+			show_error($errorstring);
+		}
+
+		$limits = $this->muser->get_upload_id_limits();
+		$url_id = $this->mmultipaste->new_id($limits[0], $limits[1]);
+
+		$multipaste_id = $this->mmultipaste->get_multipaste_id($url_id);
+		assert($multipaste_id !== false);
+
+		foreach ($ids as $id) {
+			$this->db->insert("multipaste_file_map", array(
+				"file_url_id" => $id,
+				"multipaste_id" => $multipaste_id,
+			));
+		}
+
+		return $this->_show_url(array($url_id), false);
+	}
+
 	function delete()
 	{
 		$this->muser->require_access("apikey");
@@ -570,19 +780,29 @@ class File extends MY_Controller {
 
 		$id = $this->uri->segment(3);
 		$this->data["id"] = $id;
+		$userid = $this->muser->get_userid();
 
-		if ($id && !$this->mfile->id_exists($id)) {
-			show_error("Unknown ID '$id'.", 404);
+		foreach (array($this->mfile, $this->mmultipaste) as $model) {
+			if ($model->id_exists($id)) {
+				if ($model->get_owner($id) !== $userid) {
+					echo "You don't own this file\n";
+					return;
+				}
+				if ($model->delete_id($id)) {
+					echo "$id has been deleted.\n";
+				} else {
+					echo "Deletion failed. Unknown error\n";
+				}
+				return;
+			}
 		}
 
-		if ($this->mfile->delete_id($id)) {
-			echo "$id has been deleted.\n";
-		} else {
-			echo "Deletion failed. Do you really own that file?\n";
-		}
+		show_error("Unknown ID '$id'.", 404);
 	}
 
 	// Handle pastes
+	// TODO: merge with do_upload and also merge the forms
+	// TODO: add support for multiple textareas (+ view)
 	function do_paste()
 	{
 		// stateful clients get a cookie to claim the ID later
@@ -628,6 +848,7 @@ class File extends MY_Controller {
 		$ids = array();
 
 		$extension = $this->input->post('extension');
+		$multipaste = $this->input->post('multipaste');
 
 		$files = getNormalizedFILES();
 
@@ -695,6 +916,21 @@ class File extends MY_Controller {
 			move_uploaded_file($file['tmp_name'], $file_path);
 			$this->mfile->add_file($hash, $id, $filename);
 			$ids[] = $id;
+		}
+
+		if ($multipaste !== false) {
+			$multipaste_url_id = $this->mmultipaste->new_id($limits[0], $limits[1]);
+
+			$multipaste_id = $this->mmultipaste->get_multipaste_id($multipaste_url_id);
+			assert($multipaste_id !== false);
+
+			foreach ($ids as $id) {
+				$this->db->insert("multipaste_file_map", array(
+					"file_url_id" => $id,
+					"multipaste_id" => $multipaste_id,
+				));
+			}
+			$ids[] = $multipaste_url_id;
 		}
 
 		$this->_show_url($ids, $extension);
@@ -774,16 +1010,16 @@ class File extends MY_Controller {
 		foreach($query->result_array() as $row) {
 			$file = $this->mfile->file($row['hash']);
 			if (!file_exists($file)) {
-				$this->db->query('DELETE FROM files WHERE id = ? LIMIT 1', array($row['id']));
+				$this->mfile->delete_id($row["id"]);
 				continue;
 			}
 
 			if ($row["user"] == 0 || filesize($file) > $small_upload_size) {
 				if (filemtime($file) < $oldest_time) {
 					unlink($file);
-					$this->db->query('DELETE FROM files WHERE hash = ?', array($row['hash']));
+					$this->mfile->delete_hash($row["hash"]);
 				} else {
-					$this->db->query('DELETE FROM files WHERE id = ? LIMIT 1', array($row['id']));
+					$this->mfile->delete_id($row["id"]);
 					if ($this->mfile->stale_hash($row["hash"])) {
 						unlink($file);
 					}
@@ -838,7 +1074,6 @@ class File extends MY_Controller {
 
 		$id = $this->uri->segment(3);
 
-
 		$file_data = $this->mfile->get_filedata($id);
 
 		if (empty($file_data)) {
@@ -847,14 +1082,7 @@ class File extends MY_Controller {
 		}
 
 		$hash = $file_data["hash"];
-
-		$this->db->query("
-			DELETE FROM files
-			WHERE hash = ?
-			", array($hash));
-
-		unlink($this->mfile->file($hash));
-
+		$this->mfile->delete_hash($hash);
 		echo "removed hash \"$hash\"\n";
 	}
 

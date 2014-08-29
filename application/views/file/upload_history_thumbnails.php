@@ -6,14 +6,7 @@
 </div>
 
 <?php include 'nav_history.php'; ?>
-
-<!-- Comment markers background: http://stackoverflow.com/a/14776780/953022 -->
-<div class="upload_history_thumbnails"><!--
-	<?php foreach($query as $key => $item): ?>
-		--><a href="<?php echo site_url("/".$item["id"]); ?>" title="<?php echo htmlentities($item["filename"]); ?>" data-content="<?php echo htmlentities($item["tooltip"]); ?>" data-id="<?php echo $item["id"]; ?>"><img class="thumb" src="<?php echo site_url("file/thumbnail/".$item["id"]); ?>"></a><!--
-	<?php endforeach; ?>
-	-->
-</div>
+<?php include 'fragments/thumbnail.php'; ?>
 
 <div class="row-fluid">
 	<div class="span12 alert alert-block alert-info">

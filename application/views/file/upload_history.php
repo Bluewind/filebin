@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($query as $key => $item): ?>
+                <?php foreach($items as $key => $item): ?>
                     <tr>
                         <td><input type="checkbox" name="ids[<?php echo $item["id"] ?>]" value="<?php echo $item["id"] ?>" class="delete-history"></td>
                         <td><a href="<?php echo site_url("/".$item["id"]) ?>/"><?php echo $item["id"] ?></a></td>
