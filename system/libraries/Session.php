@@ -145,7 +145,9 @@ class CI_Session {
 		}
 
 		// HMAC authentication
-		if (($len = strlen($session) - 40) <= 0)
+		$len = strlen($session) - 40;
+
+		if ($len <= 0)
 		{
 			log_message('error', 'Session: The session cookie was not signed.');
 			return FALSE;
@@ -158,9 +160,11 @@ class CI_Session {
 		// Time-attack-safe comparison
 		$hmac_check = hash_hmac('sha1', $session, $this->encryption_key);
 		$diff = 0;
+
 		for ($i = 0; $i < 40; $i++)
 		{
-			$diff |= ord($hmac[$i]) ^ ord($hmac_check[$i]);
+			$xor = ord($hmac[$i]) ^ ord($hmac_check[$i]);
+			$diff |= $xor;
 		}
 
 		if ($diff !== 0)
@@ -668,11 +672,8 @@ class CI_Session {
 		{
 			$cookie_data = $this->CI->encrypt->encode($cookie_data);
 		}
-		else
-		{
-			// if encryption is not used, we provide an md5 hash to prevent userside tampering
-			$cookie_data .= hash_hmac('sha1', $cookie_data, $this->encryption_key);
-		}
+
+		$cookie_data .= hash_hmac('sha1', $cookie_data, $this->encryption_key);
 
 		$expire = ($this->sess_expire_on_close === TRUE) ? 0 : $this->sess_expiration + time();
 
