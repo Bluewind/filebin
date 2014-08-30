@@ -1,5 +1,8 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+2014-08-29 Multipaste support
+2014-08-29 Database migrations are no longer done automatically. You now have to run
+           `php index.php tools update_database`
 2013-09-25 New download driver allowing to switch between php echoing chunks
            (old behaviour and default) and X-Sendfile (635b0717931df907ee8015a42ad0ed1fcdf967c4)
 2013-09-25 Switch to bootstrap 3 (9538bea0908c8a3758b41967d977455af731c344)
