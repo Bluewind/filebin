@@ -24,7 +24,7 @@ class MY_Controller extends CI_Controller {
 		// check if DB is up to date
 		if (!$this->input->is_cli_request()) {
 			if (!$this->db->table_exists('migrations')){
-				show_error("Database not initialized. Can't find migrations table. Please run the migration script.");
+				show_error("Database not initialized. Can't find migrations table. Please run the migration script. (php index.php tools update_database)");
 			} else {
 				$this->config->load("migration", true);
 				$target_version = $this->config->item("migration_version", "migration");
@@ -34,7 +34,7 @@ class MY_Controller extends CI_Controller {
 
 				$current_version = $row ? $row->version : 0;
 				if ($current_version != $target_version) {
-					show_error("Database version is $current_version, we want $target_version. Please run the migration script.");
+					show_error("Database version is $current_version, we want $target_version. Please run the migration script. (php index.php tools update_database)");
 				}
 			}
 		}
