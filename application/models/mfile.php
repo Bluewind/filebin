@@ -126,6 +126,8 @@ class Mfile extends CI_Model {
 		if ($source_gdim === false) {
 			show_error("Unsupported image type");
 		}
+		imagealphablending($source_gdim,false);
+		imagesavealpha($source_gdim,true);
 
 		list($source_width, $source_height, $source_type) = getimagesize($source_path);
 
@@ -154,6 +156,8 @@ class Mfile extends CI_Model {
 		 */
 
 		$temp_gdim = imagecreatetruecolor($temp_width, $temp_height);
+		imagealphablending($temp_gdim,false);
+		imagesavealpha($temp_gdim,true);
 		imagecopyresampled(
 			$temp_gdim,
 			$source_gdim,
@@ -170,6 +174,8 @@ class Mfile extends CI_Model {
 		$x0 = ($temp_width - $target_width) / 2;
 		$y0 = ($temp_height - $target_height) / 2;
 		$thumb = imagecreatetruecolor($target_width, $target_height);
+		imagealphablending($thumb,false);
+		imagesavealpha($thumb,true);
 		imagecopy(
 			$thumb,
 			$temp_gdim,
