@@ -49,12 +49,11 @@ class Mfile extends CI_Model {
 			return false;
 		}
 
-		$sql = '
-			SELECT id
-			FROM `files`
-			WHERE `id` = ?
-			LIMIT 1';
-		$query = $this->db->query($sql, array($id));
+		$query = $this->db->select('id')
+			->from('files')
+			->where('id', $id)
+			->limit(1)
+			->get();
 
 		if ($query->num_rows() == 1) {
 			return true;
@@ -70,12 +69,12 @@ class Mfile extends CI_Model {
 
 	function get_filedata($id)
 	{
-		$sql = '
-			SELECT id, hash, filename, mimetype, date, user, filesize
-			FROM `files`
-			WHERE `id` = ?
-			LIMIT 1';
-		$query = $this->db->query($sql, array($id));
+		$query = $this->db
+			->select('id, hash, filename, mimetype, date, user, filesize')
+			->from('files')
+			->where('id', $id)
+			->limit(1)
+			->get();
 
 		if ($query->num_rows() > 0) {
 			return $query->row_array();
@@ -234,11 +233,9 @@ class Mfile extends CI_Model {
 	{
 		$userid = $this->muser->get_userid();
 
-		$this->db->query("
-			UPDATE files
-			SET user = ?
-			WHERE id = ?
-			", array($userid, $id));
+		$this->db->set(array('user' => $userid ))
+			->where('id', $id)
+			->update('files');
 	}
 
 	// remove old/invalid/broken IDs
@@ -309,12 +306,11 @@ class Mfile extends CI_Model {
 
 	private function unused_file($hash)
 	{
-		$sql = '
-			SELECT id
-			FROM `files`
-			WHERE `hash` = ?
-			LIMIT 1';
-		$query = $this->db->query($sql, array($hash));
+		$query = $this->db->select('id')
+			->from('files')
+			->where('hash', $hash)
+			->limit(1)
+			->get();
 
 		if ($query->num_rows() == 0) {
 			return true;
@@ -382,11 +378,11 @@ class Mfile extends CI_Model {
 
 	public function get_owner($id)
 	{
-		return $this->db->query("
-			SELECT user
-			FROM files
-			WHERE id = ?
-			", array($id))->row_array()["user"];
+		return $this->db->select('user')
+			->from('files')
+			->where('id', $id)
+			->get()->row_array()
+			['user'];
 	}
 
 	public function get_lexers() {

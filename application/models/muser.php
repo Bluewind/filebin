@@ -97,17 +97,16 @@ class Muser extends CI_Model {
 		// get rid of spaces and newlines
 		$apikey = trim($apikey);
 
-		$query = $this->db->query("
-			SELECT a.user userid, a.access_level
-			FROM apikeys a
-			WHERE a.key = ?
-			", array($apikey))->row_array();
+		$query = $this->db->select('user, access_level')
+			->from('apikeys')
+			->where('key', $apikey)
+			->get()->row_array();
 
-		if (isset($query["userid"])) {
+		if (isset($query["user"])) {
 			$this->session->set_userdata(array(
 				'logged_in' => true,
 				'username' => '',
-				'userid' => $query["userid"],
+				'userid' => $query["user"],
 				'access_level' => $query["access_level"],
 			));
 			return true;
@@ -205,12 +204,10 @@ class Muser extends CI_Model {
 
 	function get_action($action, $key)
 	{
-		$query = $this->db->query("
-			SELECT *
-			FROM actions
-			WHERE `key` = ?
-			AND `action` = ?
-			", array($key, $action))->row_array();
+		$db->from('actions')
+			->where('key', $key)
+			->where('action', $action)
+			->get()->row_array();
 
 		if (!isset($query["key"]) || $key != $query["key"]) {
 			show_error("Invalid action key");
@@ -228,11 +225,10 @@ class Muser extends CI_Model {
 			"upload_id_limits" => $this->default_upload_id_limits,
 		);
 
-		$query = $this->db->query("
-			SELECT ".implode(", ", array_keys($fields))."
-			FROM `profiles`
-			WHERE user = ?
-			", array($userid))->row_array();
+		$query = $this->db->select(implode(', ', array_keys($fields)))
+			->from('profiles')
+			->where('user', $userid)
+			->get()->row_array();
 
 		$extra_fields = array(
 			"username" => $this->get_username(),
@@ -262,11 +258,10 @@ class Muser extends CI_Model {
 	{
 		$userid = $this->get_userid();
 
-		$query = $this->db->query("
-			SELECT upload_id_limits
-			FROM `profiles`
-			WHERE user = ?
-			", array($userid))->row_array();
+		$query = $this->db->select('upload_id_limits')
+			->from('profiles')
+			->where('user', $userid)
+			->get()->row_array();
 
 		if (empty($query)) {
 			return explode("-", $this->default_upload_id_limits);
