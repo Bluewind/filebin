@@ -5,18 +5,35 @@ class Migration_Add_filesize extends CI_Migration {
 
 	public function up()
 	{
-		$this->db->query("
-			ALTER TABLE `files`
-			ADD `filesize` INT UNSIGNED NOT NULL
-		");
+		if ($this->db->dbdriver == 'postgre')
+		{
+			$this->db->query('
+				ALTER TABLE "files"
+				ADD "filesize" integer NOT NULL
+			');
+		}
+		else
+		{
+			$this->db->query("
+				ALTER TABLE `files`
+				ADD `filesize` INT UNSIGNED NOT NULL
+			");
+		}
 	}
 
 	public function down()
 	{
-		$this->db->query("
-			ALTER TABLE `files`
-			DROP `filesize`
-		");
-
+		if ($this->db->dbdriver == 'postgre')
+		{
+			$this->db->query('
+				ALTER TABLE "files" DROP "filesize"
+			');
+		}
+		else
+		{
+			$this->db->query('
+				ALTER TABLE `files` DROP `filesize`
+			');
+		}
 	}
 }

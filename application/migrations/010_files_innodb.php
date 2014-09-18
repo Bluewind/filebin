@@ -5,9 +5,12 @@ class Migration_files_innodb extends CI_Migration {
 
 	public function up()
 	{
-		$this->db->query("
-			ALTER TABLE `files` ENGINE = InnoDB;
-		");
+		if ($this->db->dbdriver != 'postgre')
+		{
+			$this->db->query("
+				ALTER TABLE `files` ENGINE = InnoDB;
+			");
+		}
 	}
 
 	public function down()
