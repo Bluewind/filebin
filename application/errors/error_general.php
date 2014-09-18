@@ -43,6 +43,9 @@ if (class_exists("CI_Controller") && !isset($GLOBALS["is_error_page"])) {
 
 	<?php
 	include 'application/views/footer.php';
+} elseif (php_sapi_name() === 'cli' OR defined('STDIN')) {
+	echo "$heading\n";
+	echo str_replace("<br>", "\n", $message);
 } else {
 	// default CI error page
 ?>
@@ -96,7 +99,7 @@ code {
 	-webkit-box-shadow: 0 0 8px #D0D0D0;
 }
 
-p {
+p, div {
 	margin: 12px 15px 12px 15px;
 }
 </style>

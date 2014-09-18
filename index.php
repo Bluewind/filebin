@@ -196,6 +196,61 @@ if (false && defined('ENVIRONMENT'))
 	}
 
 /*
+ * Custom error handling
+ */
+/* CI uses that name for it's error handling function. It misleading, but
+ *  whatever. If I don't use it the framework will override my handler later.
+ */
+function _exception_handler($errno, $errstr, $errfile, $errline)
+{
+	if (!(error_reporting() & $errno)) {
+		// This error code is not included in error_reporting
+		return;
+	}
+	throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+}
+set_error_handler("_exception_handler");
+
+// The actual exception handler
+function _actual_exception_handler($e)
+{
+	$display_errors = in_array(strtolower(ini_get('display_errors')), array('1', 'on', 'true', 'stdout'));
+
+	$GLOBALS["is_error_page"] = true;
+	$heading = "Internal Server Error";
+	$message = "<p>An unhandled error occured.</p>\n";
+	if ($display_errors) {
+		$message .= '<div>';
+		$message .= '<b>Fatal error</b>:  Uncaught exception '.get_class($e).'<br>';
+		$message .= '<b>Message</b>: '.$e->getMessage().'<br>';
+		$message .= '<pre>'.(str_replace(FCPATH, "./", $e->getTraceAsString())).'</pre>';
+		$message .= 'thrown in <b>'.$e->getFile().'</b> on line <b>'.$e->getLine().'</b><br>';
+		$message .= '</div>';
+	} else {
+		$message .="<p>More information can be found in syslog or by enabling display_errors.</p>";
+	}
+
+	error_log($e);
+
+	$message = "$message";
+	include APPPATH."/errors/error_general.php";
+}
+set_exception_handler('_actual_exception_handler');
+
+/**
+ * Checks for a fatal error, work around for set_error_handler not working on fatal errors.
+ */
+function check_for_fatal()
+{
+	$error = error_get_last();
+	if ($error["type"] == E_ERROR) {
+		_actual_exception_handler(new ErrorException(
+			$error["message"], 0, $error["type"], $error["file"], $error["line"]));
+	}
+}
+register_shutdown_function("check_for_fatal");
+
+/*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
  * --------------------------------------------------------------------
