@@ -102,11 +102,13 @@ class User extends MY_Controller {
 
 		$key = random_alphanum(32);
 
-		$this->db->query("
-			INSERT INTO `apikeys`
-			(`key`, `user`, `comment`, `access_level`)
-			VALUES (?, ?, ?, ?)
-		", array($key, $userid, $comment, $access_level));
+		$this->db->set([
+				'key'          => $key,
+				'user'         => $userid,
+				'comment'      => $comment,
+				'access_level' => $access_level
+			])
+			->insert('apikeys');
 
 		if (static_storage("response_type") == "json") {
 			return send_json_reply(array("new_key" => $key));
