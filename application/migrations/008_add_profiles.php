@@ -5,8 +5,7 @@ class Migration_Add_profiles extends CI_Migration {
 
 	public function up()
 	{
-		if ($this->db->dbdriver == 'postgre')
-		{
+		if ($this->db->dbdriver == 'postgre') {
 			$this->db->query('
 				CREATE TABLE "profiles" (
 					"user" integer NOT NULL,
@@ -18,9 +17,9 @@ class Migration_Add_profiles extends CI_Migration {
 			$this->db->query('
 				ALTER TABLE "files" ALTER COLUMN "id" TYPE varchar(255);
 			');
-		}
-		else
-		{
+
+		} else {
+
 			$this->db->query("
 				CREATE TABLE `profiles` (
 					`user` int(8) unsigned NOT NULL,
@@ -37,17 +36,16 @@ class Migration_Add_profiles extends CI_Migration {
 
 	public function down()
 	{
-		if ($this->db->dbdriver == 'postgre')
-		{
+		if ($this->db->dbdriver == 'postgre') {
 			$this->db->query('
 				DROP TABLE "profiles";
 			');
 			$this->db->query('
 				ALTER TABLE "files" ALTER COLUMN "id" TYPE varchar(6);
 			');
-		}
-		else
-		{
+
+		} else {
+
 			$this->db->query("
 				DROP TABLE `profiles`;
 			");

@@ -5,15 +5,12 @@ class Migration_Add_filesize extends CI_Migration {
 
 	public function up()
 	{
-		if ($this->db->dbdriver == 'postgre')
-		{
+		if ($this->db->dbdriver == 'postgre') {
 			$this->db->query('
 				ALTER TABLE "files"
 				ADD "filesize" integer NOT NULL
 			');
-		}
-		else
-		{
+		} else {
 			$this->db->query("
 				ALTER TABLE `files`
 				ADD `filesize` INT UNSIGNED NOT NULL
@@ -23,14 +20,11 @@ class Migration_Add_filesize extends CI_Migration {
 
 	public function down()
 	{
-		if ($this->db->dbdriver == 'postgre')
-		{
+		if ($this->db->dbdriver == 'postgre') {
 			$this->db->query('
 				ALTER TABLE "files" DROP "filesize"
 			');
-		}
-		else
-		{
+		} else {
 			$this->db->query('
 				ALTER TABLE `files` DROP `filesize`
 			');

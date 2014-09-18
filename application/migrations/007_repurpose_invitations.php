@@ -5,8 +5,7 @@ class Migration_Repurpose_invitations extends CI_Migration {
 
 	public function up()
 	{
-		if ($this->db->dbdriver == 'postgre')
-		{
+		if ($this->db->dbdriver == 'postgre') {
 			$this->db->query('
 				ALTER TABLE "invitations"
 					ADD "action" character varying(255) NOT NULL,
@@ -21,9 +20,9 @@ class Migration_Repurpose_invitations extends CI_Migration {
 			$this->db->query('
 				ALTER TABLE "invitations" RENAME TO "actions";
 			');
-		}
-		else
-		{
+
+		} else {
+
 			$this->db->query("
 				ALTER TABLE `invitations`
 					ADD `action` VARCHAR(255) NOT NULL,
@@ -51,9 +50,9 @@ class Migration_Repurpose_invitations extends CI_Migration {
 					DROP "action",
 					DROP "data";
 			');
-		}
-		else
-		{
+
+		} else {
+
 			$this->db->query('ALTER TABLE `actions` RENAME `invitations`');
 			$this->db->query('
 				ALTER TABLE `invitations`

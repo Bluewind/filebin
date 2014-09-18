@@ -5,8 +5,7 @@ class Migration_add_multipaste extends CI_Migration {
 
 	public function up()
 	{
-		if ($this->db->dbdriver == 'postgre')
-		{
+		if ($this->db->dbdriver == 'postgre') {
 			$this->db->query('
 				CREATE TABLE "multipaste" (
 					"url_id" varchar(255) NOT NULL,
@@ -36,9 +35,9 @@ class Migration_add_multipaste extends CI_Migration {
 					ADD CONSTRAINT "multipaste_file_map_file_id_fkey" FOREIGN KEY ("file_url_id")
 						REFERENCES "files"("id") ON DELETE CASCADE ON UPDATE CASCADE
 			');
-		}
-		else
-		{
+
+		} else {
+
 			$this->db->query('
 			CREATE TABLE `multipaste` (
 				`url_id` varchar(255) NOT NULL,

@@ -5,8 +5,7 @@ class Migration_Add_users extends CI_Migration {
 
 	public function up()
 	{
-		if ($this->db->dbdriver == 'postgre')
-		{
+		if ($this->db->dbdriver == 'postgre') {
 			$this->db->query('
 				CREATE TABLE IF NOT EXISTS "users" (
 					"id" serial PRIMARY KEY,
@@ -32,9 +31,9 @@ class Migration_Add_users extends CI_Migration {
 				ALTER TABLE "files" ADD "user" integer NOT NULL DEFAULT 0;
 				CREATE INDEX "user_idx" ON "files" ("user");
 			');
-		}
-		else
-		{
+
+		} else {
+
 			$this->db->query("
 				CREATE TABLE IF NOT EXISTS `users` (
 					`id` int(8) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -69,12 +68,9 @@ class Migration_Add_users extends CI_Migration {
 	{
 		$this->dbforge->drop_table('users');
 		$this->dbforge->drop_table('ci_sessions');
-		if ($this->db->dbdriver == 'postgre')
-		{
+		if ($this->db->dbdriver == 'postgre') {
 			$this->db->query('ALTER TABLE "files" DROP "user"');
-		}
-		else
-		{
+		} else {
 			$this->db->query('ALTER TABLE `files` DROP `user`');
 		}
 	}

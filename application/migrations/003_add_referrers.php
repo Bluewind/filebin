@@ -5,8 +5,7 @@ class Migration_Add_referrers extends CI_Migration {
 
 	public function up()
 	{
-		if ($this->db->dbdriver == 'postgre')
-		{
+		if ($this->db->dbdriver == 'postgre') {
 			$this->db->query('
 				CREATE TABLE "invitations" (
 					"user" integer NOT NULL,
@@ -21,9 +20,9 @@ class Migration_Add_referrers extends CI_Migration {
 				ALTER TABLE "users"
 				ADD "referrer" integer NOT NULL DEFAULT 0
 			');
-		}
-		else
-		{
+
+		} else {
+
 			$this->db->query("
 				CREATE TABLE `invitations` (
 					`user` int(8) unsigned NOT NULL,
@@ -48,9 +47,7 @@ class Migration_Add_referrers extends CI_Migration {
 			$this->db->query('
 				ALTER TABLE "users" DROP "referrer"
 			');
-		}
-		else
-		{
+		} else {
 			$this->db->query('
 				ALTER TABLE `users` DROP `referrer`
 			');

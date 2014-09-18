@@ -5,8 +5,7 @@ class Migration_Add_apikeys extends CI_Migration {
 
 	public function up()
 	{
-		if ($this->db->dbdriver == 'postgre')
-		{
+		if ($this->db->dbdriver == 'postgre') {
 			$this->db->query('
 				CREATE TABLE "apikeys" (
 					"key" varchar(64) NOT NULL,
@@ -17,9 +16,9 @@ class Migration_Add_apikeys extends CI_Migration {
 				);
 				CREATE INDEX "apikeys_user_idx" ON "apikeys" ("user");
 			');
-		}
-		else
-		{
+
+		} else {
+
 			$this->db->query("
 				CREATE TABLE `apikeys` (
 					`key` varchar(64) COLLATE utf8_bin NOT NULL,

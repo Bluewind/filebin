@@ -6,8 +6,7 @@ class Migration_Add_files extends CI_Migration {
 	public function up()
 	{
 		// Set database engine for MySQL drivers
-		if (strpos($this->db->dbdriver, 'mysql') !== FALSE)
-		{
+		if (strpos($this->db->dbdriver, 'mysql') !== FALSE) {
 			$this->db->query('SET storage_engine=MYISAM');
 		}
 

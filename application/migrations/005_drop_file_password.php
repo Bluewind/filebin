@@ -5,27 +5,21 @@ class Migration_Drop_file_password extends CI_Migration {
 
 	public function up()
 	{
-		if ($this->db->dbdriver == 'postgre')
-		{
+		if ($this->db->dbdriver == 'postgre') {
 			$this->db->query('ALTER TABLE "files" DROP "password"');
-		}
-		else
-		{
+		} else {
 			$this->db->query("ALTER TABLE `files` DROP `password`;");
 		}
 	}
 
 	public function down()
 	{
-		if ($this->db->dbdriver == 'postgre')
-		{
+		if ($this->db->dbdriver == 'postgre') {
 			$this->db->query('
 				ALTER TABLE "files"
 					ADD "password" character varying(40) DEFAULT NULL
 			');
-		}
-		else
-		{
+		} else {
 			$this->db->query("
 				ALTER TABLE `files`
 					ADD `password` varchar(40) CHARACTER SET ascii COLLATE ascii_bin DEFAULT NULL;
