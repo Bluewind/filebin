@@ -102,12 +102,12 @@ class User extends MY_Controller {
 
 		$key = random_alphanum(32);
 
-		$this->db->set([
+		$this->db->set(array(
 				'key'          => $key,
 				'user'         => $userid,
 				'comment'      => $comment,
 				'access_level' => $access_level
-			])
+			))
 			->insert('apikeys');
 
 		if (static_storage("response_type") == "json") {
@@ -128,11 +128,9 @@ class User extends MY_Controller {
 		$userid = $this->muser->get_userid();
 		$key = $this->input->post("key");
 
-		$this->db->query("
-			DELETE FROM `apikeys`
-			WHERE `user` = ?
-			AND `key` = ?
-			", array($userid, $key));
+		$this->db->where('user', $userid)
+			->where('key', $key)
+			->delete('apikeys');
 
 		redirect("user/apikeys");
 	}
@@ -143,11 +141,17 @@ class User extends MY_Controller {
 
 		$userid = $this->muser->get_userid();
 
-		$query = $this->db->query("
-			SELECT `key`, UNIX_TIMESTAMP(`created`) `created`, `comment`, `access_level`
-			FROM `apikeys`
-			WHERE `user` = ? order by created desc
-			", array($userid))->result_array();
+		$query = $this->db->select('key, created, comment, access_level')
+			->from('apikeys')
+			->where('user', $userid)
+			->order_by('created', 'desc')
+			->get()->result_array();
+
+		// Convert timestamp to unix timestamp
+		if (isset($query['created']))
+		{
+			$query['created'] = strtotime($query['created']);
+		}
 
 		if (static_storage("response_type") == "json") {
 			return send_json_reply($query);
@@ -167,12 +171,11 @@ class User extends MY_Controller {
 
 		$userid = $this->muser->get_userid();
 
-		$query = $this->db->query("
-			SELECT count(*) count
-			FROM `actions`
-			WHERE `user` = ?
-			AND `action` = 'invitation'
-			", array($userid))->row_array();
+		$query = $this->db->select('user')
+			->from('action')
+			->where('user', $userid)
+			->where('action', 'invitation')
+			->count_all_results();
 
 		if ($query["count"] + 1 > 3) {
 			show_error("You can't create more invitation keys at this time.");
@@ -180,11 +183,13 @@ class User extends MY_Controller {
 
 		$key = random_alphanum(12, 16);
 
-		$this->db->query("
-			INSERT INTO `actions`
-			(`key`, `user`, `date`, `action`)
-			VALUES (?, ?, ?, 'invitation')
-		", array($key, $userid, time()));
+		$this->db->set(array(
+				'key'    => $key,
+				'user'   => $userid,
+				'date'   => time(),
+				'action' => 'invitation'
+			))
+			->insert('actions');
 
 		redirect("user/invite");
 	}
@@ -196,12 +201,11 @@ class User extends MY_Controller {
 
 		$userid = $this->muser->get_userid();
 
-		$query = $this->db->query("
-			SELECT `key`, `date`
-			FROM `actions`
-			WHERE `user` = ?
-			AND `action` = 'invitation'
-			", array($userid))->result_array();
+		$query = $this->db->select('key, date')
+			->from('actions')
+			->where('user', $userid)
+			->where('action', 'invitation')
+			->get()->result_array();
 
 		$this->data["query"] = $query;
 
@@ -249,20 +253,17 @@ class User extends MY_Controller {
 			}
 
 			if (empty($error)) {
-				$this->db->query("
-					INSERT INTO users
-					(`username`, `password`, `email`, `referrer`)
-					VALUES(?, ?, ?, ?)
-					", array(
-						$username,
-						$this->muser->hash_password($password),
-						$email,
-						$referrer
-					));
-				$this->db->query("
-					DELETE FROM actions
-					WHERE `key` = ?
-					", array($key));
+				$this->db->set(array(
+						'username' => $username,
+						'password' => $this->muser->hash_password($password),
+						'email'    => $email,
+						'referrer' => $referrer
+					))
+					->insert('users');
+
+				$this->db->where('key', $key)
+					->delete('actions');
+
 				$this->load->view('header', $this->data);
 				$this->load->view($this->var->view_dir.'registered', $this->data);
 				$this->load->view('footer', $this->data);
@@ -321,27 +322,27 @@ class User extends MY_Controller {
 			show_error("Invalid username");
 		}
 
-		$userinfo = $this->db->query("
-			SELECT id, email, username
-			FROM users
-			WHERE username = ?
-			", array($username))->row_array();
+		$userinfo = $this->db->select('id, email, username')
+			->from('users')
+			->where('username', $username)
+			->get()->row_array();
 
 		$this->load->library("email");
 
-		$this->db->query("
-			INSERT INTO `actions`
-			(`key`, `user`, `date`, `action`)
-			VALUES (?, ?, ?, 'passwordreset')
-			", array($key, $userinfo["id"], time()));
+		$this->db->set(array(
+				'key'    => $key,
+				'user'   => $userinfo['id'],
+				'date'   => time(),
+				'action' => 'passwordreset'
+			))
+			->insert('actions');
 
-		$admininfo = $this->db->query("
-			SELECT email
-			FROM users
-			WHERE referrer is null
-			ORDER BY id asc
-			LIMIT 1
-			")->row_array();
+		$admininfo = $this->db->select('email')
+			->from('users')
+			->where('referrer', NULL)
+			->order_by('id', 'asc')
+			->limit(1)
+			->get()->row_array();
 
 		$this->email->from($admininfo["email"]);
 		$this->email->to($userinfo["email"]);
@@ -383,15 +384,14 @@ class User extends MY_Controller {
 			}
 
 			if (empty($error)) {
-				$this->db->query("
-					UPDATE users
-					SET `password` = ?
-					WHERE `id` = ?
-					", array($this->muser->hash_password($password), $userid));
-				$this->db->query("
-					DELETE FROM actions
-					WHERE `key` = ?
-					", array($key));
+				$this->db->where('id', $userid)
+					->update('users', [
+						'password' => $this->muser->hash_password($password)
+					]);
+
+				$this->db->where($key, $key)
+					->delete('actions');
+
 				$this->load->view('header', $this->data);
 				$this->load->view($this->var->view_dir.'reset_password_success', $this->data);
 				$this->load->view('footer', $this->data);
@@ -510,9 +510,7 @@ class User extends MY_Controller {
 
 		$oldest_time = (time() - $this->config->item('actions_max_age'));
 
-		$this->db->query("
-			DELETE FROM actions
-			WHERE date < ?
-			", array($oldest_time));
+		$this->db->where('date <', $oldest_time)
+			->delete('actions');
 	}
 }
