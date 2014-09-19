@@ -541,7 +541,7 @@ class File extends MY_Controller {
 			->select('id, filename, mimetype, date, hash, filesize')
 			->from('files')
 			->where('user', $user)
-			->where('mimetype', array('image/jpeg', 'image/png', 'image/gif'))
+			->where_in('mimetype', array('image/jpeg', 'image/png', 'image/gif'))
 			->order_by('date', 'desc')
 			->get()->result_array();
 

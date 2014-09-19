@@ -175,13 +175,13 @@ class User extends MY_Controller {
 
 		$userid = $this->muser->get_userid();
 
-		$query = $this->db->select('user')
-			->from('action')
+		$invitations = $this->db->select('user')
+			->from('actions')
 			->where('user', $userid)
 			->where('action', 'invitation')
 			->count_all_results();
 
-		if ($query["count"] + 1 > 3) {
+		if ($invitations + 1 > 3) {
 			show_error("You can't create more invitation keys at this time.");
 		}
 
