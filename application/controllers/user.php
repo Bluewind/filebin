@@ -148,10 +148,14 @@ class User extends MY_Controller {
 			->get()->result_array();
 
 		// Convert timestamp to unix timestamp
-		if (isset($query['created']))
+		foreach ($query as & $record)
 		{
-			$query['created'] = strtotime($query['created']);
+			if ( ! empty($record['created']))
+			{
+				$record['created'] = strtotime($record['created']);
+			}
 		}
+		unset($record);
 
 		if (static_storage("response_type") == "json") {
 			return send_json_reply($query);
