@@ -10,7 +10,7 @@ class Migration_Add_apikeys extends CI_Migration {
 				CREATE TABLE "apikeys" (
 					"key" varchar(64) NOT NULL,
 					"user" integer NOT NULL,
-					"created" integer NOT NULL,
+					"created" timestamp WITH TIME ZONE NOT NULL DEFAULT NOW(),
 					"comment" varchar(255) NOT NULL,
 					PRIMARY KEY ("key")
 				);
