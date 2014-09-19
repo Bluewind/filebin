@@ -327,13 +327,20 @@ class Mfile extends CI_Model {
 		// Note that this does not delete all relations in multipaste_file_map
 		// which is actually done by a SQL contraint.
 		// TODO: make it work properly without the constraint
-		$this->db->query('
-			DELETE m, mfm, f
-			FROM files f
-			LEFT JOIN multipaste_file_map mfm ON f.id = mfm.file_url_id
-			LEFT JOIN multipaste m ON mfm.multipaste_id = m.multipaste_id
-			WHERE f.id = ?
-			', array($id));
+		if (strpos($this->db->dbdriver, 'postgre') === FALSE) {
+			$this->db->query('
+				DELETE m, mfm, f
+				FROM files f
+				LEFT JOIN multipaste_file_map mfm ON f.id = mfm.file_url_id
+				LEFT JOIN multipaste m ON mfm.multipaste_id = m.multipaste_id
+				WHERE f.id = ?
+				', array($id));
+		} else {
+			// TODO.rafi: Deletes files + multipaste_file_map
+			//            but not a multipaste.
+			$this->db->where('id', $id)
+				->delete('files');
+		}
 
 		if ($this->id_exists($id))  {
 			return false;
@@ -358,13 +365,19 @@ class Mfile extends CI_Model {
 		// Note that this does not delete all relations in multipaste_file_map
 		// which is actually done by a SQL contraint.
 		// TODO: make it work properly without the constraint
-		$this->db->query('
-			DELETE m, mfm, f
-			FROM files f
-			LEFT JOIN multipaste_file_map mfm ON f.id = mfm.file_url_id
-			LEFT JOIN multipaste m ON mfm.multipaste_id = m.multipaste_id
-			WHERE f.hash = ?
-			', array($hash));
+		if (strpos($this->db->dbdriver, 'postgre') === FALSE) {
+			$this->db->query('
+				DELETE m, mfm, f
+				FROM files f
+				LEFT JOIN multipaste_file_map mfm ON f.id = mfm.file_url_id
+				LEFT JOIN multipaste m ON mfm.multipaste_id = m.multipaste_id
+				WHERE f.hash = ?
+				', array($hash));
+		} else {
+			// TODO.rafi: Test
+			$this->db->where('hash', $hash)
+				->delete('files');
+		}
 
 		if (file_exists($this->file($hash))) {
 			unlink($this->file($hash));
