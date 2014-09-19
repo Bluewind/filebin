@@ -8,32 +8,22 @@ class Migration_add_multipaste extends CI_Migration {
 		if ($this->db->dbdriver == 'postgre') {
 			$this->db->query('
 				CREATE TABLE "multipaste" (
-					"url_id" varchar(255) NOT NULL,
-					"multipaste_id" serial,
+					"url_id" varchar(255) NOT NULL PRIMARY KEY,
+					"multipaste_id" serial UNIQUE,
 					"user_id" integer NOT NULL,
-					"date" integer NOT NULL,
-					PRIMARY KEY ("url_id")
+					"date" integer NOT NULL
 				);
 				CREATE INDEX "multipaste_user_idx" ON "multipaste" ("user_id");
-				CREATE UNIQUE INDEX "multipaste_id_idx" ON "multipaste" ("multipaste_id");
 			');
 
 			$this->db->query('
 				CREATE TABLE "multipaste_file_map" (
-					"multipaste_id" integer NOT NULL,
-					"file_url_id" varchar(255) NOT NULL,
-					"sort_order" serial,
-					PRIMARY KEY ("sort_order")
+					"multipaste_id" integer NOT NULL REFERENCES "multipaste" ("multipaste_id") ON DELETE CASCADE ON UPDATE CASCADE,
+					"file_url_id" varchar(255) NOT NULL REFERENCES "files"("id") ON DELETE CASCADE ON UPDATE CASCADE,
+					"sort_order" serial PRIMARY KEY,
+					UNIQUE ("multipaste_id", "file_url_id")
 				);
-				CREATE UNIQUE INDEX "multipaste_file_map_idx"
-					ON "multipaste_file_map" ("multipaste_id", "file_url_id");
 				CREATE INDEX "multipaste_file_map_file_idx" ON "multipaste_file_map" ("file_url_id");
-				ALTER TABLE "multipaste_file_map"
-					ADD CONSTRAINT "multipaste_file_map_id_fkey" FOREIGN KEY ("multipaste_id")
-						REFERENCES "multipaste"("multipaste_id") ON DELETE CASCADE ON UPDATE CASCADE;
-				ALTER TABLE "multipaste_file_map"
-					ADD CONSTRAINT "multipaste_file_map_file_id_fkey" FOREIGN KEY ("file_url_id")
-						REFERENCES "files"("id") ON DELETE CASCADE ON UPDATE CASCADE
 			');
 
 		} else {
