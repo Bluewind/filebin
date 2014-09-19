@@ -1004,9 +1004,7 @@ class File extends MY_Controller {
 		$query = $this->db->select('hash, id, user')
 			->from('files')
 			->where('date <', $oldest_time)
-			->or_where_open()
-			->where('user', 0)
-			->where('date <', $oldest_session_time)
+			->or_where("(user = 0 AND date < $oldest_session_time)")
 			->get()->result_array();
 
 		foreach($query as $row) {
