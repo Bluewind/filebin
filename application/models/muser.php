@@ -204,7 +204,7 @@ class Muser extends CI_Model {
 
 	function get_action($action, $key)
 	{
-		$db->from('actions')
+		$query = $this->db->from('actions')
 			->where('key', $key)
 			->where('action', $action)
 			->get()->row_array();
