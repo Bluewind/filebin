@@ -184,6 +184,48 @@ class Mfile extends CI_Model {
 			$target_width, $target_height
 		);
 
+		/*
+		 * Fix orientation according to exif tag
+		 */
+		try {
+			$exif = exif_read_data($source_path);
+		} catch (ErrorException $e) {
+		}
+
+		if (isset($exif['Orientation'])) {
+			$mirror = false;
+			$deg    = 0;
+
+			switch ($exif['Orientation']) {
+			case 2:
+				$mirror = true;
+				break;
+			case 3:
+				$deg = 180;
+				break;
+			case 4:
+				$deg = 180;
+				$mirror = true;
+				break;
+			case 5:
+				$deg = 270;
+				$mirror = true;
+				break;
+			case 6:
+				$deg = 270;
+				break;
+			case 7:
+				$deg = 90;
+				$mirror = true;
+				break;
+			case 8:
+				$deg = 90;
+				break;
+			}
+			if ($deg) $thumb = imagerotate($thumb, $deg, 0);
+			if ($mirror) $thumb = $this->_mirrorImage($thumb);
+		}
+
 		ob_start();
 		switch ($target_type) {
 			case IMAGETYPE_GIF:
@@ -209,6 +251,27 @@ class Mfile extends CI_Model {
 		imagedestroy($source_gdim);
 
 		return $result;
+	}
+
+	function _mirrorImage($imgsrc)
+	{
+		$width = imagesx($imgsrc);
+		$height = imagesy($imgsrc);
+
+		$src_x = $width -1;
+		$src_y = 0;
+		$src_width = -$width;
+		$src_height = $height;
+
+		$imgdest = imagecreatetruecolor($width, $height);
+		imagealphablending($imgdest,false);
+		imagesavealpha($imgdest,true);
+
+		if (imagecopyresampled($imgdest, $imgsrc, 0, 0, $src_x, $src_y, $width, $height, $src_width, $src_height)) {
+			return $imgdest;
+		}
+
+		return $imgsrc;
 	}
 
 	// Add a hash to the DB
