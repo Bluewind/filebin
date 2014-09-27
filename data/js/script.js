@@ -78,10 +78,12 @@ function fixedEncodeURIComponent (str) {
 					$('#delete_button').hide();
 					$("#delete_form input[id^='delete_']").remove();
 					$(".upload_thumbnails .marked").removeClass("marked");
+					setup_colorbox();
 					break;
 				default:
 					window.page_mode = "delete";
 					$('#delete_button').show();
+					$.colorbox.remove();
 					break;
 			}
 		});
@@ -235,6 +237,20 @@ function fixedEncodeURIComponent (str) {
 				}
 			});
 		}
+
+		function setup_colorbox() {
+			$('.colorbox').colorbox({
+				photo: true,
+				retinaImage: true,
+				maxHeight: "100%",
+				maxWidth: "100%",
+				next: '<span class="glyphicon glyphicon-chevron-right"></span>',
+				previous: '<span class="glyphicon glyphicon-chevron-left"></span>',
+				close: '<span class="glyphicon glyphicon-remove"></span>',
+				loop: false,
+			});
+		}
+		setup_colorbox();
 
 	});
 })(jQuery);

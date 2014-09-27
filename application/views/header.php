@@ -16,6 +16,7 @@ if (is_cli_client() && !isset($force_full_html)) {
 	<link href="<?php echo link_with_mtime("/data/css/ui-lightness/jquery-ui-1.10.3.custom.min.css"); ?>" rel="stylesheet">
 	<link href="<?php echo link_with_mtime("/data/css/bootstrap.min.css"); ?>" rel="stylesheet">
 	<link href="<?php echo link_with_mtime("/data/css/style.css"); ?>" rel="stylesheet">
+	<link href="<?php echo link_with_mtime("/data/css/colorbox.css"); ?>" rel="stylesheet">
 	<?php
 		if (file_exists(FCPATH."data/local/style.css")) {
 			echo '<link href="'.link_with_mtime("/data/local/style.css").'" rel="stylesheet">';
