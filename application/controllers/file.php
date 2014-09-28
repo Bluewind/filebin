@@ -316,13 +316,14 @@ class File extends MY_Controller {
 
 	private function _tooltip_for_image($filedata)
 	{
+		$this->load->library("imglib");
 		$filesize = format_bytes($filedata["filesize"]);
-		$dimensions = $this->mfile->image_dimension($this->mfile->file($filedata["hash"]));
+		list($width, $height) = getimagesize($this->mfile->file($filedata["hash"]));
 		$upload_date = date("r", $filedata["date"]);
 
 		$tooltip  = "${filedata["id"]} - $filesize<br>";
 		$tooltip .= "$upload_date<br>";
-		$tooltip .= "$dimensions - ${filedata["mimetype"]}<br>";
+		$tooltip .= "${width}x${height} - ${filedata["mimetype"]}<br>";
 
 		return $tooltip;
 	}
@@ -514,9 +515,10 @@ class File extends MY_Controller {
 
 		$cache_key = $filedata['hash'].'_thumb_'.$thumb_size;
 
-		$thumb = cache_function($cache_key, 100, function() use ($id, $thumb_size){
+		$thumb = cache_function($cache_key, 100, function() use ($filedata, $thumb_size){
 			$CI =& get_instance();
-			$thumb = $CI->mfile->makeThumb($id, $thumb_size, IMAGETYPE_JPEG);
+			$this->load->library("imglib");
+			$thumb = $CI->imglib->makeThumb($this->mfile->file($filedata["hash"]), $thumb_size, IMAGETYPE_JPEG);
 
 			if ($thumb === false) {
 				show_error("Failed to generate thumbnail");
