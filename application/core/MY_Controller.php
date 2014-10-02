@@ -44,6 +44,7 @@ class MY_Controller extends CI_Controller {
 
 		mb_internal_encoding('UTF-8');
 		$this->load->helper(array('form', 'filebin'));
+		$this->load->library('customautoloader');
 
 		// TODO: proper accept header handling or is this enough?
 		if (isset($_SERVER["HTTP_ACCEPT"])) {

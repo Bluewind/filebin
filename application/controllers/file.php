@@ -316,7 +316,6 @@ class File extends MY_Controller {
 
 	private function _tooltip_for_image($filedata)
 	{
-		$this->load->library("imglib");
 		$filesize = format_bytes($filedata["filesize"]);
 		list($width, $height) = getimagesize($this->mfile->file($filedata["hash"]));
 		$upload_date = date("r", $filedata["date"]);
@@ -517,8 +516,9 @@ class File extends MY_Controller {
 
 		$thumb = cache_function($cache_key, 100, function() use ($filedata, $thumb_size){
 			$CI =& get_instance();
-			$this->load->library("imglib");
-			$thumb = $CI->imglib->makeThumb($this->mfile->file($filedata["hash"]), $thumb_size, IMAGETYPE_JPEG);
+			$img = new libraries\Image($this->mfile->file($filedata["hash"]));
+			$img->makeThumb($thumb_size, $thumb_size);
+			$thumb = $img->get(IMAGETYPE_JPEG);
 
 			if ($thumb === false) {
 				show_error("Failed to generate thumbnail");
