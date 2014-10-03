@@ -78,12 +78,16 @@ function fixedEncodeURIComponent (str) {
 					$('#delete_button').hide();
 					$("#delete_form input[id^='delete_']").remove();
 					$(".upload_thumbnails .marked").removeClass("marked");
-					setup_colorbox();
+					if (typeof $.colorbox !== 'undefined') {
+						setup_colorbox();
+					}
 					break;
 				default:
 					window.page_mode = "delete";
 					$('#delete_button').show();
-					$.colorbox.remove();
+					if (typeof $.colorbox !== 'undefined') {
+						$.colorbox.remove();
+					}
 					break;
 			}
 		});
@@ -238,22 +242,23 @@ function fixedEncodeURIComponent (str) {
 			});
 		}
 
-		function setup_colorbox() {
-			$('.colorbox').colorbox({
-				photo: true,
-				retinaImage: true,
-				maxHeight: "100%",
-				maxWidth: "100%",
-				next: '<span class="glyphicon glyphicon-chevron-right"></span>',
-				previous: '<span class="glyphicon glyphicon-chevron-left"></span>',
-				close: '<span class="glyphicon glyphicon-remove"></span>',
-				loop: false,
-				orientation: function() {
-					return parseInt($(this).children().first().parent().attr("data-orientation"));
-				},
-			});
+		if (typeof $.colorbox !== 'undefined') {
+			function setup_colorbox() {
+				$('.colorbox').colorbox({
+					photo: true,
+					retinaImage: true,
+					maxHeight: "100%",
+					maxWidth: "100%",
+					next: '<span class="glyphicon glyphicon-chevron-right"></span>',
+					previous: '<span class="glyphicon glyphicon-chevron-left"></span>',
+					close: '<span class="glyphicon glyphicon-remove"></span>',
+					loop: false,
+					orientation: function() {
+						return parseInt($(this).children().first().parent().attr("data-orientation"));
+					},
+				});
+			}
+			setup_colorbox();
 		}
-		setup_colorbox();
-
 	});
 })(jQuery);
