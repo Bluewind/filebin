@@ -245,6 +245,10 @@ function fixedEncodeURIComponent (str) {
 		if (typeof $.colorbox !== 'undefined') {
 			function setup_colorbox() {
 				$('.colorbox').colorbox({
+					transistion: "none",
+					speed: 0,
+					initialWidth: "100%",
+					initialHeight: "100%",
 					photo: true,
 					retinaImage: true,
 					maxHeight: "100%",
