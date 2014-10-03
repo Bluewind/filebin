@@ -168,6 +168,7 @@ class File extends MY_Controller {
 					case "image/png":
 					case "image/gif":
 						$filedata["tooltip"] = $this->_tooltip_for_image($filedata);
+						$filedata["orientation"] = libraries\Image::get_exif_orientation($file);
 						$this->output_cache->add_merge(
 							array("items" => array($filedata)),
 							'file/fragments/thumbnail'
@@ -553,6 +554,7 @@ class File extends MY_Controller {
 				continue;
 			}
 			$query[$key]["tooltip"] = $this->_tooltip_for_image($item);
+			$query[$key]["orientation"] = libraries\Image::get_exif_orientation($this->mfile->file($item["hash"]));
 		}
 
 		$this->data["items"] = $query;

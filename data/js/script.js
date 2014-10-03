@@ -248,6 +248,9 @@ function fixedEncodeURIComponent (str) {
 				previous: '<span class="glyphicon glyphicon-chevron-left"></span>',
 				close: '<span class="glyphicon glyphicon-remove"></span>',
 				loop: false,
+				orientation: function() {
+					return parseInt($(this).children().first().parent().attr("data-orientation"));
+				},
 			});
 		}
 		setup_colorbox();

@@ -85,7 +85,10 @@
 		},
 		title: function() {
 			return this.title;
-		}
+		},
+		orientation: function() {
+			return 0;
+		},
 	},
 
 	// Abstracting the HTML and event identifiers for easy rebranding
@@ -757,12 +760,20 @@
 		$loaded = $tag(div, 'LoadedContent').append(object);
 		
 		function getWidth() {
-			settings.w = settings.w || $loaded.width();
+			if (typeof object.renderWidth !== "undefined") {
+				settings.w = object.renderWidth;
+			} else {
+				settings.w = settings.w || $loaded.width();
+			}
 			settings.w = settings.mw && settings.mw < settings.w ? settings.mw : settings.w;
 			return settings.w;
 		}
 		function getHeight() {
-			settings.h = settings.h || $loaded.height();
+			if (typeof object.renderHeight !== "undefined") {
+				settings.h = object.renderHeight;
+			} else {
+				settings.h = settings.h || $loaded.height();
+			}
 			settings.h = settings.mh && settings.mh < settings.h ? settings.mh : settings.h;
 			return settings.h;
 		}
@@ -965,6 +976,80 @@
 				// img.width and img.height of zero immediately after the img.onload fires
 				setTimeout(function(){
 					var percent;
+					var width, height;
+					var rotate = 0;
+					var mirror = false;
+					var translateX = false;
+					var translateY = false;
+					var transformation = "";
+
+					var orientation = settings.get('orientation');
+
+					switch (orientation) {
+					case 2:
+						mirror = true;
+						break;
+					case 3:
+						rotate = 180;
+						break;
+					case 4:
+						rotate = 180;
+						mirror = true;
+						break;
+					case 5:
+						rotate = 270;
+						mirror = true;
+						break;
+					case 6:
+						rotate = 90;
+						break;
+					case 7:
+						rotate = 90;
+						mirror = true;
+						break;
+					case 8:
+						rotate = 270;
+						break;
+					}
+
+					if (rotate%360 == 90) {
+						translateY = true;
+					}
+
+					if (rotate%360 == 180) {
+						translateY = true;
+						translateX = true;
+					}
+
+					if (rotate%360 == 270) {
+						translateX = true;
+					}
+
+					if (mirror) {
+						translateX = !translateX;
+					}
+
+					if (rotate%180 == 0) {
+						width = photo.width;
+						height = photo.height;
+					} else {
+						width = photo.height;
+						height = photo.width;
+					}
+					if (rotate != 0) {
+						transformation += "rotate("+rotate+"deg) ";
+					}
+					if (mirror) {
+						transformation +="scaleX(-1) ";
+					}
+					if (translateX) {
+						transformation += "translateX(-100%) ";
+					}
+					if (translateY) {
+						transformation += "translateY(-100%) ";
+					}
+					$(photo).css('transform-origin', '0 0');
+					$(photo).css('transform', transformation);
 
 					$.each(['alt', 'longdesc', 'aria-describedby'], function(i,val){
 						var attr = $(settings.el).attr(val) || $(settings.el).attr('data-'+val);
@@ -974,27 +1059,27 @@
 					});
 
 					if (settings.get('retinaImage') && window.devicePixelRatio > 1) {
-						photo.height = photo.height / window.devicePixelRatio;
-						photo.width = photo.width / window.devicePixelRatio;
+						height = height / window.devicePixelRatio;
+						width = width / window.devicePixelRatio;
 					}
 
 					if (settings.get('scalePhotos')) {
 						setResize = function () {
-							photo.height -= photo.height * percent;
-							photo.width -= photo.width * percent;
+							height -= height * percent;
+							width -= width * percent;
 						};
-						if (settings.mw && photo.width > settings.mw) {
-							percent = (photo.width - settings.mw) / photo.width;
+						if (settings.mw && width > settings.mw) {
+							percent = (width - settings.mw) / width;
 							setResize();
 						}
-						if (settings.mh && photo.height > settings.mh) {
-							percent = (photo.height - settings.mh) / photo.height;
+						if (settings.mh && height > settings.mh) {
+							percent = (height - settings.mh) / height;
 							setResize();
 						}
 					}
 					
 					if (settings.h) {
-						photo.style.marginTop = Math.max(settings.mh - photo.height, 0) / 2 + 'px';
+						photo.style.marginTop = Math.max(settings.mh - height, 0) / 2 + 'px';
 					}
 					
 					if ($related[1] && (settings.get('loop') || $related[index + 1])) {
@@ -1004,12 +1089,20 @@
 						};
 					}
 
-					photo.style.width = photo.width + 'px';
-					photo.style.height = photo.height + 'px';
+					photo.renderWidth = width;
+					photo.renderHeight = height;
+					if (rotate%180 == 0) {
+						photo.style.width = width + 'px';
+						photo.style.height = height + 'px';
+					} else {
+						photo.style.width = height + 'px';
+						photo.style.height = width + 'px';
+					}
+
 					prep(photo);
 				}, 1);
 			});
-			
+
 			photo.src = href;
 
 		} else if (href) {
