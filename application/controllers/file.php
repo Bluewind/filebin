@@ -540,13 +540,13 @@ class File extends MY_Controller {
 
 		$user = $this->muser->get_userid();
 
-		$query = $this->db->query("
-			SELECT `id`, `filename`, `mimetype`, `date`, `hash`, `filesize`
-			FROM files
-			WHERE user = ?
-			AND mimetype IN ('image/jpeg', 'image/png', 'image/gif')
-			ORDER BY date DESC
-			", array($user))->result_array();
+		$query = $this->db
+			->select('id, filename, mimetype, date, hash, filesize')
+			->from('files')
+			->where('user', $user)
+			->where_in('mimetype', array('image/jpeg', 'image/png', 'image/gif'))
+			->order_by('date', 'desc')
+			->get()->result_array();
 
 		foreach($query as $key => $item) {
 			if (!$this->mfile->valid_id($item["id"])) {
@@ -590,11 +590,10 @@ class File extends MY_Controller {
 
 		$order = is_cli_client() ? "ASC" : "DESC";
 
-		$items = $this->db->query("
-			SELECT ".implode(",", array_keys($fields))."
-			FROM files
-			WHERE user = ?
-			", array($user))->result_array();
+		$items = $this->db->select(implode(',', array_keys($fields)))
+			->from('files')
+			->where('user', $user)
+			->get()->result_array();
 
 		$query = $this->db->query("
 			SELECT m.url_id id, sum(f.filesize) filesize, m.date, '' hash, '' mimetype, concat(count(*), ' file(s)') filename
@@ -634,10 +633,9 @@ class File extends MY_Controller {
 		$total_size = $this->db->query("
 			SELECT sum(filesize) sum
 			FROM (
-				SELECT filesize
+				SELECT DISTINCT hash, filesize
 				FROM files
 				WHERE user = ?
-				GROUP BY hash
 			) sub
 			", array($user))->row_array();
 
@@ -1007,13 +1005,14 @@ class File extends MY_Controller {
 
 		$small_upload_size = $this->config->item('small_upload_size');
 
-		$query = $this->db->query('
-			SELECT hash, id, user
-			FROM files
-			WHERE date < ? OR (user = 0 AND date < ?)',
-				array($oldest_time, $oldest_session_time));
+		$query = $this->db->select('hash, id, user')
+			->from('files')
+			->where('date <', $oldest_time)
+			->or_where('('.$this->db->_protect_identifiers('user').' = 0 AND '
+									.$this->db->_protect_identifiers('date')." < $oldest_session_time)")
+			->get()->result_array();
 
-		foreach($query->result_array() as $row) {
+		foreach($query as $row) {
 			$file = $this->mfile->file($row['hash']);
 			if (!file_exists($file)) {
 				$this->mfile->delete_id($row["id"]);
@@ -1056,7 +1055,11 @@ class File extends MY_Controller {
 					continue;
 				}
 
-				$query = $this->db->query("SELECT hash FROM files WHERE hash = ? LIMIT 1", array($file))->row_array();
+				$query = $this->db->select('hash')
+					->from('files')
+					->where('hash', $file)
+					->limit(1)
+					->get()->row_array();
 
 				if (empty($query)) {
 					unlink($upload_path."/".$dir."/".$file);
@@ -1101,23 +1104,23 @@ class File extends MY_Controller {
 		$total = $this->db->count_all("files");
 
 		for ($limit = 0; $limit < $total; $limit += $chunk) {
-			$query = $this->db->query("
-				SELECT hash
-				FROM files
-				GROUP BY hash
-				LIMIT $limit, $chunk
-				")->result_array();
+			$query = $this->db->select('hash')
+				->from('files')
+				->group_by('hash')
+				->limit($limit, $chunk)
+				->get()->result_array();
 
 			foreach ($query as $key => $item) {
 				$hash = $item["hash"];
 				$filesize = intval(filesize($this->mfile->file($hash)));
 				$mimetype = $this->mfile->mimetype($this->mfile->file($hash));
 
-				$this->db->query("
-					UPDATE files
-					SET filesize = ?, mimetype = ?
-					WHERE hash = ?
-					", array($filesize, $mimetype, $hash));
+				$this->db->where('hash', $hash)
+					->set(array(
+						'filesize' => $filesize,
+						'mimetype' => $mimetype,
+					))
+					->update('files');
 			}
 		}
 	}

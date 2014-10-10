@@ -90,12 +90,8 @@ class Mmultipaste extends CI_Model {
 
 	public function delete_id($id)
 	{
-		$this->db->query('
-			DELETE m, mfm
-			FROM multipaste m
-			LEFT JOIN multipaste_file_map mfm ON mfm.multipaste_id = m.multipaste_id
-			WHERE m.url_id = ?
-			', array($id));
+		$this->db->where('url_id', $id)
+			->delete('multipaste');
 
 		if ($this->id_exists($id))  {
 			return false;
