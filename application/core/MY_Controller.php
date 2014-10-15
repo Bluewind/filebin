@@ -87,6 +87,7 @@ class MY_Controller extends CI_Controller {
 			"cli_client" => array(
 				"file/do_delete",
 				"file/delete",
+				"file/do_multipaste",
 				"file/upload_history",
 				"user/create_apikey",
 				"file/get_max_size",
