@@ -22,11 +22,10 @@ class Duser_db extends Duser_Driver {
 	{
 		$CI =& get_instance();
 
-		$query = $CI->db->query('
-			SELECT username, id, password
-			FROM `users`
-			WHERE `username` = ?
-			', array($username))->row_array();
+		$query = $CI->db->select('username, id, password')
+			->from('users')
+			->where('username', $username)
+			->get()->row_array();
 
 		if (empty($query)) {
 			return false;
@@ -46,11 +45,10 @@ class Duser_db extends Duser_Driver {
 	{
 		$CI =& get_instance();
 
-		$query = $CI->db->query("
-			SELECT id
-			FROM users
-			WHERE username = ?
-			", array($username));
+		$query = $CI->db->select('id')
+			->from('users')
+			->where('username', $username)
+			->get();
 
 		if ($query->num_rows() > 0) {
 			return true;
@@ -63,11 +61,10 @@ class Duser_db extends Duser_Driver {
 	{
 		$CI =& get_instance();
 
-		$query = $CI->db->query("
-			SELECT email
-			FROM users
-			WHERE id = ?
-			", array($userid))->row_array();
+		$query = $CI->db->select('email')
+			->from('users')
+			->where('id', $userid)
+			->get()->row_array();
 
 		if (empty($query)) {
 			show_error("Failed to get email address from db");
