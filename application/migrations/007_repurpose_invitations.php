@@ -42,8 +42,7 @@ class Migration_Repurpose_invitations extends CI_Migration {
 
 	public function down()
 	{
-		if ($this->db->dbdriver == 'postgre')
-		{
+		if ($this->db->dbdriver == 'postgre') {
 			$this->db->query('ALTER TABLE "actions" RENAME TO "invitations"');
 			$this->db->query('
 				ALTER TABLE "invitations"

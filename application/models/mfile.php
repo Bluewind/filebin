@@ -219,15 +219,17 @@ class Mfile extends CI_Model {
 		// which is actually done by a SQL contraint.
 		// TODO: make it work properly without the constraint
 		$map = $this->db->select('multipaste_id')
+			->distinct()
 			->from('multipaste_file_map')
 			->where('file_url_id', $id)
-			->get()->row_array();
+			->get()->result_array();
 
 		$this->db->where('id', $id)
 			->delete('files');
 
-		if ( ! empty($map['multipaste_id'])) {
-			$this->db->where('multipaste_id', $map['multipaste_id'])
+		foreach ($map as $entry) {
+			assert(!empty($entry['multipaste_id']));
+			$this->db->where('multipaste_id', $entry['multipaste_id'])
 				->delete('multipaste');
 		}
 
@@ -264,15 +266,17 @@ class Mfile extends CI_Model {
 		}
 
 		$map = $this->db->select('multipaste_id')
+			->distinct()
 			->from('multipaste_file_map')
 			->where('file_url_id', $file['id'])
-			->get()->row_array();
+			->get()->result_array();
 
 		$this->db->where('hash', $hash)
 			->delete('files');
 
-		if ( ! empty($map['multipaste_id'])) {
-			$this->db->where('multipaste_id', $map['multipaste_id'])
+		foreach ($map as $entry) {
+			assert(!empty($entry['multipaste_id']));
+			$this->db->where('multipaste_id', $entry['multipaste_id'])
 				->delete('multipaste');
 		}
 

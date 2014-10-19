@@ -5,8 +5,7 @@ class Migration_Add_files extends CI_Migration {
 
 	public function up()
 	{
-		if ($this->db->dbdriver == 'postgre')
-		{
+		if ($this->db->dbdriver == 'postgre') {
 			$this->db->query('
 				CREATE TABLE IF NOT EXISTS "files" (
 					"hash" varchar(32) NOT NULL,
@@ -20,9 +19,7 @@ class Migration_Add_files extends CI_Migration {
 				CREATE INDEX "files_date_idx" ON files ("date");
 				CREATE INDEX "files_hash_id_idx" ON files ("hash", "id");
 			');
-		}
-		else
-		{
+		} else {
 			$this->db->query("
 				CREATE TABLE IF NOT EXISTS `files` (
 					`hash` varchar(32) CHARACTER SET ascii NOT NULL,

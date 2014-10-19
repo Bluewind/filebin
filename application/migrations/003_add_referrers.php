@@ -42,8 +42,7 @@ class Migration_Add_referrers extends CI_Migration {
 
 	public function down()
 	{
-		if ($this->db->dbdriver == 'postgre')
-		{
+		if ($this->db->dbdriver == 'postgre') {
 			$this->db->query('
 				ALTER TABLE "users" DROP "referrer"
 			');

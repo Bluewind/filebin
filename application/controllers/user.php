@@ -148,10 +148,9 @@ class User extends MY_Controller {
 			->get()->result_array();
 
 		// Convert timestamp to unix timestamp
-		foreach ($query as & $record)
-		{
-			if ( ! empty($record['created']))
-			{
+		// TODO: migrate database to integer timestamp and get rid of this
+		foreach ($query as &$record) {
+			if (!empty($record['created'])) {
 				$record['created'] = strtotime($record['created']);
 			}
 		}
@@ -389,11 +388,11 @@ class User extends MY_Controller {
 
 			if (empty($error)) {
 				$this->db->where('id', $userid)
-					->update('users', [
+					->update('users', array(
 						'password' => $this->muser->hash_password($password)
-					]);
+					));
 
-				$this->db->where($key, $key)
+				$this->db->where('key', $key)
 					->delete('actions');
 
 				$this->load->view('header', $this->data);
