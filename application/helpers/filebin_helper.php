@@ -235,6 +235,22 @@ function send_json_reply($array, $status = "success")
 	$CI->output->set_output(json_encode($reply));
 }
 
+function send_json_error_reply($message, $array = null)
+{
+	$reply = array();
+	$reply["status"] = "error";
+	$reply["message"] = $message;
+
+	if ($array !== null) {
+		$reply["data"] = $array;
+	}
+
+	$CI =& get_instance();
+	$CI->output->set_status_header(400);
+	$CI->output->set_content_type('application/json');
+	$CI->output->set_output(json_encode($reply));
+}
+
 function static_storage($key, $value = null)
 {
 	static $storage = array();

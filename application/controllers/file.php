@@ -623,10 +623,7 @@ class File extends MY_Controller {
 	{
 		$this->muser->require_access("apikey");
 
-		$user = $this->muser->get_userid();
-
-		$query = array();
-		$lengths = array();
+		$history = service\files::history($this->muser->get_userid());
 
 		// key: database field name; value: display name
 		$fields = array(
@@ -645,22 +642,7 @@ class File extends MY_Controller {
 
 		$order = is_cli_client() ? "ASC" : "DESC";
 
-		$items = $this->db->select(implode(',', array_keys($fields)))
-			->from('files')
-			->where('user', $user)
-			->get()->result_array();
-
-		$query = $this->db->query("
-			SELECT m.url_id id, sum(f.filesize) filesize, m.date, '' hash, '' mimetype, concat(count(*), ' file(s)') filename
-			FROM multipaste m
-			JOIN multipaste_file_map mfm ON m.multipaste_id = mfm.multipaste_id
-			JOIN files f ON f.id = mfm.file_url_id
-			WHERE m.user_id = ?
-			GROUP BY m.url_id
-			", array($user))->result_array();
-
-		$items = array_merge($items, $query);
-		uasort($items, function($a, $b) use ($order) {
+		uasort($history["items"], function($a, $b) use ($order) {
 			if ($order == "ASC") {
 				return $a["date"] - $b["date"];
 			} else {
@@ -668,12 +650,8 @@ class File extends MY_Controller {
 			}
 		});
 
-		if (static_storage("response_type") == "json") {
-			return send_json_reply($items);
-		}
-
-		foreach($items as $key => $item) {
-			$items[$key]["filesize"] = format_bytes($item["filesize"]);
+		foreach($history["items"] as $key => $item) {
+			$history["items"][$key]["filesize"] = format_bytes($item["filesize"]);
 			if (is_cli_client()) {
 				// Keep track of longest string to pad plaintext output correctly
 				foreach($fields as $length_key => $value) {
@@ -685,19 +663,10 @@ class File extends MY_Controller {
 			}
 		}
 
-		$total_size = $this->db->query("
-			SELECT sum(filesize) sum
-			FROM (
-				SELECT DISTINCT hash, filesize
-				FROM files
-				WHERE user = ?
-			) sub
-			", array($user))->row_array();
-
-		$this->data["items"] = $items;
+		$this->data["items"] = $history["items"];
 		$this->data["lengths"] = $lengths;
 		$this->data["fields"] = $fields;
-		$this->data["total_size"] = format_bytes($total_size["sum"]);
+		$this->data["total_size"] = format_bytes($history["total_size"]);
 
 		$this->load->view('header', $this->data);
 		$this->load->view($this->var->view_dir.'/upload_history', $this->data);
@@ -882,6 +851,7 @@ class File extends MY_Controller {
 			show_error("Error while uploading: File too big", 413);
 		}
 
+		// FIXME: this duplicates service\files::add_file (kind of)
 		$limits = $this->muser->get_upload_id_limits();
 		$id = $this->mfile->new_id($limits[0], $limits[1]);
 		$hash = md5($content);
@@ -915,44 +885,19 @@ class File extends MY_Controller {
 			show_error("No file was uploaded or unknown error occured.");
 		}
 
-		// Check for errors before doing anything
-		// First error wins and is displayed, these shouldn't happen that often anyway.
-		foreach ($files as $key => $file) {
-			// getNormalizedFILES() removes any file with error == 4
-			if ($file['error'] !== UPLOAD_ERR_OK) {
-				// ERR_OK only for completeness, condition above ignores it
-				$errors = array(
-					UPLOAD_ERR_OK => "There is no error, the file uploaded with success",
-					UPLOAD_ERR_INI_SIZE => "The uploaded file exceeds the upload_max_filesize directive in php.ini",
-					UPLOAD_ERR_FORM_SIZE => "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form",
-					UPLOAD_ERR_PARTIAL => "The uploaded file was only partially uploaded",
-					UPLOAD_ERR_NO_FILE => "No file was uploaded",
-					UPLOAD_ERR_NO_TMP_DIR => "Missing a temporary folder",
-					UPLOAD_ERR_CANT_WRITE => "Failed to write file to disk",
-					UPLOAD_ERR_EXTENSION => "A PHP extension stopped the file upload",
-				);
-
-				$msg = "Unknown error.";
-
-				if (isset($errors[$file['error']])) {
-					$msg = $errors[$file['error']];
-				} else {
-					$msg = "Unknown error code: ".$file['error'].". Please report a bug.";
-				}
-
-				show_error("Error while uploading: ".$msg, 400);
+		$errors = service\files::verify_uploaded_files($files);
+		if (!empty($errors)) {
+			$messages = array();
+			foreach ($errors as $error) {
+				$messages[] = htmlspecialchars($error["filename"]).": ".$error["message"];
 			}
-
-			$filesize = filesize($file['tmp_name']);
-			if ($filesize > $this->config->item('upload_max_size')) {
-				show_error("Error while uploading: File too big", 413);
-			}
+			show_error("Error(s) occured while uploading:<br>".implode("<br>", $messages), 400);
 		}
 
+		$limits = $this->muser->get_upload_id_limits();
+
 		foreach ($files as $key => $file) {
-			$limits = $this->muser->get_upload_id_limits();
 			$id = $this->mfile->new_id($limits[0], $limits[1]);
-			$hash = md5_file($file['tmp_name']);
 
 			// work around a curl bug and allow the client to send the real filename base64 encoded
 			// TODO: this interface currently sets the same filename for every file if you use multiupload
@@ -968,12 +913,7 @@ class File extends MY_Controller {
 
 			$filename = trim($filename, "\r\n\0\t\x0B");
 
-			$folder = $this->mfile->folder($hash);
-			file_exists($folder) || mkdir ($folder);
-			$file_path = $this->mfile->file($hash);
-
-			move_uploaded_file($file['tmp_name'], $file_path);
-			$this->mfile->add_file($hash, $id, $filename);
+			service\files::add_file($id, $file["tmp_name"], $filename);
 			$ids[] = $id;
 		}
 
