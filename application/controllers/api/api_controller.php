@@ -9,7 +9,6 @@
 
 namespace controllers\api;
 
-abstract class api_controller {
-	abstract static public function get_version();
+abstract class api_controller extends \CI_Controller {
 }
 

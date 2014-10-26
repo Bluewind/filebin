@@ -58,7 +58,11 @@ class MY_Controller extends CI_Controller {
 			static_storage("response_type", "json");
 		}
 
-		if (static_storage("response_type") == "json" && ! in_array($this->uri->rsegment(2), $this->json_enabled_functions)) {
+		// TODO: this should probably call a function in the controller that does the checking
+		//       instead of checking if the controller name == "api"
+		if (static_storage("response_type") == "json"
+			&& $this->uri->segment(1) != "api"
+			&& ! in_array($this->uri->rsegment(2), $this->json_enabled_functions)) {
 			show_error("Function not JSON enabled");
 		}
 
