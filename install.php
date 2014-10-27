@@ -68,6 +68,23 @@ if ($buf != "0") {
 	$errors .= " - Error when testing qrencode: Return code was \"$buf\".\n";
 }
 
+// test PHP modules
+$mod_groups = array(
+	"thumbnail generation" => array("gd"),
+	"database support" => array("mysql", "mysqli", "pgsql", "pdo_mysql", "pdo_pgsql"),
+);
+foreach ($mod_groups as $function => $mods) {
+	$found = 0;
+	foreach ($mods as $module) {
+		if (extension_loaded($module)) {
+			$found++;
+		}
+	}
+	if ($found == 0) {
+		$errors .= " - none of the modules needed for $function are loaded. Make sure to load at least one of these: ".implode(", ", $mods)."\n";
+	}
+}
+
 
 if ($errors != "") {
 	echo nl2br("Errors occured:\n");
