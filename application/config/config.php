@@ -363,6 +363,9 @@ $config['proxy_ips'] = '';
 |--------------------------------------------------------------------------
  */
 
+// This address will be used as the sender for emails (like password recovery mails).
+$config['email_from'] = "webmaster@example.invalid";
+
 // upload_path should NOT be readable/served by the server, but only by the script
 $config['upload_path'] = FCPATH.'data/uploads';
 

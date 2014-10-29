@@ -340,14 +340,7 @@ class User extends MY_Controller {
 			))
 			->insert('actions');
 
-		$admininfo = $this->db->select('email')
-			->from('users')
-			->where('referrer', NULL)
-			->order_by('id', 'asc')
-			->limit(1)
-			->get()->row_array();
-
-		$this->email->from($admininfo["email"]);
+		$this->email->from($this->config->item("email_from"));
 		$this->email->to($userinfo["email"]);
 		$this->email->subject("FileBin password reset");
 		$this->email->message(""
