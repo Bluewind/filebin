@@ -17,10 +17,4 @@
 
 * Copy ./data/local/examples/contact-info.php to ./data/local/ and edit it
 
-# Generate the first user
-
-* Go to http://yourdomain.com/some/where/index.php/user/hash_password to generate a password hash
-
-* Run the following SQL command in your database:
-   insert into users (username, password, email, referrer)
-   values ("your_name", "hash_from_above", "you@foo.com", NULL);
+* run `php index.php user add_user` to add your first user

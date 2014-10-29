@@ -509,4 +509,71 @@ class User extends MY_Controller {
 		$this->db->where('date <', $oldest_time)
 			->delete('actions');
 	}
+
+	private function _get_line_cli($message, $verification_func = NULL)
+	{
+		echo "$message: ";
+
+		while ($line = fgets(STDIN)) {
+			$line = trim($line);
+			if ($verification_func === NULL) {
+				return $line;
+			}
+
+			if ($verification_func($line)) {
+				return $line;
+			} else {
+				echo "$message: ";
+			}
+		}
+	}
+
+	function add_user()
+	{
+		if (!$this->input->is_cli_request()) return;
+		$this->duser->require_implemented("can_register_new_users");
+
+		$error = array();
+
+		// FIXME: deduplicate username/email verification with register()
+		$username = $this->_get_line_cli("Username", function($username) {
+			if (!$username || strlen($username) > 32 || !preg_match("/^[a-z0-9]+$/", $username)) {
+				echo "Invalid username (only up to 32 chars of a-z0-9 are allowed).\n";
+				return false;
+			} else {
+				if (get_instance()->muser->username_exists($username)) {
+					echo "Username already exists.\n";
+					return false;
+				}
+			}
+			return true;
+		});
+
+		$this->load->helper("email");
+		$email = $this->_get_line_cli("Email", function($email) {
+			if (!valid_email($email)) {
+				echo "Invalid email.\n";
+				return false;
+			}
+			return true;
+		});
+
+		$password = $this->_get_line_cli("Password", function($password) {
+			if (!$password || $password === "") {
+				echo "No password supplied.\n";
+				return false;
+			}
+			return true;
+		});
+
+		$this->db->set(array(
+				'username' => $username,
+				'password' => $this->muser->hash_password($password),
+				'email'    => $email,
+				'referrer' => NULL
+			))
+			->insert('users');
+
+		echo "User added\n";
+	}
 }
