@@ -97,6 +97,7 @@
 			<dt>/&lt;ID&gt;/</dt><dd>automatically display everything in a sensible way</dd>
 			<dt>/&lt;ID&gt;/qr</dt><dd>display a qr code containing a link to <span class="example">/&lt;ID&gt;/</span></dd>
 			<dt>/&lt;ID&gt;/info</dt><dd>display some information about the multipaste</dd>
+			<dt>/&lt;ID&gt;/tar</dt><dd>download a tarball of all files in the multipaste (files may be renamed to avoid conflicts)</dd>
 		</dl>
 	</div>
 	<div class="col-lg-6">

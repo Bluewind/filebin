@@ -1,2 +1,2 @@
-28 1 * * * php ~/index.php file cron
-28 2 * * * php ~/index.php user cron
+*/10 * * * * php ~/index.php file cron
+28 * * * * php ~/index.php user cron

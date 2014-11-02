@@ -108,6 +108,11 @@ class File extends MY_Controller {
 		case "info":
 			return $this->_display_info($id);
 
+		case "tar":
+			if ($is_multipaste) {
+				return $this->_tarball($id);
+			}
+
 		default:
 			if ($is_multipaste) {
 				show_error("Invalid action \"".htmlspecialchars($lexer)."\"");
@@ -367,6 +372,56 @@ class File extends MY_Controller {
 			$this->load->view('header', $this->data);
 			$this->load->view($this->var->view_dir.'/file_info', $this->data);
 			$this->load->view('footer', $this->data);
+		}
+	}
+
+	private function _tarball($id)
+	{
+		if ($this->mmultipaste->id_exists($id)) {
+			$seen = array();
+			$path = $this->mmultipaste->get_tarball_path($id);
+			$archive = new \service\storage($path);
+
+			if (!$archive->exists()) {
+				$files = $this->mmultipaste->get_files($id);
+
+				$total_size = 0;
+				foreach ($files as $filedata) {
+					$total_size += $filedata["filesize"];
+				}
+
+				if ($total_size > $this->config->item("tarball_max_size")) {
+					show_error("Tarball too large, refusing to create.");
+				}
+
+				$tmpfile = $archive->begin();
+				// create empty tar archive so PharData has something to open
+				file_put_contents($tmpfile, str_repeat("\0", 1024*10));
+				$a = new PharData($tmpfile);
+
+				foreach ($files as $filedata) {
+					$filename = $filedata["filename"];
+					if (isset($seen[$filename]) && $seen[$filename]) {
+						$filename = $filedata["id"]."-".$filedata["filename"];
+					}
+					assert(!isset($seen[$filename]));
+					$a->addFile($this->mfile->file($filedata["hash"]), $filename);
+					$seen[$filename] = true;
+				}
+				$archive->gzip_compress();
+				$archive->commit();
+			}
+
+			// update mtime so the cronjob will keep the file for longer
+			$lock = fopen($archive->get_file(), "r+");
+			flock($lock, LOCK_SH);
+			touch($archive->get_file());
+			flock($lock, LOCK_UN);
+
+			assert(filesize($archive->get_file()) > 0);
+
+			$this->load->driver("ddownload");
+			$this->ddownload->serveFile($archive->get_file(), "$id.tar.gz", "application/x-gzip");
 		}
 	}
 
@@ -997,6 +1052,24 @@ class File extends MY_Controller {
 	{
 		if (!$this->input->is_cli_request()) return;
 
+		$tarball_dir = $this->config->item("upload_path")."/special/multipaste-tarballs";
+		if (is_dir($tarball_dir)) {
+			$tarball_cache_time = $this->config->item("tarball_cache_time");
+			$it = new RecursiveIteratorIterator(
+				new RecursiveDirectoryIterator($tarball_dir), RecursiveIteratorIterator::SELF_FIRST);
+
+			foreach ($it as $file) {
+				if ($file->isFile()) {
+					if ($file->getMTime() < time() - $tarball_cache_time) {
+						$lock = fopen($file, "r+");
+						flock($lock, LOCK_EX);
+						unlink($file);
+						flock($lock, LOCK_UN);
+					}
+				}
+			}
+		}
+
 		// 0 age disables age checks
 		if ($this->config->item('upload_max_age') == 0) return;
 
@@ -1075,6 +1148,9 @@ class File extends MY_Controller {
 			}
 		}
 		closedir($outer_dh);
+
+		// TODO: clean up special/multipaste-tarballs? cron() already expires
+		// after a rather short time, do we really need this here then?
 	}
 
 	function nuke_id()

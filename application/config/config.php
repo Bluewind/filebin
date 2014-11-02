@@ -384,6 +384,13 @@ $config['actions_max_age'] = 60*60*24*5; // 5 days
 // Files smaller than this won't be deleted (even if they are old enough)
 $config['small_upload_size'] = 1024*10; // 10KiB
 
+// Maximum size for multipaste tarballs. 0 disables the feature
+$config['tarball_max_size'] = 1024*1024*50; // 50MiB
+
+// Multipaste tarballs older than this will be deleted by the cron job
+// Changing this is not recommended
+$config['tarball_cache_time'] = 60*5; // 5 minutes
+
 
 // Possible values:
 // - apc: needs the apc module and is only useful on long running php processes

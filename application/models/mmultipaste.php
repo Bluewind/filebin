@@ -88,10 +88,19 @@ class Mmultipaste extends CI_Model {
 		return true;
 	}
 
+	public function get_tarball_path($id)
+	{
+		return $this->config->item("upload_path")."/special/multipaste-tarballs/".substr(md5($id), 0, 3)."/$id.tar.gz";
+	}
+
 	public function delete_id($id)
 	{
 		$this->db->where('url_id', $id)
 			->delete('multipaste');
+
+		$path = $this->get_tarball_path($id);
+		$f = new \service\storage($this->config->item("upload_path"), $path);
+		$f->unlink();
 
 		if ($this->id_exists($id))  {
 			return false;
