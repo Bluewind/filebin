@@ -218,9 +218,10 @@ class Mfile extends CI_Model {
 		// Note that this does not delete all relations in multipaste_file_map
 		// which is actually done by a SQL contraint.
 		// TODO: make it work properly without the constraint
-		$map = $this->db->select('multipaste_id')
+		$map = $this->db->select('url_id')
 			->distinct()
 			->from('multipaste_file_map')
+			->join("multipaste", "multipaste.multipaste_id = multipaste_file_map.multipaste_id")
 			->where('file_url_id', $id)
 			->get()->result_array();
 
@@ -228,9 +229,8 @@ class Mfile extends CI_Model {
 			->delete('files');
 
 		foreach ($map as $entry) {
-			assert(!empty($entry['multipaste_id']));
-			$this->db->where('multipaste_id', $entry['multipaste_id'])
-				->delete('multipaste');
+			assert(!empty($entry['url_id']));
+			$this->mmultipaste->delete_id($entry["url_id"]);
 		}
 
 		if ($this->id_exists($id))  {
