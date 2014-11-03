@@ -252,42 +252,14 @@ class Mfile extends CI_Model {
 
 	public function delete_hash($hash)
 	{
-		// Delete all files with this hash and all multipastes using any of those files
-		// Note that this does not delete all relations in multipaste_file_map
-		// which is actually done by a SQL contraint.
-		// TODO: make it work properly without the constraint
-		$file = $this->db->select('id')
+		$ids = $this->db->select('id')
 			->from('files')
 			->where('hash', $hash)
-			->get()->row_array();
-
-		if (empty($file['id'])) {
-			return false;
-		}
-
-		$map = $this->db->select('multipaste_id')
-			->distinct()
-			->from('multipaste_file_map')
-			->where('file_url_id', $file['id'])
 			->get()->result_array();
 
-		$this->db->where('hash', $hash)
-			->delete('files');
-
-		foreach ($map as $entry) {
-			assert(!empty($entry['multipaste_id']));
-			$this->db->where('multipaste_id', $entry['multipaste_id'])
-				->delete('multipaste');
+		foreach ($ids as $entry) {
+			$this->delete_id($entry["id"]);
 		}
-
-		if (file_exists($this->file($hash))) {
-			unlink($this->file($hash));
-			$dir = $this->folder($hash);
-			if (count(scandir($dir)) == 2) {
-				rmdir($dir);
-			}
-		}
-		return true;
 	}
 
 	public function get_owner($id)
