@@ -1115,7 +1115,7 @@ class File extends MY_Controller {
 		$outer_dh = opendir($upload_path);
 
 		while (($dir = readdir($outer_dh)) !== false) {
-			if (!is_dir($upload_path."/".$dir) || $dir == ".." || $dir == ".") {
+			if (!is_dir($upload_path."/".$dir) || $dir == ".." || $dir == "." || $dir == "special") {
 				continue;
 			}
 
