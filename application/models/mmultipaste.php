@@ -99,7 +99,7 @@ class Mmultipaste extends CI_Model {
 			->delete('multipaste');
 
 		$path = $this->get_tarball_path($id);
-		$f = new \service\storage($this->config->item("upload_path"), $path);
+		$f = new \service\storage($this->get_tarball_path($id));
 		$f->unlink();
 
 		if ($this->id_exists($id))  {
