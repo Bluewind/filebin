@@ -118,7 +118,7 @@ class File extends MY_Controller {
 
 		$etag = "";
 		foreach ($files as $filedata) {
-			$etag = sha1($etag.$filedata["hash"]);
+			$etag = sha1($etag.$filedata["data_id"]);
 		}
 
 		// handle some common "lexers" here
@@ -156,7 +156,7 @@ class File extends MY_Controller {
 			handle_etag($etag);
 
 			$filedata = $files[0];
-			$filepath = $this->mfile->file($filedata["hash"]);
+			$filepath = $this->mfile->file($filedata["data_id"]);
 			$this->ddownload->serveFile($filepath, $filedata["filename"], "text/plain");
 			exit();
 		}
@@ -164,7 +164,7 @@ class File extends MY_Controller {
 		$this->load->library("output_cache");
 
 		foreach ($files as $key => $filedata) {
-			$file = $this->mfile->file($filedata['hash']);
+			$file = $this->mfile->file($filedata['data_id']);
 			$pygments = new \libraries\Pygments($file, $filedata["mimetype"], $filedata["filename"]);
 
 			// autodetect the lexer for highlighting if the URL contains a / after the ID (/ID/)
@@ -296,9 +296,9 @@ class File extends MY_Controller {
 	{
 		// highlight the file and cache the result, fall back to plain text if $lexer fails
 		foreach (array($lexer, "text") as $lexer) {
-			$highlit = cache_function($filedata['hash'].'_'.$lexer, 100,
+			$highlit = cache_function($filedata['data_id'].'_'.$lexer, 100,
 									  function() use ($filedata, $lexer, $is_multipaste) {
-				$file = $this->mfile->file($filedata['hash']);
+				$file = $this->mfile->file($filedata['data_id']);
 				if ($lexer == "rmd") {
 					ob_start();
 
@@ -347,7 +347,7 @@ class File extends MY_Controller {
 	private function _tooltip_for_image($filedata)
 	{
 		$filesize = format_bytes($filedata["filesize"]);
-		$file = $this->mfile->file($filedata["hash"]);
+		$file = $this->mfile->file($filedata["data_id"]);
 		$upload_date = date("r", $filedata["date"]);
 
 		$height = 0;
@@ -444,7 +444,7 @@ class File extends MY_Controller {
 						$filename = $filedata["id"]."-".$filedata["filename"];
 					}
 					assert(!isset($seen[$filename]));
-					$a->addFile($this->mfile->file($filedata["hash"]), $filename);
+					$a->addFile($this->mfile->file($filedata["data_id"]), $filename);
 					$seen[$filename] = true;
 				}
 				$archive->gzip_compress();
@@ -501,7 +501,7 @@ class File extends MY_Controller {
 
 				if (count($ids) == 1) {
 					$filedata = $this->mfile->get_filedata($id);
-					$file = $this->mfile->file($filedata['hash']);
+					$file = $this->mfile->file($filedata['data_id']);
 					$pygments = new \libraries\Pygments($file, $filedata["mimetype"], $filedata["filename"]);
 					$lexer = $pygments->should_highlight();
 
@@ -570,9 +570,9 @@ class File extends MY_Controller {
 		if ($repaste_id) {
 			$filedata = $this->mfile->get_filedata($repaste_id);
 
-			$pygments = new \libraries\Pygments($this->mfile->file($filedata["hash"]), $filedata["mimetype"], $filedata["filename"]);
+			$pygments = new \libraries\Pygments($this->mfile->file($filedata["data_id"]), $filedata["mimetype"], $filedata["filename"]);
 			if ($filedata !== false && $pygments->can_highlight()) {
-				$this->data["textarea_content"] = file_get_contents($this->mfile->file($filedata["hash"]));
+				$this->data["textarea_content"] = file_get_contents($this->mfile->file($filedata["data_id"]));
 			}
 		}
 
@@ -609,11 +609,11 @@ class File extends MY_Controller {
 			throw new \exceptions\ApiException("file/thumbnail/filedata-unavailable", "Failed to get file data");
 		}
 
-		$cache_key = $filedata['hash'].'_thumb_'.$thumb_size;
+		$cache_key = $filedata['data_id'].'_thumb_'.$thumb_size;
 
 		$thumb = cache_function($cache_key, 100, function() use ($filedata, $thumb_size){
 			$CI =& get_instance();
-			$img = new libraries\Image($this->mfile->file($filedata["hash"]));
+			$img = new libraries\Image($this->mfile->file($filedata["data_id"]));
 			$img->makeThumb($thumb_size, $thumb_size);
 			$thumb = $img->get(IMAGETYPE_JPEG);
 			return $thumb;
@@ -631,9 +631,11 @@ class File extends MY_Controller {
 
 		$user = $this->muser->get_userid();
 
+		// TODO: move to \service\files and possibly use \s\f::history()
 		$query = $this->db
-			->select('id, filename, mimetype, date, hash, filesize, user')
+			->select('files.id, filename, mimetype, files.date, hash, file_storage.id storage_id, filesize, user')
 			->from('files')
+			->join('file_storage', 'file_storage.id = files.file_storage_id')
 			->where('
 				(user = '.$this->db->escape($user).')
 				AND (
@@ -645,12 +647,14 @@ class File extends MY_Controller {
 
 		foreach($query as $key => $item) {
 			assert($item["user"] === $user);
+			$item["data_id"] = $item['hash']."-".$item['id'];
+			$query[$key]["data_id"] =  $item["data_id"];
 			if (!$this->mfile->valid_id($item["id"])) {
 				unset($query[$key]);
 				continue;
 			}
 			$query[$key]["tooltip"] = $this->_tooltip_for_image($item);
-			$query[$key]["orientation"] = libraries\Image::get_exif_orientation($this->mfile->file($item["hash"]));
+			$query[$key]["orientation"] = libraries\Image::get_exif_orientation($this->mfile->file($item["data_id"]));
 		}
 
 		$this->data["items"] = $query;
@@ -1011,25 +1015,28 @@ class File extends MY_Controller {
 			"sess_expiration" => $this->config->item("sess_expiration"),
 		);
 
-		$query = $this->db->select('hash, id, user, date')
+		$query = $this->db->select('file_storage_id storage_id, id, user, date')
 			->from('files')
 			->where("user", 0)
 			->where("date <", $oldest_session_time)
 			->get()->result_array();
 
 		foreach($query as $row) {
+			$row['data_id'] = $row['hash'].'-'.$row['storage_id'];
 			\service\files::valid_id($row, $config, $this->mfile, time());
 		}
 
 		// 0 age disables age checks
 		if ($this->config->item('upload_max_age') == 0) return;
 
-		$query = $this->db->select('hash, id, user, date')
+		$query = $this->db->select('hash, files.id, user, files.date, file_storage.id storage_id')
 			->from('files')
-			->where('date <', $oldest_time)
+			->join('file_storage', "file_storage.id = files.file_storage_id")
+			->where('files.date <', $oldest_time)
 			->get()->result_array();
 
 		foreach($query as $row) {
+			$row['data_id'] = $row['hash'].'-'.$row['storage_id'];
 			\service\files::valid_id($row, $config, $this->mfile, time());
 		}
 	}
@@ -1056,13 +1063,17 @@ class File extends MY_Controller {
 					continue;
 				}
 
-				$query = $this->db->select('hash')
-					->from('files')
-					->where('hash', $file)
+				list($hash, $storage_id) = explode("-", $file);
+
+				$query = $this->db->select('hash, id')
+					->from('file_storage')
+					->where('hash', $hash)
+					->where('id', $storage_id)
 					->limit(1)
 					->get()->row_array();
 
 				if (empty($query)) {
+					$this->mfile->delete_data_id($file);
 					unlink($upload_path."/".$dir."/".$file);
 				} else {
 					$empty = false;
@@ -1094,9 +1105,9 @@ class File extends MY_Controller {
 			return;
 		}
 
-		$hash = $file_data["hash"];
-		$this->mfile->delete_hash($hash);
-		echo "removed hash \"$hash\"\n";
+		$data_id = $file_data["data_id"];
+		$this->mfile->delete_data_id($data_id);
+		echo "removed data_id \"$data_id\"\n";
 	}
 
 	function update_file_metadata()
@@ -1105,26 +1116,23 @@ class File extends MY_Controller {
 
 		$chunk = 500;
 
-		$total = $this->db->count_all("files");
+		$total = $this->db->count_all("file_storage");
 
 		for ($limit = 0; $limit < $total; $limit += $chunk) {
-			$query = $this->db->select('hash')
-				->from('files')
-				->group_by('hash')
-				->limit($limit, $chunk)
+			$query = $this->db->select('hash, id')
+				->from('file_storage')
+				->limit($chunk, $limit)
 				->get()->result_array();
 
 			foreach ($query as $key => $item) {
-				$hash = $item["hash"];
-				$filesize = intval(filesize($this->mfile->file($hash)));
-				$mimetype = mimetype($this->mfile->file($hash));
+				$data_id = $item["hash"].'-'.$item['id'];
+				$mimetype = mimetype($this->mfile->file($data_id));
 
-				$this->db->where('hash', $hash)
+				$this->db->where('id', $item['id'])
 					->set(array(
-						'filesize' => $filesize,
 						'mimetype' => $mimetype,
 					))
-					->update('files');
+					->update('file_storage');
 			}
 		}
 	}

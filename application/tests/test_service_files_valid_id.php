@@ -28,13 +28,14 @@ class test_service_files_valid_id extends Test {
 	{
 		$this->model = \Mockery::mock("Mfile");
 		$this->model->shouldReceive("delete_id")->never()->byDefault();
-		$this->model->shouldReceive("delete_hash")->never()->byDefault();
-		$this->model->shouldReceive("file")->with("file-hash-1")->andReturn("/invalid/path/file-1")->byDefault();
+		$this->model->shouldReceive("delete_data_id")->never()->byDefault();
+		$this->model->shouldReceive("file")->with("file-hash-1-1")->andReturn("/invalid/path/file-1")->byDefault();
 		$this->model->shouldReceive("filemtime")->with("/invalid/path/file-1")->andReturn(500)->byDefault();
 		$this->model->shouldReceive("filesize")->with("/invalid/path/file-1")->andReturn(50*1024)->byDefault();
 		$this->model->shouldReceive("file_exists")->with("/invalid/path/file-1")->andReturn(true)->byDefault();
 
 		$this->filedata = array(
+			"data_id" => "file-hash-1-1",
 			"hash" => "file-hash-1",
 			"id" => "file-id-1",
 			"user" => 2,
@@ -69,7 +70,7 @@ class test_service_files_valid_id extends Test {
 
 	public function test_valid_id_removeOldFile()
 	{
-		$this->model->shouldReceive("delete_hash")->with("file-hash-1")->once();
+		$this->model->shouldReceive("delete_data_id")->with("file-hash-1-1")->once();
 
 		$ret = \service\files::valid_id($this->filedata, $this->config, $this->model, 550);
 		$this->t->is($ret, false, "file is old and should be removed");
@@ -104,7 +105,7 @@ class test_service_files_valid_id extends Test {
 	public function test_valid_id_removeMissingFile()
 	{
 		$this->model->shouldReceive("file_exists")->with("/invalid/path/file-1")->once()->andReturn(false);
-		$this->model->shouldReceive("delete_hash")->with("file-hash-1")->once();
+		$this->model->shouldReceive("delete_data_id")->with("file-hash-1-1")->once();
 
 		$ret = \service\files::valid_id($this->filedata, $this->config, $this->model, 505);
 		$this->t->is($ret, false, "missing file should be removed");

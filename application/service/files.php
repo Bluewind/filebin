@@ -17,9 +17,10 @@ class files {
 		$items = array();
 
 		// TODO: thumbnail urls where available
-		$fields = array("id", "filename", "mimetype", "date", "hash", "filesize");
+		$fields = array("files.id", "filename", "mimetype", "files.date", "hash", "filesize");
 		$query = $CI->db->select(implode(',', $fields))
 			->from('files')
+			->join('file_storage', 'file_storage.id = files.file_storage_id')
 			->where('user', $user)
 			->get()->result_array();
 		foreach ($query as $key => $item) {
@@ -30,7 +31,8 @@ class files {
 			SELECT coalesce(sum(filesize), 0) sum
 			FROM (
 				SELECT DISTINCT hash, filesize
-				FROM `".$CI->db->dbprefix."files`
+				FROM `".$CI->db->dbprefix."file_storage`
+				JOIN `".$CI->db->dbprefix."files` ON `".$CI->db->dbprefix."file_storage`.id = `".$CI->db->dbprefix."files`.file_storage_id
 				WHERE user = ?
 			) sub
 			", array($user))->row_array();
@@ -79,48 +81,65 @@ class files {
 
 	static public function add_file_data($id, $content, $filename)
 	{
-		self::add_file_callback($id, $filename, array(
-			"hash" => function() use ($content) {
-				return md5($content);
-			},
-			"data_writer" => function($dest) use ($content) {
-				file_put_contents($dest, $content);
-			}
-		));
+		$f = new \libraries\Tempfile();
+		$file = $f->get_file();
+		file_put_contents($file, $content);
+		self::add_file_callback($id, $file, $filename);
 	}
 
 	static public function add_uploaded_file($id, $file, $filename)
 	{
-		self::add_file_callback($id, $filename, array(
-			"hash" => function() use ($file) {
-				return md5_file($file);
-			},
-			"data_writer" => function($dest) use ($file) {
-				move_uploaded_file($file, $dest);
-			}
-		));
+		self::add_file_callback($id, $file, $filename);
 	}
 
-	// TODO: an interface would be nice here, but php doesn't support anonymous
-	// objects so let's use an array for now
-	static private function add_file_callback($id, $filename, $callbacks)
+	static private function add_file_callback($id, $new_file, $filename)
 	{
-		assert(isset($callbacks["hash"]));
-		assert(isset($callbacks["data_writer"]));
-
 		$CI =& get_instance();
-		$hash = $callbacks["hash"]();
+		$hash = md5_file($new_file);
+		$storage_id = null;
 
-		$dir = $CI->mfile->folder($hash);
+		$query = $CI->db->select('id, hash')
+			->from('file_storage')
+			->where('hash', $hash)
+			->get()->result_array();
+
+		foreach($query as $row) {
+			$data_id = implode("-", array($row['hash'], $row['id']));
+			$old_file = $CI->mfile->file($data_id);
+
+			// TODO: set $new_file
+			if (files_are_equal($old_file, $new_file)) {
+				$storage_id = $row["id"];
+				break;
+			}
+		}
+
+		if ($storage_id === null) {
+			$filesize = filesize($new_file);
+			$mimetype = mimetype($new_file);
+
+			$CI->db->insert("file_storage", array(
+				"filesize" => $filesize,
+				"mimetype" => $mimetype,
+				"hash" => $hash,
+				"date" => time(),
+			));
+			$storage_id = $CI->db->insert_id();
+		}
+		$data_id = $hash."-".$storage_id;
+
+		// TODO: all this doesn't have to run if the file exists. updating the mtime would be enough
+		//       that would also be better for COW filesystems
+		$dir = $CI->mfile->folder($data_id);
 		file_exists($dir) || mkdir ($dir);
-		$new_path = $CI->mfile->file($hash);
+		$new_path = $CI->mfile->file($data_id);
 
 		$dest = new \service\storage($new_path);
 		$tmpfile = $dest->begin();
-		$callbacks["data_writer"]($tmpfile);
+		rename($new_file, $tmpfile);
 		$dest->commit();
 
-		$CI->mfile->add_file($hash, $id, $filename);
+		$CI->mfile->add_file($id, $filename, $storage_id);
 	}
 
 	static public function verify_uploaded_files($files)
@@ -293,7 +312,7 @@ class files {
 
 	static public function valid_id(array $filedata, array $config, $model, $current_date)
 	{
-		assert(isset($filedata["hash"]));
+		assert(isset($filedata["data_id"]));
 		assert(isset($filedata["id"]));
 		assert(isset($filedata["user"]));
 		assert(isset($filedata["date"]));
@@ -301,10 +320,10 @@ class files {
 		assert(isset($config["sess_expiration"]));
 		assert(isset($config["small_upload_size"]));
 
-		$file = $model->file($filedata['hash']);
+		$file = $model->file($filedata['data_id']);
 
 		if (!$model->file_exists($file)) {
-			$model->delete_hash($filedata["hash"]);
+			$model->delete_data_id($filedata["data_id"]);
 			return false;
 		}
 
@@ -331,7 +350,7 @@ class files {
 			// of the last upload
 			$mtime = $model->filemtime($file);
 			if ($mtime < $remove_before) {
-				$model->delete_hash($filedata["hash"]);
+				$model->delete_data_id($filedata["data_id"]);
 			} else {
 				$model->delete_id($filedata["id"]);
 			}

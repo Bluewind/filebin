@@ -62,55 +62,48 @@ class Mfile extends CI_Model {
 		}
 	}
 
-	public function stale_hash($hash)
-	{
-		return $this->unused_file($hash);
-	}
-
 	function get_filedata($id)
 	{
-		return cache_function("filedata-$id", 300, function() use ($id) {
+		return cache_function("filedatav2-$id", 300, function() use ($id) {
 			$query = $this->db
-				->select('id, hash, filename, mimetype, date, user, filesize')
+				->select('files.id, hash, file_storage.id storage_id, filename, mimetype, files.date, user, filesize')
 				->from('files')
-				->where('id', $id)
+				->join('file_storage', 'file_storage.id = files.file_storage_id')
+				->where('files.id', $id)
 				->limit(1)
 				->get();
 
 			if ($query->num_rows() > 0) {
-				return $query->row_array();
+				$data = $query->row_array();
+				$data["data_id"] = $data["hash"]."-".$data["storage_id"];
+				return $data;
 			} else {
 				return false;
 			}
 		});
 	}
 
-	// return the folder in which the file with $hash is stored
-	function folder($hash) {
-		return $this->config->item('upload_path').'/'.substr($hash, 0, 3);
+	// return the folder in which the file with $data_id is stored
+	function folder($data_id) {
+		return $this->config->item('upload_path').'/'.substr($data_id, 0, 3);
 	}
 
-	// Returns the full path to the file with $hash
-	function file($hash) {
-		return $this->folder($hash).'/'.$hash;
+	// Returns the full path to the file with $data_id
+	function file($data_id) {
+		return $this->folder($data_id).'/'.$data_id;
 	}
 
-	// Add a hash to the DB
-	function add_file($hash, $id, $filename)
+	// Add a file to the DB
+	function add_file($id, $filename, $storage_id)
 	{
 		$userid = $this->muser->get_userid();
 
-		$mimetype = mimetype($this->file($hash));
-
-		$filesize = filesize($this->file($hash));
 		$this->db->insert("files", array(
 			"id" => $id,
-			"hash" => $hash,
 			"filename" => $filename,
 			"date" => time(),
 			"user" => $userid,
-			"mimetype" => $mimetype,
-			"filesize" => $filesize,
+			"file_storage_id" => $storage_id,
 		));
 	}
 
@@ -160,7 +153,7 @@ class Mfile extends CI_Model {
 	public function get_timeout($id)
 	{
 		$filedata = $this->get_filedata($id);
-		$file = $this->file($filedata["hash"]);
+		$file = $this->file($filedata["data_id"]);
 
 		if ($this->config->item("upload_max_age") == 0) {
 			return -1;
@@ -184,11 +177,14 @@ class Mfile extends CI_Model {
 		}
 	}
 
-	private function unused_file($hash)
+	private function unused_file($data_id)
 	{
-		$query = $this->db->select('id')
+		list ($hash, $storage_id) = explode("-", $data_id);
+		$query = $this->db->select('files.id')
 			->from('files')
+			->join('file_storage', 'file_storage.id = files.file_storage_id')
 			->where('hash', $hash)
+			->where('file_storage.id', $storage_id)
 			->limit(1)
 			->get();
 
@@ -228,31 +224,28 @@ class Mfile extends CI_Model {
 		}
 
 		if ($filedata !== false) {
-			assert(isset($filedata["hash"]));
-			if ($this->unused_file($filedata['hash'])) {
-				if (file_exists($this->file($filedata['hash']))) {
-					unlink($this->file($filedata['hash']));
-				}
-				$dir = $this->folder($filedata['hash']);
-				if (file_exists($dir)) {
-					if (count(scandir($dir)) == 2) {
-						rmdir($dir);
-					}
-				}
+			assert(isset($filedata["data_id"]));
+			if ($this->unused_file($filedata['data_id'])) {
+				$this->delete_data_id($filedata['data_id']);
 			}
 		}
 		return true;
 	}
 
-	public function delete_hash($hash)
+	public function delete_data_id($data_id)
 	{
-		$ids = $this->db->select('id')
-			->from('files')
-			->where('hash', $hash)
-			->get()->result_array();
-
-		foreach ($ids as $entry) {
-			$this->delete_id($entry["id"]);
+		list ($hash, $storage_id) = explode("-", $data_id);
+		
+		$this->db->where('id', $storage_id)
+			->delete('file_storage');
+		if (file_exists($this->file($data_id))) {
+			unlink($this->file($data_id));
+		}
+		$dir = $this->folder($data_id);
+		if (file_exists($dir)) {
+			if (count(scandir($dir)) == 2) {
+				rmdir($dir);
+			}
 		}
 	}
 

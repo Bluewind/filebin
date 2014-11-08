@@ -7,41 +7,62 @@ class Migration_deduplicate_file_storage extends CI_Migration {
 	{
 		$prefix = $this->db->dbprefix;
 
-		// FIXME: use prefix
-
 		if ($this->db->dbdriver == 'postgre') {
-			throw new \exceptions\ApiException("migration/postgres/not-implemented", "migration 14 not implemented yet for postgres");
+			throw new \exceptions\ApiException("migration/postgres/not-implemented", "migration 14 not yet implemented for postgres");
 		} else {
 			$this->db->query('
-				CREATE TABLE `file_storage` (
+				CREATE TABLE `'.$prefix.'file_storage` (
 					`id` int(11) NOT NULL AUTO_INCREMENT,
 					`filesize` int(11) NOT NULL,
 					`mimetype` varchar(255) NOT NULL,
 					`hash` char(32) NOT NULL,
-					`hash_collision_counter` int(11) NOT NULL,
+					`date` int(11) NOT NULL,
 					PRIMARY KEY (`id`),
-					UNIQUE KEY `data_id` (`hash`, `hash_collision_counter`)
+					UNIQUE KEY `data_id` (`id`, `hash`)
 				) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 			');
 			$this->db->query('
-				ALTER TABLE `files`
+				ALTER TABLE `'.$prefix.'files`
 				ADD `file_storage_id` INT NOT NULL,
-				ADD INDEX (`file_storage_id`),
-				ADD FOREIGN KEY (`file_storage_id`) REFERENCES `filebin_test`.`file_storage`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+				ADD INDEX (`file_storage_id`);
 			');
 
 			$this->db->query('
-				INSERT INTO file_storage (storage-id, filesize, mimetype)
-				SELECT hash, filesize, mimetype FROM files;
+				INSERT INTO `'.$prefix.'file_storage` (id, filesize, mimetype, hash, date)
+				SELECT NULL, filesize, mimetype, hash, date FROM `'.$prefix.'files`;
 			');
 
 			$this->db->query('
-				UPDATE files f
-				JOIN file_storage fs ON fs.data_id = f.hash
+				UPDATE `'.$prefix.'files` f
+				JOIN `'.$prefix.'file_storage` fs ON fs.hash = f.hash
 				SET f.file_storage_id = fs.id
 			');
 
-			$this->dbforge->drop_column("files", array("hash", "mimetype", "filesize"));
+			$chunk = 500;
+			$total = $this->db->count_all("file_storage");
+
+			for ($limit = 0; $limit < $total; $limit += $chunk) {
+				$query = $this->db->select('hash, id')
+					->from('file_storage')
+					->limit($chunk, $limit)
+					->get()->result_array();
+
+				foreach ($query as $key => $item) {
+					$old = $this->mfile->file($item["hash"]);
+					$data_id = $item["hash"].'-'.$item["id"];
+					$new = $this->mfile->file($data_id);
+					rename($old, $new);
+				}
+			}
+
+			$this->db->query('
+				ALTER TABLE `'.$prefix.'files`
+				ADD FOREIGN KEY (`file_storage_id`) REFERENCES `'.$prefix.'file_storage`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+			');
+
+			$this->dbforge->drop_column("files", "hash");
+			$this->dbforge->drop_column("files", "mimetype");
+			$this->dbforge->drop_column("files", "filesize");
 		}
 	}
 

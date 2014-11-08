@@ -324,4 +324,31 @@ function mimetype($file) {
 	return $mimetype;
 }
 
+function files_are_equal($a, $b)
+{
+	$chunk_size = 8*1024;
+
+	// Check if filesize is different
+	if (filesize($a) !== filesize($b)) {
+		return false;
+	}
+
+	// Check if content is different
+	$ah = fopen($a, 'rb');
+	$bh = fopen($b, 'rb');
+
+	$result = true;
+	while (!feof($ah) && !feof($bh)) {
+		if (fread($ah, $chunk_size) !== fread($bh, $chunk_size)) {
+			$result = false;
+			break;
+		}
+	}
+
+	fclose($ah);
+	fclose($bh);
+
+	return $result;
+}
+
 # vim: set noet:
