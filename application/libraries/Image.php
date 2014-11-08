@@ -41,13 +41,26 @@ class Image {
 		$this->fix_alpha();
 
 		$this->source_type = getimagesize($file)[2];
+		$this->exif = self::get_exif($file);
+	}
 
-		switch ($this->source_type) {
+	static private function get_exif($file)
+	{
+		$type = getimagesize($file)[2];
+		switch ($type) {
 		case IMAGETYPE_JPEG:
-			$this->exif = exif_read_data($file);
+			getimagesize($file, $info);
+			if (strpos($info["APP1"], "http://ns.adobe.com/xap/1.0/") === 0) {
+				// ignore XMP data which makes exif_read_data throw a warning
+				// http://stackoverflow.com/a/8864064
+				return false;
+			}
+			return exif_read_data($file);
 			break;
 		default:
 		}
+
+		return false;
 	}
 
 	/**
@@ -165,18 +178,11 @@ class Image {
 
 	static public function get_exif_orientation($file)
 	{
-		$type = getimagesize($file)[2];
-		switch ($type) {
-		case IMAGETYPE_JPEG:
-			$exif = exif_read_data($file);
-			if (isset($exif["Orientation"])) {
-				return $exif["Orientation"];
-			}
-			return 0;
-			break;
-		default:
-			return 0;
+		$exif = self::get_exif($file);
+		if (isset($exif["Orientation"])) {
+			return $exif["Orientation"];
 		}
+		return 0;
 	}
 
 	/**
