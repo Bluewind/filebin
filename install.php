@@ -71,6 +71,7 @@ if ($buf != "0") {
 // test PHP modules
 $mod_groups = array(
 	"thumbnail generation" => array("gd"),
+	"thumbnail generation" => array("exif"),
 	"database support" => array("mysql", "mysqli", "pgsql", "pdo_mysql", "pdo_pgsql"),
 	"multipaste tarball support" => array("phar"),
 );
