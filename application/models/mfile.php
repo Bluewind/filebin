@@ -244,8 +244,10 @@ class Mfile extends CI_Model {
 					unlink($this->file($filedata['hash']));
 				}
 				$dir = $this->folder($filedata['hash']);
-				if (count(scandir($dir)) == 2) {
-					rmdir($dir);
+				if (file_exists($dir)) {
+					if (count(scandir($dir)) == 2) {
+						rmdir($dir);
+					}
 				}
 			}
 		}
