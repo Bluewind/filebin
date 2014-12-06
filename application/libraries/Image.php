@@ -50,7 +50,7 @@ class Image {
 		switch ($type) {
 		case IMAGETYPE_JPEG:
 			getimagesize($file, $info);
-			if (strpos($info["APP1"], "http://ns.adobe.com/xap/1.0/") === 0) {
+			if (isset($info["APP1"]) && strpos($info["APP1"], "http://ns.adobe.com/xap/1.0/") === 0) {
 				// ignore XMP data which makes exif_read_data throw a warning
 				// http://stackoverflow.com/a/8864064
 				return false;
