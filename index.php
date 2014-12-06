@@ -219,18 +219,29 @@ function _actual_exception_handler($e)
 	$GLOBALS["is_error_page"] = true;
 	$heading = "Internal Server Error";
 	$message = "<p>An unhandled error occured.</p>\n";
+
+	$backtrace = "";
+	$i = 0;
+	foreach ($e->getTrace() as $key => $frame) {
+		$backtrace .= sprintf("#%d %s(%d): %s(%s)\n",
+			$i++, isset($frame["file"]) ? $frame["file"] : "[internal function]",
+			isset($frame["line"]) ? $frame["line"] : "", $frame["function"], implode(", ", array_map(
+				function ($e) { return var_export($e, true); }, $frame["args"])));
+	}
+
 	if ($display_errors) {
 		$message .= '<div>';
 		$message .= '<b>Fatal error</b>:  Uncaught exception '.get_class($e).'<br>';
 		$message .= '<b>Message</b>: '.$e->getMessage().'<br>';
-		$message .= '<pre>'.(str_replace(FCPATH, "./", $e->getTraceAsString())).'</pre>';
+		$message .= '<pre>'.(str_replace(FCPATH, "./", $backtrace)).'</pre>';
 		$message .= 'thrown in <b>'.$e->getFile().'</b> on line <b>'.$e->getLine().'</b><br>';
 		$message .= '</div>';
 	} else {
 		$message .="<p>More information can be found in syslog or by enabling display_errors.</p>";
 	}
 
-	error_log($e);
+	$heading = sprintf("Exception '%s' with message '%s' in %s:%d", get_class($e), $e->getMessage(), $e->getFile(), $e->getLine());
+	error_log($heading."\n".$backtrace);
 
 	$message = "$message";
 	include APPPATH."/errors/error_general.php";
