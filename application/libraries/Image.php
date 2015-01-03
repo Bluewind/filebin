@@ -55,7 +55,7 @@ class Image {
 				// http://stackoverflow.com/a/8864064
 				return false;
 			}
-			return exif_read_data($file);
+			return @exif_read_data($file);
 			break;
 		default:
 		}
