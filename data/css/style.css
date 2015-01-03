@@ -24,6 +24,10 @@
 	max-width: 300px;
 }
 
+.lazyload {
+	display: none;
+}
+
 .divider {
 	height:50px;
 	margin:0 9px;
