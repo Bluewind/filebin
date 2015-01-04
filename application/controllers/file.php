@@ -671,7 +671,7 @@ class File extends MY_Controller {
 			if (is_cli_client()) {
 				// Keep track of longest string to pad plaintext output correctly
 				foreach($fields as $length_key => $value) {
-					$len = mb_strlen($items[$key][$length_key]);
+					$len = mb_strlen($history["items"][$key][$length_key]);
 					if ($len > $lengths[$length_key]) {
 						$lengths[$length_key] = $len;
 					}
