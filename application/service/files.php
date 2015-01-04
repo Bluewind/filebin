@@ -14,7 +14,8 @@ class files {
 	static public function history($user)
 	{
 		$CI =& get_instance();
-		$query = array();
+		$multipaste_items_grouped = array();
+		$multipaste_items = array();
 
 		$fields = array("id", "filename", "mimetype", "date", "hash", "filesize");
 
@@ -23,17 +24,25 @@ class files {
 			->where('user', $user)
 			->get()->result_array();
 
-		// TODO: split this and provide an array of pastes for a multipaste?
-		$query = $CI->db->query("
-			SELECT m.url_id id, sum(f.filesize) filesize, m.date, '' hash, '' mimetype, concat(count(*), ' file(s)') filename
-			FROM multipaste m
-			JOIN multipaste_file_map mfm ON m.multipaste_id = mfm.multipaste_id
-			JOIN files f ON f.id = mfm.file_url_id
-			WHERE m.user_id = ?
-			GROUP BY m.url_id
-			", array($user))->result_array();
+		$multipaste_items_query = $CI->db
+			->select("m.url_id, f.filename, f.id, f.filesize, f.date, f.hash, f.mimetype")
+			->from("multipaste m")
+			->join("multipaste_file_map mfm", "m.multipaste_id = mfm.multipaste_id")
+			->join("files f", "f.id = mfm.file_url_id")
+			->where("m.user_id", $user)
+			->get()->result_array();
 
-		$items = array_merge($items, $query);
+		foreach ($multipaste_items_query as $item) {
+			$key = $item["url_id"];
+			unset($item["url_id"]);
+			$multipaste_items_grouped[$key][] = $item;
+		}
+
+		foreach ($multipaste_items_grouped as $key => $items) {
+			$multipaste_info = $CI->db->get_where("multipaste", array("url_id" => $key))->row_array();
+			$multipaste_info["items"] = $items;
+			$multipaste_items[] = $multipaste_info;
+		}
 
 		$total_size = $CI->db->query("
 			SELECT sum(filesize) sum
@@ -45,6 +54,7 @@ class files {
 			", array($user))->row_array();
 
 		$ret["items"] = $items;
+		$ret["multipaste_items"] = $multipaste_items;
 		$ret["total_size"] = $total_size["sum"];
 
 		return $ret;

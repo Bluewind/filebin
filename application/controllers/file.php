@@ -640,6 +640,22 @@ class File extends MY_Controller {
 			$lengths[$length_key] = mb_strlen($value);
 		}
 
+		foreach ($history["multipaste_items"] as $key => $item) {
+			$size = 0;
+			foreach ($item["items"] as $i) {
+				$size += $i["filesize"];
+			}
+
+			$history["items"][] = array(
+				"id" => $item["url_id"],
+				"filename" => count($item["items"])." file(s)",
+				"mimetype" => "",
+				"date" => $item["date"],
+				"hash" => "",
+				"filesize" => $size,
+			);
+		}
+
 		$order = is_cli_client() ? "ASC" : "DESC";
 
 		uasort($history["items"], function($a, $b) use ($order) {
