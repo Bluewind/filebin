@@ -14,12 +14,16 @@ class files {
 	static public function history($user)
 	{
 		$CI =& get_instance();
+		$items = array();
 
 		$fields = array("id", "filename", "mimetype", "date", "hash", "filesize");
-		$items = $CI->db->select(implode(',', $fields))
+		$query = $CI->db->select(implode(',', $fields))
 			->from('files')
 			->where('user', $user)
 			->get()->result_array();
+		foreach ($query as $key => $item) {
+			$items[$item["id"]] = $item;
+		}
 
 		$total_size = $CI->db->query("
 			SELECT sum(filesize) sum

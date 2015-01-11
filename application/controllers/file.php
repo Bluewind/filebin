@@ -643,7 +643,7 @@ class File extends MY_Controller {
 		foreach ($history["multipaste_items"] as $key => $item) {
 			$size = 0;
 			foreach ($item["items"] as $i) {
-				$size += $i["filesize"];
+				$size += $history["items"][$i["id"]]["filesize"];
 			}
 
 			$history["items"][] = array(
