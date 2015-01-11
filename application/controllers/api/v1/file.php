@@ -52,6 +52,7 @@ class file extends \controllers\api\api_controller {
 	{
 		return send_json_reply(array(
 			"upload_max_size" => $this->config->item("upload_max_size"),
+			"max_files_per_request" => intval(ini_get("max_file_uploads")),
 		));
 	}
 
