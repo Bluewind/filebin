@@ -50,6 +50,7 @@ class file extends \controllers\api\api_controller {
 
 	public function get_config()
 	{
+		// TODO: return more fields?
 		return send_json_reply(array(
 			"upload_max_size" => $this->config->item("upload_max_size"),
 			"max_files_per_request" => intval(ini_get("max_file_uploads")),
@@ -67,7 +68,7 @@ class file extends \controllers\api\api_controller {
 	{
 		$this->muser->require_access("apikey");
 
-
+		// TODO: implement
 	}
 }
 # vim: set noet:

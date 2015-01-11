@@ -21,4 +21,9 @@ class user extends \controllers\api\api_controller {
 		$this->muser->require_access("full");
 		return send_json_reply(\service\user::apikeys($this->muser->get_userid()));
 	}
+	
+	public function create_apikey()
+	{
+		// TODO: implement
+	}
 }
