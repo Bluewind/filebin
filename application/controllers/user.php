@@ -91,24 +91,7 @@ class User extends MY_Controller {
 			$access_level = "apikey";
 		}
 
-		$valid_levels = $this->muser->get_access_levels();
-		if (array_search($access_level, $valid_levels) === false) {
-			show_error("Invalid access levels requested.");
-		}
-
-		if (strlen($comment) > 255) {
-			show_error("Comment may only be 255 chars long.");
-		}
-
-		$key = random_alphanum(32);
-
-		$this->db->set(array(
-				'key'          => $key,
-				'user'         => $userid,
-				'comment'      => $comment,
-				'access_level' => $access_level
-			))
-			->insert('apikeys');
+		$key = \service\user::create_apikey($userid, $comment, $access_level);
 
 		if (static_storage("response_type") == "json") {
 			return send_json_reply(array("new_key" => $key));
@@ -140,27 +123,8 @@ class User extends MY_Controller {
 		$this->muser->require_access();
 
 		$userid = $this->muser->get_userid();
-
-		$query = $this->db->select('key, created, comment, access_level')
-			->from('apikeys')
-			->where('user', $userid)
-			->order_by('created', 'desc')
-			->get()->result_array();
-
-		// Convert timestamp to unix timestamp
-		// TODO: migrate database to integer timestamp and get rid of this
-		foreach ($query as &$record) {
-			if (!empty($record['created'])) {
-				$record['created'] = strtotime($record['created']);
-			}
-		}
-		unset($record);
-
-		if (static_storage("response_type") == "json") {
-			return send_json_reply($query);
-		}
-
-		$this->data["query"] = $query;
+		$apikeys = \service\user::apikeys($userid);
+		$this->data["query"] = $apikeys;
 
 		$this->load->view('header', $this->data);
 		$this->load->view($this->var->view_dir.'apikeys', $this->data);
