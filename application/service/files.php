@@ -14,35 +14,12 @@ class files {
 	static public function history($user)
 	{
 		$CI =& get_instance();
-		$multipaste_items_grouped = array();
-		$multipaste_items = array();
 
 		$fields = array("id", "filename", "mimetype", "date", "hash", "filesize");
-
 		$items = $CI->db->select(implode(',', $fields))
 			->from('files')
 			->where('user', $user)
 			->get()->result_array();
-
-		$multipaste_items_query = $CI->db
-			->select("m.url_id, f.filename, f.id, f.filesize, f.date, f.hash, f.mimetype")
-			->from("multipaste m")
-			->join("multipaste_file_map mfm", "m.multipaste_id = mfm.multipaste_id")
-			->join("files f", "f.id = mfm.file_url_id")
-			->where("m.user_id", $user)
-			->get()->result_array();
-
-		foreach ($multipaste_items_query as $item) {
-			$key = $item["url_id"];
-			unset($item["url_id"]);
-			$multipaste_items_grouped[$key][] = $item;
-		}
-
-		foreach ($multipaste_items_grouped as $key => $items) {
-			$multipaste_info = $CI->db->get_where("multipaste", array("url_id" => $key))->row_array();
-			$multipaste_info["items"] = $items;
-			$multipaste_items[] = $multipaste_info;
-		}
 
 		$total_size = $CI->db->query("
 			SELECT sum(filesize) sum
@@ -54,10 +31,37 @@ class files {
 			", array($user))->row_array();
 
 		$ret["items"] = $items;
-		$ret["multipaste_items"] = $multipaste_items;
+		$ret["multipaste_items"] = self::get_multipaste_history($user);
 		$ret["total_size"] = $total_size["sum"];
 
 		return $ret;
+	}
+
+	static private function get_multipaste_history($user)
+	{
+		$CI =& get_instance();
+		$multipaste_items_grouped = array();
+		$multipaste_items = array();
+
+		$query = $CI->db->get_where("multipaste", array("user_id" => $user))->result_array();
+		$multipaste_info = array();
+		foreach ($query as $item) {
+			$multipaste_info[$item["url_id"]] = $item;
+		}
+
+		$multipaste_items_query = $CI->db
+			->select("m.url_id, f.id")
+			->from("multipaste m")
+			->join("multipaste_file_map mfm", "m.multipaste_id = mfm.multipaste_id")
+			->join("files f", "f.id = mfm.file_url_id")
+			->where("m.user_id", $user)
+			->get()->result_array();
+
+		foreach ($multipaste_items_query as $item) {
+			$multipaste_info[$item["url_id"]]["items"][$item["id"]] = array("id" => $item["id"]);
+		}
+
+		return $multipaste_info;
 	}
 
 	static public function add_file($id, $file, $filename)
