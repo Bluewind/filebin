@@ -29,7 +29,7 @@ class file extends \controllers\api\api_controller {
 
 		$errors = \service\files::verify_uploaded_files($files);
 		if (!empty($errors)) {
-			return send_json_reply($errors, "upload-error");
+			return send_json_error_reply("file/upload-verify-failed", "Failed to verify uploaded file", $errors);
 		}
 
 		$limits = $this->muser->get_upload_id_limits();
