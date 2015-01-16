@@ -270,8 +270,8 @@ function _actual_exception_handler($e)
 		$message .="<p>More information can be found in syslog or by enabling display_errors.</p>";
 	}
 
-	$heading = sprintf("Exception '%s' with message '%s' in %s:%d", get_class($e), $e->getMessage(), $e->getFile(), $e->getLine());
-	error_log($heading."\n".$backtrace);
+	$log_heading = sprintf("Exception '%s' with message '%s' in %s:%d", get_class($e), $e->getMessage(), $e->getFile(), $e->getLine());
+	error_log($log_heading."\n".$backtrace);
 
 	$message = "$message";
 	include APPPATH."/errors/error_general.php";
