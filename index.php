@@ -299,7 +299,11 @@ register_shutdown_function("check_for_fatal");
  * And away we go...
  *
  */
-require_once BASEPATH.'core/CodeIgniter.php';
+try {
+	require_once BASEPATH.'core/CodeIgniter.php';
+} catch (\exceptions\UserInputException $e) {
+	show_error(nl2br(htmlspecialchars($e->__toString())), 400);
+}
 
 /* End of file index.php */
 /* Location: ./index.php */

@@ -89,6 +89,10 @@ class files {
 		$CI =& get_instance();
 		$errors = array();
 
+		if (empty($files)) {
+			throw new \exceptions\UserInputException("file/no-file", "No file was uploaded or unknown error occured.");
+		}
+
 		foreach ($files as $key => $file) {
 			$error_message = "";
 
@@ -113,7 +117,6 @@ class files {
 				} else {
 					$error_message = "Unknown error code: ".$file['error'].". Please report a bug.";
 				}
-
 			}
 
 			$filesize = filesize($file['tmp_name']);
@@ -127,9 +130,8 @@ class files {
 					"formfield" => $file["formfield"],
 					"message" => $error_message,
 				);
+				throw new \exceptions\FileUploadVerifyException("file/upload-verify", "Failed to verify uploaded file(s)", $errors);
 			}
 		}
-
-		return $errors;
 	}
 }

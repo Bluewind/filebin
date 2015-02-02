@@ -27,10 +27,7 @@ class file extends \controllers\api\api_controller {
 			throw new \exceptions\PublicApiException("file/no-file", "No file was uploaded or unknown error occured.");
 		}
 
-		$errors = \service\files::verify_uploaded_files($files);
-		if (!empty($errors)) {
-			throw new \exceptions\PublicApiException("file/upload-verify-failed", "Failed to verify uploaded file", $errors);
-		}
+		\service\files::verify_uploaded_files($files);
 
 		$limits = $this->muser->get_upload_id_limits();
 		$urls = array();

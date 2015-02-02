@@ -7,4 +7,8 @@
 namespace exceptions;
 
 class PublicApiException extends ApiException {
+	public function __toString()
+	{
+		return $this->getMessage();
+	}
 }

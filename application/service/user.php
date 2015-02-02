@@ -23,7 +23,6 @@ class user {
 	{
 		$CI =& get_instance();
 
-
 		$valid_levels = $CI->muser->get_access_levels();
 		if (array_search($access_level, $valid_levels) === false) {
 			throw new \exceptions\UserInputException("user/validation/access_level/invalid", "Invalid access levels requested.");

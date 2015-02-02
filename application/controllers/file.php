@@ -897,19 +897,7 @@ class File extends MY_Controller {
 
 		$files = getNormalizedFILES();
 
-		if (empty($files)) {
-			show_error("No file was uploaded or unknown error occured.");
-		}
-
-		$errors = service\files::verify_uploaded_files($files);
-		if (!empty($errors)) {
-			$messages = array();
-			foreach ($errors as $error) {
-				$messages[] = htmlspecialchars($error["filename"]).": ".$error["message"];
-			}
-			show_error("Error(s) occured while uploading:<br>".implode("<br>", $messages), 400);
-		}
-
+		service\files::verify_uploaded_files($files);
 		$limits = $this->muser->get_upload_id_limits();
 
 		foreach ($files as $key => $file) {
