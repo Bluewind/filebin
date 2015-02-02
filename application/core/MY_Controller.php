@@ -66,7 +66,13 @@ class MY_Controller extends CI_Controller {
 			show_error("Function not JSON enabled");
 		}
 
-		if ($this->input->post("apikey") !== false) {
+		if ($this->uri->segment(1) == "api") {
+			is_cli_client(true);
+		}
+
+		if ($this->input->post("apikey") !== false
+				|| ($this->input->post("username") !== false
+					&& $this->input->post("password") !== false)) {
 			/* This relies on the authentication code always verifying the supplied
 			 * apikey. If the key is not verified/logged in an attacker could simply
 			 * add an empty "apikey" field to the CSRF form to circumvent the
