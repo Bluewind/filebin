@@ -24,12 +24,12 @@ class file extends \controllers\api\api_controller {
 		$files = getNormalizedFILES();
 
 		if (empty($files)) {
-			show_error("No file was uploaded or unknown error occured.");
+			throw new \exceptions\PublicApiException("file/no-file", "No file was uploaded or unknown error occured.");
 		}
 
 		$errors = \service\files::verify_uploaded_files($files);
 		if (!empty($errors)) {
-			return send_json_error_reply("file/upload-verify-failed", "Failed to verify uploaded file", $errors);
+			throw new \exceptions\PublicApiException("file/upload-verify-failed", "Failed to verify uploaded file", $errors);
 		}
 
 		$limits = $this->muser->get_upload_id_limits();
