@@ -249,17 +249,26 @@ function getExceptionTraceAsString($exception) {
 	return $rtn;
 }
 
+function _log_exception($e)
+{
+	$backtrace = getExceptionTraceAsString($e);
+	$log_heading = sprintf("Exception '%s' with message '%s' in %s:%d", get_class($e), $e->getMessage(), $e->getFile(), $e->getLine());
+	error_log($log_heading."\n".$backtrace);
+}
+
 // The actual exception handler
 function _actual_exception_handler($e)
 {
+	_log_exception($e);
+
 	$display_errors = in_array(strtolower(ini_get('display_errors')), array('1', 'on', 'true', 'stdout'));
 
 	$GLOBALS["is_error_page"] = true;
 	$heading = "Internal Server Error";
 	$message = "<p>An unhandled error occured.</p>\n";
 
-	$backtrace = getExceptionTraceAsString($e);
 	if ($display_errors) {
+		$backtrace = getExceptionTraceAsString($e);
 		$message .= '<div>';
 		$message .= '<b>Fatal error</b>:  Uncaught exception '.get_class($e).'<br>';
 		$message .= '<b>Message</b>: '.$e->getMessage().'<br>';
@@ -269,9 +278,6 @@ function _actual_exception_handler($e)
 	} else {
 		$message .="<p>More information can be found in syslog or by enabling display_errors.</p>";
 	}
-
-	$log_heading = sprintf("Exception '%s' with message '%s' in %s:%d", get_class($e), $e->getMessage(), $e->getFile(), $e->getLine());
-	error_log($log_heading."\n".$backtrace);
 
 	$message = "$message";
 	include APPPATH."/errors/error_general.php";
