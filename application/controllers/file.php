@@ -564,11 +564,6 @@ class File extends MY_Controller {
 			$img = new libraries\Image($this->mfile->file($filedata["hash"]));
 			$img->makeThumb($thumb_size, $thumb_size);
 			$thumb = $img->get(IMAGETYPE_JPEG);
-
-			if ($thumb === false) {
-				throw new \exceptions\PublicApiException("file/thumbnail/generation-failed", "Failed to generate thumbnail");
-			}
-
 			return $thumb;
 		});
 

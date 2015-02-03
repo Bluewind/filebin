@@ -93,7 +93,7 @@ class Image {
 		}
 		$result = ob_get_clean();
 
-		if (!$ret) {
+		if (!$ret || $result === false) {
 			throw new \exceptions\ApiException("libraries/Image/thumbnail-creation-failed", "Failed to create thumbnail");
 		}
 
