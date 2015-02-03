@@ -6,7 +6,7 @@
  */
 namespace exceptions;
 
-class FileUploadVerifyException extends VerifyException {
+class VerifyException extends UserInputException {
 	public function __toString()
 	{
 		$ret = $this->getMessage()."\n";
@@ -14,7 +14,7 @@ class FileUploadVerifyException extends VerifyException {
 		$errors = array();
 
 		foreach ($data as $error) {
-			$errors[] = sprintf("%s: %s", $error["filename"], $error["message"]);
+			$errors[] = sprintf("%s: %s", $error["id"], $error["reason"]);
 		}
 
 		$ret .= implode("\n", $errors);

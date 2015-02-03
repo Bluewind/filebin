@@ -196,4 +196,57 @@ class files {
 			"deleted_count" => $deleted_count,
 		);
 	}
+
+	static public function create_multipaste($ids, $userid, $limits)
+	{
+		$CI =& get_instance();
+
+		if (!$ids || !is_array($ids)) {
+			throw new \exceptions\UserInputException("file/create_multipaste/no-ids", "No IDs specified");
+		}
+
+		if (count(array_unique($ids)) != count($ids)) {
+			throw new \exceptions\UserInputException("file/create_multipaste/duplicate_id", "Duplicate IDs are not supported");
+		}
+
+		$errors = array();
+
+		foreach ($ids as $id) {
+			if (!$CI->mfile->id_exists($id)) {
+				$errors[$id] = array(
+					"id" => $id,
+					"reason" => "doesn't exist",
+				);
+				continue;
+			}
+
+			$filedata = $CI->mfile->get_filedata($id);
+			if ($filedata["user"] != $userid) {
+				$errors[$id] = array(
+					"id" => $id,
+					"reason" => "not owned by you",
+				);
+			}
+		}
+
+		if (!empty($errors)) {
+			throw new \exceptions\VerifyException("file/create_multipaste/verify-failed", "Failed to verify ID(s)", $errors);
+		}
+
+		$url_id = $CI->mmultipaste->new_id($limits[0], $limits[1]);
+
+		$multipaste_id = $CI->mmultipaste->get_multipaste_id($url_id);
+		assert($multipaste_id !== false);
+
+		foreach ($ids as $id) {
+			$CI->db->insert("multipaste_file_map", array(
+				"file_url_id" => $id,
+				"multipaste_id" => $multipaste_id,
+			));
+		}
+
+		return array(
+			"url_id" => $url_id,
+		);
+	}
 }

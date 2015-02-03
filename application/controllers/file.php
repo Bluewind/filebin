@@ -700,55 +700,12 @@ class File extends MY_Controller {
 		$this->muser->require_access("apikey");
 
 		$ids = $this->input->post("ids");
-		$errors = array();
-
-		if (!$ids || !is_array($ids)) {
-			show_error("No IDs specified");
-		}
-
-		if (count(array_unique($ids)) != count($ids)) {
-			show_error("Duplicate IDs are not supported");
-		}
-
-		foreach ($ids as $id) {
-			if (!$this->mfile->id_exists($id)) {
-				$errors[] = array(
-					"id" => $id,
-					"reason" => "doesn't exist",
-				);
-			}
-
-			$filedata = $this->mfile->get_filedata($id);
-			if ($filedata["user"] != $this->muser->get_userid()) {
-				$errors[] = array(
-					"id" => $id,
-					"reason" => "not owned by you",
-				);
-			}
-		}
-
-		if (!empty($errors)) {
-			$errorstring = "";
-			foreach ($errors as $error) {
-				$errorstring .= $error["id"]." ".$error["reason"]."<br>\n";
-			}
-			show_error($errorstring);
-		}
-
+		$userid = $this->muser->get_userid();
 		$limits = $this->muser->get_upload_id_limits();
-		$url_id = $this->mmultipaste->new_id($limits[0], $limits[1]);
 
-		$multipaste_id = $this->mmultipaste->get_multipaste_id($url_id);
-		assert($multipaste_id !== false);
+		$ret = \service\files::create_multipaste($ids, $userid, $limits);
 
-		foreach ($ids as $id) {
-			$this->db->insert("multipaste_file_map", array(
-				"file_url_id" => $id,
-				"multipaste_id" => $multipaste_id,
-			));
-		}
-
-		return $this->_show_url(array($url_id), false);
+		return $this->_show_url(array($ret["url_id"]), false);
 	}
 
 	function delete()
