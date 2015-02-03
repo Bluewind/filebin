@@ -19,7 +19,7 @@ class user extends \controllers\api\api_controller {
 	public function apikeys()
 	{
 		$this->muser->require_access("full");
-		return send_json_reply(\service\user::apikeys($this->muser->get_userid()));
+		return \service\user::apikeys($this->muser->get_userid());
 	}
 
 	public function create_apikey()
@@ -32,8 +32,8 @@ class user extends \controllers\api\api_controller {
 
 		$key = \service\user::create_apikey($userid, $comment, $access_level);
 
-		return send_json_reply(array(
+		return array(
 			"new_key" => $key,
-		));
+		);
 	}
 }

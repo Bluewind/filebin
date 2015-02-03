@@ -39,26 +39,26 @@ class file extends \controllers\api\api_controller {
 			$urls[] = site_url($id).'/';
 		}
 
-		return send_json_reply(array(
+		return array(
 			"ids" => $ids,
 			"urls" => $urls,
-		));
+		);
 	}
 
 	public function get_config()
 	{
 		// TODO: return more fields?
-		return send_json_reply(array(
+		return array(
 			"upload_max_size" => $this->config->item("upload_max_size"),
 			"max_files_per_request" => intval(ini_get("max_file_uploads")),
-		));
+		);
 	}
 
 	public function history()
 	{
 		$this->muser->require_access("apikey");
 		$history = \service\files::history($this->muser->get_userid());
-		return send_json_reply($history);
+		return $history;
 	}
 
 	public function delete()

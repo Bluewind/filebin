@@ -48,7 +48,7 @@ class Api extends MY_Controller {
 			if (!method_exists($c, $function)) {
 				throw new \exceptions\PublicApiException("api/unknown-function", "Unknown function requested");
 			}
-			return $c->$function();
+			return send_json_reply($c->$function());
 		} catch (\exceptions\PublicApiException $e) {
 			return send_json_error_reply($e->get_error_id(), $e->getMessage(), $e->get_data());
 		}
