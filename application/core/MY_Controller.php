@@ -11,9 +11,6 @@ class MY_Controller extends CI_Controller {
 	public $data = array();
 	public $var;
 
-	protected $json_enabled_functions = array(
-	);
-
 	function __construct()
 	{
 		parent::__construct();
@@ -46,33 +43,11 @@ class MY_Controller extends CI_Controller {
 		$this->load->helper(array('form', 'filebin'));
 		$this->load->library('customautoloader');
 
-		// TODO: proper accept header handling or is this enough?
-		if (isset($_SERVER["HTTP_ACCEPT"])) {
-			if ($_SERVER["HTTP_ACCEPT"] == "application/json") {
-				static_storage("response_type", "json");
-			}
-		}
-
-		// Allow for easier testing in browser
-		if ($this->input->get("json") !== false) {
-			static_storage("response_type", "json");
-		}
-
-		// TODO: this should probably call a function in the controller that does the checking
-		//       instead of checking if the controller name == "api"
-		if (static_storage("response_type") == "json"
-			&& $this->uri->segment(1) != "api"
-			&& ! in_array($this->uri->rsegment(2), $this->json_enabled_functions)) {
-			show_error("Function not JSON enabled");
-		}
-
 		if ($this->uri->segment(1) == "api") {
 			is_cli_client(true);
 		}
 
-		if ($this->input->post("apikey") !== false
-				|| ($this->input->post("username") !== false
-					&& $this->input->post("password") !== false)) {
+		if ($this->input->post("apikey") !== false || is_cli_client()) {
 			/* This relies on the authentication code always verifying the supplied
 			 * apikey. If the key is not verified/logged in an attacker could simply
 			 * add an empty "apikey" field to the CSRF form to circumvent the
@@ -119,7 +94,7 @@ class MY_Controller extends CI_Controller {
 			$this->security->csrf_verify();
 		}
 
-		if ($this->config->item("environment") == "development" && static_storage("response_type") != "json") {
+		if ($this->config->item("environment") == "development") {
 			$this->output->enable_profiler(true);
 		}
 

@@ -9,13 +9,6 @@
 
 class File extends MY_Controller {
 
-	protected $json_enabled_functions = array(
-		"upload_history",
-		"do_upload",
-		"do_delete",
-		"do_multipaste",
-	);
-
 	function __construct()
 	{
 		parent::__construct();
@@ -470,10 +463,6 @@ class File extends MY_Controller {
 			}
 		}
 
-		if (static_storage("response_type") == "json") {
-			return send_json_reply($this->data["urls"]);
-		}
-
 		if (is_cli_client()) {
 			$redirect = false;
 		}
@@ -738,15 +727,6 @@ class File extends MY_Controller {
 				"id" => $id,
 				"reason" => "doesn't exist",
 			);
-		}
-
-		if (static_storage("response_type") == "json") {
-			return send_json_reply(array(
-				"errors" => $errors,
-				"deleted" => $deleted,
-				"total_count" => $total_count,
-				"deleted_count" => $deleted_count,
-			));
 		}
 
 		$this->data["errors"] = $errors;
