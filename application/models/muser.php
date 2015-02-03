@@ -156,8 +156,8 @@ class Muser extends CI_Model {
 	{
 		$session_level = $this->session->userdata("access_level");
 
-		$wanted = array_search($wanted_level, $this->access_levels);
-		$have = array_search($session_level, $this->access_levels);
+		$wanted = array_search($wanted_level, $this->get_access_levels());
+		$have = array_search($session_level, $this->get_access_levels());
 
 		if ($wanted === false || $have === false) {
 			throw new \exceptions\PublicApiException("api/invalid-accesslevel", "Failed to determine access level");
