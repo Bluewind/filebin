@@ -64,8 +64,8 @@ class file extends \controllers\api\api_controller {
 	public function delete()
 	{
 		$this->muser->require_access("apikey");
-
-		// TODO: implement
+		$ids = $this->input->post("ids");
+		return \service\files::delete($ids);
 	}
 }
 # vim: set noet:

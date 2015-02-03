@@ -683,55 +683,12 @@ class File extends MY_Controller {
 		$this->muser->require_access("apikey");
 
 		$ids = $this->input->post("ids");
-		$userid = $this->muser->get_userid();
-		$errors = array();
-		$deleted = array();
-		$deleted_count = 0;
-		$total_count = 0;
 
-		if (!$ids || !is_array($ids)) {
-			show_error("No IDs specified");
-		}
+		$ret = \service\files::delete($ids);
 
-		foreach ($ids as $id) {
-			$total_count++;
-			$next = false;
-
-			foreach (array($this->mfile, $this->mmultipaste) as $model) {
-				if ($model->id_exists($id)) {
-					if ($model->get_owner($id) !== $userid) {
-						$errors[] = array(
-							"id" => $id,
-							"reason" => "wrong owner",
-						);
-						continue;
-					}
-					if ($model->delete_id($id)) {
-						$deleted[] = $id;
-						$deleted_count++;
-						$next = true;
-					} else {
-						$errors[] = array(
-							"id" => $id,
-							"reason" => "unknown error",
-						);
-					}
-				}
-			}
-
-			if ($next) {
-				continue;
-			}
-
-			$errors[] = array(
-				"id" => $id,
-				"reason" => "doesn't exist",
-			);
-		}
-
-		$this->data["errors"] = $errors;
-		$this->data["deleted_count"] = $deleted_count;
-		$this->data["total_count"] = $total_count;
+		$this->data["errors"] = $ret["errors"];
+		$this->data["deleted_count"] = $ret["deleted_count"];
+		$this->data["total_count"] = $ret["total_count"];
 
 		$this->load->view('header', $this->data);
 		$this->load->view($this->var->view_dir.'/deleted', $this->data);

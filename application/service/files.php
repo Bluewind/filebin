@@ -134,4 +134,66 @@ class files {
 			}
 		}
 	}
+
+	// TODO: streamline this interface to be somewhat atomic in regards to
+	// wrong owner/unknown ids (verify first and throw exception)
+	static public function delete($ids)
+	{
+		$CI =& get_instance();
+
+		$userid = $CI->muser->get_userid();
+		$errors = array();
+		$deleted = array();
+		$deleted_count = 0;
+		$total_count = 0;
+
+		if (!$ids || !is_array($ids)) {
+			throw new \exceptions\UserInputException("file/delete/no-ids", "No IDs specified");
+		}
+
+		foreach ($ids as $id) {
+			$total_count++;
+			$next = false;
+
+			foreach (array($CI->mfile, $CI->mmultipaste) as $model) {
+				if ($model->id_exists($id)) {
+					if ($model->get_owner($id) !== $userid) {
+						$errors[$id] = array(
+							"id" => $id,
+							"reason" => "wrong owner",
+						);
+						continue;
+					}
+					if ($model->delete_id($id)) {
+						$deleted[$id] = array(
+							"id" => $id,
+						);
+						$deleted_count++;
+						$next = true;
+					} else {
+						$errors[$id] = array(
+							"id" => $id,
+							"reason" => "unknown error",
+						);
+					}
+				}
+			}
+
+			if ($next) {
+				continue;
+			}
+
+			$errors[$id] = array(
+				"id" => $id,
+				"reason" => "doesn't exist",
+			);
+		}
+
+		return array(
+			"errors" => $errors,
+			"deleted" => $deleted,
+			"total_count" => $total_count,
+			"deleted_count" => $deleted_count,
+		);
+	}
 }
