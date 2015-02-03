@@ -27,4 +27,9 @@ class ApiException extends \Exception {
 	{
 		return $this->data;
 	}
+
+	public function get_http_error_code()
+	{
+		return 500;
+	}
 }

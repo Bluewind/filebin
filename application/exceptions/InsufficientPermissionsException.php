@@ -6,9 +6,9 @@
  */
 namespace exceptions;
 
-class UserInputException extends PublicApiException {
+class InsufficientPermissionsException extends UserInputException {
 	public function get_http_error_code()
 	{
-		return 400;
+		return 403;
 	}
 }

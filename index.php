@@ -307,8 +307,10 @@ register_shutdown_function("check_for_fatal");
  */
 try {
 	require_once BASEPATH.'core/CodeIgniter.php';
+} catch (\exceptions\NotAuthenticatedException $e) {
+	redirect("user/login");
 } catch (\exceptions\UserInputException $e) {
-	show_error(nl2br(htmlspecialchars($e->__toString())), 400);
+	show_error(nl2br(htmlspecialchars($e->__toString())), $e->get_http_error_code());
 }
 
 /* End of file index.php */
