@@ -15,7 +15,7 @@ class Tools extends MY_Controller {
 
 		$this->load->model('mfile');
 		if (!$this->input->is_cli_request()) {
-			show_error("This can only be called via CLI");
+			throw new \exceptions\ApiException("api/cli-only", "This can only be called via CLI");
 		}
 	}
 
@@ -39,7 +39,7 @@ class Tools extends MY_Controller {
 	{
 		$this->load->library('migration');
 		if ( ! $this->migration->current()) {
-			show_error($this->migration->error_string());
+			throw new \exceptions\ApiException("tools/update_database/migration-error", $this->migration->error_string());
 		}
 	}
 }

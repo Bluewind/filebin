@@ -136,7 +136,7 @@ class User extends MY_Controller {
 			->count_all_results();
 
 		if ($invitations + 1 > 3) {
-			show_error("You can't create more invitation keys at this time.");
+			throw new \exceptions\PublicApiException("user/invitation-limit", "You can't create more invitation keys at this time.");
 		}
 
 		$key = random_alphanum(12, 16);
@@ -277,7 +277,7 @@ class User extends MY_Controller {
 		$username = $this->input->post("username");
 
 		if (!$this->muser->username_exists($username)) {
-			show_error("Invalid username");
+			throw new \exceptions\PublicApiException("user/reset_password/invalid-username", "Invalid username");
 		}
 
 		$userinfo = $this->db->select('id, email, username')
@@ -388,18 +388,18 @@ class User extends MY_Controller {
 			$values = explode("-", $value);
 
 			if (!is_array($values) || count($values) != 2) {
-				show_error("Invalid upload id limit value");
+				throw new \exceptions\PublicApiException("user/profile/invalid-upload-id-limit", "Invalid upload id limit value");
 			}
 
 			$lower = intval($values[0]);
 			$upper = intval($values[1]);
 
 			if ($lower > $upper) {
-				show_error("lower limit > upper limit");
+				throw new \exceptions\PublicApiException("user/profile/lower-bigger-than-upper", "lower limit > upper limit");
 			}
 
 			if ($lower < 3 || $upper > 64) {
-				show_error("upper or lower limit out of bounds (3-64)");
+				throw new \exceptions\PublicApiException("user/profile/limit-out-of-bounds", "upper or lower limit out of bounds (3-64)");
 			}
 
 			return $lower."-".$upper;

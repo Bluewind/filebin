@@ -62,7 +62,7 @@ class Duser extends CI_Driver_Library {
 	// require an optional function to be implemented
 	public function require_implemented($function) {
 		if (!$this->is_implemented($function)) {
-			show_error(""
+			throw new \exceptions\PublicApiException("libraries/duser/optional-function-not-implemented", ""
 				."Optional function '".$function."' not implemented in user adapter '".$this->_adapter."'. "
 				."Requested functionally unavailable.");
 		}

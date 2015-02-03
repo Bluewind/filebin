@@ -83,7 +83,7 @@ class Muser extends CI_Model {
 			if ($this->login($username, $password)) {
 				return true;
 			} else {
-				show_error("Login failed", 401);
+				throw new \exceptions\NotAuthenticatedException("user/login-failed", "Login failed");
 			}
 		}
 
@@ -112,7 +112,7 @@ class Muser extends CI_Model {
 			return true;
 		}
 
-		show_error("API key login failed", 401);
+		throw new \exceptions\NotAuthenticatedException("user/api-login-failed", "API key login failed");
 	}
 
 	function logout()
@@ -208,7 +208,7 @@ class Muser extends CI_Model {
 			->get()->row_array();
 
 		if (!isset($query["key"]) || $key != $query["key"]) {
-			show_error("Invalid action key");
+			throw new \exceptions\ApiException("user/get_action/invalid-action", "Invalid action key");
 		}
 
 		return $query;

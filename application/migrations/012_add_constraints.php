@@ -29,6 +29,6 @@ class Migration_add_constraints extends CI_Migration {
 
 	public function down()
 	{
-		show_error("downgrade not supported");
+		throw new \exceptions\ApiException("migration/downgrade-not-supported", "downgrade not supported");
 	}
 }

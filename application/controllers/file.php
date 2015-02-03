@@ -108,7 +108,7 @@ class File extends MY_Controller {
 
 		default:
 			if ($is_multipaste) {
-				show_error("Invalid action \"".htmlspecialchars($lexer)."\"");
+				throw new \exceptions\UserInputException("file/download/invalid-action", "Invalid action \"".htmlspecialchars($lexer)."\"");
 			}
 			break;
 		}
@@ -384,7 +384,7 @@ class File extends MY_Controller {
 				}
 
 				if ($total_size > $this->config->item("tarball_max_size")) {
-					show_error("Tarball too large, refusing to create.");
+					throw new \exceptions\PublicApiException("file/tarball/tarball-filesize-limit", "Tarball too large, refusing to create.");
 				}
 
 				$tmpfile = $archive->begin();
@@ -554,7 +554,7 @@ class File extends MY_Controller {
 
 		$filedata = $this->mfile->get_filedata($id);
 		if (!$filedata) {
-			show_error("Failed to get file data");
+			throw new \exceptions\ApiException("file/thumbnail/filedata-unavailable", "Failed to get file data");
 		}
 
 		$cache_key = $filedata['hash'].'_thumb_'.$thumb_size;
@@ -566,7 +566,7 @@ class File extends MY_Controller {
 			$thumb = $img->get(IMAGETYPE_JPEG);
 
 			if ($thumb === false) {
-				show_error("Failed to generate thumbnail");
+				throw new \exceptions\PublicApiException("file/thumbnail/generation-failed", "Failed to generate thumbnail");
 			}
 
 			return $thumb;
@@ -713,7 +713,7 @@ class File extends MY_Controller {
 		$this->muser->require_access("apikey");
 
 		if (!is_cli_client()) {
-			show_error("Not a listed cli client, please use the history to delete uploads.\n", 403);
+			throw new \exceptions\InsufficientPermissionsException("file/delete/unlisted-client", "Not a listed cli client, please use the history to delete uploads");
 		}
 
 		$id = $this->uri->segment(3);
@@ -735,7 +735,9 @@ class File extends MY_Controller {
 			}
 		}
 
-		show_error("Unknown ID '$id'.", 404);
+		throw new \exceptions\NotFoundException("file/delete/unknown-id", "Unknown ID '$id'.", array(
+			"id" => $id,
+		));
 	}
 
 	// Handle pastes
@@ -754,11 +756,11 @@ class File extends MY_Controller {
 		$filename = "stdin";
 
 		if (!$content) {
-			show_error("Nothing was pasted, content is empty.", 400);
+			throw new \exceptions\UserInputException("file/do_paste/empty-input", "Nothing was pasted, content is empty.");
 		}
 
 		if ($filesize > $this->config->item('upload_max_size')) {
-			show_error("Error while uploading: File too big", 413);
+			throw new \exceptions\RequestTooBigException("file/do_paste/request-too-big", "Error while uploading: File too big");
 		}
 
 		// FIXME: this duplicates service\files::add_file (kind of)
@@ -840,7 +842,7 @@ class File extends MY_Controller {
 		$last_upload = $this->session->userdata("last_upload");
 
 		if ($last_upload === false) {
-			show_error("Failed to get last upload data");
+			throw new \exceptions\PublicApiException("file/claim_id/last_upload-failed", "Failed to get last upload data, unable to claim uploads");
 		}
 
 		$ids = $last_upload["ids"];
@@ -859,7 +861,7 @@ class File extends MY_Controller {
 		}
 
 		if (!empty($errors)) {
-			show_error("Someone already owns '".implode(", ", $errors)."', can't reassign.");
+			throw new \exceptions\PublicApiException("file/claim_id/already-owned", "Someone already owns '".implode(", ", $errors)."', can't reassign.");
 		}
 
 		$this->session->unset_userdata("last_upload");

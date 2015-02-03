@@ -37,7 +37,7 @@ class Duser_ldap extends Duser_Driver {
 				$r = ldap_search($ds, $config['basedn'], $config["username_field"].'='.$username);
 				break;
 			default:
-				show_error("Invalid LDAP scope");
+				throw new \exceptions\ApiException("libraries/duser/ldap/invalid-ldap-scope", "Invalid LDAP scope");
 		}
 		if ($r === false) {
 			return false;

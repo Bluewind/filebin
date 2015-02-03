@@ -309,7 +309,7 @@ try {
 	require_once BASEPATH.'core/CodeIgniter.php';
 } catch (\exceptions\NotAuthenticatedException $e) {
 	redirect("user/login");
-} catch (\exceptions\UserInputException $e) {
+} catch (\exceptions\PublicApiException $e) {
 	show_error(nl2br(htmlspecialchars($e->__toString())), $e->get_http_error_code());
 }
 

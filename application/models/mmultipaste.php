@@ -54,7 +54,7 @@ class Mmultipaste extends CI_Model {
 			return $id;
 		}
 
-		show_error("Failed to find unused ID after $max_tries tries.");
+		throw new \exceptions\PublicApiException("file/new_id-try-limit", "Failed to find unused ID after $max_tries tries");
 	}
 
 	public function id_exists($id)
