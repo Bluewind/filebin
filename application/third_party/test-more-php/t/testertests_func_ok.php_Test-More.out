@@ -1,0 +1,24 @@
+# OK
+# (No message for next test)
+ok 1
+ok 2 - 1 is ok
+ok 3 - TRUE is ok
+ok 4 - 'string' is ok
+# Not OK
+# (No message for next test)
+not ok 5
+#   Failed test at testertests_func_ok.php line 18.
+not ok 6 - 0 is not ok
+#   Failed test '0 is not ok'
+#   at testertests_func_ok.php line 19.
+not ok 7 - FALSE is not ok
+#   Failed test 'FALSE is not ok'
+#   at testertests_func_ok.php line 20.
+not ok 8 - '' is not ok
+#   Failed test ''' is not ok'
+#   at testertests_func_ok.php line 21.
+not ok 9 - NULL is not ok
+#   Failed test 'NULL is not ok'
+#   at testertests_func_ok.php line 22.
+1..9
+# Looks like you failed 5 tests of 9.

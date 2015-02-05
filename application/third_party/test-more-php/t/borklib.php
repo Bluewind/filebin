@@ -1,0 +1,5 @@
+<?php
+
+    missing_func();
+
+?>
