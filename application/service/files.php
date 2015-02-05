@@ -27,7 +27,7 @@ class files {
 		}
 
 		$total_size = $CI->db->query("
-			SELECT sum(filesize) sum
+			SELECT coalesce(sum(filesize), 0) sum
 			FROM (
 				SELECT DISTINCT hash, filesize
 				FROM `".$CI->db->dbprefix."files`
