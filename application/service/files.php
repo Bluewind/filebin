@@ -30,7 +30,7 @@ class files {
 			SELECT sum(filesize) sum
 			FROM (
 				SELECT DISTINCT hash, filesize
-				FROM files
+				FROM `".$CI->db->dbprefix."files`
 				WHERE user = ?
 			) sub
 			", array($user))->row_array();
