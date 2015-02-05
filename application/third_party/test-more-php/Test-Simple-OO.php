@@ -154,10 +154,14 @@ class TestSimple {
         } else {
             echo $this->LastFail = "not ok $title\n";
 
-            $stack = isset($this->Backtrace) ? $this->Backtrace : debug_backtrace();
-            $call = array_pop($stack);
-            $file = basename($call['file']);
-            $line = $call['line'];
+			$stack = isset($this->Backtrace) ? $this->Backtrace : debug_backtrace();
+			foreach (array_reverse($stack) as $frame) {
+				if (isset($frame["object"]) && $frame["object"] == $this) {
+					$file = $frame["file"];
+					$line = $frame["line"];
+					break;
+				}
+			}
             unset($this->Backtrace);
 
             if ($caption) {
