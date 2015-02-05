@@ -71,6 +71,7 @@ class TestSimple {
     protected $TestsRun = 0;
     protected $Skips;
     protected $NumberOfTests;
+    protected $CurrentTestNumber;
     protected $Filter;
 
     protected $notes;
@@ -89,7 +90,7 @@ class TestSimple {
             $this->NumberOfTests = $NumberOfTests;
             $this->SkipAllReason = $SkipReason;
             $this->diag("Skipping all tests: $SkipReason");
-            exit();
+            return;
         }
 
         // Return current value if no params passed (query to the plan)
@@ -174,7 +175,7 @@ class TestSimple {
     function done_testing () {
     // Change of plans (if there was one in the first place)
         $this->plan((int)$this->TestsRun);
-        exit();
+        return;
     }
 
     function bail ($message = '') {
@@ -184,7 +185,7 @@ class TestSimple {
 
     static function _bail ($message = '') {
         echo "Bail out! $message\n";
-        exit(255);
+        throw new RuntimeException("Bail out! $message");
     }
 
     function diag() {
@@ -217,7 +218,7 @@ class TestSimple {
         if ($this->Filter) ob_end_flush();
 
         $retval = ($this->Results['Failed'] > 254) ? 254 : $this->Results['Failed'];
-        exit($retval);
+        return;
     }
 
     function web_output($callback = NULL) {

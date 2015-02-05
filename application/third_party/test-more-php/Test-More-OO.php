@@ -280,7 +280,7 @@ class TestMore extends TestSimple {
         // Not a bail because you asked for it
         if ($ok == FALSE) {
             $this->diag("  Exiting due to missing requirement.");
-            exit();
+            throw new RuntimeException("Missing requirement");
         }
 
         return $ok;
