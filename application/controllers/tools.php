@@ -42,4 +42,41 @@ class Tools extends MY_Controller {
 			throw new \exceptions\ApiException("tools/update_database/migration-error", $this->migration->error_string());
 		}
 	}
+
+	function drop_all_tables_using_prefix()
+	{
+		$tables = $this->db->list_tables();
+		$prefix = $this->db->dbprefix;
+		$tables_to_drop = array();
+
+		foreach ($tables as $table) {
+			if (strpos($table, $prefix) === 0) {
+				$tables_to_drop[] = $this->db->protect_identifiers($table);
+			}
+		}
+
+		$this->db->query('SET FOREIGN_KEY_CHECKS = 0');
+		$this->db->query('DROP TABLE '.implode(", ", $tables_to_drop));
+		$this->db->query('SET FOREIGN_KEY_CHECKS = 1');
+	}
+
+	function test()
+	{
+		global $argv;
+		$url = $argv[3];
+		$testcase = $argv[4];
+
+		$testclass = '\tests\\'.$testcase;
+		$test = new $testclass();
+		$test->setServer($url);
+
+		$refl = new ReflectionClass($test);
+		foreach ($refl->getMethods() as $method) {
+			if (strpos($method->name, "test_") === 0) {
+				$test->init();
+				$test->{$method->name}();
+				$test->cleanup();
+			}
+		}
+	}
 }
