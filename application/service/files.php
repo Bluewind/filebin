@@ -153,7 +153,7 @@ class files {
 
 		foreach ($ids as $id) {
 			$total_count++;
-			$next = false;
+			$nextID = false;
 
 			foreach (array($CI->mfile, $CI->mmultipaste) as $model) {
 				if ($model->id_exists($id)) {
@@ -162,6 +162,7 @@ class files {
 							"id" => $id,
 							"reason" => "wrong owner",
 						);
+						$nextID = true;
 						continue;
 					}
 					if ($model->delete_id($id)) {
@@ -169,7 +170,7 @@ class files {
 							"id" => $id,
 						);
 						$deleted_count++;
-						$next = true;
+						$nextID = true;
 					} else {
 						$errors[$id] = array(
 							"id" => $id,
@@ -179,7 +180,7 @@ class files {
 				}
 			}
 
-			if ($next) {
+			if ($nextID) {
 				continue;
 			}
 
