@@ -66,15 +66,25 @@ abstract class Test {
 		return $json;
 	}
 
-	protected function expectSuccess($testname, $reply)
+	protected function excpectStatus($testname, $reply, $status)
 	{
-		if (!isset($reply["status"]) || $reply["status"] != "success") {
+		if (!isset($reply["status"]) || $reply["status"] != $status) {
 			$this->t->fail($testname);
 			$this->diagReply($reply);
 		} else {
 			$this->t->pass($testname);
 		}
 		return $reply;
+	}
+
+	protected function expectSuccess($testname, $reply)
+	{
+		return $this->excpectStatus($testname, $reply, "success");
+	}
+
+	protected function expectError($testname, $reply)
+	{
+		return $this->excpectStatus($testname, $reply, "error");
 	}
 
 	protected function diagReply($reply)

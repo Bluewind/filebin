@@ -115,4 +115,48 @@ class test_api_v1 extends Test {
 		$this->t->ok(empty($ret["data"]["multipaste_items"]), "multipaste_items key exists and empty");
 		$this->t->is($ret["data"]["total_size"], 0, "total_size = 0 since no uploads");
 	}
+
+	public function test_delete_canDeleteUploaded()
+	{
+		$ret = $this->CallAPI("POST", "$this->server/api/1.0.0/file/upload", array(
+			"apikey" => $this->apikeys[2],
+			"file[1]" => curl_file_create("data/tests/small-file"),
+		));
+		$this->expectSuccess("upload file", $ret);
+
+		$id = $ret["data"]["ids"][0];
+
+		$ret = $this->CallAPI("POST", "$this->server/api/1.0.0/file/delete", array(
+			"apikey" => $this->apikeys[2],
+			"ids[1]" => $id,
+		));
+		$this->expectSuccess("delete uploaded file", $ret);
+
+		$this->t->ok(empty($ret["data"]["errors"]), "no errors");
+		$this->t->is_deeply(array($id => array("id" => $id)), $ret["data"]["deleted"], "deleted wanted ID");
+		$this->t->is($ret["data"]["total_count"], 1, "total_count correct");
+		$this->t->is($ret["data"]["deleted_count"], 1, "deleted_count correct");
+	}
+
+	public function test_delete_errorIfNotOwner()
+	{
+		$ret = $this->CallAPI("POST", "$this->server/api/1.0.0/file/upload", array(
+			"apikey" => $this->apikeys[2],
+			"file[1]" => curl_file_create("data/tests/small-file"),
+		));
+		$this->expectSuccess("upload file", $ret);
+
+		$id = $ret["data"]["ids"][0];
+
+		$ret = $this->CallAPI("POST", "$this->server/api/1.0.0/file/delete", array(
+			"apikey" => $this->apikeys[1],
+			"ids[1]" => $id,
+		));
+		$this->expectSuccess("delete file of someone else", $ret);
+
+		$this->t->ok(empty($ret["data"]["deleted"]), "not deleted");
+		$this->t->is_deeply(array($id => array("id" => $id, "reason" => "wrong owner")), $ret["data"]["errors"], "error wanted ID");
+		$this->t->is($ret["data"]["total_count"], 1, "total_count correct");
+		$this->t->is($ret["data"]["deleted_count"], 0, "deleted_count correct");
+	}
 }
