@@ -28,6 +28,7 @@ test -f run-tests.sh || exit 1
 # prepare
 trap cleanup EXIT INT
 cleanup() {
+	php index.php tools drop_all_tables_using_prefix
 	if ((use_php_dev_server)); then
 		kill $server_pid
 	fi
@@ -57,5 +58,4 @@ tests=(${tests[@]%.php})
 php index.php tools drop_all_tables_using_prefix
 php index.php tools update_database
 prove --state=hot,slow,save --timer -ve "php index.php tools test $url" "${tests[@]}"
-php index.php tools drop_all_tables_using_prefix
 
