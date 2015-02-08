@@ -2,9 +2,7 @@
 #
 # This runs the testsuite
 #
-# If you have a local webserver call this script with it's URL. Otherwise the
-# php dev server is used and that slows down tests a lot.
-#
+# If you have a local webserver you can call this script with it's URL.
 
 startdir="$(dirname "$0")"
 url=""

@@ -51,6 +51,7 @@ abstract class Test {
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($curl, CURLOPT_HTTPHEADER, array(
 			"Accept: application/json",
+			"Expect: ",
 		));
 
 		$result = curl_exec($curl);
