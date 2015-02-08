@@ -48,7 +48,7 @@ tests=(${tests[@]%.php})
 #  run tests
 php index.php tools drop_all_tables_using_prefix
 php index.php tools update_database
-prove -ve "php index.php tools test $url" "${tests[@]}"
+prove --state=hot,slow,save --timer -ve "php index.php tools test $url" "${tests[@]}"
 php index.php tools drop_all_tables_using_prefix
 
 # cleanup
