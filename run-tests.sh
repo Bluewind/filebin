@@ -26,6 +26,14 @@ test -d application || exit 1
 test -f run-tests.sh || exit 1
 
 # prepare
+trap cleanup EXIT INT
+cleanup() {
+	if ((use_php_dev_server)); then
+		kill $server_pid
+	fi
+	rm -f $startdir/application/config/database-testsuite.php
+}
+
 cat <<EOF >application/config/database-testsuite.php || exit 1
 <?php
 \$db['default']['dbprefix'] = "testsuite-prefix-";
@@ -51,8 +59,3 @@ php index.php tools update_database
 prove --state=hot,slow,save --timer -ve "php index.php tools test $url" "${tests[@]}"
 php index.php tools drop_all_tables_using_prefix
 
-# cleanup
-if ((use_php_dev_server)); then
-	kill $server_pid
-fi
-rm -f $startdir/application/config/database-testsuite.php
