@@ -84,6 +84,26 @@ class test_api_v1 extends Test {
 		}
 	}
 
+	public function test_callEndpointsWithoutEnoughPermissions()
+	{
+		$apikey = $this->createUserAndApikey();
+		$endpoints = array(
+			"user/apikeys",
+			"user/create_apikey",
+		);
+		foreach ($endpoints as $endpoint) {
+			$ret = $this->CallEndpoint("POST", $endpoint, array(
+				"apikey" => $apikey,
+			));
+			$this->expectError("call $endpoint without enough permissions", $ret);
+			$this->t->is_deeply(array(
+				'status' => "error",
+				'error_id' => "api/insufficient-permissions",
+				'message' => "Access denied: Access level too low",
+			   ), $ret, "expected error");
+		}
+	}
+
 	public function test_create_apikey_createNewKey()
 	{
 		$this->createUser(1);
@@ -96,6 +116,22 @@ class test_api_v1 extends Test {
 		$this->expectSuccess("create-apikey", $ret);
 
 		$this->t->isnt($ret["data"]["new_key"], "", "apikey not empty");
+	}
+
+	public function test_apikeys_getApikey()
+	{
+		$userid = $this->createUser(2);
+		$apikey = $this->createApikey($userid);
+		$ret = $this->CallEndpoint("POST", "user/apikeys", array(
+			"username" => "testuser-api_v1-2",
+			"password" => "testpass2",
+		));
+		$this->expectSuccess("get apikeys", $ret);
+
+		$this->t->is($ret["data"][0]["key"], $apikey, "expected key 1");
+		$this->t->is($ret["data"][0]["access_level"], "apikey", "expected key 1 acces_level");
+		$this->t->is($ret["data"][0]["comment"], "", "expected key 1 comment");
+		$this->t->ok(is_int($ret["data"][0]["created"]) , "expected key 1 creation time is int");
 	}
 
 	public function test_history_empty()
