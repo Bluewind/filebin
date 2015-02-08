@@ -11,8 +11,6 @@ namespace tests;
 
 class test_api_v1 extends Test {
 
-	private $apikeys = array();
-
 	public function __construct()
 	{
 		parent::__construct();
@@ -21,21 +19,75 @@ class test_api_v1 extends Test {
 		$CI->load->model("muser");
 		$CI->load->model("mfile");
 
-		foreach (array(1,2,3,4,5) as $i) {
-			$CI->db->insert("users", array(
-				'username' => "testuser-api_v1-$i",
-				'password' => $CI->muser->hash_password("testpass$i"),
-				'email'    => "testuser$i@localhost.invalid",
-				'referrer' => NULL
-			));
-			$this->apikeys[$i] = \service\user::create_apikey($CI->db->insert_id(), "", "apikey");
-		}
+	}
 
+	private function uploadFile($apikey, $file)
+	{
+		$ret = $this->CallAPI("POST", "$this->server/api/1.0.0/file/upload", array(
+			"apikey" => $apikey,
+			"file[1]" => curl_file_create($file),
+		));
+		$this->expectSuccess("upload file", $ret);
+		return $ret;
+	}
+
+	private function createUser($counter)
+	{
+		$CI =& get_instance();
+		$CI->db->insert("users", array(
+			'username' => "testuser-api_v1-$counter",
+			'password' => $CI->muser->hash_password("testpass$counter"),
+			'email'    => "testuser$counter@localhost.invalid",
+			'referrer' => NULL
+		));
+
+		return $CI->db->insert_id();
+	}
+
+	private function createApikey($userid)
+	{
+		return \service\user::create_apikey($userid, "", "apikey");
+	}
+
+	private function createUserAndApikey()
+	{
+		static $counter = 100;
+		$counter++;
+		$userid = $this->createUser($counter);
+		return $this->createApikey($userid);
+	}
+
+	private function callEndpoint($verb, $endpoint, $data)
+	{
+		return $this->CallAPI($verb, "$this->server/api/1.0.0/$endpoint", $data);
+	}
+
+	public function test_callPrivateEndpointsWithoutApikey()
+	{
+		$endpoints = array(
+			"file/upload",
+			"file/history",
+			"file/delete",
+			"file/create_multipaste",
+			"user/apikeys",
+			"user/create_apikey",
+		);
+		foreach ($endpoints as $endpoint) {
+			$ret = $this->CallEndpoint("POST", $endpoint, array(
+			));
+			$this->expectError("call $endpoint without apikey", $ret);
+			$this->t->is_deeply(array(
+				'status' => 'error',
+				'error_id' => 'api/not-authenticated',
+				'message' => 'Not authenticated. FileBin requires you to have an account, please go to the homepage for more information.',
+			   ), $ret, "expected error");
+		}
 	}
 
 	public function test_create_apikey_createNewKey()
 	{
-		$ret = $this->CallAPI("POST", "$this->server/api/1.0.0/user/create_apikey", array(
+		$this->createUser(1);
+		$ret = $this->CallEndpoint("POST", "user/create_apikey", array(
 			"username" => "testuser-api_v1-1",
 			"password" => "testpass1",
 			"access_level" => "apikey",
@@ -48,8 +100,9 @@ class test_api_v1 extends Test {
 
 	public function test_history_empty()
 	{
-		$ret = $this->CallAPI("POST", "$this->server/api/1.0.0/file/history", array(
-			"apikey" => $this->apikeys[1],
+		$apikey = $this->createUserAndApikey();
+		$ret = $this->CallEndpoint("POST", "file/history", array(
+			"apikey" => $apikey,
 		));
 		$this->expectSuccess("get history", $ret);
 
@@ -60,7 +113,7 @@ class test_api_v1 extends Test {
 
 	public function test_get_config()
 	{
-		$ret = $this->CallAPI("POST", "$this->server/api/1.0.0/file/get_config", array(
+		$ret = $this->CallEndpoint("GET", "file/get_config", array(
 		));
 		$this->expectSuccess("get_config", $ret);
 
@@ -70,8 +123,9 @@ class test_api_v1 extends Test {
 
 	public function test_upload_uploadFile()
 	{
-		$ret = $this->CallAPI("POST", "$this->server/api/1.0.0/file/upload", array(
-			"apikey" => $this->apikeys[2],
+		$apikey = $this->createUserAndApikey();
+		$ret = $this->CallEndpoint("POST", "file/upload", array(
+			"apikey" => $apikey,
 			"file[1]" => curl_file_create("data/tests/small-file"),
 		));
 		$this->expectSuccess("upload file", $ret);
@@ -80,16 +134,27 @@ class test_api_v1 extends Test {
 		$this->t->ok(!empty($ret["data"]["urls"]), "got URLs");
 	}
 
+	public function test_upload_uploadNothing()
+	{
+		$apikey = $this->createUserAndApikey();
+		$ret = $this->CallEndpoint("POST", "file/upload", array(
+			"apikey" => $apikey,
+		));
+		$this->expectError("upload no file", $ret);
+		$this->t->is_deeply(array(
+			'status' => 'error',
+			'error_id' => 'file/no-file',
+			'message' => 'No file was uploaded or unknown error occured.',
+		), $ret, "expected reply");
+	}
+
 	public function test_history_notEmptyAfterUpload()
 	{
-		$ret = $this->CallAPI("POST", "$this->server/api/1.0.0/file/upload", array(
-			"apikey" => $this->apikeys[3],
-			"file[1]" => curl_file_create("data/tests/small-file"),
-		));
-		$this->expectSuccess("upload file", $ret);
+		$apikey = $this->createUserAndApikey();
+		$this->uploadFile($apikey, "data/tests/small-file");
 
-		$ret = $this->CallAPI("POST", "$this->server/api/1.0.0/file/history", array(
-			"apikey" => $this->apikeys[3],
+		$ret = $this->CallEndpoint("POST", "file/history", array(
+			"apikey" => $apikey,
 		));
 		$this->expectSuccess("history not empty after upload", $ret);
 
@@ -100,14 +165,12 @@ class test_api_v1 extends Test {
 
 	public function test_history_notSharedBetweenUsers()
 	{
-		$ret = $this->CallAPI("POST", "$this->server/api/1.0.0/file/upload", array(
-			"apikey" => $this->apikeys[4],
-			"file[1]" => curl_file_create("data/tests/small-file"),
-		));
-		$this->expectSuccess("upload file", $ret);
+		$apikey = $this->createUserAndApikey();
+		$apikey2 = $this->createUserAndApikey();
+		$this->uploadFile($apikey, "data/tests/small-file");
 
-		$ret = $this->CallAPI("POST", "$this->server/api/1.0.0/file/history", array(
-			"apikey" => $this->apikeys[5],
+		$ret = $this->CallEndpoint("POST", "file/history", array(
+			"apikey" => $apikey2,
 		));
 		$this->expectSuccess("get history", $ret);
 
@@ -118,45 +181,123 @@ class test_api_v1 extends Test {
 
 	public function test_delete_canDeleteUploaded()
 	{
-		$ret = $this->CallAPI("POST", "$this->server/api/1.0.0/file/upload", array(
-			"apikey" => $this->apikeys[2],
-			"file[1]" => curl_file_create("data/tests/small-file"),
-		));
-		$this->expectSuccess("upload file", $ret);
-
+		$apikey = $this->createUserAndApikey();
+		$ret = $this->uploadFile($apikey, "data/tests/small-file");
 		$id = $ret["data"]["ids"][0];
 
-		$ret = $this->CallAPI("POST", "$this->server/api/1.0.0/file/delete", array(
-			"apikey" => $this->apikeys[2],
+		$ret = $this->CallEndpoint("POST", "file/delete", array(
+			"apikey" => $apikey,
 			"ids[1]" => $id,
 		));
 		$this->expectSuccess("delete uploaded file", $ret);
 
 		$this->t->ok(empty($ret["data"]["errors"]), "no errors");
-		$this->t->is_deeply(array($id => array("id" => $id)), $ret["data"]["deleted"], "deleted wanted ID");
+		$this->t->is_deeply(array(
+			$id => array(
+				"id" => $id
+			)
+		), $ret["data"]["deleted"], "deleted wanted ID");
 		$this->t->is($ret["data"]["total_count"], 1, "total_count correct");
 		$this->t->is($ret["data"]["deleted_count"], 1, "deleted_count correct");
 	}
 
 	public function test_delete_errorIfNotOwner()
 	{
-		$ret = $this->CallAPI("POST", "$this->server/api/1.0.0/file/upload", array(
-			"apikey" => $this->apikeys[2],
-			"file[1]" => curl_file_create("data/tests/small-file"),
-		));
-		$this->expectSuccess("upload file", $ret);
-
+		$apikey = $this->createUserAndApikey();
+		$apikey2 = $this->createUserAndApikey();
+		$ret = $this->uploadFile($apikey, "data/tests/small-file");
 		$id = $ret["data"]["ids"][0];
 
-		$ret = $this->CallAPI("POST", "$this->server/api/1.0.0/file/delete", array(
-			"apikey" => $this->apikeys[1],
+		$ret = $this->CallEndpoint("POST", "file/delete", array(
+			"apikey" => $apikey2,
 			"ids[1]" => $id,
 		));
 		$this->expectSuccess("delete file of someone else", $ret);
 
 		$this->t->ok(empty($ret["data"]["deleted"]), "not deleted");
-		$this->t->is_deeply(array($id => array("id" => $id, "reason" => "wrong owner")), $ret["data"]["errors"], "error wanted ID");
+		$this->t->is_deeply(array(
+			$id => array(
+				"id" => $id,
+				"reason" => "wrong owner"
+			)
+		), $ret["data"]["errors"], "error wanted ID");
 		$this->t->is($ret["data"]["total_count"], 1, "total_count correct");
 		$this->t->is($ret["data"]["deleted_count"], 0, "deleted_count correct");
+	}
+
+	public function test_create_multipaste_canCreate()
+	{
+		$apikey = $this->createUserAndApikey();
+		$ret = $this->uploadFile($apikey, "data/tests/small-file");
+		$id = $ret["data"]["ids"][0];
+
+		$ret = $this->uploadFile($apikey, "data/tests/small-file");
+		$id2 = $ret["data"]["ids"][0];
+
+		$ret = $this->CallEndpoint("POST", "file/create_multipaste", array(
+			"apikey" => $apikey,
+			"ids[1]" => $id,
+			"ids[2]" => $id2,
+		));
+		$this->expectSuccess("create multipaste", $ret);
+
+		$this->t->isnt($ret["data"]["url_id"], "", "got a multipaste ID");
+	}
+
+	public function test_create_multipaste_errorOnWrongID()
+	{
+		$apikey = $this->createUserAndApikey();
+		$ret = $this->uploadFile($apikey, "data/tests/small-file");
+		$id = $ret["data"]["ids"][0];
+
+		$id2 = $id."invalid";
+		$ret = $this->CallEndpoint("POST", "file/create_multipaste", array(
+			"apikey" => $apikey,
+			"ids[1]" => $id,
+			"ids[2]" => $id2,
+		));
+		$this->expectError("create multipaste with wrong ID", $ret);
+
+		$this->t->is_deeply(array(
+			'status' => 'error',
+			'error_id' => 'file/create_multipaste/verify-failed',
+			'message' => 'Failed to verify ID(s)',
+			'data' =>
+			array (
+				$id2 =>
+				array (
+					'id' => $id2,
+					'reason' => 'doesn\'t exist',
+				),
+			),
+		), $ret, "expected error response");
+	}
+
+	public function test_create_multipaste_errorOnWrongOwner()
+	{
+		$apikey = $this->createUserAndApikey();
+		$apikey2 = $this->createUserAndApikey();
+		$ret = $this->uploadFile($apikey, "data/tests/small-file");
+		$id = $ret["data"]["ids"][0];
+
+		$ret = $this->CallEndpoint("POST", "file/create_multipaste", array(
+			"apikey" => $apikey2,
+			"ids[1]" => $id,
+		));
+		$this->expectError("create multipaste with wrong owner", $ret);
+
+		$this->t->is_deeply(array(
+			'status' => 'error',
+			'error_id' => 'file/create_multipaste/verify-failed',
+			'message' => 'Failed to verify ID(s)',
+			'data' =>
+			array (
+				$id =>
+				array (
+					'id' => $id,
+					'reason' => 'not owned by you',
+				),
+			),
+		), $ret, "expected error response");
 	}
 }
