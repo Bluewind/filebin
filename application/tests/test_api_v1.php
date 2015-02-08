@@ -134,6 +134,38 @@ class test_api_v1 extends Test {
 		$this->t->ok(is_int($ret["data"][0]["created"]) , "expected key 1 creation time is int");
 	}
 
+	public function test_authentication_invalidPassword()
+	{
+		$userid = $this->createUser(3);
+		$ret = $this->CallEndpoint("POST", "user/apikeys", array(
+			"username" => "testuser-api_v1-3",
+			"password" => "wrongpass",
+		));
+		$this->expectError("invalid password", $ret);
+
+		$this->t->is_deeply(array (
+			'status' => 'error',
+			'error_id' => 'user/login-failed',
+			'message' => 'Login failed',
+		), $ret, "expected error");
+	}
+
+	public function test_authentication_invalidUser()
+	{
+		$userid = $this->createUser(4);
+		$ret = $this->CallEndpoint("POST", "user/apikeys", array(
+			"username" => "testuser-api_v1-invalid",
+			"password" => "testpass4",
+		));
+		$this->expectError("invalid username", $ret);
+
+		$this->t->is_deeply(array (
+			'status' => 'error',
+			'error_id' => 'user/login-failed',
+			'message' => 'Login failed',
+		), $ret, "expected error");
+	}
+
 	public function test_history_empty()
 	{
 		$apikey = $this->createUserAndApikey();
