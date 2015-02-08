@@ -55,6 +55,10 @@ class Tools extends MY_Controller {
 			}
 		}
 
+		if (empty($tables_to_drop)) {
+			return;
+		}
+
 		$this->db->query('SET FOREIGN_KEY_CHECKS = 0');
 		$this->db->query('DROP TABLE '.implode(", ", $tables_to_drop));
 		$this->db->query('SET FOREIGN_KEY_CHECKS = 1');
