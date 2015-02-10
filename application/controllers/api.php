@@ -22,6 +22,13 @@ class Api extends MY_Controller {
 			$requested_version = $this->uri->segment(2);
 			$controller = $this->uri->segment(3);
 			$function = $this->uri->segment(4);
+
+			if (!preg_match("/^v([0-9]+)(.[0-9]+){0,2}$/", $requested_version)) {
+				throw new \exceptions\PublicApiException("api/invalid-version", "Invalid API version requested");
+			}
+
+			$requested_version = substr($requested_version, 1);
+
 			$major = intval(explode(".", $requested_version)[0]);
 
 			if (!preg_match("/^[a-zA-Z-_]+$/", $controller)) {
