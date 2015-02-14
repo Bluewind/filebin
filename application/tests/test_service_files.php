@@ -71,7 +71,7 @@ class test_service_files extends Test {
 			$data = $e->get_data();
 			$this->t->is($e->get_error_id(), "file/upload-verify", "verify should error");
 			$this->t->is_deeply(array(
-				array(
+				'file[1]' => array(
 					'filename' => 'foobar.txt',
 					'formfield' => 'file[1]',
 					'message' => 'No file was uploaded',

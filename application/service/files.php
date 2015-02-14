@@ -125,7 +125,7 @@ class files {
 			}
 
 			if ($error_message != "") {
-				$errors[] = array(
+				$errors[$file["formfield"]] = array(
 					"filename" => $file["name"],
 					"formfield" => $file["formfield"],
 					"message" => $error_message,
