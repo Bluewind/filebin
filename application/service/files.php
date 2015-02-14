@@ -207,7 +207,7 @@ class files {
 		}
 
 		if (count(array_unique($ids)) != count($ids)) {
-			throw new \exceptions\UserInputException("file/create_multipaste/duplicate_id", "Duplicate IDs are not supported");
+			throw new \exceptions\UserInputException("file/create_multipaste/duplicate-id", "Duplicate IDs are not supported");
 		}
 
 		$errors = array();
