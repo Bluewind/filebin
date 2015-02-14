@@ -115,7 +115,7 @@ class User extends MY_Controller {
 
 		$userid = $this->muser->get_userid();
 		$apikeys = \service\user::apikeys($userid);
-		$this->data["query"] = $apikeys;
+		$this->data["query"] = $apikeys["apikeys"];
 
 		$this->load->view('header', $this->data);
 		$this->load->view($this->var->view_dir.'apikeys', $this->data);

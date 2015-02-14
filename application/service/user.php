@@ -53,6 +53,7 @@ class user {
 	static public function apikeys($userid)
 	{
 		$CI =& get_instance();
+		$ret = array();
 
 		$query = $CI->db->select('key, created, comment, access_level')
 			->from('apikeys')
@@ -66,9 +67,12 @@ class user {
 			if (!empty($record['created'])) {
 				$record['created'] = strtotime($record['created']);
 			}
+			$ret[$record["key"]] = $record;
 		}
 		unset($record);
 
-		return $query;
+		return array(
+			"apikeys" => $ret,
+		);
 	}
 }

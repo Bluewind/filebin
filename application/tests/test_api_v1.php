@@ -128,10 +128,10 @@ class test_api_v1 extends Test {
 		));
 		$this->expectSuccess("get apikeys", $ret);
 
-		$this->t->is($ret["data"][0]["key"], $apikey, "expected key 1");
-		$this->t->is($ret["data"][0]["access_level"], "apikey", "expected key 1 acces_level");
-		$this->t->is($ret["data"][0]["comment"], "", "expected key 1 comment");
-		$this->t->ok(is_int($ret["data"][0]["created"]) , "expected key 1 creation time is int");
+		$this->t->is($ret["data"]["apikeys"][$apikey]["key"], $apikey, "expected key 1");
+		$this->t->is($ret["data"]["apikeys"][$apikey]["access_level"], "apikey", "expected key 1 acces_level");
+		$this->t->is($ret["data"]["apikeys"][$apikey]["comment"], "", "expected key 1 comment");
+		$this->t->ok(is_int($ret["data"]["apikeys"][$apikey]["created"]) , "expected key 1 creation time is int");
 	}
 
 	public function test_authentication_invalidPassword()
