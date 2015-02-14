@@ -24,7 +24,7 @@ class file extends \controllers\api\api_controller {
 		$files = getNormalizedFILES();
 
 		if (empty($files)) {
-			throw new \exceptions\PublicApiException("file/no-file", "No file was uploaded or unknown error occured.");
+			throw new \exceptions\PublicApiException("file/no-file", "No file was uploaded or unknown error occurred.");
 		}
 
 		\service\files::verify_uploaded_files($files);

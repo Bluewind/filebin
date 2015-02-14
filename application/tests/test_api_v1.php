@@ -212,7 +212,7 @@ class test_api_v1 extends Test {
 		$this->t->is_deeply(array(
 			'status' => 'error',
 			'error_id' => 'file/no-file',
-			'message' => 'No file was uploaded or unknown error occured.',
+			'message' => 'No file was uploaded or unknown error occurred.',
 		), $ret, "expected reply");
 	}
 
