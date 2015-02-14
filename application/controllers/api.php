@@ -32,11 +32,11 @@ class Api extends MY_Controller {
 			$major = intval(explode(".", $requested_version)[0]);
 
 			if (!preg_match("/^[a-zA-Z-_]+$/", $controller)) {
-				throw new \exceptions\PublicApiException("api/invalid-controller-value", "Invalid controller requested");
+				throw new \exceptions\PublicApiException("api/invalid-endpoint", "Invalid endpoint requested");
 			}
 
 			if (!preg_match("/^[a-zA-Z-_]+$/", $function)) {
-				throw new \exceptions\PublicApiException("api/invalid-function-value", "Invalid function requested");
+				throw new \exceptions\PublicApiException("api/invalid-endpoint", "Invalid endpoint requested");
 			}
 
 			$namespace = "controllers\\api\\v".$major;
@@ -48,12 +48,12 @@ class Api extends MY_Controller {
 			}
 
 			if (!class_exists($class)) {
-				throw new \exceptions\PublicApiException("api/unknown-controller", "Unknown controller requested");
+				throw new \exceptions\PublicApiException("api/unknown-endpoint", "Unknown endpoint requested");
 			}
 
 			$c= new $class;
 			if (!method_exists($c, $function)) {
-				throw new \exceptions\PublicApiException("api/unknown-function", "Unknown function requested");
+				throw new \exceptions\PublicApiException("api/unknown-endpoint", "Unknown endpoint requested");
 			}
 			return send_json_reply($c->$function());
 		} catch (\exceptions\PublicApiException $e) {
