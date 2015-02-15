@@ -78,9 +78,11 @@ class files {
 		file_exists($dir) || mkdir ($dir);
 		$new_path = $CI->mfile->file($hash);
 
-		// TODO: make this operation atomic (move to temp name, then to final)
-		// the source can be a different file system so this might do a copy
-		move_uploaded_file($file, $new_path);
+		$dest = new \service\storage($new_path);
+		$tmpfile = $dest->begin();
+		move_uploaded_file($file, $tmpfile);
+		$dest->commit();
+
 		$CI->mfile->add_file($hash, $id, $filename);
 	}
 
