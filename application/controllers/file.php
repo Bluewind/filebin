@@ -813,18 +813,7 @@ class File extends MY_Controller {
 		}
 
 		if ($multipaste !== false) {
-			$multipaste_url_id = $this->mmultipaste->new_id($limits[0], $limits[1]);
-
-			$multipaste_id = $this->mmultipaste->get_multipaste_id($multipaste_url_id);
-			assert($multipaste_id !== false);
-
-			foreach ($ids as $id) {
-				$this->db->insert("multipaste_file_map", array(
-					"file_url_id" => $id,
-					"multipaste_id" => $multipaste_id,
-				));
-			}
-			$ids[] = $multipaste_url_id;
+			$ids[] = \service\files::create_multipaste($ids, $userid, $limits)["url_id"];
 		}
 
 		$this->_show_url($ids, $extension);
