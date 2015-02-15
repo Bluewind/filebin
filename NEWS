@@ -1,5 +1,6 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+2015-02-14 JSON API + rather extensive refactoring
 2014-11-02 Multipastes can now be downloaded as tarballs. The tarballs are
            cached and you have to run `php index.php file cron` to clean them up. Calling
            it more often than once a day is recommended (the example changed to every ten
