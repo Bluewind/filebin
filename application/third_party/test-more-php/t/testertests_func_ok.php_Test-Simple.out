@@ -1,0 +1,16 @@
+# OK
+# (No message for next test)
+ok 1
+ok 2 - 1 is ok
+ok 3 - TRUE is ok
+ok 4 - 'string' is ok
+# Not OK
+# (No message for next test)
+not ok 5
+not ok 6 - 0 is not ok
+not ok 7 - FALSE is not ok
+not ok 8 - '' is not ok
+not ok 9 - NULL is not ok
+1..9
+
+# Looks like you failed 5 tests of 9.

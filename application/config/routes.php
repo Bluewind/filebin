@@ -42,6 +42,7 @@ $route['default_controller'] = "file";
 $route['user/(:any)'] = "user/$1";
 $route['file/(:any)'] = "file/$1";
 $route['tools/(:any)'] = "tools/$1";
+$route['api/(:any)'] = "api/route/$1";
 $route['(:any)'] = "file/index/$1";
 $route['404_override'] = '';
 

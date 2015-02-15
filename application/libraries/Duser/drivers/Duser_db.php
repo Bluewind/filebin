@@ -67,7 +67,7 @@ class Duser_db extends Duser_Driver {
 			->get()->row_array();
 
 		if (empty($query)) {
-			show_error("Failed to get email address from db");
+			throw new \exceptions\ApiException("libraries/duser/db/get_email-failed", "Failed to get email address from db");
 		}
 
 		return $query["email"];

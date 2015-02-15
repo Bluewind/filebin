@@ -8,11 +8,6 @@
  */
 
 class User extends MY_Controller {
-	protected $json_enabled_functions = array(
-		"create_apikey",
-		"apikeys",
-	);
-
 
 	function __construct()
 	{
@@ -91,28 +86,7 @@ class User extends MY_Controller {
 			$access_level = "apikey";
 		}
 
-		$valid_levels = $this->muser->get_access_levels();
-		if (array_search($access_level, $valid_levels) === false) {
-			show_error("Invalid access levels requested.");
-		}
-
-		if (strlen($comment) > 255) {
-			show_error("Comment may only be 255 chars long.");
-		}
-
-		$key = random_alphanum(32);
-
-		$this->db->set(array(
-				'key'          => $key,
-				'user'         => $userid,
-				'comment'      => $comment,
-				'access_level' => $access_level
-			))
-			->insert('apikeys');
-
-		if (static_storage("response_type") == "json") {
-			return send_json_reply(array("new_key" => $key));
-		}
+		$key = \service\user::create_apikey($userid, $comment, $access_level);
 
 		if (is_cli_client()) {
 			echo "$key\n";
@@ -140,27 +114,8 @@ class User extends MY_Controller {
 		$this->muser->require_access();
 
 		$userid = $this->muser->get_userid();
-
-		$query = $this->db->select('key, created, comment, access_level')
-			->from('apikeys')
-			->where('user', $userid)
-			->order_by('created', 'desc')
-			->get()->result_array();
-
-		// Convert timestamp to unix timestamp
-		// TODO: migrate database to integer timestamp and get rid of this
-		foreach ($query as &$record) {
-			if (!empty($record['created'])) {
-				$record['created'] = strtotime($record['created']);
-			}
-		}
-		unset($record);
-
-		if (static_storage("response_type") == "json") {
-			return send_json_reply($query);
-		}
-
-		$this->data["query"] = $query;
+		$apikeys = \service\user::apikeys($userid);
+		$this->data["query"] = $apikeys["apikeys"];
 
 		$this->load->view('header', $this->data);
 		$this->load->view($this->var->view_dir.'apikeys', $this->data);
@@ -181,7 +136,7 @@ class User extends MY_Controller {
 			->count_all_results();
 
 		if ($invitations + 1 > 3) {
-			show_error("You can't create more invitation keys at this time.");
+			throw new \exceptions\PublicApiException("user/invitation-limit", "You can't create more invitation keys at this time.");
 		}
 
 		$key = random_alphanum(12, 16);
@@ -322,7 +277,7 @@ class User extends MY_Controller {
 		$username = $this->input->post("username");
 
 		if (!$this->muser->username_exists($username)) {
-			show_error("Invalid username");
+			throw new \exceptions\PublicApiException("user/reset_password/invalid-username", "Invalid username");
 		}
 
 		$userinfo = $this->db->select('id, email, username')
@@ -433,18 +388,18 @@ class User extends MY_Controller {
 			$values = explode("-", $value);
 
 			if (!is_array($values) || count($values) != 2) {
-				show_error("Invalid upload id limit value");
+				throw new \exceptions\PublicApiException("user/profile/invalid-upload-id-limit", "Invalid upload id limit value");
 			}
 
 			$lower = intval($values[0]);
 			$upper = intval($values[1]);
 
 			if ($lower > $upper) {
-				show_error("lower limit > upper limit");
+				throw new \exceptions\PublicApiException("user/profile/lower-bigger-than-upper", "lower limit > upper limit");
 			}
 
 			if ($lower < 3 || $upper > 64) {
-				show_error("upper or lower limit out of bounds (3-64)");
+				throw new \exceptions\PublicApiException("user/profile/limit-out-of-bounds", "upper or lower limit out of bounds (3-64)");
 			}
 
 			return $lower."-".$upper;

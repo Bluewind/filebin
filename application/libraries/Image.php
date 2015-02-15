@@ -35,7 +35,7 @@ class Image {
 	{
 		$img = imagecreatefromstring(file_get_contents($file));
 		if ($img === false) {
-			show_error("Unsupported image type");
+			throw new \exceptions\ApiException("libraries/Image/unsupported-image-type", "Unsupported image type");
 		}
 		$this->set_img_object($img);
 		$this->fix_alpha();
@@ -93,8 +93,8 @@ class Image {
 		}
 		$result = ob_get_clean();
 
-		if (!$ret) {
-			show_error("Failed to create thumbnail");
+		if (!$ret || $result === false) {
+			throw new \exceptions\ApiException("libraries/Image/thumbnail-creation-failed", "Failed to create thumbnail");
 		}
 
 		return $result;

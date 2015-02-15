@@ -11,9 +11,6 @@ class MY_Controller extends CI_Controller {
 	public $data = array();
 	public $var;
 
-	protected $json_enabled_functions = array(
-	);
-
 	function __construct()
 	{
 		parent::__construct();
@@ -21,10 +18,12 @@ class MY_Controller extends CI_Controller {
 		$this->var = new StdClass();
 		$csrf_protection = true;
 
+		$this->load->library('customautoloader');
+
 		// check if DB is up to date
 		if (!$this->input->is_cli_request()) {
 			if (!$this->db->table_exists('migrations')){
-				show_error("Database not initialized. Can't find migrations table. Please run the migration script. (php index.php tools update_database)");
+				throw new \exceptions\PublicApiException("general/db/not-initialized", "Database not initialized. Can't find migrations table. Please run the migration script. (php index.php tools update_database)");
 			} else {
 				$this->config->load("migration", true);
 				$target_version = $this->config->item("migration_version", "migration");
@@ -34,7 +33,7 @@ class MY_Controller extends CI_Controller {
 
 				$current_version = $row ? $row->version : 0;
 				if ($current_version != $target_version) {
-					show_error("Database version is $current_version, we want $target_version. Please run the migration script. (php index.php tools update_database)");
+					throw new \exceptions\PublicApiException("general/db/wrong-version", "Database version is $current_version, we want $target_version. Please run the migration script. (php index.php tools update_database)");
 				}
 			}
 		}
@@ -44,25 +43,12 @@ class MY_Controller extends CI_Controller {
 
 		mb_internal_encoding('UTF-8');
 		$this->load->helper(array('form', 'filebin'));
-		$this->load->library('customautoloader');
 
-		// TODO: proper accept header handling or is this enough?
-		if (isset($_SERVER["HTTP_ACCEPT"])) {
-			if ($_SERVER["HTTP_ACCEPT"] == "application/json") {
-				static_storage("response_type", "json");
-			}
+		if ($this->uri->segment(1) == "api") {
+			is_cli_client(true);
 		}
 
-		// Allow for easier testing in browser
-		if ($this->input->get("json") !== false) {
-			static_storage("response_type", "json");
-		}
-
-		if (static_storage("response_type") == "json" && ! in_array($this->uri->rsegment(2), $this->json_enabled_functions)) {
-			show_error("Function not JSON enabled");
-		}
-
-		if ($this->input->post("apikey") !== false) {
+		if ($this->input->post("apikey") !== false || is_cli_client()) {
 			/* This relies on the authentication code always verifying the supplied
 			 * apikey. If the key is not verified/logged in an attacker could simply
 			 * add an empty "apikey" field to the CSRF form to circumvent the
@@ -109,7 +95,7 @@ class MY_Controller extends CI_Controller {
 			$this->security->csrf_verify();
 		}
 
-		if ($this->config->item("environment") == "development" && static_storage("response_type") != "json") {
+		if ($this->config->item("environment") == "development") {
 			$this->output->enable_profiler(true);
 		}
 

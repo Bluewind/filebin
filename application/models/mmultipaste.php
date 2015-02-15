@@ -54,7 +54,7 @@ class Mmultipaste extends CI_Model {
 			return $id;
 		}
 
-		show_error("Failed to find unused ID after $max_tries tries.");
+		throw new \exceptions\PublicApiException("file/new_id-try-limit", "Failed to find unused ID after $max_tries tries");
 	}
 
 	public function id_exists($id)
@@ -64,9 +64,9 @@ class Mmultipaste extends CI_Model {
 		}
 
 		$sql = '
-			SELECT multipaste.url_id
-			FROM multipaste
-			WHERE multipaste.url_id = ?
+			SELECT url_id
+			FROM `'.$this->db->dbprefix.'multipaste`
+			WHERE url_id = ?
 			LIMIT 1';
 		$query = $this->db->query($sql, array($id));
 
@@ -113,7 +113,7 @@ class Mmultipaste extends CI_Model {
 	{
 		return $this->db->query("
 			SELECT user_id
-			FROM multipaste
+			FROM `".$this->db->dbprefix."multipaste`
 			WHERE url_id = ?
 			", array($id))->row_array()["user_id"];
 	}
@@ -122,7 +122,7 @@ class Mmultipaste extends CI_Model {
 	{
 		return $this->db->query("
 			SELECT url_id, user_id, date
-			FROM multipaste
+			FROM `".$this->db->dbprefix."multipaste`
 			WHERE url_id = ?
 			", array($id))->row_array();
 	}
@@ -133,8 +133,8 @@ class Mmultipaste extends CI_Model {
 
 		$query = $this->db->query("
 			SELECT mfm.file_url_id
-			FROM multipaste_file_map mfm
-			JOIN multipaste m ON m.multipaste_id = mfm.multipaste_id
+			FROM `".$this->db->dbprefix."multipaste_file_map` mfm
+			JOIN `".$this->db->dbprefix."multipaste` m ON m.multipaste_id = mfm.multipaste_id
 			WHERE m.url_id = ?
 			ORDER BY mfm.sort_order
 			", array($url_id))->result_array();
@@ -151,7 +151,7 @@ class Mmultipaste extends CI_Model {
 	{
 		$query = $this->db->query("
 			SELECT multipaste_id
-			FROM multipaste
+			FROM `".$this->db->dbprefix."multipaste`
 			WHERE url_id = ?
 			", array($url_id));
 

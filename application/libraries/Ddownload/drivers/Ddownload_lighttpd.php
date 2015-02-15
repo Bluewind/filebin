@@ -15,7 +15,7 @@ class Ddownload_lighttpd extends Ddownload_Driver {
 		$upload_path = $CI->config->item('upload_path');
 
 		if (strpos($file, $upload_path) !== 0) {
-			show_error('Invalid file path');
+			throw new \exceptions\ApiException("libraries/ddownload/lighttpd/invalid-file-path", 'Invalid file path');
 		}
 
 		header('Content-disposition: inline; filename="'.$filename."\"\n");

@@ -83,7 +83,7 @@ class Muser extends CI_Model {
 			if ($this->login($username, $password)) {
 				return true;
 			} else {
-				show_error("Login failed", 401);
+				throw new \exceptions\NotAuthenticatedException("user/login-failed", "Login failed");
 			}
 		}
 
@@ -112,7 +112,7 @@ class Muser extends CI_Model {
 			return true;
 		}
 
-		show_error("API key login failed", 401);
+		throw new \exceptions\NotAuthenticatedException("user/api-login-failed", "API key login failed");
 	}
 
 	function logout()
@@ -156,18 +156,18 @@ class Muser extends CI_Model {
 	{
 		$session_level = $this->session->userdata("access_level");
 
-		$wanted = array_search($wanted_level, $this->access_levels);
-		$have = array_search($session_level, $this->access_levels);
+		$wanted = array_search($wanted_level, $this->get_access_levels());
+		$have = array_search($session_level, $this->get_access_levels());
 
 		if ($wanted === false || $have === false) {
-			show_error("Failed to determine access level");
+			throw new \exceptions\PublicApiException("api/invalid-accesslevel", "Failed to determine access level");
 		}
 
 		if ($have >= $wanted) {
-			return true;
+			return;
 		}
 
-		show_error("Access denied: Access level too low", 403);
+		throw new \exceptions\InsufficientPermissionsException("api/insufficient-permissions", "Access denied: Access level too low");
 	}
 
 	function require_access($wanted_level = "full")
@@ -184,17 +184,15 @@ class Muser extends CI_Model {
 			return $this->check_access_level($wanted_level);
 		}
 
-		if (!stateful_client()) {
-			show_error("Not authenticated. FileBin requires you to have an account, please go to the homepage for more information.\n", 401);
+		if (stateful_client()) {
+			// desktop clients get redirected to the login form
+			$this->require_session();
+			if (!$this->session->userdata("flash:new:uri")) {
+				$this->session->set_flashdata("uri", $this->uri->uri_string());
+			}
 		}
 
-		// desktop clients get redirected to the login form
-		$this->require_session();
-		if (!$this->session->userdata("flash:new:uri")) {
-			$this->session->set_flashdata("uri", $this->uri->uri_string());
-		}
-		redirect('user/login');
-		exit();
+		throw new \exceptions\NotAuthenticatedException("api/not-authenticated", "Not authenticated. FileBin requires you to have an account, please go to the homepage for more information.");
 	}
 
 	function username_exists($username)
@@ -210,7 +208,7 @@ class Muser extends CI_Model {
 			->get()->row_array();
 
 		if (!isset($query["key"]) || $key != $query["key"]) {
-			show_error("Invalid action key");
+			throw new \exceptions\ApiException("user/get_action/invalid-action", "Invalid action key");
 		}
 
 		return $query;
