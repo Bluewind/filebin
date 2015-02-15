@@ -23,7 +23,7 @@ class test_api_v1 extends Test {
 
 	private function uploadFile($apikey, $file)
 	{
-		$ret = $this->CallAPI("POST", "$this->server/api/v1.0.0/file/upload", array(
+		$ret = $this->CallAPI("POST", "$this->server/api/v1.1.0/file/upload", array(
 			"apikey" => $apikey,
 			"file[1]" => curl_file_create($file),
 		));
@@ -310,6 +310,7 @@ class test_api_v1 extends Test {
 		$this->expectSuccess("create multipaste", $ret);
 
 		$this->t->isnt($ret["data"]["url_id"], "", "got a multipaste ID");
+		$this->t->isnt($ret["data"]["url"], "", "got a multipaste URL");
 	}
 
 	public function test_create_multipaste_errorOnWrongID()

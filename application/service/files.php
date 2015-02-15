@@ -279,6 +279,7 @@ class files {
 
 		return array(
 			"url_id" => $url_id,
+			"url" => site_url($url_id)."/",
 		);
 	}
 
