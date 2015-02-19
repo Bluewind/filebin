@@ -126,7 +126,9 @@ class Mfile extends CI_Model {
 
 		$this->db->set(array('user' => $userid ))
 			->where('id', $id)
+			->where('user', 0)
 			->update('files');
+		return $this->db->affected_rows();
 	}
 
 	// remove old/invalid/broken IDs

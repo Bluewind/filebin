@@ -88,6 +88,17 @@ class Mmultipaste extends CI_Model {
 		return true;
 	}
 
+	function adopt($id)
+	{
+		$userid = $this->muser->get_userid();
+
+		$this->db->set(array('user_id' => $userid ))
+			->where('url_id', $id)
+			->where('user_id', 0)
+			->update('multipaste');
+		return $this->db->affected_rows();
+	}
+
 	public function get_tarball_path($id)
 	{
 		return $this->config->item("upload_path")."/special/multipaste-tarballs/".substr(md5($id), 0, 3)."/$id.tar.gz";

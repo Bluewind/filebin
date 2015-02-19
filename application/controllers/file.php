@@ -813,6 +813,7 @@ class File extends MY_Controller {
 		}
 
 		if ($multipaste !== false) {
+			$userid = $this->muser->get_userid();
 			$ids[] = \service\files::create_multipaste($ids, $userid, $limits)["url_id"];
 		}
 
@@ -835,17 +836,17 @@ class File extends MY_Controller {
 		assert(is_array($ids));
 
 		foreach ($ids as $key => $id) {
-			$filedata = $this->mfile->get_filedata($id);
+			$affected = 0;
+			$affected += $this->mfile->adopt($id);
+			$affected += $this->mmultipaste->adopt($id);
 
-			if ($filedata["user"] != 0) {
+			if ($affected == 0) {
 				$errors[] = $id;
 			}
-
-			$this->mfile->adopt($id);
 		}
 
 		if (!empty($errors)) {
-			throw new \exceptions\PublicApiException("file/claim_id/already-owned", "Someone already owns '".implode(", ", $errors)."', can't reassign.");
+			throw new \exceptions\PublicApiException("file/claim_id/failed", "Failed to claim ".implode(", ", $errors)."");
 		}
 
 		$this->session->unset_userdata("last_upload");
