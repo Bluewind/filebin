@@ -69,10 +69,39 @@ class files {
 		return $multipaste_info;
 	}
 
+	static public function add_file_data($id, $content, $filename)
+	{
+		self::add_file_callback($id, $filename, array(
+			"hash" => function() use ($content) {
+				return md5($content);
+			},
+			"data_writer" => function($dest) use ($content) {
+				file_put_contents($dest, $content);
+			}
+		));
+	}
+
 	static public function add_file($id, $file, $filename)
 	{
+		self::add_file_callback($id, $filename, array(
+			"hash" => function() use ($file) {
+				return md5_file($file);
+			},
+			"data_writer" => function($dest) use ($file) {
+				move_uploaded_file($file, $dest);
+			}
+		));
+	}
+
+	// TODO: an interface would be nice here, but php doesn't support anonymous
+	// objects so let's use an array for now
+	static private function add_file_callback($id, $filename, $callbacks)
+	{
+		assert(isset($callbacks["hash"]));
+		assert(isset($callbacks["data_writer"]));
+
 		$CI =& get_instance();
-		$hash = md5_file($file);
+		$hash = $callbacks["hash"]();
 
 		$dir = $CI->mfile->folder($hash);
 		file_exists($dir) || mkdir ($dir);
@@ -80,7 +109,7 @@ class files {
 
 		$dest = new \service\storage($new_path);
 		$tmpfile = $dest->begin();
-		move_uploaded_file($file, $tmpfile);
+		$callbacks["data_writer"]($tmpfile);
 		$dest->commit();
 
 		$CI->mfile->add_file($hash, $id, $filename);
