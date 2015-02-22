@@ -380,7 +380,7 @@ $config['upload_max_size'] = 256*1024*1024; // 256MiB
 // even if requested to be highlit.
 $config['upload_max_text_size'] = 2*1024*1024; // 2MiB
 
-// Files older than this will be deleted by the cron job.
+// Files older than this will be deleted by the cron job or when accessed.
 // 0 disables deletion.
 $config['upload_max_age'] = 60*60*24*5; // 5 days
 $config['actions_max_age'] = 60*60*24*5; // 5 days
