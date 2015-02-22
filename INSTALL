@@ -13,7 +13,9 @@
 * Copy htaccess.txt to .htaccess if you want shorter URLs
   (also set "$config['index_page'] = '';" in config-local.php)
 
-* Add ./crontab or something similar to the user's crontab
+* Add ./crontab or something similar to the user's crontab.
+  If you don't want files to expire, set upload_max_age in the config. Don't
+  skip the cronjob.
 
 * Copy ./data/local/examples/contact-info.php to ./data/local/ and edit it
 
