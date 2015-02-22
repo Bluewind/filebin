@@ -808,7 +808,7 @@ class File extends MY_Controller {
 
 			$filename = trim($filename, "\r\n\0\t\x0B");
 
-			service\files::add_file($id, $file["tmp_name"], $filename);
+			service\files::add_uploaded_file($id, $file["tmp_name"], $filename);
 			$ids[] = $id;
 		}
 

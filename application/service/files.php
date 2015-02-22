@@ -81,7 +81,7 @@ class files {
 		));
 	}
 
-	static public function add_file($id, $file, $filename)
+	static public function add_uploaded_file($id, $file, $filename)
 	{
 		self::add_file_callback($id, $filename, array(
 			"hash" => function() use ($file) {
