@@ -427,10 +427,8 @@ class File extends MY_Controller {
 		$this->load->view('footer', $this->data);
 	}
 
-	function _show_url($ids, $lexer)
+	private function _prepare_claim($ids, $lexer)
 	{
-		$redirect = false;
-
 		if (!$this->muser->logged_in()) {
 			$this->muser->require_session();
 			// keep the upload but require the user to login
@@ -441,6 +439,13 @@ class File extends MY_Controller {
 			$this->session->set_flashdata("uri", "file/claim_id");
 			$this->muser->require_access("basic");
 		}
+
+	}
+
+	function _show_url($ids, $lexer)
+	{
+		$redirect = false;
+		$this->_prepare_claim($ids, $lexer);
 
 		foreach ($ids as $id) {
 			if ($lexer) {
@@ -735,44 +740,94 @@ class File extends MY_Controller {
 		));
 	}
 
-	// Handle pastes
-	// TODO: merge with do_upload and also merge the forms
-	// TODO: add support for multiple textareas (+ view)
-	function do_paste()
+	/**
+	 * Handle submissions from the web form (files and textareas).
+	 */
+	public function do_websubmit()
 	{
-		// stateful clients get a cookie to claim the ID later
-		// don't force them to log in just yet
-		if (!stateful_client()) {
-			$this->muser->require_access();
+		$files = getNormalizedFILES();
+		$contents = $this->input->post("content");
+		$filenames = $this->input->post("filename");
+
+		assert(is_array($filenames));
+		assert(is_array($contents));
+
+		$ids = array();
+		$ids = array_merge($ids, $this->_handle_textarea($contents, $filenames));
+		$ids = array_merge($ids, $this->_handle_files($files));
+
+
+		if (empty($ids)) {
+			throw new \exceptions\UserInputException("file/websubmit/no-input", "You didn't enter any text or upload any files");
 		}
 
-		$content = $this->input->post("content");
-		$filesize = strlen($content);
-		$filename = "stdin";
+		if (count($ids) > 1) {
+			$userid = $this->muser->get_userid();
+			$limits = $this->muser->get_upload_id_limits();
+			$multipaste_id = \service\files::create_multipaste($ids, $userid, $limits)["url_id"];
 
-		if (!$content) {
-			throw new \exceptions\UserInputException("file/do_paste/empty-input", "Nothing was pasted, content is empty.");
+			$ids[] = $multipaste_id;
+			$this->_prepare_claim($ids, false);
+
+			redirect(site_url($multipaste_id)."/");
 		}
 
-		if ($filesize > $this->config->item('upload_max_size')) {
-			throw new \exceptions\RequestTooBigException("file/do_paste/request-too-big", "Error while uploading: File too big");
-		}
-
-		// FIXME: this duplicates service\files::add_file (kind of)
-		$limits = $this->muser->get_upload_id_limits();
-		$id = $this->mfile->new_id($limits[0], $limits[1]);
-		$hash = md5($content);
-
-		$folder = $this->mfile->folder($hash);
-		file_exists($folder) || mkdir ($folder);
-		$file = $this->mfile->file($hash);
-
-		file_put_contents($file, $content);
-		$this->mfile->add_file($hash, $id, $filename);
-		$this->_show_url(array($id), false);
+		$this->_show_url($ids, false);
 	}
 
-	// Handles uploaded files
+	private function _handle_files($files)
+	{
+		$ids = array();
+
+		if (!empty($files)) {
+			$limits = $this->muser->get_upload_id_limits();
+			service\files::verify_uploaded_files($files);
+
+			foreach ($files as $key => $file) {
+				$id = $this->mfile->new_id($limits[0], $limits[1]);
+				service\files::add_uploaded_file($id, $file["tmp_name"], $file["name"]);
+				$ids[] = $id;
+			}
+		}
+
+		return $ids;
+	}
+
+	private function _handle_textarea($contents, $filenames)
+	{
+		$ids = array();
+
+		foreach ($contents as $key => $content) {
+			$filesize = strlen($content);
+
+			if ($filesize == 0) {
+				unset($contents[$key]);
+			}
+
+			if ($filesize > $this->config->item('upload_max_size')) {
+				throw new \exceptions\RequestTooBigException("file/websubmit/request-too-big", "Error while uploading: Paste too big");
+			}
+		}
+
+		$limits = $this->muser->get_upload_id_limits();
+		foreach ($contents as $key => $content) {
+			$filename = "stdin";
+			if (isset($filenames[$key]) && $filenames[$key] != "") {
+				$filename = $filenames[$key];
+			}
+
+			$id = $this->mfile->new_id($limits[0], $limits[1]);
+			service\files::add_file_data($id, $content, $filename);
+			$ids[] = $id;
+		}
+
+		return $ids;
+	}
+
+	/**
+	 * Handles uploaded files
+	 * @Deprecated only used by the cli client
+	 */
 	function do_upload()
 	{
 		// stateful clients get a cookie to claim the ID later

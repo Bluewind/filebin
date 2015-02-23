@@ -1,61 +1,72 @@
 <?php if (isset($user_logged_in) && $user_logged_in) { ?>
-<div class="row">
-	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-upload-form">
-			<?php echo form_open_multipart('file/do_paste'); ?>
+<?php echo form_open_multipart('file/do_websubmit'); ?>
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-upload-form">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Text paste</h3>
+					</div>
+					<div class="panel-body" id="textboxes">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#text-upload-tab-1" data-toggle="tab">Paste 1 </a></li>
+						</ul>
+						<div class="tab-content">
+							 <div class="tab-pane active" id="text-upload-tab-1">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<input type="text" name="filename[1]" class="form-control" placeholder="Filename/title (default: stdin)">
+									</div>
+									<textarea name="content[1]" class="form-control text-upload" placeholder="Paste content"><?php
+										if (isset($textarea_content)) {
+											echo $textarea_content;
+										}
+									?></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">Text paste</h3>
+					<h3 class="panel-title">File upload</h3>
 				</div>
 				<div class="panel-body">
-					<textarea name="content" class="form-control text-upload"><?php
-						if (isset($textarea_content)) {
-							echo $textarea_content;
-						}
-					?></textarea><br>
-					<button type="submit" class="btn btn-primary">Paste it!</button>
+					<div>
+						<input class="file-upload" type="file" name="file[]" multiple="multiple"><br>
+					</div>
 				</div>
-			</form>
-		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-		<?php echo form_open_multipart('file/do_upload'); ?>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">File upload</h3>
 			</div>
-			<div class="panel-body">
-				<div>
-					<input class="file-upload" type="file" name="file[]" multiple="multiple"><br>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">Notice!</h3>
 				</div>
-				<label><input type="checkbox" name="multipaste" value="1"> Create multipaste</label><br>
-				<button type="submit" id="upload_button" class="btn btn-primary">Upload it!</button>
-			</div>
-		</div>
-		</form>
-	</div>
-	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<h3 class="panel-title">Notice!</h3>
-			</div>
-			<div class="panel-body">
-				<p>
-					Uploads/pastes are <?php if ($upload_max_age > 0) {
-						echo "deleted after ".$upload_max_age." days";
-						if ($small_upload_size > 0) {
-							echo " unless they are smaller than ".format_bytes($small_upload_size);
-						}
-					} else {
-						echo "stored forever";
-					} ?>. Maximum upload size is <?php echo format_bytes($max_upload_size); ?>.
-					You can upload a maximum of <?php echo ini_get("max_file_uploads"); ?> files at once.
-				</p>
+				<div class="panel-body">
+					<p>
+						You can upload files and paste text at the same time. Empty text or file inputs will be ignored.
+					</p>
+					<p>
+						Uploads/pastes are <?php if ($upload_max_age > 0) {
+							echo "deleted after ".$upload_max_age." days";
+							if ($small_upload_size > 0) {
+								echo " unless they are smaller than ".format_bytes($small_upload_size);
+							}
+						} else {
+							echo "stored forever";
+						} ?>. Maximum upload size is <?php echo format_bytes($max_upload_size); ?>.
+						You can upload a maximum of <?php echo ini_get("max_file_uploads"); ?> files at once.
+					</p>
+					<button type="submit" id="upload_button" class="btn btn-primary">Upload/Paste it!</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</form>
 
 <script type="text/javascript">
     /* <![CDATA[ */

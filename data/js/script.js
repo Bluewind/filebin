@@ -155,7 +155,7 @@ function fixedEncodeURIComponent (str) {
 					document.getElementById('upload_button').innerHTML = "File(s) too big";
 					document.getElementById('upload_button').disabled = true;
 				} else {
-					document.getElementById('upload_button').innerHTML = "Upload it!";
+					document.getElementById('upload_button').innerHTML = "Upload/Paste it!";
 					document.getElementById('upload_button').disabled = false;
 				}
 			}
@@ -177,6 +177,43 @@ function fixedEncodeURIComponent (str) {
 				$(this).parent().append('<input class="file-upload" type="file" name="file[]" multiple="multiple"><br>');
 			}
 
+		});
+
+		$(document).on("input propertychange", '.text-upload', function() {
+			var need_new = true;
+
+			$('.text-upload').each(function() {
+				if (!$(this).val()) {
+					need_new = false;
+					return;
+				}
+			});
+
+			if (need_new) {
+				var i = $('#textboxes .tab-content .tab-pane').length + 1;
+				var new_tab = $('#text-upload-tab-1')
+					.clone()
+					.attr("id", "text-upload-tab-"+i)
+					.toggleClass("active", false)
+					.appendTo('#textboxes .tab-content');
+				new_tab.find("[name^=filename]").attr("name", "filename["+i+"]").val("");
+				new_tab.find("[name^=content]").attr("name", "content["+i+"]").val("");
+				$('#textboxes ul.nav')
+					.append('<li><a href="#text-upload-tab-'+i+'" data-toggle="tab">Paste '+i+' </a></li>');
+			}
+		});
+
+		$(document).on("input propertychange", '#textboxes input[name^=filename]', function() {
+			var name = $(this).val();
+			var tabId = $(this).closest("[id^=text-upload-tab-]").attr("id");
+			var id = tabId.match(/-(\d)$/)[1];
+			var tab = $('#textboxes .nav a[href="#'+tabId+'"]');
+
+			if (name != "") {
+				tab.text(name);
+			} else {
+				tab.text("Paste " + id);
+			}
 		});
 
 		if (typeof $.tablesorter !== 'undefined') {
