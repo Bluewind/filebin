@@ -1,0 +1,121 @@
+<?php
+/*
+ * Copyright 2015 Florian "Bluewind" Pritz <bluewind@server-speed.net>
+ *
+ * Licensed under AGPLv3
+ * (see COPYING for full license text)
+ *
+ */
+
+namespace libraries\Image\Drivers;
+
+class imagemagick implements \libraries\Image\ImageDriver {
+	private $source_file;
+	private $arguments = array();
+
+	public static function get_priority($mimetype)
+	{
+		return 100;
+	}
+
+	/**
+	 * Create a new object and load the contents of file.
+	 * @param file file to read
+	 */
+	public function __construct($file)
+	{
+		$this->read($file);
+	}
+
+	public function read($file)
+	{
+		if (!file_exists($file)) {
+			throw new \exceptions\ApiException("libraries/Image/drivers/imagemagick/missing-file", "Source file doesn't exist");
+		}
+
+		$this->source_file = $file;
+		$this->arguments = array();
+	}
+
+	private function passthru($arguments)
+	{
+		$command_string = implode(" ", array_map("escapeshellarg", $arguments));
+		passthru($command_string, $ret);
+		return $ret;
+	}
+
+	public function get($target_type = null)
+	{
+		if ($target_type === null) {
+			return file_get_contents($this->source_file);
+		}
+
+		$command = array("convert");
+		$command = array_merge($command, $this->arguments);
+		$command[] = $this->source_file."[0]";
+
+		ob_start();
+		switch ($target_type) {
+			case IMAGETYPE_GIF:
+				$command[] = "gif:-";
+				break;
+			case IMAGETYPE_JPEG:
+				$command[] = "jpeg:-";
+				break;
+			case IMAGETYPE_PNG:
+				$command[] = "png:-";
+				break;
+			default:
+				assert(0);
+		}
+		$ret = $this->passthru($command);
+		$result = ob_get_clean();
+
+		if ($ret != 0 || $result === false) {
+			throw new \exceptions\ApiException("libraries/Image/thumbnail-creation-failed", "Failed to create thumbnail");
+		}
+
+		return $result;
+	}
+
+	public function resize($width, $height)
+	{
+		$this->arguments[] = "-resize";
+		$this->arguments[] = "${width}x${height}";
+	}
+
+	public function crop($x, $y, $width, $height)
+	{
+		$this->arguments[] = "+repage";
+		$this->arguments[] = "-crop";
+		$this->arguments[] = "${width}x${height}+${x}+${y}";
+		$this->arguments[] = "+repage";
+	}
+
+	// Source: http://salman-w.blogspot.co.at/2009/04/crop-to-fit-image-using-aspphp.html
+	public function makeThumb($target_width, $target_height)
+	{
+		assert(is_int($target_width));
+		assert(is_int($target_height));
+
+		$this->apply_exif_orientation();
+
+		$this->arguments[] = "-thumbnail";
+		$this->arguments[] = "${target_width}x${target_height}^";
+		$this->arguments[] = "-gravity";
+		$this->arguments[] = "center";
+		$this->arguments[] = "-extent";
+		$this->arguments[] = "${target_width}x${target_height}^";
+	}
+
+	public function apply_exif_orientation()
+	{
+		$this->arguments[] = "-auto-orient";
+	}
+
+	public function mirror()
+	{
+		$this->arguments[] = "-flip";
+	}
+
+}

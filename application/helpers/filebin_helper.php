@@ -300,4 +300,12 @@ function cache_function($key, $ttl, $function)
 	return $content;
 }
 
+// Return mimetype of file
+function mimetype($file) {
+	$fileinfo = new finfo(FILEINFO_MIME_TYPE);
+	$mimetype = $fileinfo->file($file);
+
+	return $mimetype;
+}
+
 # vim: set noet:

@@ -159,27 +159,23 @@ class File extends MY_Controller {
 					$this->ddownload->serveFile($file, $filedata["filename"], $filedata["mimetype"]);
 					exit();
 				} else {
-					switch ($filedata["mimetype"]) {
-						// TODO: handle video/audio
-						// TODO: handle more image formats (thumbnails needs to be improved)
-					case "image/jpeg":
-					case "image/png":
-					case "image/gif":
+					$mimetype = $filedata["mimetype"];
+					$base = explode("/", $filedata["mimetype"])[0];
+
+					// TODO: handle video/audio
+					if ($base == "image"
+							|| in_array($mimetype, array("application/pdf"))) {
 						$filedata["tooltip"] = $this->_tooltip_for_image($filedata);
 						$filedata["orientation"] = libraries\Image::get_exif_orientation($file);
 						$this->output_cache->add_merge(
 							array("items" => array($filedata)),
 							'file/fragments/thumbnail'
 						);
-
-						break;
-
-					default:
+					} else {
 						$this->output_cache->add_merge(
 							array("items" => array($filedata)),
 							'file/fragments/uploads_table'
 						);
-						break;
 					}
 					continue;
 				}
@@ -316,12 +312,27 @@ class File extends MY_Controller {
 	private function _tooltip_for_image($filedata)
 	{
 		$filesize = format_bytes($filedata["filesize"]);
-		list($width, $height) = getimagesize($this->mfile->file($filedata["hash"]));
+		$file = $this->mfile->file($filedata["hash"]);
 		$upload_date = date("r", $filedata["date"]);
+
+		$height = 0;
+		$width = 0;
+		try {
+			list($width, $height) = getimagesize($file);
+		} catch (\ErrorException $e) {
+			// likely unsupported filetype
+			// TODO: support more (using identify from imagemagick is likely slow :( )
+		}
 
 		$tooltip  = "${filedata["id"]} - $filesize<br>";
 		$tooltip .= "$upload_date<br>";
-		$tooltip .= "${width}x${height} - ${filedata["mimetype"]}<br>";
+
+
+		if ($height > 0 && $width > 0) {
+			$tooltip .= "${width}x${height} - ${filedata["mimetype"]}<br>";
+		} else {
+			$tooltip .= "${filedata["mimetype"]}<br>";
+		}
 
 		return $tooltip;
 	}
@@ -585,14 +596,19 @@ class File extends MY_Controller {
 		$user = $this->muser->get_userid();
 
 		$query = $this->db
-			->select('id, filename, mimetype, date, hash, filesize')
+			->select('id, filename, mimetype, date, hash, filesize, user')
 			->from('files')
-			->where('user', $user)
-			->where_in('mimetype', array('image/jpeg', 'image/png', 'image/gif'))
+			->where('
+				(user = '.$this->db->escape($user).')
+				AND (
+					mimetype LIKE "image%"
+					OR mimetype IN ("application/pdf")
+				)', null, false)
 			->order_by('date', 'desc')
 			->get()->result_array();
 
 		foreach($query as $key => $item) {
+			assert($item["user"] === $user);
 			if (!$this->mfile->valid_id($item["id"])) {
 				unset($query[$key]);
 				continue;
@@ -1069,7 +1085,7 @@ class File extends MY_Controller {
 			foreach ($query as $key => $item) {
 				$hash = $item["hash"];
 				$filesize = intval(filesize($this->mfile->file($hash)));
-				$mimetype = $this->mfile->mimetype($this->mfile->file($hash));
+				$mimetype = mimetype($this->mfile->file($hash));
 
 				$this->db->where('hash', $hash)
 					->set(array(

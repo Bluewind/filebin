@@ -12,7 +12,7 @@
 	<div class="span12 alert alert-block alert-info">
 		<h4 class="alert-heading">Notice!</h4>
 		<p>
-		Currently only jpeg, png and gif images are displayed here. If you are
+		Currently only images and pdf files are displayed here. If you are
 		looking for something else, please switch to the
 		<a href="<?php echo site_url("file/upload_history"); ?>">list view</a>
 		which contains your complete history.

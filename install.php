@@ -68,6 +68,14 @@ if ($buf != "0") {
 	$errors .= " - Error when testing qrencode: Return code was \"$buf\".\n";
 }
 
+// test imagemagick
+ob_start();
+passthru("convert --version 2>&1", $buf);
+ob_end_clean();
+if ($buf != "0") {
+	$errors .= " - Error when testing imagemagick (convert): Return code was \"$buf\".\n";
+}
+
 // test PHP modules
 $mod_groups = array(
 	"thumbnail generation" => array("gd"),
