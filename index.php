@@ -297,6 +297,14 @@ function check_for_fatal()
 }
 register_shutdown_function("check_for_fatal");
 
+function _assert_failure($file, $line, $expr, $message = "")
+{
+	_actual_exception_handler(new Exception("assert($expr): Assertion failed in $file at line $line".($message != "" ? " with message: '$message'" : "")));
+	exit(1);
+}
+
+assert_options(ASSERT_ACTIVE,   true);
+assert_options(ASSERT_CALLBACK, '_assert_failure');
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
