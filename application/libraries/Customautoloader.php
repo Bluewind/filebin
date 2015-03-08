@@ -18,6 +18,7 @@ class CustomAutoloader{
 	{
 		$base_paths = array(
 			APPPATH,
+			APPPATH."/third_party/mockery/library/",
 		);
 
 		foreach ($base_paths as $base_path) {
