@@ -33,8 +33,11 @@ if (class_exists("CI_Controller") && !isset($GLOBALS["is_error_page"])) {
 	<?php
 	include 'application/views/footer.php';
 } elseif (php_sapi_name() === 'cli' OR defined('STDIN')) {
-	echo "$heading\n";
-	echo str_replace("<br>", "\n", $message);
+	echo "# $heading\n";
+	$msg = strip_tags(str_replace("<br>", "\n", $message));
+	foreach (explode("\n", $msg) as $line) {
+		echo "# $line\n";
+	}
 } else {
 	// default CI error page
 ?>

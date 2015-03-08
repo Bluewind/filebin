@@ -74,14 +74,26 @@ class Tools extends MY_Controller {
 		$test = new $testclass();
 		$test->setServer($url);
 
+		$exitcode = 0;
+
 		$refl = new ReflectionClass($test);
 		foreach ($refl->getMethods() as $method) {
 			if (strpos($method->name, "test_") === 0) {
-				$test->init();
-				$test->{$method->name}();
-				$test->cleanup();
+				try {
+					$test->init();
+					$test->{$method->name}();
+					$test->cleanup();
+				} catch (\Exception $e) {
+					echo "not ok - uncaught exception in $testcase->$method->name\n";
+					_actual_exception_handler($e);
+					$exitcode = 255;
+				}
 			}
 		}
-		$test->done_testing();
+		if ($exitcode == 0) {
+			$test->done_testing();
+		} else {
+			exit($exitcode);
+		}
 	}
 }
