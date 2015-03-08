@@ -1,5 +1,8 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+2015-03-08 API v1.1: return full URL in api/file/create_multipaste
+2015-03-08 Rework file/cron and mfile->valid_id
+           This pulls in mockery for testing, make sure you clone submodules.
 2015-03-02 Add imagemagick support (needs convert executable in PATH)
 2015-03-02 Clarify comment for upload_max_age (you should set this to 0 if you
            want to keep files forever and you should run the cronjob!)
