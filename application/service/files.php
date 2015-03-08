@@ -281,4 +281,54 @@ class files {
 			"url_id" => $url_id,
 		);
 	}
+
+	static public function valid_id(array $filedata, array $config, $model, $current_date)
+	{
+		assert(isset($filedata["hash"]));
+		assert(isset($filedata["id"]));
+		assert(isset($filedata["user"]));
+		assert(isset($filedata["date"]));
+		assert(isset($config["upload_max_age"]));
+		assert(isset($config["sess_expiration"]));
+		assert(isset($config["small_upload_size"]));
+
+		$file = $model->file($filedata['hash']);
+
+		if (!$model->file_exists($file)) {
+			$model->delete_hash($filedata["hash"]);
+			return false;
+		}
+
+		if ($filedata["user"] == 0) {
+			if ($filedata["date"] < $current_date - $config["sess_expiration"]) {
+				$model->delete_id($filedata["id"]);
+				return false;
+			}
+		}
+
+		// 0 age disables age checks
+		if ($config['upload_max_age'] == 0) return true;
+
+		// small files don't expire
+		if ($model->filesize($file) <= $config["small_upload_size"]) {
+			return true;
+		}
+
+		// files older than this should be removed
+		$remove_before = $current_date - $config["upload_max_age"];
+
+		if ($filedata["date"] < $remove_before) {
+			// if the file has been uploaded multiple times the mtime is the time
+			// of the last upload
+			$mtime = $model->filemtime($file);
+			if ($mtime < $remove_before) {
+				$model->delete_hash($filedata["hash"]);
+			} else {
+				$model->delete_id($filedata["id"]);
+			}
+			return false;
+		}
+
+		return true;
+	}
 }

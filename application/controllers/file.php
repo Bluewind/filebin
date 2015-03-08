@@ -966,39 +966,34 @@ class File extends MY_Controller {
 			}
 		}
 
-		// 0 age disables age checks
-		if ($this->config->item('upload_max_age') == 0) return;
-
 		$oldest_time = (time() - $this->config->item('upload_max_age'));
 		$oldest_session_time = (time() - $this->config->item("sess_expiration"));
+		$config = array(
+			"upload_max_age" => $this->config->item("upload_max_age"),
+			"small_upload_size" => $this->config->item("small_upload_size"),
+			"sess_expiration" => $this->config->item("sess_expiration"),
+		);
 
-		$small_upload_size = $this->config->item('small_upload_size');
-
-		$query = $this->db->select('hash, id, user')
+		$query = $this->db->select('hash, id, user, date')
 			->from('files')
-			->where('date <', $oldest_time)
-			->or_where('('.$this->db->_protect_identifiers('user').' = 0 AND '
-			             .$this->db->_protect_identifiers('date')." < $oldest_session_time)")
+			->where("user", 0)
+			->where("date <", $oldest_session_time)
 			->get()->result_array();
 
 		foreach($query as $row) {
-			$file = $this->mfile->file($row['hash']);
-			if (!file_exists($file)) {
-				$this->mfile->delete_id($row["id"]);
-				continue;
-			}
+			\service\files::valid_id($row, $config, $this->mfile, time());
+		}
 
-			if ($row["user"] == 0 || filesize($file) > $small_upload_size) {
-				if (filemtime($file) < $oldest_time) {
-					unlink($file);
-					$this->mfile->delete_hash($row["hash"]);
-				} else {
-					$this->mfile->delete_id($row["id"]);
-					if ($this->mfile->stale_hash($row["hash"])) {
-						unlink($file);
-					}
-				}
-			}
+		// 0 age disables age checks
+		if ($this->config->item('upload_max_age') == 0) return;
+
+		$query = $this->db->select('hash, id, user, date')
+			->from('files')
+			->where('date <', $oldest_time)
+			->get()->result_array();
+
+		foreach($query as $row) {
+			\service\files::valid_id($row, $config, $this->mfile, time());
 		}
 	}
 
