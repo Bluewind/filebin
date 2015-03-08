@@ -82,5 +82,6 @@ class Tools extends MY_Controller {
 				$test->cleanup();
 			}
 		}
+		$test->done_testing();
 	}
 }

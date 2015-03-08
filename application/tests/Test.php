@@ -102,7 +102,7 @@ abstract class Test {
 	{
 	}
 
-	public function __destruct()
+	public function done_testing()
 	{
 		$this->t->done_testing();
 	}
