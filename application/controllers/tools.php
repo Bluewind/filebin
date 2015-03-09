@@ -80,6 +80,7 @@ class Tools extends MY_Controller {
 		foreach ($refl->getMethods() as $method) {
 			if (strpos($method->name, "test_") === 0) {
 				try {
+					$test->setTestNamePrefix($method->name." - ");
 					$test->init();
 					$test->{$method->name}();
 					$test->cleanup();

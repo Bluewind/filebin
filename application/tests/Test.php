@@ -9,14 +9,27 @@
 
 namespace tests;
 
+require_once APPPATH."/third_party/test-more-php/Test-More-OO.php";
+
+class TestMore extends \TestMore {
+	private $TestNamePrefix = "";
+
+	public function setTestNamePrefix($prefix) {
+		$this->TestNamePrefix = $prefix;
+	}
+
+	public function ok ($Result = NULL, $TestName = NULL) {
+		return parent::ok($Result, $this->TestNamePrefix.$TestName);
+	}
+}
+
 abstract class Test {
 	protected $t;
 	protected $server = "";
 
 	public function __construct()
 	{
-		require_once APPPATH."/third_party/test-more-php/Test-More-OO.php";
-		$this->t = new \TestMore();
+		$this->t = new TestMore();
 		$this->t->plan("no_plan");
 	}
 
@@ -105,5 +118,9 @@ abstract class Test {
 	public function done_testing()
 	{
 		$this->t->done_testing();
+	}
+
+	public function setTestNamePrefix($prefix) {
+		$this->t->setTestNamePrefix($prefix);
 	}
 }
