@@ -50,6 +50,7 @@
 					<p>
 						You can upload files and paste text at the same time. Empty text or file inputs will be ignored.
 					</p>
+					<p><button type="submit" id="upload_button" class="btn btn-primary">Upload/Paste it!</button></p>
 					<p>
 						Uploads/pastes are <?php if ($upload_max_age > 0) {
 							echo "deleted after ".$upload_max_age." days";
@@ -61,7 +62,6 @@
 						} ?>. Maximum upload size is <?php echo format_bytes($max_upload_size); ?>.
 						You can upload a maximum of <?php echo ini_get("max_file_uploads"); ?> files at once.
 					</p>
-					<button type="submit" id="upload_button" class="btn btn-primary">Upload/Paste it!</button>
 				</div>
 			</div>
 		</div>
