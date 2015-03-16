@@ -415,6 +415,7 @@ class Mfile extends CI_Model {
 				'patch' => 'diff',
 				'php' => 'php',
 				'pl' => 'perl',
+				'pp' => 'puppet',
 				'py' => 'python',
 				'rb' => 'ruby',
 				's' => 'asm',
