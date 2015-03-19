@@ -208,7 +208,7 @@ class Muser extends CI_Model {
 			->get()->row_array();
 
 		if (!isset($query["key"]) || $key != $query["key"]) {
-			throw new \exceptions\ApiException("user/get_action/invalid-action", "Invalid action key");
+			throw new \exceptions\UserInputException("user/get_action/invalid-action", "Invalid action key");
 		}
 
 		return $query;
