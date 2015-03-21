@@ -325,6 +325,7 @@ class Mfile extends CI_Model {
 		$typearray = array(
 		'application/javascript' => 'javascript',
 		'application/mbox' => 'text',
+		'application/postscript' => 'postscript',
 		'application/smil' => 'ocaml',
 		'application/x-applix-spreadsheet' => 'actionscript',
 		'application/x-awk' => 'awk',
