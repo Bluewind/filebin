@@ -31,7 +31,7 @@ machine <?php echo $domain; ?> login my_username password my_secret_password
 <p>
 	Arch Linux: pacman -S fb-client<br />
 	Debian: <?php echo anchor($client_link_deb); ?><br />
-	Gentoo: Add <a href="http://git.holgersson.xyz/holgersson-overlay/tree/README">this overlay</a> and run <code>emerge -a fb-client</code><br />
+	Gentoo: Add <a href="https://git.holgersson.xyz/holgersson-overlay/tree/README">this overlay</a> and run <code>emerge -a fb-client</code><br />
 	Slackware: <?php echo anchor($client_link_slackware); ?><br />
 	OpenSUSE: <?php echo anchor("https://build.opensuse.org/package/show/home:mwilhelmy/fb-client"); ?>
 </p>
