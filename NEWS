@@ -1,5 +1,6 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+2015-03-25 API v1.2: add user/delete_apikey endpoint
 2015-03-08 API v1.1: return full URL in api/file/create_multipaste
 2015-03-08 Rework file/cron and mfile->valid_id
            This pulls in mockery for testing, make sure you clone submodules.

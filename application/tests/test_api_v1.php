@@ -44,17 +44,17 @@ class test_api_v1 extends Test {
 		return $CI->db->insert_id();
 	}
 
-	private function createApikey($userid)
+	private function createApikey($userid, $access_level = "apikey")
 	{
-		return \service\user::create_apikey($userid, "", "apikey");
+		return \service\user::create_apikey($userid, "", $access_level);
 	}
 
-	private function createUserAndApikey()
+	private function createUserAndApikey($access_level = "apikey")
 	{
 		static $counter = 100;
 		$counter++;
 		$userid = $this->createUser($counter);
-		return $this->createApikey($userid);
+		return $this->createApikey($userid, $access_level);
 	}
 
 	private function callEndpoint($verb, $endpoint, $data)
@@ -90,6 +90,7 @@ class test_api_v1 extends Test {
 		$endpoints = array(
 			"user/apikeys",
 			"user/create_apikey",
+			"user/delete_apikey",
 		);
 		foreach ($endpoints as $endpoint) {
 			$ret = $this->CallEndpoint("POST", $endpoint, array(
@@ -132,6 +133,34 @@ class test_api_v1 extends Test {
 		$this->t->is($ret["data"]["apikeys"][$apikey]["access_level"], "apikey", "expected key 1 acces_level");
 		$this->t->is($ret["data"]["apikeys"][$apikey]["comment"], "", "expected key 1 comment");
 		$this->t->ok(is_int($ret["data"]["apikeys"][$apikey]["created"]) , "expected key 1 creation time is int");
+	}
+
+	public function test_delete_apikey_deleteOwnKey()
+	{
+		$apikey = $this->createUserAndApikey("full");
+		$ret = $this->CallEndpoint("POST", "user/delete_apikey", array(
+			"apikey" => $apikey,
+			"delete_key" => $apikey,
+		));
+		$this->expectSuccess("delete apikey", $ret);
+
+		$this->t->is($ret["data"]["deleted_keys"][$apikey]["key"], $apikey, "expected key");
+	}
+
+	public function test_delete_apikey_errorDeleteOtherUserKey()
+	{
+		$apikey = $this->createUserAndApikey("full");
+		$apikey2 = $this->createUserAndApikey("full");
+		$ret = $this->CallEndpoint("POST", "user/delete_apikey", array(
+			"apikey" => $apikey,
+			"delete_key" => $apikey2,
+		));
+		$this->expectError("delete apikey of other user", $ret);
+		$this->t->is_deeply(array(
+			'status' => 'error',
+			'error_id' => 'user/delete_apikey/failed',
+			'message' => 'Apikey deletion failed. Possibly wrong owner.',
+		), $ret, "expected error");
 	}
 
 	public function test_authentication_invalidPassword()

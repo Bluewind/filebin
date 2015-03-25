@@ -36,4 +36,31 @@ class user extends \controllers\api\api_controller {
 			"new_key" => $key,
 		);
 	}
+
+	public function delete_apikey()
+	{
+		$this->muser->require_access("full");
+
+		$userid = $this->muser->get_userid();
+		$key = $this->input->post("delete_key");
+
+		$this->db->where('user', $userid)
+			->where('key', $key)
+			->delete('apikeys');
+
+		$affected = $this->db->affected_rows();
+
+		assert($affected >= 0 && $affected <= 1);
+		if ($affected == 1) {
+			return array(
+				"deleted_keys" => array(
+					$key => array (
+						"key" => $key,
+					),
+				),
+			);
+		} else {
+			throw new \exceptions\PublicApiException('user/delete_apikey/failed', 'Apikey deletion failed. Possibly wrong owner.');
+		}
+	}
 }
