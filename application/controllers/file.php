@@ -130,21 +130,22 @@ class File extends MY_Controller {
 
 		foreach ($files as $key => $filedata) {
 			$file = $this->mfile->file($filedata['hash']);
+			$pygments = new \libraries\Pygments($file, $filedata["mimetype"], $filedata["filename"]);
 
 			// autodetect the lexer for highlighting if the URL contains a / after the ID (/ID/)
 			// /ID/lexer disables autodetection
 			$autodetect_lexer = !$lexer && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1;
 			$autodetect_lexer = $is_multipaste ? true : $autodetect_lexer;
 			if ($autodetect_lexer) {
-				$lexer = $this->mfile->autodetect_lexer($filedata["mimetype"], $filedata["filename"]);
+				$lexer = $pygments->autodetect_lexer();
 			}
 
 			// resolve aliases
 			// this is mainly used for compatibility
-			$lexer = $this->mfile->resolve_lexer_alias($lexer);
+			$lexer = $pygments->resolve_lexer_alias($lexer);
 
 			// if there is no mimetype mapping we can't highlight it
-			$can_highlight = $this->mfile->can_highlight($filedata["mimetype"]);
+			$can_highlight = $pygments->can_highlight();
 
 			$filesize_too_big = filesize($file) > $this->config->item('upload_max_text_size');
 
@@ -187,7 +188,7 @@ class File extends MY_Controller {
 		}
 
 		// TODO: move lexers json to dedicated URL
-		$this->data['lexers'] = $this->mfile->get_lexers();
+		$this->data['lexers'] = \libraries\Pygments::get_lexers();
 
 		// Output everything
 		// Don't use the output class/append_output because it does too
@@ -467,8 +468,8 @@ class File extends MY_Controller {
 				if (count($ids) == 1) {
 					$filedata = $this->mfile->get_filedata($id);
 					$file = $this->mfile->file($filedata['hash']);
-					$type = $filedata['mimetype'];
-					$lexer = $this->mfile->should_highlight($type);
+					$pygments = new \libraries\Pygments($file, $filedata["mimetype"], $filedata["filename"]);
+					$lexer = $pygments->should_highlight();
 
 					// If we detected a highlightable file redirect,
 					// otherwise show the URL because browsers would just show a DL dialog
@@ -535,7 +536,8 @@ class File extends MY_Controller {
 		if ($repaste_id) {
 			$filedata = $this->mfile->get_filedata($repaste_id);
 
-			if ($filedata !== false && $this->mfile->can_highlight($filedata["mimetype"])) {
+			$pygments = new \libraries\Pygments($this->mfile->file($filedata["hash"]), $filedata["mimetype"], $filedata["filename"]);
+			if ($filedata !== false && $pygments->can_highlight()) {
 				$this->data["textarea_content"] = file_get_contents($this->mfile->file($filedata["hash"]));
 			}
 		}
