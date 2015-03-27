@@ -1,7 +1,15 @@
 #!/usr/bin/python
 
 import pygments.lexers
+import json
 
-for fullname, names, exts, _ in pygments.lexers.get_all_lexers():
-    for name in names:
-        print(("%s|%s") % (name, fullname))
+ret = []
+
+for fullname, names, exts, mimetypes in pygments.lexers.get_all_lexers():
+    ret.append({
+        'fullname': fullname,
+        'names': names,
+        'extentions': exts,
+        'mimetypes': mimetypes,
+        })
+print(json.dumps(ret))

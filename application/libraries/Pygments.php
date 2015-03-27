@@ -20,14 +20,23 @@ class Pygments {
 		$this->filename = $filename;
 	}
 
+	private static function get_pygments_info() {
+		return cache_function('pygments_info', 1800, function() {
+			ob_start();
+			passthru("python ".escapeshellarg(FCPATH."scripts/get_lexer_list.py"));
+			$output = ob_get_clean();
+
+			return json_decode($output, true);
+		});
+	}
+
 	public static function get_lexers() {
 		return cache_function('lexers', 1800, function() {
-			$lexers = array();
 			$last_desc = "";
-			exec("python ".escapeshellarg(FCPATH."scripts/get_lexer_list.py"), $output);
 
-			foreach ($output as $line) {
-				list($name, $desc) = explode("|", $line);
+			foreach (self::get_pygments_info() as $lexer) {
+				$desc = $lexer['fullname'];
+				$name = $lexer['names'][0];
 				if ($desc == $last_desc) {
 					continue;
 				}
