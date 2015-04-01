@@ -767,8 +767,9 @@ class File extends MY_Controller {
 		$contents = $this->input->post("content");
 		$filenames = $this->input->post("filename");
 
-		assert(is_array($filenames));
-		assert(is_array($contents));
+		if (!is_array($filenames) || !is_array($contents)) {
+			throw new \exceptions\UserInputException('file/websubmit/invalid-form', 'The submitted POST form is invalid');
+		}
 
 		$ids = array();
 		$ids = array_merge($ids, $this->_handle_textarea($contents, $filenames));
