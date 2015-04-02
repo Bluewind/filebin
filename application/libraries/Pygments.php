@@ -48,21 +48,21 @@ class Pygments {
 		});
 	}
 
+	// Allow certain types to be highlight without doing it automatically
 	public function should_highlight()
 	{
+		$typearray = array(
+			'image/svg+xml',
+		);
+		if (in_array($this->mimetype, $typearray)) return false;
+
 		if ($this->mime2lexer($this->mimetype)) return true;
 
 		return false;
 	}
 
-	// Allow certain types to be highlight without doing it automatically
 	public function can_highlight()
 	{
-		$typearray = array(
-			'image/svg+xml',
-		);
-		if (in_array($this->mimetype, $typearray)) return true;
-
 		if ($this->mime2lexer($this->mimetype)) return true;
 
 		return false;
@@ -71,7 +71,7 @@ class Pygments {
 	// Return the lexer that should be used for highlighting
 	public function autodetect_lexer()
 	{
-		if (!$this->can_highlight($this->mimetype)) {
+		if (!$this->should_highlight()) {
 			return false;
 		}
 
