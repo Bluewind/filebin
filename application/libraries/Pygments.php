@@ -36,7 +36,7 @@ class Pygments {
 
 			foreach (self::get_pygments_info() as $lexer) {
 				$desc = $lexer['fullname'];
-				$name = $lexer['names'][0];
+				$name = array_keys($lexer['names'])[0];
 				if ($desc == $last_desc) {
 					continue;
 				}
@@ -146,13 +146,11 @@ class Pygments {
 		if (array_key_exists($this->mimetype, $typearray)) return $typearray[$this->mimetype];
 
 		// fall back to pygments own list if not found in our list
-		$typearray = array();
 		foreach (self::get_pygments_info() as $lexer) {
-			foreach ($lexer['mimetypes'] as $type) {
-				$typearray[$type] = $lexer['names'][0];
+			if (isset($lexer['mimetypes'][$this->mimetype])) {
+				return $lexer;
 			}
 		}
-		if (array_key_exists($this->mimetype, $typearray)) return $typearray[$this->mimetype];
 
 		if (strpos($this->mimetype, 'text/') === 0) return 'text';
 
