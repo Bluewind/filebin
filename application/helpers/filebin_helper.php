@@ -283,7 +283,7 @@ function stateful_client()
 }
 
 /**
- * Cache the result of the function call
+ * Cache the result of the function call in the cache backend.
  * @param key cache key to use
  * @param ttl time to live for the cache entry
  * @param function function to call
@@ -298,6 +298,23 @@ function cache_function($key, $ttl, $function)
 		$CI->cache->save($key, $content, $ttl);
 	}
 	return $content;
+}
+
+/**
+ * Cache the result of a function call in the cache backend and in the memory of this process.
+ * @param key cache key to use
+ * @param ttl time to live for the cache entry
+ * @param function function to call
+ * @return return value of function (will be cached)
+ */
+function cache_function_full($key, $ttl, $function) {
+	$local_key = 'cache_function-'.$key;
+	if (static_storage($local_key) !== null) {
+		return static_storage($local_key);
+	}
+	$ret = cache_function($key, $ttl, $function);
+	static_storage($local_key, $ret);
+	return $ret;
 }
 
 // Return mimetype of file
