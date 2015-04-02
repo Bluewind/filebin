@@ -182,6 +182,7 @@ class Pygments {
 				'html' => 'xml',
 				'java' => 'java',
 				'js' => 'js',
+				'lhs' => 'lhs',
 				'lua' => 'lua',
 				'mli' => 'ocaml',
 				'mll' => 'ocaml',
