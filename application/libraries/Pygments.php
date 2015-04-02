@@ -21,7 +21,7 @@ class Pygments {
 	}
 
 	private static function get_pygments_info() {
-		return cache_function('pygments_info', 1800, function() {
+		return cache_function_full('pygments_info', 1800, function() {
 			ob_start();
 			passthru("python ".escapeshellarg(FCPATH."scripts/get_lexer_list.py"));
 			$output = ob_get_clean();
