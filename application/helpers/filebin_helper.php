@@ -282,6 +282,23 @@ function stateful_client()
 	return true;
 }
 
+function init_cache()
+{
+	static $done = false;
+	if ($done) {return;}
+
+	$CI =& get_instance();
+	$CI->load->driver('cache', array('adapter' => $CI->config->item("cache_backend")));
+	$done = true;
+}
+
+function delete_cache($key)
+{
+	init_cache();
+	$CI =& get_instance();
+	$CI->cache->delete($key);
+}
+
 /**
  * Cache the result of the function call in the cache backend.
  * @param key cache key to use
@@ -291,8 +308,8 @@ function stateful_client()
  */
 function cache_function($key, $ttl, $function)
 {
+	init_cache();
 	$CI =& get_instance();
-	$CI->load->driver('cache', array('adapter' => $CI->config->item("cache_backend")));
 	if (! $content = $CI->cache->get($key)) {
 		$content = $function();
 		$CI->cache->save($key, $content, $ttl);

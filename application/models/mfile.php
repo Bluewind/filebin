@@ -69,18 +69,20 @@ class Mfile extends CI_Model {
 
 	function get_filedata($id)
 	{
-		$query = $this->db
-			->select('id, hash, filename, mimetype, date, user, filesize')
-			->from('files')
-			->where('id', $id)
-			->limit(1)
-			->get();
+		return cache_function("filedata-$id", 300, function() use ($id) {
+			$query = $this->db
+				->select('id, hash, filename, mimetype, date, user, filesize')
+				->from('files')
+				->where('id', $id)
+				->limit(1)
+				->get();
 
-		if ($query->num_rows() > 0) {
-			return $query->row_array();
-		} else {
-			return false;
-		}
+			if ($query->num_rows() > 0) {
+				return $query->row_array();
+			} else {
+				return false;
+			}
+		});
 	}
 
 	// return the folder in which the file with $hash is stored
@@ -214,6 +216,7 @@ class Mfile extends CI_Model {
 
 		$this->db->where('id', $id)
 			->delete('files');
+		delete_cache("filedata-$id");
 
 		foreach ($map as $entry) {
 			assert(!empty($entry['url_id']));
