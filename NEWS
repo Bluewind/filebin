@@ -1,5 +1,10 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+2015-04-09 Improve performance by caching more.  If you have not yet set
+           cache_backend in config-local.php now is the time.  Look in
+           config.php for details.
+2015-04-09 Get supported mimetypes from pygments itself
+
 2015-03-25 API v1.2: add user/delete_apikey endpoint
 2015-03-08 API v1.1: return full URL in api/file/create_multipaste
 2015-03-08 Rework file/cron and mfile->valid_id
