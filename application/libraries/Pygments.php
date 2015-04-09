@@ -21,7 +21,7 @@ class Pygments {
 	}
 
 	private static function get_pygments_info() {
-		return cache_function_full('pygments_info', 1800, function() {
+		return cache_function_full('pygments_info-v2', 1800, function() {
 			ob_start();
 			passthru("python ".escapeshellarg(FCPATH."scripts/get_lexer_list.py"));
 			$output = ob_get_clean();
@@ -148,7 +148,7 @@ class Pygments {
 		// fall back to pygments own list if not found in our list
 		foreach (self::get_pygments_info() as $lexer) {
 			if (isset($lexer['mimetypes'][$this->mimetype])) {
-				return $lexer;
+				return $lexer['names'][0];
 			}
 		}
 

@@ -11,7 +11,7 @@ def dictify(list):
 for fullname, names, exts, mimetypes in pygments.lexers.get_all_lexers():
     ret.append({
         'fullname': fullname,
-        'names': dictify(names),
+        'names': names,
         'extentions': dictify(exts),
         'mimetypes': dictify(mimetypes),
         })

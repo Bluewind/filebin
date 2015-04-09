@@ -32,6 +32,10 @@ class test_libraries_pygments extends Test {
 		$p = new \libraries\Pygments('/invalid/filepath', 'application/x-php', 'stdin');
 		$this->t->is($p->autodetect_lexer(), 'php', "application/php should be php");
 
+		// This is from pygments and not our hardcoded list
+		$p = new \libraries\Pygments('/invalid/filepath', 'text/x-pascal', 'stdin');
+		$this->t->is($p->autodetect_lexer(), 'delphi', "text/x-pascal should be delphi");
+
 		$p = new \libraries\Pygments('/invalid/filepath', 'application/octet-stream', 'stdin');
 		$this->t->is($p->autodetect_lexer(), false, "application/octet-stream should return false");
     }
