@@ -402,6 +402,8 @@ $config['tarball_cache_time'] = 60*5; // 5 minutes
 // Possible values:
 // - apc: needs the apc module and is only useful on long running php processes
 // - file: you will have to clean up the cache directory yourself (./application/cache/)
+//         example cronjob:
+//         */15 * * * * find ./application/cache/ -mtime +0.5 -not \( -name .htaccess -or -name index.html \) -delete
 // - memcached: config in application/config/memcached.php; you need the memcached module (with the D)
 // - dummy: disables caching
 //
