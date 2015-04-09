@@ -45,6 +45,41 @@ class File extends MY_Controller {
 		}
 	}
 
+	/**
+	 * Generate a page title of the format "Multipaste - $filename, $filename, … (N more)".
+	 * This mainly helps in IRC channels to quickly determine what is in a multipaste.
+	 *
+	 * @param files array of filedata
+	 * @return title to be used
+	 */
+	private function _multipaste_page_title(array $files)
+	{
+		$filecount = count($files);
+		$title = "Multipaste ($filecount files) - ";
+		$titlenames = array();
+		$len = strlen($title);
+		$delimiter = ', ';
+		$maxlen = 100;
+
+		foreach ($files as $file) {
+			if ($len > $maxlen) break;
+
+			$filename = $file['filename'];
+			$titlenames[] = htmlspecialchars($filename);
+			$len += strlen($filename) + strlen($delimiter);
+		}
+
+		$title .= implode($delimiter, $titlenames);
+
+		$leftover_count = $filecount - count($titlenames);
+
+		if ($leftover_count > 0) {
+			$title .= $delimiter.'… ('.$leftover_count.' more)';
+		}
+
+		return $title;
+	}
+
 	function _download()
 	{
 		$id = $this->uri->segment(1);
@@ -58,7 +93,7 @@ class File extends MY_Controller {
 				return $this->_non_existent();
 			}
 			$files = $this->mmultipaste->get_files($id);
-			$this->data["title"] = "Multipaste";
+			$this->data["title"] = $this->_multipaste_page_title($files);
 		} elseif ($this->mfile->id_exists($id)) {
 			if (!$this->mfile->valid_id($id)) {
 				return $this->_non_existent();
