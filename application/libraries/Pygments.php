@@ -31,12 +31,12 @@ class Pygments {
 	}
 
 	public static function get_lexers() {
-		return cache_function('lexers', 1800, function() {
+		return cache_function('lexers-v2', 1800, function() {
 			$last_desc = "";
 
 			foreach (self::get_pygments_info() as $lexer) {
 				$desc = $lexer['fullname'];
-				$name = array_keys($lexer['names'])[0];
+				$name = $lexer['names'][0];
 				if ($desc == $last_desc) {
 					continue;
 				}
