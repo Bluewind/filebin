@@ -135,7 +135,7 @@ class User extends MY_Controller {
 			->where('action', 'invitation')
 			->count_all_results();
 
-		if ($invitations + 1 > 3) {
+		if ($invitations + 1 > $this->config->item('max_invitation_keys')) {
 			throw new \exceptions\PublicApiException("user/invitation-limit", "You can't create more invitation keys at this time.");
 		}
 

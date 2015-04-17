@@ -398,6 +398,9 @@ $config['tarball_max_size'] = 1024*1024*50; // 50MiB
 // Changing this is not recommended
 $config['tarball_cache_time'] = 60*5; // 5 minutes
 
+// The maximum number of active invitation keys per account.
+$config['max_invitation_keys'] = 3; //3 keys
+
 
 // Possible values:
 // - apc: needs the apc module and is only useful on long running php processes
