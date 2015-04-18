@@ -1,14 +1,5 @@
 (function($) {
 	$(function() {
-		$('[rel="tooltip"]').tooltip({
-			placement: 'bottom',
-			container: 'body',
-		});
-
-		$('#history-all').bind('change', function() {
-			$('.delete-history').prop('checked', $(this).is(':checked'));
-		});
-
 		window.lines_wrapped = true;
 		$('[id^=linewrap-]').click(function() {
 			if (window.lines_wrapped == true) {
