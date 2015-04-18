@@ -25,7 +25,7 @@
 				<?php } ?>
 			</ul>
 			<div class="btn-group navbar-right" style="margin: 8px;">
-				<a id="linewrap-<?=$id; ?>" class="btn btn-default" rel="tooltip" title="Toggle wrapping of long lines">Linewrap</a>
+				<a class="btn btn-default linewrap-toggle" rel="tooltip" title="Toggle wrapping of long lines">Linewrap</a>
 				<div class="btn-group">
 					<a class="btn btn-default dropdown-toggle tabwidth-toggle" rel="tooltip" title="Set tab width in spaces" data-toggle="dropdown" href="#">Tab width: <span class="tabwidth-value"></span> <span class="caret"></span></a>
 					<div class="dropdown-menu tabwidth-dropdown">

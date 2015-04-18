@@ -1,15 +1,5 @@
 (function($) {
 	$(function() {
-		window.lines_wrapped = true;
-		$('[id^=linewrap-]').click(function() {
-			if (window.lines_wrapped == true) {
-				$(".highlight > pre").css("white-space", "pre");
-			} else {
-				$(".highlight > pre").css("white-space", "pre-wrap");
-			}
-			window.lines_wrapped = !window.lines_wrapped;
-		});
-
 		$('.upload_thumbnails a').popover({
 			trigger: "hover",
 			placement: "bottom",

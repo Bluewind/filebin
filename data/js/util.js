@@ -43,6 +43,16 @@ define(['jquery'], function () {
 		},
 		setTabwidthFromLocalStorage: function () {
 			this.setTabwidth(localStorage.getItem('tabwidth'));
+		},
+		setLineWrap: function (lines_wrapped) {
+			var whitespaceMode = lines_wrapped ? 'pre-wrap' : 'pre';
+			$('.highlight > pre').css('white-space', whitespaceMode);
+			localStorage.setItem('lines_wrapped', lines_wrapped);
+		},
+		toggleLineWrap: function() {
+			this.setLineWrap(
+				localStorage.getItem('lines_wrapped') !== 'true'
+			);
 		}
 	};
 	return Util;

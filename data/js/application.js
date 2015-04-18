@@ -28,6 +28,7 @@ define(
 				LexerInput.initialize(config.lexers);
 				this.configureTooltips();
 				this.setupToggleSelectAllEvent();
+				this.setupLineWrapToggle();
 			},
 
 			setupLineHighlight: function () {
@@ -50,8 +51,14 @@ define(
 					var checked = $(event.target).prop('checked');
 					$('.delete-history').prop('checked', checked);
 				});
-			}
+			},
 
+			setupLineWrapToggle: function () {
+				var linesWrapped = localStorage.getItem('lines_wrapped') || 'true';
+				Util.setLineWrap(linesWrapped === 'true');
+				
+				$('.linewrap-toggle').on('click', _.bind(Util.toggleLineWrap, Util));
+			}
 		};
 
 		return App;
