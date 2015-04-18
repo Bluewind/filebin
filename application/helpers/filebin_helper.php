@@ -135,30 +135,6 @@ function link_with_mtime($file)
 	return $link;
 }
 
-function include_js($file)
-{
-	static $included = array();
-	if (in_array($file, $included) || $file === null) {
-		return "";
-	}
-	return "<script src=\"".link_with_mtime($file)."\"></script>\n";
-}
-
-// kind of hacky, but works well enough for now
-function register_js_include($file, $return = false)
-{
-	static $list = "";
-	$list .= include_js($file);
-	if ($return) {
-		return $list;
-	}
-}
-
-function include_registered_js()
-{
-	return register_js_include(null, true);
-}
-
 function handle_etag($etag)
 {
 	$etag = strtolower($etag);

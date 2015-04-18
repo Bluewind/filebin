@@ -1,5 +1,3 @@
-<?php register_js_include("/data/js/jquery.tablesorter.min.js"); ?>
-<?php register_js_include("/data/js/jquery.metadata.js"); ?>
 <?php include 'nav_history.php'; ?>
 <?php echo form_open("file/do_delete") ?>
     <div class="table-responsive">

@@ -1,5 +1,3 @@
-<?php register_js_include("/data/js/jquery.colorbox.js"); ?>
-<?php register_js_include("/data/js/jquery.lazyload.js"); ?>
 <!-- Comment markers background: http://stackoverflow.com/a/14776780/953022 -->
 <div class="container container-wide">
 <div class="upload_thumbnails"><!--

@@ -1,4 +1,3 @@
-<?php register_js_include("/data/js/jquery.tablesorter.min.js"); ?>
 <div class="table-responsive container-wide">
 	<p>Non-previewable file(s):</p>
 	<table class="table table-striped tablesorter">

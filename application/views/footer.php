@@ -24,10 +24,5 @@ if ($CI->config->item("environment") == "development" && property_exists($CI, "e
 	echo $CI->email->print_debugger();
 }
 ?>
-<?php echo include_js("/data/js/jquery-2.0.3.min.js"); ?>
-<?php echo include_js("/data/js/jquery-ui-1.10.3.custom.min.js"); ?>
-<?php echo include_js("/data/js/bootstrap.min.js"); ?>
-<?php echo include_js("/data/js/script.js"); ?>
-<?php echo include_registered_js(); ?>
 </body>
 </html>
