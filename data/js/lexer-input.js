@@ -31,12 +31,9 @@ define(['util', 'underscore', 'jquery-ui'], function (Util, _) {
 				this.switchLexer(lexer, baseUrl);
 			}, this));
 
-			$('.lexer-toggle').on('click', function(event) {
-				setTimeout(function() {
-					var dropDown = $(event.target).siblings('.dropdown-menu');
-					dropDown.find('input').focus();
-				}, 0);
-			});
+			$('.lexer-toggle').on('click', _.bind(function(event) {
+				Util.focusDropdownInput(event.target);
+			}, Util));
 		}
 	};
 	var LexerInput = {
