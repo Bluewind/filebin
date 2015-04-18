@@ -5,12 +5,12 @@
 				<li><a href="<?=site_url($id)."/"; ?>" class="navbar-brand" data-toggle="modal"><?php echo $title ?></a></li>
 				<li class="divider"></li>
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="language-toggle-<?=$id; ?>">
+					<a href="#" class="dropdown-toggle lexer-toggle" data-toggle="dropdown">
 						Language: <?php echo htmlspecialchars($current_highlight); ?>
 						<b class="caret"></b>
 					</a>
 					<div class="dropdown-menu" style="padding: 15px;">
-						<form>
+						<form class="lexer-form">
 						<input data-base-url="<?=site_url($id); ?>" type="text" id="language-<?=$id; ?>" placeholder="Language" class="form-control">
 						</form>
 					</div>

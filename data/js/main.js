@@ -14,8 +14,15 @@ requirejs.config({
 		'bootstrap': 'vendor/bootstrap.min',
 		'jquery.tablesorter': 'vendor/jquery.tablesorter.min',
 		'jquery.lazyload': 'vendor/jquery.lazyload',
-		'jquery.colorbox': 'vendor/jquery.colorbox'
+		'jquery.colorbox': 'vendor/jquery.colorbox',
+		'underscore': 'vendor/underscore'
 	}
 });
-require(['application']);
+
+require(['application', 'jquery'], function (App, $) {
+	App.initialize();
+	$(document).ready(function () {
+		App.onPageLoaded(window.appConfig);
+	});
+});
 })();

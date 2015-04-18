@@ -6,7 +6,9 @@ include(FCPATH."application/views/header.php"); ?>
 
 <script type="text/javascript">
 	/* <![CDATA[ */
-	window.lexers = <?php echo json_encode($lexers); ?>;
+	window.appConfig = {
+		lexers: <?php echo json_encode($lexers); ?>
+	}
 	/* ]]> */
 </script>
 

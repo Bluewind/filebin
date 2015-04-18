@@ -2,14 +2,16 @@
 'use strict';
 define([
 	'jquery',
+	'underscore',
 	'jquery-ui',
 	'bootstrap',
 	'jquery.colorbox',
 	'jquery.lazyload',
 	'jquery.tablesorter'
-], function (jquery) {
+], function (jquery, underscore) {
 	return {
-		$: jquery
+		$: jquery,
+		_: underscore
 	};
 });
 })();

@@ -1,22 +1,5 @@
-function fixedEncodeURIComponent (str) {
-	return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(/\*/g, "%2A");
-}
-
 (function($) {
 	$(function() {
-		var lexer_source = [];
-		for (var key in window.lexers) {
-			lexer_source.push({ label: window.lexers[key], value: key });
-		}
-
-		$('[id^=language-]').autocomplete({
-			source: lexer_source,
-			select: function(event, ui) {
-				event.preventDefault();
-				window.location = $(event.target).data("base-url") + '/' + fixedEncodeURIComponent(ui.item.value);
-			}
-		});
-
 		$('a.tabwidth-toggle').on('click', function (event) {
 			setTimeout(function () {
 				$(event.target).siblings('.dropdown-menu').find('input').trigger('focus');
@@ -50,19 +33,6 @@ function fixedEncodeURIComponent (str) {
 
 		$('form.tabwidth-form input').on('click', function (event) {
 			event.stopImmediatePropagation();
-		});
-
-		$(document).on("keyup", "[id^=language-]", function(event) {
-			if (event.keyCode == 13) {
-				event.preventDefault();
-				window.location = $(event.target).data("base-url") + '/' + fixedEncodeURIComponent($(this).val());
-			}
-		});
-
-		$('[id^=language-toggle-]').click(function(event) {
-			setTimeout(function() {
-				$(event.target).parent().find('[id^=language-]').focus();
-			}, 0);
 		});
 
 		$('[rel="tooltip"]').tooltip({
