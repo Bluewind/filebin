@@ -4,21 +4,6 @@ function fixedEncodeURIComponent (str) {
 
 (function($) {
 	$(function() {
-		$(window).bind('hashchange', function(e) {
-			var hash = window.location.hash;
-
-			$('.highlight_line').removeClass("highlight_line");
-
-			if (hash.match(/^#n(?:-.+-)?\d+$/) === null) {
-				return;
-			}
-
-			var line = $(hash).parent().parent();
-			line.addClass("highlight_line");
-		});
-
-		$(window).trigger('hashchange');
-
 		var lexer_source = [];
 		for (var key in window.lexers) {
 			lexer_source.push({ label: window.lexers[key], value: key });
