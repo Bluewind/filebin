@@ -66,6 +66,14 @@ class files {
 			$multipaste_info[$item["url_id"]]["items"][$item["id"]] = array("id" => $item["id"]);
 		}
 
+		// No idea why, but this can/could happen so be more forgiving and clean up
+		foreach ($multipaste_info as $key => $m) {
+			if (!isset($m["items"])) {
+				$CI->mmultipaste->delete_id($key);
+				unset($multipaste_info[$key]);
+			}
+		}
+
 		return $multipaste_info;
 	}
 
