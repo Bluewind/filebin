@@ -276,7 +276,7 @@ function _actual_exception_handler($e)
 		$message .= 'thrown in <b>'.$e->getFile().'</b> on line <b>'.$e->getLine().'</b><br>';
 		$message .= '</div>';
 	} else {
-		$message .="<p>More information can be found in syslog or by enabling display_errors.</p>";
+		$message .="<p>More information can be found in the php error log or by enabling display_errors.</p>";
 	}
 
 	$message = "$message";
