@@ -1,40 +1,5 @@
 (function($) {
 	$(function() {
-		$('a.tabwidth-toggle').on('click', function (event) {
-			setTimeout(function () {
-				$(event.target).siblings('.dropdown-menu').find('input').trigger('focus');
-			}, 0);
-		});
-
-		var setTabwidth = function (value) {
-			value = value || 8;
-			$('span.tabwidth-value').html(value);
-			$('.tabwidth-form input').val(value);
-			$('.highlight pre').css('tab-size', value);
-			localStorage.setItem('tabwidth', value);
-		};
-
-		$(document).ready(function () {
-			setTabwidth(localStorage.getItem('tabwidth'));
-		});
-		
-		$('form.tabwidth-form').on('submit', function (event) {
-			var value = $(event.target).find('input').val();
-			setTabwidth(value);
-			$(event.target).parents('.open').removeClass('open');
-			event.preventDefault();
-		});
-
-		$('form.tabwidth-form input').on('change', function (event) {
-			var value = $(event.target).val();
-			setTabwidth(value);
-			event.preventDefault();
-		});
-
-		$('form.tabwidth-form input').on('click', function (event) {
-			event.stopImmediatePropagation();
-		});
-
 		$('[rel="tooltip"]').tooltip({
 			placement: 'bottom',
 			container: 'body',

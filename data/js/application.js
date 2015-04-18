@@ -5,9 +5,10 @@ define(
 		'require',
 		'util',
 		'lexer-input',
+		'tabwidth-input',
 		'vendor'
 	],
-	function (require, Util, LexerInput) {
+	function (require, Util, LexerInput, TabwidthInput) {
 		require(['script']);
 		var App = {
 			 // Gets called for every request (before page load)
@@ -21,6 +22,8 @@ define(
 			 */
 			onPageLoaded: function (config) {
 				Util.highlightLineFromHash();
+				Util.setTabwidthFromLocalStorage();
+				TabwidthInput.initialize();
 				LexerInput.initialize(config.lexers);
 			},
 

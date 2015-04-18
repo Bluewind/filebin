@@ -27,6 +27,22 @@ define(['jquery'], function () {
 			}
 
 			PrivateFunctions.highlightLine(hash);
+		},
+		focusDropdownInput: function (target) {
+			setTimeout(function () {
+				var dropDown = $(target).siblings('.dropdown-menu');
+				dropDown.find('input').trigger('focus');
+			}, 0);
+		},
+		setTabwidth: function (value) {
+			value = value || 8;
+			$('span.tabwidth-value').html(value);
+			$('.tabwidth-form input').val(value);
+			$('.highlight pre').css('tab-size', value);
+			localStorage.setItem('tabwidth', value);
+		},
+		setTabwidthFromLocalStorage: function () {
+			this.setTabwidth(localStorage.getItem('tabwidth'));
 		}
 	};
 	return Util;
