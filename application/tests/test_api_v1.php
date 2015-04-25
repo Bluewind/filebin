@@ -71,6 +71,7 @@ class test_api_v1 extends Test {
 			"file/create_multipaste",
 			"user/apikeys",
 			"user/create_apikey",
+			"user/delete_apikey",
 		);
 		foreach ($endpoints as $endpoint) {
 			$ret = $this->CallEndpoint("POST", $endpoint, array(
