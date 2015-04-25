@@ -86,22 +86,35 @@ class test_api_v1 extends Test {
 
 	public function test_callEndpointsWithoutEnoughPermissions()
 	{
-		$apikey = $this->createUserAndApikey();
-		$endpoints = array(
-			"user/apikeys",
-			"user/create_apikey",
-			"user/delete_apikey",
+		$testconfig = array(
+			array(
+				"apikey" => $this->createUserAndApikey('basic'),
+				"endpoints" => array(
+					"file/delete",
+					"file/history",
+				),
+			),
+			array(
+				"apikey" => $this->createUserAndApikey(),
+				"endpoints" => array(
+					"user/apikeys",
+					"user/create_apikey",
+					"user/delete_apikey",
+				),
+			),
 		);
-		foreach ($endpoints as $endpoint) {
-			$ret = $this->CallEndpoint("POST", $endpoint, array(
-				"apikey" => $apikey,
-			));
-			$this->expectError("call $endpoint without enough permissions", $ret);
-			$this->t->is_deeply(array(
-				'status' => "error",
-				'error_id' => "api/insufficient-permissions",
-				'message' => "Access denied: Access level too low",
-			   ), $ret, "expected error");
+		foreach ($testconfig as $test) {
+			foreach ($test['endpoints'] as $endpoint) {
+				$ret = $this->CallEndpoint("POST", $endpoint, array(
+					"apikey" => $test['apikey'],
+				));
+				$this->expectError("call $endpoint without enough permissions", $ret);
+				$this->t->is_deeply(array(
+					'status' => "error",
+					'error_id' => "api/insufficient-permissions",
+					'message' => "Access denied: Access level too low",
+				   ), $ret, "expected permission error");
+			}
 		}
 	}
 
