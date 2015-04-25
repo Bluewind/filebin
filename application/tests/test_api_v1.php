@@ -324,7 +324,7 @@ class test_api_v1 extends Test {
 
 	public function test_create_multipaste_canCreate()
 	{
-		$apikey = $this->createUserAndApikey();
+		$apikey = $this->createUserAndApikey("basic");
 		$ret = $this->uploadFile($apikey, "data/tests/small-file");
 		$id = $ret["data"]["ids"][0];
 
@@ -344,7 +344,7 @@ class test_api_v1 extends Test {
 
 	public function test_create_multipaste_errorOnWrongID()
 	{
-		$apikey = $this->createUserAndApikey();
+		$apikey = $this->createUserAndApikey("basic");
 		$ret = $this->uploadFile($apikey, "data/tests/small-file");
 		$id = $ret["data"]["ids"][0];
 
@@ -373,8 +373,8 @@ class test_api_v1 extends Test {
 
 	public function test_create_multipaste_errorOnWrongOwner()
 	{
-		$apikey = $this->createUserAndApikey();
-		$apikey2 = $this->createUserAndApikey();
+		$apikey = $this->createUserAndApikey("basic");
+		$apikey2 = $this->createUserAndApikey("basic");
 		$ret = $this->uploadFile($apikey, "data/tests/small-file");
 		$id = $ret["data"]["ids"][0];
 

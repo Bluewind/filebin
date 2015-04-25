@@ -70,7 +70,7 @@ class file extends \controllers\api\api_controller {
 
 	public function create_multipaste()
 	{
-		$this->muser->require_access("apikey");
+		$this->muser->require_access("basic");
 		$ids = $this->input->post("ids");
 		$userid = $this->muser->get_userid();
 		$limits = $this->muser->get_upload_id_limits();

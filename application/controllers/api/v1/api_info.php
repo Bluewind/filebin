@@ -11,6 +11,6 @@ namespace controllers\api\v1;
 class api_info extends \controllers\api\api_controller {
 	static public function get_version()
 	{
-		return "1.2.0";
+		return "1.3.0";
 	}
 }
