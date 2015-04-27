@@ -107,7 +107,7 @@ class Image {
 		$best_driver = null;
 		foreach ($drivers as $driver) {
 			$current = $driver::get_priority($mimetype);
-			if ($best == 0 || ($current > $best && $current > 0)) {
+			if ($current > $best && $current > 0) {
 				$best_driver = $driver;
 				$best = $current;
 			}
