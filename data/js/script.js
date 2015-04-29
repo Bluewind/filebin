@@ -1,68 +1,5 @@
 (function($) {
 	$(function() {
-		$('.upload_thumbnails a').popover({
-			trigger: "hover",
-			placement: "bottom",
-			html: true,
-		});
-
-		$('#toggle_delete_mode').on("click", function() {
-			switch (window.page_mode) {
-				case "delete":
-					window.page_mode = "normal";
-					$('#delete_button').hide();
-					$("#delete_form input[id^='delete_']").remove();
-					$(".upload_thumbnails .marked").removeClass("marked");
-					if (typeof $.colorbox !== 'undefined') {
-						setup_colorbox();
-					}
-					break;
-				default:
-					window.page_mode = "delete";
-					$('#delete_button').show();
-					if (typeof $.colorbox !== 'undefined') {
-						$.colorbox.remove();
-					}
-					break;
-			}
-		});
-
-		$('.upload_thumbnails a').on("click", function(event) {
-			if (window.page_mode == "delete") {
-				event.preventDefault();
-				var data_id = $(event.target).parent().attr("data-id");
-
-				if ($('#delete_'+data_id).length == 0) {
-					$('<input>').attr({
-						type: "hidden",
-						name: "ids["+data_id+"]",
-						value: data_id,
-						id: "delete_"+data_id,
-					}).appendTo('#delete_form');
-					$(event.target).parent().addClass("marked");
-				} else {
-					$('#delete_'+data_id).remove();
-					$(event.target).parent().removeClass("marked");
-				}
-			}
-		});
-
-		function handle_resize() {
-			$('.upload_thumbnails').each(function() {
-				var div = $(this);
-
-				need_multiple_lines = div.parent().width() < (div.find('a').outerWidth(true) * div.find('a').size());
-
-				div.css('margin-left', need_multiple_lines ? "auto" : "0");
-				div.width(div.parent().width() - (div.parent().width() % div.find('a').outerWidth(true)));
-			});
-		}
-
-		$(window).resize(function() {
-			handle_resize();
-		});
-		handle_resize();
-
 		// check file size before uploading if browser support html5
 		if (window.File && window.FileList) {
 			function checkFileUpload(evt) {
@@ -214,28 +151,6 @@
 			});
 		}
 
-		if (typeof $.colorbox !== 'undefined') {
-			function setup_colorbox() {
-				$('.colorbox').colorbox({
-					transistion: "none",
-					speed: 0,
-					initialWidth: "100%",
-					initialHeight: "100%",
-					photo: true,
-					retinaImage: true,
-					maxHeight: "100%",
-					maxWidth: "100%",
-					next: '<span class="glyphicon glyphicon-chevron-right"></span>',
-					previous: '<span class="glyphicon glyphicon-chevron-left"></span>',
-					close: '<span class="glyphicon glyphicon-remove"></span>',
-					loop: false,
-					orientation: function() {
-						return parseInt($(this).children().first().parent().attr("data-orientation"));
-					},
-				});
-			}
-			setup_colorbox();
-		}
 		if ($("img.lazyload").length) {
 			$("img.lazyload").show().lazyload({treshold: 200});
 		}

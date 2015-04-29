@@ -6,9 +6,10 @@ define(
 		'util',
 		'lexer-input',
 		'tabwidth-input',
+		'thumbnail-view',
 		'vendor'
 	],
-	function (require, Util, LexerInput, TabwidthInput) {
+	function (require, Util, LexerInput, TabwidthInput, ThumbnailView) {
 		require(['script']);
 		var App = {
 			 // Gets called for every request (before page load)
@@ -26,6 +27,7 @@ define(
 				Util.setTabwidthFromLocalStorage();
 				TabwidthInput.initialize();
 				LexerInput.initialize(config.lexers);
+				ThumbnailView.initialize();
 				this.configureTooltips();
 				this.setupToggleSelectAllEvent();
 				this.setupLineWrapToggle();
