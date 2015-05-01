@@ -18,3 +18,5 @@ application/cache/*
 application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
+
+data/js/main.min.*.js

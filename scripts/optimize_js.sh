@@ -1,0 +1,6 @@
+#!/usr/bin/sh
+
+script_dir=$(dirname "$0")
+js_dir="$script_dir/../data/js"
+outfile="$js_dir/main.min.$(date +%s).js"
+node "$script_dir/r.js" -o mainConfigFile="$js_dir/main.js" name=main out=$outfile
