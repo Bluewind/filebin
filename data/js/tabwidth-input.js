@@ -1,6 +1,6 @@
 (function () {
 'use strict';
-define(['jquery', 'util'], function ($, Util) {
+define(['jquery', 'underscore', 'util'], function ($, _, Util) {
 	var PrivateFunctions = {
 		setupEvents: function () {
 			$('.tabwidth-toggle').on('click', _.bind(function (event) {

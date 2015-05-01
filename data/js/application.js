@@ -9,7 +9,9 @@ define(
 		'thumbnail-view',
 		'uploader',
 		'tablesorter',
-		'vendor'
+		'jquery',
+		'jquery.lazyload',
+		'bootstrap'
 	],
 	function (
 		require,
@@ -18,7 +20,8 @@ define(
 		TabwidthInput,
 		ThumbnailView,
 		Uploader,
-		TableSorter
+		TableSorter,
+		$
 	) {
 		var ui = {
 			lazyLoadingImages: 'img.lazyload'

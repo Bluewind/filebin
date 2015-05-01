@@ -1,6 +1,6 @@
 (function () {
 'use strict';
-define(['jquery'], function ($) {
+define(['jquery', 'underscore'], function ($, _) {
 	var ui = {
 		thumbnailLinks: '.upload_thumbnails a',
 		deleteButton: '#delete_button',

@@ -1,6 +1,6 @@
 (function () {
 'use strict';
-define(['jquery'], function ($) {
+define(['jquery', 'underscore'], function ($, _) {
 	var ui = {
 		uploadButton: '#upload_button',
 		uploadInputs: 'input.file-upload',

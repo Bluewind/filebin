@@ -1,6 +1,6 @@
 (function () {
 'use strict';
-define(['util', 'underscore', 'jquery-ui'], function (Util, _) {
+define(['util', 'underscore', 'jquery', 'jquery-ui'], function (Util, _, $) {
 	var PrivateFunctions = {
 		switchLexer: function (lexer, baseUrl) {
 			var url = baseUrl + '/' + Util.fixedEncodeURIComponent(lexer);
