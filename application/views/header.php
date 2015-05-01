@@ -29,7 +29,10 @@ if (is_cli_client() && !isset($force_full_html)) {
 	<script type="text/javascript">
 		/* <![CDATA[ */
 		var require = { baseUrl: '/data/js' };
-		window.appConfig = {};
+		window.appConfig = {
+			maxUploadSize: <?php echo $max_upload_size; ?>,
+			maxFilesPerUpload: <?php echo ini_get("max_file_uploads"); ?>
+		};
 		/* ]]> */
 	</script>
 	<script data-main="main" src="/data/js/vendor/require.js"></script>

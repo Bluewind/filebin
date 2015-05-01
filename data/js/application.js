@@ -7,9 +7,10 @@ define(
 		'lexer-input',
 		'tabwidth-input',
 		'thumbnail-view',
+		'uploader',
 		'vendor'
 	],
-	function (require, Util, LexerInput, TabwidthInput, ThumbnailView) {
+	function (require, Util, LexerInput, TabwidthInput, ThumbnailView, Uploader) {
 		require(['script']);
 		var App = {
 			 // Gets called for every request (before page load)
@@ -27,6 +28,7 @@ define(
 				TabwidthInput.initialize();
 				LexerInput.initialize();
 				ThumbnailView.initialize();
+				Uploader.initialize();
 				this.configureTooltips();
 				this.setupToggleSelectAllEvent();
 				this.setupLineWrapToggle();
