@@ -21,12 +21,11 @@ define(
 			 * Gets called for every request after page load
 			 * config contains app config attributes passed from php
 			 */
-			onPageLoaded: function (config) {
-				config = config || {};
+			onPageLoaded: function () {
 				Util.highlightLineFromHash();
 				Util.setTabwidthFromLocalStorage();
 				TabwidthInput.initialize();
-				LexerInput.initialize(config.lexers);
+				LexerInput.initialize();
 				ThumbnailView.initialize();
 				this.configureTooltips();
 				this.setupToggleSelectAllEvent();

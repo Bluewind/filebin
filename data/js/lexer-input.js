@@ -11,10 +11,10 @@ define(['util', 'underscore', 'jquery-ui'], function (Util, _) {
 			var baseUrl = $(event.target).data('base-url');
 			this.switchLexer(ui.item.value, baseUrl);
 		},
-		setupAutocomplete: function (lexers) {
+		setupAutocomplete: function () {
 			var lexerSource = [];
-			for (var key in lexers) {
-				lexerSource.push({ label: lexers[key], value: key });
+			for (var key in appConfig.lexers) {
+				lexerSource.push({ label: appConfig.lexers[key], value: key });
 			}
 
 			$('.lexer-form input').autocomplete({
@@ -37,8 +37,8 @@ define(['util', 'underscore', 'jquery-ui'], function (Util, _) {
 		}
 	};
 	var LexerInput = {
-		initialize: function (lexers) {
-			PrivateFunctions.setupAutocomplete(lexers);
+		initialize: function () {
+			PrivateFunctions.setupAutocomplete();
 			PrivateFunctions.setupEvents();
 		}
 	};

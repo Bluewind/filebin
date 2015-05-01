@@ -22,7 +22,7 @@ requirejs.config({
 require(['application', 'jquery'], function (App, $) {
 	App.initialize();
 	$(document).ready(function () {
-		App.onPageLoaded(window.appConfig);
+		App.onPageLoaded();
 	});
 });
 })();

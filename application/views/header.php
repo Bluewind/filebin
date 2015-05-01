@@ -26,8 +26,11 @@ if (is_cli_client() && !isset($force_full_html)) {
 			echo '<link href="'.link_with_mtime("/data/local/favicon.png").'" rel="shortcut icon">';
 		}
 	?>
-	<script>
+	<script type="text/javascript">
+		/* <![CDATA[ */
 		var require = { baseUrl: '/data/js' };
+		window.appConfig = {};
+		/* ]]> */
 	</script>
 	<script data-main="main" src="/data/js/vendor/require.js"></script>
 </head>
