@@ -7,7 +7,7 @@ include(FCPATH."application/views/header.php"); ?>
 	/* <![CDATA[ */
 	window.appConfig.lexers = <?php echo json_encode($lexers); ?>;
 	/* ]]> */
-<script>
+</script>
 
 <?php if (isset($error_message)) {
 	include 'framgents/alert-wide.php';
