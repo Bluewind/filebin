@@ -20,7 +20,10 @@ define(
 		Uploader,
 		TableSorter
 	) {
-		require(['script']);
+		var ui = {
+			lazyLoadingImages: 'img.lazyload'
+		};
+
 		var App = {
 			 // Gets called for every request (before page load)
 			initialize: function () {
@@ -42,6 +45,7 @@ define(
 				this.configureTooltips();
 				this.setupToggleSelectAllEvent();
 				this.setupLineWrapToggle();
+				this.setupLazyLoadingImages();
 			},
 
 			setupLineHighlight: function () {
@@ -71,6 +75,12 @@ define(
 				Util.setLineWrap(linesWrapped === 'true');
 				
 				$('.linewrap-toggle').on('click', _.bind(Util.toggleLineWrap, Util));
+			},
+
+			setupLazyLoadingImages: function () {
+				if ($(ui.lazyLoadingImages).length > 0) {
+					$(ui.lazyLoadingImages).show().lazyload({treshold: 200});
+				}
 			}
 		};
 
