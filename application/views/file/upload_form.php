@@ -70,8 +70,8 @@
 
 <script type="text/javascript">
     /* <![CDATA[ */
-	var max_upload_size = "<?php echo $max_upload_size; ?>";
-	var max_files_per_upload = "<?php echo ini_get("max_file_uploads"); ?>";
+	window.appConfig.maxUploadSize = "<?php echo $max_upload_size; ?>";
+	window.appConfig.maxFilesPerUpload = "<?php echo ini_get("max_file_uploads"); ?>";
     /* ]]> */
 </script>
 
