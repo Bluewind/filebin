@@ -80,10 +80,13 @@ namespace libraries;
 class Image {
 	private $driver;
 
-	private $image_drivers = array(
-		"libraries\Image\Drivers\GD",
-		"libraries\Image\Drivers\imagemagick",
-	);
+	private static function get_image_drivers()
+	{
+		return array(
+			"libraries\Image\Drivers\GD",
+			"libraries\Image\Drivers\imagemagick",
+		);
+	}
 
 	/**
 	 * Create a new object and load the contents of file.
@@ -101,7 +104,7 @@ class Image {
 	 * @param mimetype mimetype the driver should support
 	 * @return driver from $drivers or NULL if no driver supports the type
 	 */
-	private function best_driver($drivers, $mimetype)
+	private static function best_driver($drivers, $mimetype)
 	{
 		$best = 0;
 		$best_driver = null;
@@ -111,6 +114,10 @@ class Image {
 				$best_driver = $driver;
 				$best = $current;
 			}
+		}
+
+		if ($best_driver === NULL) {
+			throw new \exceptions\PublicApiException("libraries/Image/unsupported-image-type", "Unsupported image type");
 		}
 
 		return $best_driver;
@@ -123,13 +130,7 @@ class Image {
 	public function read($file)
 	{
 		$mimetype = mimetype($file);
-
-		$driver = $this->best_driver($this->image_drivers, $mimetype);
-
-		if ($driver === NULL) {
-			throw new \exceptions\ApiException("libraries/Image/unsupported-image-type", "Unsupported image type");
-		}
-
+		$driver = self::best_driver(self::get_image_drivers(), $mimetype);
 		$this->driver = new $driver($file);
 	}
 
