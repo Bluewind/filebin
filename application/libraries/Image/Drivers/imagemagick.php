@@ -15,7 +15,15 @@ class imagemagick implements \libraries\Image\ImageDriver {
 
 	public static function get_priority($mimetype)
 	{
-		return 100;
+		$mimetype = $mimetype;
+		$base = explode("/", $mimetype)[0];
+
+		if ($base == "image"
+			|| in_array($mimetype, array("application/pdf"))) {
+			return 100;
+		}
+
+		return -1;
 	}
 
 	/**
