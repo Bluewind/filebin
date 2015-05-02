@@ -199,8 +199,7 @@ class File extends MY_Controller {
 					$base = explode("/", $filedata["mimetype"])[0];
 
 					// TODO: handle video/audio
-					if ($base == "image"
-							|| in_array($mimetype, array("application/pdf"))) {
+					if (\libraries\Image::type_supported($mimetype)) {
 						$filedata["tooltip"] = $this->_tooltip_for_image($filedata);
 						$filedata["orientation"] = libraries\Image::get_exif_orientation($file);
 						$this->output_cache->add_merge(

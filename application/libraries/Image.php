@@ -124,6 +124,25 @@ class Image {
 	}
 
 	/**
+	 * Check if a mimetype is supported by the image library.
+	 *
+	 * @param mimetype
+	 * @return true if supported, false otherwise
+	 */
+	public static function type_supported($mimetype)
+	{
+		try {
+			$driver = self::best_driver(self::get_image_drivers(), $mimetype);
+		} catch (\exceptions\ApiException $e) {
+			if ($e->get_error_id() == "libraries/Image/unsupported-image-type") {
+				return false;
+			}
+			throw $e;
+		}
+		return true;
+	}
+
+	/**
 	 * Replace the current image by reading in a file
 	 * @param file file to read
 	 */
