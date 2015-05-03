@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+
+if [[ -z "$GIT_DIR" ]]; then
+	GIT_DIR="$(dirname "$(realpath "$0")")/../.git"
+fi
+
+cd "$GIT_DIR/.."
+
+changes=$(git diff --name-only @{1})
+
+# Exit if nothing has changed
+[[ -z "$changes" ]] && exit
+
+# Update databse
+php index.php tools update_database
+
+# Minify javascript
+if echo "$changes" | grep data/js/ > /dev/null; then
+	scripts/optimize_js.sh
+fi
