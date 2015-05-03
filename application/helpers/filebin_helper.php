@@ -135,11 +135,10 @@ function link_with_mtime($file)
 	return $link;
 }
 
-function main_min_js_name()
+function js_cache_buster()
 {
-	$files = glob(FCPATH . 'data/js/main.min.*.js');
-	$filename = basename(empty($files) ? 'MAIN_NOT_MINIFIED' : end($files));
-	return str_replace('.js', '', $filename);
+	$minified_main = FCPATH.'/data/js/main.min.js';
+	return file_exists($minified_main) ? filemtime($minified_main) : time();
 }
 
 function handle_etag($etag)

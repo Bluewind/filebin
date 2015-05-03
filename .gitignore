@@ -19,4 +19,4 @@ application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
 
-data/js/main.min.*.js
+data/js/main.min.js

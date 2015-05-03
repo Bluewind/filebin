@@ -32,8 +32,9 @@ if (is_cli_client() && !isset($force_full_html)) {
 		window.appConfig = {};
 		require.config({
 			baseUrl: '/data/js',
+			urlArgs: '<?php echo js_cache_buster(); ?>',
 			paths: {
-				'main': ['<?php echo main_min_js_name(); ?>', 'main']
+				'main': ['main.min', 'main']
 			}
 		});
 		require(['main']);
