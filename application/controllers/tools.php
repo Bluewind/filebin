@@ -15,7 +15,7 @@ class Tools extends MY_Controller {
 
 		$this->load->model('mfile');
 		if (!$this->input->is_cli_request()) {
-			throw new \exceptions\ApiException("api/cli-only", "This can only be called via CLI");
+			throw new \exceptions\PublicApiException("api/cli-only", "This can only be called via CLI");
 		}
 	}
 
