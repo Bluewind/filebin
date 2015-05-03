@@ -18,3 +18,6 @@ php index.php tools update_database
 if echo "$changes" | grep data/js/ > /dev/null; then
 	scripts/optimize_js.sh
 fi
+
+# Show changes to NEWS
+git diff @{1} NEWS | cat
