@@ -1,5 +1,17 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+2015-05-05 JS code has been refactored a lot and can now also be minified
+2015-05-05 IMPORTANT:
+           Run `./scripts/install-git-hooks.sh` to set up automatic
+           updates after merges (git pull). Currently the hook updates the
+           database and minified js file if necessary.
+           Also run `./git-hooks/post-merge` manually once for the initial update.
+
+           Future updates will rely on you having done this and may not work
+           correctly if the hook is not executed.
+
+           The hook will also output change to this NEWS file for convenience.
+
 2015-04-09 Improve performance by caching more.  If you have not yet set
            cache_backend in config-local.php now is the time.  Look in
            config.php for details.
