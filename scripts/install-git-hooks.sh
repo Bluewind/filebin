@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 SCRIPTS_DIR=$(realpath $(dirname "$0"))
 HOOK_DIR=$(realpath "$SCRIPTS_DIR/../.git/hooks")
 HOOK_NAMES="applypatch-msg pre-applypatch post-applypatch pre-commit prepare-commit-msg commit-msg post-commit pre-rebase post-checkout post-merge pre-receive update post-receive post-update pre-auto-gc"

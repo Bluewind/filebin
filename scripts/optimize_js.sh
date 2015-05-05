@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/bash
 
 script_dir=$(dirname "$0")
 js_dir="$script_dir/../data/js"

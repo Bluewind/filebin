@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 if [ -x $0.local ]; then
     $0.local "$@" || exit $?
 fi
