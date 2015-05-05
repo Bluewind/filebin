@@ -1,6 +1,6 @@
 (function () {
 'use strict';
-define(['jquery', 'underscore'], function ($, _) {
+define(['jquery', 'underscore', 'jquery.colorbox'], function ($, _) {
 	var ui = {
 		thumbnailLinks: '.upload_thumbnails a',
 		deleteButton: '#delete_button',
@@ -21,7 +21,6 @@ define(['jquery', 'underscore'], function ($, _) {
 		},
 
 		setupColorbox: function () {
-			if (_.isUndefined($.colorbox)) { return; }
 			$(ui.colorbox).colorbox({
 				transistion: "none",
 				speed: 0,
@@ -42,7 +41,6 @@ define(['jquery', 'underscore'], function ($, _) {
 		},
 
 		removeColorbox: function () {
-			if (_.isUndefined($.colorbox)) { return; }
 			$.colorbox.remove();
 		},
 
