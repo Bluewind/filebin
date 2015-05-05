@@ -50,7 +50,7 @@ define(['jquery', 'underscore'], function ($, _) {
 
 		appendUploadInput: function (event) {
 			if (_.any($(ui.uploadInputs), this.hasNoFiles)) { return; }
-			$(event.target).parent().append($(event.target).clone(), $('<br>'));
+			$(event.target).parent().append($(event.target).clone().val(""), $('<br>'));
 		},
 
 		hasNoText: function (textArea) {
