@@ -45,7 +45,7 @@ define(['jquery', 'underscore', 'jquery.colorbox'], function ($, _) {
 		},
 
 		setupPopovers: function () {
-			$(thumbnailLinks).popover({
+			$(ui.thumbnailLinks).popover({
 				trigger: 'hover',
 				placement: 'bottom',
 				html: true
@@ -122,6 +122,7 @@ define(['jquery', 'underscore', 'jquery.colorbox'], function ($, _) {
 			PrivateFunctions.setupEvents();
 			PrivateFunctions.onResize();
 			PrivateFunctions.setupColorbox();
+			PrivateFunctions.setupPopovers();
 		}
 	};
 
