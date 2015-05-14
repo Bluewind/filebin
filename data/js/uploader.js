@@ -124,6 +124,7 @@ define(['jquery', 'underscore'], function ($, _) {
 	var Uploader = {
 		initialize: function () {
 			PrivateFunctions.setupEvents();
+			$(ui.textAreas).trigger("propertychange");
 		}
 	};
 
