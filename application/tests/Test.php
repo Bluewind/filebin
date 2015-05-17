@@ -43,6 +43,19 @@ abstract class Test {
 	// Source: http://stackoverflow.com/a/9802854/953022
 	protected function CallAPI($method, $url, $data = false)
 	{
+		$result = $this->SendHTTPRequest($method, $url, $data);
+
+		$json = json_decode($result, true);
+		if ($json === NULL) {
+			$this->t->fail("json decode");
+			$this->diagReply($result);
+		}
+
+		return $json;
+	}
+
+	protected function SendHTTPRequest($method, $url, $data = false)
+	{
 		$curl = curl_init();
 
 		switch ($method) {
@@ -70,14 +83,7 @@ abstract class Test {
 		$result = curl_exec($curl);
 
 		curl_close($curl);
-
-		$json = json_decode($result, true);
-		if ($json === NULL) {
-			$this->t->fail("json decode");
-			$this->diagReply($result);
-		}
-
-		return $json;
+		return $result;
 	}
 
 	protected function excpectStatus($testname, $reply, $status)

@@ -245,6 +245,25 @@ class test_api_v1 extends Test {
 		$this->t->ok(!empty($ret["data"]["urls"]), "got URLs");
 	}
 
+	public function test_upload_uploadFileSameMD5()
+	{
+		$apikey = $this->createUserAndApikey();
+		$ret = $this->CallEndpoint("POST", "file/upload", array(
+			"apikey" => $apikey,
+			"file[1]" => curl_file_create("data/tests/message1.bin"),
+			"file[2]" => curl_file_create("data/tests/message2.bin"),
+		));
+		$this->expectSuccess("upload file", $ret);
+
+		$this->t->ok(!empty($ret["data"]["ids"]), "got IDs");
+		$this->t->ok(!empty($ret["data"]["urls"]), "got URLs");
+
+		foreach ($ret["data"]["urls"] as $url) {
+			$data[] = $this->SendHTTPRequest("GET", $url, '');
+		}
+		$this->t->ok($data[0] !== $data[1], 'Returned file contents should differ');
+	}
+
 	public function test_upload_uploadNothing()
 	{
 		$apikey = $this->createUserAndApikey();
