@@ -20,3 +20,7 @@
 * Copy ./data/local/examples/contact-info.php to ./data/local/ and edit it
 
 * run `php index.php user add_user` to add your first user
+
+* run `./scripts/install-git-hooks.sh` to install githooks.
+  This will install hooks to run database migrations and optimize javascript
+  when necessary on every git pull
