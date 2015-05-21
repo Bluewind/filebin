@@ -30,10 +30,11 @@ class files {
 		$total_size = $CI->db->query("
 			SELECT coalesce(sum(filesize), 0) sum
 			FROM (
-				SELECT DISTINCT hash, filesize
+				SELECT DISTINCT `".$CI->db->dbprefix."file_storage`.id, filesize
 				FROM `".$CI->db->dbprefix."file_storage`
 				JOIN `".$CI->db->dbprefix."files` ON `".$CI->db->dbprefix."file_storage`.id = `".$CI->db->dbprefix."files`.file_storage_id
 				WHERE user = ?
+
 			) sub
 			", array($user))->row_array();
 
