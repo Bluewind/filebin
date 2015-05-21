@@ -43,14 +43,14 @@ class Tools extends MY_Controller {
 		}
 	}
 
-	function drop_all_tables_using_prefix()
+	function drop_all_tables()
 	{
 		$tables = $this->db->list_tables();
 		$prefix = $this->db->dbprefix;
 		$tables_to_drop = array();
 
 		foreach ($tables as $table) {
-			if (strpos($table, $prefix) === 0) {
+			if ($prefix === "" || strpos($table, $prefix) === 0) {
 				$tables_to_drop[] = $this->db->protect_identifiers($table);
 			}
 		}

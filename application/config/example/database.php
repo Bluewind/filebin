@@ -64,6 +64,13 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
+if (getenv("ENVIRONMENT") === "testsuite") {
+	// Change these to your likeing, just make sure they
+	// don't overlap with the normal settings.
+	$db['default']['database'] = "filebin_testsuite";
+	$db['default']['dbprefix'] = "testsuite-prefix-";
+}
+
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

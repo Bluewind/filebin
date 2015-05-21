@@ -2,56 +2,45 @@
 #
 # This runs the testsuite
 #
-# If you have a local webserver you can call this script with it's URL.
+
+export ENVIRONMENT="testsuite"
 
 startdir="$(dirname "$0")"
 url=""
-use_php_dev_server=0
+port=23115
+ip='127.0.0.1'
+url="http://$ip:$port/index.php"
 
-if (($#>0)); then
-	url="$1"
-fi
+die() {
+	echo "$@" >&2
+	echo "Aborting..." >&2
+	exit 1
+}
 
-
-if [[  -z "$url" ]]; then
-	port=23115
-	url="http://127.0.0.1:$port/index.php"
-	use_php_dev_server=1
-fi
 
 cd "$startdir"
 
-test -d system || exit 1
-test -d application || exit 1
-test -f run-tests.sh || exit 1
+# some sanity checks
+test -d system || die 'Required dir not found.'
+test -d application || die 'Required dir not found.'
+test -f run-tests.sh || die 'Required file not found.'
+grep -qF 'getenv("ENVIRONMENT")' application/config/database.php || die "database config doesn't honor ENVIRONMENT."
 
 # prepare
 trap cleanup EXIT INT
 cleanup() {
-	php index.php tools drop_all_tables_using_prefix
-	if ((use_php_dev_server)); then
-		kill $server_pid
-	fi
-	rm -f $startdir/application/config/database-testsuite.php
+	pkill -P $$
+	php index.php tools drop_all_tables
 }
 
-cat <<EOF >application/config/database-testsuite.php || exit 1
-<?php
-\$db['default']['dbprefix'] = "testsuite-prefix-";
-EOF
+php -S "$ip:$port" &
 
-if ((use_php_dev_server)); then
-	php -S 127.0.0.1:$port &
-	server_pid=$!
-
-	while ! curl -s "$url" >/dev/null; do
-		sleep 0.2;
-	done
-fi
-
+while ! curl -s "$url" >/dev/null; do
+	sleep 0.1;
+done
 
 #  run tests
-php index.php tools drop_all_tables_using_prefix
+php index.php tools drop_all_tables
 php index.php tools update_database
 prove --ext .php --state=hot,slow,all,save --timer -ve "php index.php tools test $url" -r application/test/tests/
 
