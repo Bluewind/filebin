@@ -1,5 +1,15 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+2015-05-21 Restructure file storage to prevent issues with different
+           files that have the same md5 hash. This also needs a new munin
+           plugin if used which can be found in ./extras/munin/.
+2015-05-21 Testsuite now supports running in parallel to normal operation
+           although doing that is not suggested on production systems.
+           This requires changes to ./application/config/database.php, look
+           at the example file if you use the testsuite. Also note that the
+           arguments accepted by ./run-tests.sh are now passed to prove and
+           testing against a local web server is no longer supported.
+
 2015-05-05 JS code has been refactored a lot and can now also be minified
 2015-05-05 IMPORTANT:
            Run `./scripts/install-git-hooks.sh` to set up automatic
