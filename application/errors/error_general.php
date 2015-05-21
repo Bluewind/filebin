@@ -38,6 +38,7 @@ if (class_exists("CI_Controller") && !isset($GLOBALS["is_error_page"])) {
 	foreach (explode("\n", $msg) as $line) {
 		echo "# $line\n";
 	}
+	exit(255);
 } else {
 	// default CI error page
 ?>

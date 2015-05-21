@@ -40,7 +40,7 @@ while ! curl -s "$url" >/dev/null; do
 done
 
 #  run tests
-php index.php tools drop_all_tables
-php index.php tools update_database
+php index.php tools drop_all_tables || exit 1
+php index.php tools update_database || exit 1
 prove --ext .php --state=hot,slow,all,save --timer -o -e "php index.php tools test $url" -r "$@" application/test/tests/
 
