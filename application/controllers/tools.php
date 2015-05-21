@@ -88,7 +88,7 @@ class Tools extends MY_Controller {
 					$test->{$method->name}();
 					$test->cleanup();
 				} catch (\Exception $e) {
-					echo "not ok - uncaught exception in $testcase->$method->name\n";
+					echo "not ok - uncaught exception in {$testcase}->{$method->name}\n";
 					_actual_exception_handler($e);
 					$exitcode = 255;
 				}
