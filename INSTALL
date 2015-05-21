@@ -8,8 +8,6 @@
 * Change them to fit your needs
   - don't change config.php, use config-local.php to override it when needed
 
-* run `php index.php tools update_database` to initialize your database
-
 * Copy htaccess.txt to .htaccess if you want shorter URLs
   (also set "$config['index_page'] = '';" in config-local.php)
 
@@ -24,3 +22,6 @@
 * run `./scripts/install-git-hooks.sh` to install githooks.
   This will install hooks to run database migrations and optimize javascript
   when necessary on every git pull
+
+* run `./git-hooks/post-merge` to trigger the hook manually once in order to
+  initialize your database and optimize javascript
