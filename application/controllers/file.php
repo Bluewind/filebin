@@ -1063,7 +1063,12 @@ class File extends MY_Controller {
 					continue;
 				}
 
-				list($hash, $storage_id) = explode("-", $file);
+				try {
+					list($hash, $storage_id) = explode("-", $file);
+				} catch (\ErrorException $e) {
+					unlink($upload_path."/".$dir."/".$file);
+					continue;
+				}
 
 				$query = $this->db->select('hash, id')
 					->from('file_storage')
@@ -1074,7 +1079,6 @@ class File extends MY_Controller {
 
 				if (empty($query)) {
 					$this->mfile->delete_data_id($file);
-					unlink($upload_path."/".$dir."/".$file);
 				} else {
 					$empty = false;
 				}
@@ -1082,7 +1086,7 @@ class File extends MY_Controller {
 
 			closedir($dh);
 
-			if ($empty) {
+			if ($empty && file_exists($upload_path."/".$dir)) {
 				rmdir($upload_path."/".$dir);
 			}
 		}
