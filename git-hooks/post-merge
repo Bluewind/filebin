@@ -6,10 +6,13 @@ fi
 
 cd "$GIT_DIR/.."
 
-changes=$(git diff --name-only @{1})
+changes=$(git diff --name-only @{1} 2> /dev/null)
+fresh_clone=$?
 
 # Exit if nothing has changed
-[[ -z "$changes" ]] && exit
+if [ ! $fresh_clone ] && [[ -z "$changes" ]]; then
+	exit
+fi
 
 # Update databse
 php index.php tools update_database
@@ -24,4 +27,4 @@ if [[ ! -f ./data/js/main.min.js ]]; then
 fi
 
 # Show changes to NEWS
-git diff @{1} NEWS | cat
+git diff @{1} NEWS 2> /dev/null | cat
