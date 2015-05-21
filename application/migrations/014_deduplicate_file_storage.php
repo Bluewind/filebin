@@ -51,7 +51,9 @@ class Migration_deduplicate_file_storage extends CI_Migration {
 					$old = $this->mfile->file($item["hash"]);
 					$data_id = $item["hash"].'-'.$item["id"];
 					$new = $this->mfile->file($data_id);
-					rename($old, $new);
+					if (file_exists($old)) {
+						rename($old, $new);
+					}
 				}
 			}
 
