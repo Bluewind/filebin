@@ -49,13 +49,9 @@ if ((use_php_dev_server)); then
 	done
 fi
 
-testpath="application/tests"
-tests=($testpath/test_*.php)
-tests=(${tests[@]#$testpath\/})
-tests=(${tests[@]%.php})
 
 #  run tests
 php index.php tools drop_all_tables_using_prefix
 php index.php tools update_database
-prove --state=hot,slow,save --timer -ve "php index.php tools test $url" "${tests[@]}"
+prove --ext .php --state=hot,slow,all,save --timer -ve "php index.php tools test $url" -r application/test/tests/
 

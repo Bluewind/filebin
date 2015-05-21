@@ -7,9 +7,9 @@
  *
  */
 
-namespace tests;
+namespace test\tests;
 
-class test_libraries_pygments extends Test {
+class test_libraries_pygments extends \test\Test {
 
 	public function __construct()
 	{

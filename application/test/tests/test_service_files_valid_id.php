@@ -7,9 +7,9 @@
  *
  */
 
-namespace tests;
+namespace test\tests;
 
-class test_service_files_valid_id extends Test {
+class test_service_files_valid_id extends \test\Test {
 	private $model;
 	private $filedata;
 	private $config;

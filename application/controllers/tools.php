@@ -70,8 +70,11 @@ class Tools extends MY_Controller {
 		$url = $argv[3];
 		$testcase = $argv[4];
 
-		$testclass = '\tests\\'.$testcase;
-		$test = new $testclass();
+		$testcase = str_replace("application/", "", $testcase);
+		$testcase = str_replace("/", "\\", $testcase);
+		$testcase = str_replace(".php", "", $testcase);
+
+		$test = new $testcase();
 		$test->setServer($url);
 
 		$exitcode = 0;

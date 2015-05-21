@@ -7,9 +7,9 @@
  *
  */
 
-namespace tests;
+namespace test\tests;
 
-class test_service_files extends Test {
+class test_service_files extends \test\Test {
 
 	public function __construct()
 	{

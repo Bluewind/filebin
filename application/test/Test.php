@@ -7,7 +7,7 @@
  *
  */
 
-namespace tests;
+namespace test;
 
 require_once APPPATH."/third_party/test-more-php/Test-More-OO.php";
 

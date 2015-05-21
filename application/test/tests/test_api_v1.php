@@ -7,9 +7,9 @@
  *
  */
 
-namespace tests;
+namespace test\tests;
 
-class test_api_v1 extends Test {
+class test_api_v1 extends \test\Test {
 
 	public function __construct()
 	{
