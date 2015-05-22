@@ -13,18 +13,18 @@ class Migration_actually_deduplicate_file_storage extends CI_Migration {
 		} else {
 			// XXX: This query also exists in migration 14
 			$this->db->query('
-				DELETE file_storage
-				FROM file_storage
-				LEFT OUTER JOIN files ON files.file_storage_id = file_storage.id
-				WHERE file_storage.id NOT IN (
+				DELETE `'.$prefix.'file_storage`
+				FROM `'.$prefix.'file_storage`
+				LEFT OUTER JOIN `'.$prefix.'files` ON `'.$prefix.'files`.file_storage_id = `'.$prefix.'file_storage`.id
+				WHERE `'.$prefix.'file_storage`.id NOT IN (
 					SELECT min(x.id)
 					FROM (
 						SELECT fs.id, fs.hash
-						FROM file_storage fs
+						FROM `'.$prefix.'file_storage` fs
 					) x
 					GROUP BY x.hash
 				)
-				AND files.id IS NULL
+				AND `'.$prefix.'files`.id IS NULL
 			');
 
 			$chunk = 500;
