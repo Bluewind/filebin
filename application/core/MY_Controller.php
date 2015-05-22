@@ -21,7 +21,7 @@ class MY_Controller extends CI_Controller {
 		$this->load->library('customautoloader');
 
 		// check if DB is up to date
-		if (!$this->input->is_cli_request()) {
+		if (!($this->input->is_cli_request() && $this->uri->segment(1) === "tools")) {
 			if (!$this->db->table_exists('migrations')){
 				throw new \exceptions\PublicApiException("general/db/not-initialized", "Database not initialized. Can't find migrations table. Please run the migration script. (php index.php tools update_database)");
 			} else {
