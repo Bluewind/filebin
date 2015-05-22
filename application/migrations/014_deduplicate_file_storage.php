@@ -38,6 +38,22 @@ class Migration_deduplicate_file_storage extends CI_Migration {
 				SET f.file_storage_id = fs.id
 			');
 
+			// XXX: This query also exists in migration 15
+			$this->db->query('
+				DELETE file_storage
+				FROM file_storage
+				LEFT OUTER JOIN files ON files.file_storage_id = file_storage.id
+				WHERE file_storage.id NOT IN (
+					SELECT min(x.id)
+					FROM (
+						SELECT fs.id, fs.hash
+						FROM file_storage fs
+					) x
+					GROUP BY x.hash
+				)
+				AND files.id IS NULL
+			');
+
 			$chunk = 500;
 			$total = $this->db->count_all("file_storage");
 
@@ -53,6 +69,8 @@ class Migration_deduplicate_file_storage extends CI_Migration {
 					$new = $this->mfile->file($data_id);
 					if (file_exists($old)) {
 						rename($old, $new);
+					} else {
+						echo "Warning: no file found for $data_id. Skipping...\n";
 					}
 				}
 			}
