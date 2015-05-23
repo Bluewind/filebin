@@ -23,7 +23,7 @@ class Pygments {
 	private static function get_pygments_info() {
 		return cache_function_full('pygments_info-v2', 1800, function() {
 			ob_start();
-			passthru("python ".escapeshellarg(FCPATH."scripts/get_lexer_list.py"));
+			passthru(escapeshellarg(FCPATH."scripts/get_lexer_list.py"));
 			$output = ob_get_clean();
 
 			return json_decode($output, true);

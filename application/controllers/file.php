@@ -305,7 +305,7 @@ class File extends MY_Controller {
 					echo '<div class="code content table markdownrender">'."\n";
 					echo '<div class="table-row">'."\n";
 					echo '<div class="table-cell">'."\n";
-					passthru('perl '.FCPATH.'scripts/Markdown.pl '.escapeshellarg($file), $return_value);
+					passthru(escapeshellarg(FCPATH.'scripts/Markdown.pl').' '.escapeshellarg($file), $return_value);
 					echo '</div></div></div>';
 
 					return array(
