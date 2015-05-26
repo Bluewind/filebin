@@ -45,13 +45,6 @@ class imagemagick implements \libraries\Image\ImageDriver {
 		$this->arguments = array();
 	}
 
-	private function passthru($arguments)
-	{
-		$command_string = implode(" ", array_map("escapeshellarg", $arguments));
-		passthru($command_string, $ret);
-		return $ret;
-	}
-
 	public function get($target_type = null)
 	{
 		if ($target_type === null) {
@@ -62,7 +55,6 @@ class imagemagick implements \libraries\Image\ImageDriver {
 		$command = array_merge($command, $this->arguments);
 		$command[] = $this->source_file."[0]";
 
-		ob_start();
 		switch ($target_type) {
 			case IMAGETYPE_GIF:
 				$command[] = "gif:-";
@@ -76,14 +68,14 @@ class imagemagick implements \libraries\Image\ImageDriver {
 			default:
 				assert(0);
 		}
-		$ret = $this->passthru($command);
-		$result = ob_get_clean();
 
-		if ($ret != 0 || $result === false) {
+		try {
+			$ret = (new \libraries\ProcRunner($command))->execSafe();
+		} catch (\exceptions\ApiException $e) {
 			throw new \exceptions\ApiException("libraries/Image/thumbnail-creation-failed", "Failed to create thumbnail");
 		}
 
-		return $result;
+		return $ret["stdout"];
 	}
 
 	public function resize($width, $height)

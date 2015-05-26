@@ -130,7 +130,7 @@ class File extends MY_Controller {
 			handle_etag($etag);
 			header("Content-disposition: inline; filename=\"".$id."_qr.png\"\n");
 			header("Content-Type: image/png\n");
-			passthru('qrencode -s 10 -o - '.escapeshellarg(site_url($id).'/'));
+			echo (new \libraries\ProcRunner(array('qrencode', '-s', '10', '-o', '-', site_url($id).'/')))->execSafe()['stdout'];
 			exit();
 
 		case "info":
@@ -235,28 +235,31 @@ class File extends MY_Controller {
 
 	private function _colorify($file, $lexer, $anchor_id = false)
 	{
-		$return_value = 0;
 		$output = "";
 		$lines_to_remove = 0;
 
 		$output .= '<div class="code content table">'."\n";
 		$output .= '<div class="highlight"><pre>'."\n";
 
-		ob_start();
 		if ($lexer == "ascii") {
-			passthru('ansi2html -p < '.escapeshellarg($file), $return_value);
+			// TODO: use exec safe and catch exception
+			$ret = (new \libraries\ProcRunner(array('ansi2html', '-p')))
+				->input(file_get_contents($file))
+				->forbid_stderr()
+				->exec();
 			// Last line is empty
 			$lines_to_remove = 1;
 		} else {
-			passthru('pygmentize -F codetagify -O encoding=guess,outencoding=utf8,stripnl=False -l '.escapeshellarg($lexer).' -f html '.escapeshellarg($file), $return_value);
+			// TODO: use exec safe and catch exception
+			$ret = (new \libraries\ProcRunner(array('pygmentize', '-F', 'codetagify', '-O', 'encoding=guess,outencoding=utf8,stripnl=False', '-l', $lexer, '-f', 'html', $file)))
+				->forbid_stderr()
+				->exec();
 			// Last 2 items are "</pre></div>" and ""
 			$lines_to_remove = 2;
 		}
-		$buf = ob_get_contents();
-		ob_end_clean();
 
 
-		$buf = explode("\n", $buf);
+		$buf = explode("\n", $ret["stdout"]);
 		$line_count = count($buf);
 
 		for ($i = 1; $i <= $lines_to_remove; $i++) {
@@ -287,7 +290,7 @@ class File extends MY_Controller {
 		$output .= "</div>";
 
 		return array(
-			"return_value" => $return_value,
+			"return_value" => $ret["return_code"],
 			"output" => $output
 		);
 	}
@@ -305,12 +308,14 @@ class File extends MY_Controller {
 					echo '<div class="code content table markdownrender">'."\n";
 					echo '<div class="table-row">'."\n";
 					echo '<div class="table-cell">'."\n";
-					passthru(escapeshellarg(FCPATH.'scripts/Markdown.pl').' '.escapeshellarg($file), $return_value);
+					// TODO: use exec safe and catch exception
+					$r = (new \libraries\ProcRunner(array(FCPATH.'scripts/Markdown.pl', $file)))->forbid_stderr()->exec();
+					echo $r['stdout'];
 					echo '</div></div></div>';
 
 					return array(
 						"output" => ob_get_clean(),
-						"return_value" => $return_value,
+						"return_value" => $r["return_code"],
 					);
 				} else {
 					return get_instance()->_colorify($file, $lexer, $is_multipaste ? $filedata["id"] : false);

@@ -22,11 +22,14 @@ class Pygments {
 
 	private static function get_pygments_info() {
 		return cache_function_full('pygments_info-v2', 1800, function() {
-			ob_start();
-			passthru(escapeshellarg(FCPATH."scripts/get_lexer_list.py"));
-			$output = ob_get_clean();
+			$r = (new \libraries\ProcRunner(array(FCPATH."scripts/get_lexer_list.py")))->execSafe();
 
-			return json_decode($output, true);
+			$ret = json_decode($r["stdout"], true);
+			if ($ret === NULL) {
+				throw new \exceptions\ApiException('pygments/json-failed', "Failed to decode JSON", $r);
+			}
+
+			return $ret;
 		});
 	}
 
