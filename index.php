@@ -249,17 +249,28 @@ function getExceptionTraceAsString($exception) {
 	return $rtn;
 }
 
-function _log_exception($e)
+function _log_exception($ex)
 {
-	$backtrace = getExceptionTraceAsString($e);
-	$log_heading = sprintf("Exception '%s' with message '%s' in %s:%d", get_class($e), $e->getMessage(), $e->getFile(), $e->getLine());
-	error_log($log_heading."\n".$backtrace);
+	$exceptions = array($ex);
+	while ($ex->getPrevious() !== null) {
+		$ex = $ex->getPrevious();
+		$exceptions[] = $ex;
+	}
+
+	foreach ($exceptions as $key => $e) {
+		$message = sprintf("Exception %d/%d '%s' with message '%s' in %s:%d\n", $key+1, count($exceptions), get_class($e), $e->getMessage(), $e->getFile(), $e->getLine());
+		if (method_exists($e, "get_data") && $e->get_data() !== NULL) {
+			$message .= 'Data: '.var_export($e->get_data(), true)."\n";
+		}
+		$message .= "Backtrace:\n".getExceptionTraceAsString($e)."\n";
+		error_log($message);
+	}
 }
 
 // The actual exception handler
-function _actual_exception_handler($e)
+function _actual_exception_handler($ex)
 {
-	_log_exception($e);
+	_log_exception($ex);
 
 	$display_errors = in_array(strtolower(ini_get('display_errors')), array('1', 'on', 'true', 'stdout'));
 
@@ -268,13 +279,25 @@ function _actual_exception_handler($e)
 	$message = "<p>An unhandled error occured.</p>\n";
 
 	if ($display_errors) {
-		$backtrace = getExceptionTraceAsString($e);
-		$message .= '<div>';
-		$message .= '<b>Fatal error</b>:  Uncaught exception '.get_class($e).'<br>';
-		$message .= '<b>Message</b>: '.$e->getMessage().'<br>';
-		$message .= '<pre>'.(str_replace(FCPATH, "./", $backtrace)).'</pre>';
-		$message .= 'thrown in <b>'.$e->getFile().'</b> on line <b>'.$e->getLine().'</b><br>';
-		$message .= '</div>';
+		$exceptions = array($ex);
+		while ($ex->getPrevious() !== null) {
+			$ex = $ex->getPrevious();
+			$exceptions[] = $ex;
+		}
+
+		foreach ($exceptions as $key => $e) {
+			$backtrace = getExceptionTraceAsString($e);
+			$message .= '<div>';
+			$message .= '<b>Exception '.($key+1).' of '.count($exceptions).'</b><br>';
+			$message .= '<b>Fatal error</b>:  Uncaught exception '.htmlspecialchars(get_class($e)).'<br>';
+			$message .= '<b>Message</b>: '.htmlspecialchars($e->getMessage()).'<br>';
+			if (method_exists($e, "get_data") && $e->get_data() !== NULL) {
+				$message .= '<b>Data</b>: <pre>'.htmlspecialchars(var_export($e->get_data(), true)).'</pre><br>';
+			}
+			$message .= '<b>Backtrace:</b> <pre>'.htmlspecialchars(str_replace(FCPATH, "./", $backtrace)).'</pre>';
+			$message .= 'thrown in <b>'.htmlspecialchars($e->getFile()).'</b> on line <b>'.htmlspecialchars($e->getLine()).'</b><br>';
+			$message .= '</div>';
+		}
 	} else {
 		$message .="<p>More information can be found in the php error log or by enabling display_errors.</p>";
 	}
