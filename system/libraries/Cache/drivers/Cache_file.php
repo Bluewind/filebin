@@ -107,7 +107,11 @@ class CI_Cache_file extends CI_Driver {
 	 */
 	public function delete($id)
 	{
-		return unlink($this->_cache_path.$id);
+		try {
+			return unlink($this->_cache_path.$id);
+		} catch (\ErrorException $e) {
+			return false;
+		}
 	}
 
 	// ------------------------------------------------------------------------
