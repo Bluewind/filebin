@@ -10,9 +10,9 @@ class ApiException extends \Exception {
 	private $error_id;
 	private $data;
 
-	public function __construct($error_id, $message, $data = null)
+	public function __construct($error_id, $message, $data = null, $previous = null)
 	{
-		parent::__construct($message);
+		parent::__construct($message, 0, $previous);
 
 		$this->error_id = $error_id;
 		$this->data = $data;
