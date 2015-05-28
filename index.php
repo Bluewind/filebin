@@ -273,6 +273,9 @@ function _actual_exception_handler($ex)
 	_log_exception($ex);
 
 	$display_errors = in_array(strtolower(ini_get('display_errors')), array('1', 'on', 'true', 'stdout'));
+	if (php_sapi_name() === 'cli' OR defined('STDIN')) {
+		$display_errors = true;
+	}
 
 	$GLOBALS["is_error_page"] = true;
 	$heading = "Internal Server Error";
