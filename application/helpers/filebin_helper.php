@@ -137,8 +137,26 @@ function link_with_mtime($file)
 
 function js_cache_buster()
 {
-	$minified_main = FCPATH.'/data/js/main.min.js';
-	return file_exists($minified_main) ? filemtime($minified_main) : time();
+	$jsdir = FCPATH.'/data/js';
+	$minified_main = $jsdir.'/main.min.js';
+	if (file_exists($minified_main)) {
+		return filemtime($minified_main);
+	}
+
+	$ret = 0;
+
+	$it = new RecursiveIteratorIterator(
+		new RecursiveDirectoryIterator($jsdir), RecursiveIteratorIterator::SELF_FIRST);
+
+	foreach ($it as $file) {
+		$mtime = $file->getMTime();
+		if ($file->isFile()) {
+			if ($mtime > $ret) {
+				$ret = $mtime;
+			}
+		}
+	}
+	return $ret;
 }
 
 function handle_etag($etag)
