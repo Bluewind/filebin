@@ -303,7 +303,8 @@ function _actual_exception_handler($ex)
 			if (method_exists($e, "get_data") && $e->get_data() !== NULL) {
 				$message .= '<b>Data</b>: <pre>'.htmlspecialchars(var_export($e->get_data(), true)).'</pre><br>';
 			}
-			$message .= '<b>Backtrace:</b> <pre>'.htmlspecialchars(str_replace(FCPATH, "./", $backtrace)).'</pre>';
+			$message .= '<b>Backtrace:</b><br>';
+			$message .= '<pre>'.htmlspecialchars(str_replace(FCPATH, "./", $backtrace)).'</pre>';
 			$message .= 'thrown in <b>'.htmlspecialchars($e->getFile()).'</b> on line <b>'.htmlspecialchars($e->getLine()).'</b><br>';
 			$message .= '</div>';
 		}
