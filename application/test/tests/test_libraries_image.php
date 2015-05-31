@@ -34,5 +34,35 @@ class test_libraries_image extends \test\Test {
 		$this->t->is(\libraries\Image::type_supported('text/plain'), false, 'text/plain should not be supported');
 	}
 
+	public function test_makeThumb_PNG()
+	{
+		$img = new \libraries\Image(FCPATH."/data/tests/black_white.png");
+		$img->makeThumb(150, 150);
+		$thumb = $img->get(IMAGETYPE_PNG);
+
+		$this->t->ok($thumb !== "", "Got thumbnail");
+	}
+
+	public function test_makeThumb_PDF()
+	{
+		$img = new \libraries\Image(FCPATH."/data/tests/simple.pdf");
+		$img->makeThumb(150, 150);
+		$thumb = $img->get(IMAGETYPE_JPEG);
+
+		$this->t->ok($thumb !== "", "Got thumbnail");
+	}
+
+	public function test_makeThumb_binaryFile()
+	{
+		try {
+			$img = new \libraries\Image(FCPATH."/data/tests/message1.bin");
+		} catch (\exceptions\PublicApiException $e) {
+			$correct_error = $e->get_error_id() == "libraries/Image/unsupported-image-type";
+			$this->t->ok($correct_error, "Should get exception");
+			if (!$correct_error) {
+				throw $e;
+			}
+		}
+	}
 }
 
