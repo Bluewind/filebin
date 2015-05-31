@@ -259,6 +259,9 @@ function _log_exception($ex)
 
 	foreach ($exceptions as $key => $e) {
 		$message = sprintf("Exception %d/%d '%s' with message '%s' in %s:%d\n", $key+1, count($exceptions), get_class($e), $e->getMessage(), $e->getFile(), $e->getLine());
+		if (method_exists($e, "get_error_id")) {
+			$message .= 'Error ID: '.$e->get_error_id()."\n";
+		}
 		if (method_exists($e, "get_data") && $e->get_data() !== NULL) {
 			$message .= 'Data: '.var_export($e->get_data(), true)."\n";
 		}
@@ -294,6 +297,9 @@ function _actual_exception_handler($ex)
 			$message .= '<b>Exception '.($key+1).' of '.count($exceptions).'</b><br>';
 			$message .= '<b>Fatal error</b>:  Uncaught exception '.htmlspecialchars(get_class($e)).'<br>';
 			$message .= '<b>Message</b>: '.htmlspecialchars($e->getMessage()).'<br>';
+			if (method_exists($e, "get_error_id")) {
+				$message .= '<b>Error ID</b>: '.htmlspecialchars($e->get_error_id()).'<br>';
+			}
 			if (method_exists($e, "get_data") && $e->get_data() !== NULL) {
 				$message .= '<b>Data</b>: <pre>'.htmlspecialchars(var_export($e->get_data(), true)).'</pre><br>';
 			}
