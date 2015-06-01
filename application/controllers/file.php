@@ -252,7 +252,6 @@ class File extends MY_Controller {
 		} else {
 			// TODO: use exec safe and catch exception
 			$ret = (new \libraries\ProcRunner(array('pygmentize', '-F', 'codetagify', '-O', 'encoding=guess,outencoding=utf8,stripnl=False', '-l', $lexer, '-f', 'html', $file)))
-				->forbid_stderr()
 				->exec();
 			// Last 2 items are "</pre></div>" and ""
 			$lines_to_remove = 2;
