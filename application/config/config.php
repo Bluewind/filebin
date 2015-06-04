@@ -464,8 +464,8 @@ $config['download_driver'] = 'php';
 
 $config['download_nginx_location'] = '/protected-uploads';
 
-if (file_exists(FCPATH.'application/config/config-local.php')) {
-	include FCPATH.'application/config/config-local.php';
+if (file_exists(APPPATH.'config/config-local.php')) {
+	include APPPATH.'config/config-local.php';
 }
 
 /* End of file config.php */

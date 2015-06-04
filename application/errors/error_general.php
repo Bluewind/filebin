@@ -22,7 +22,7 @@ if (class_exists("CI_Controller") && !isset($GLOBALS["is_error_page"])) {
 		exit();
 	}
 
-	include 'application/views/header.php';
+	include APPPATH.'views/header.php';
 
 	?>
 		<div class="error">
@@ -31,7 +31,7 @@ if (class_exists("CI_Controller") && !isset($GLOBALS["is_error_page"])) {
 		</div>
 
 	<?php
-	include 'application/views/footer.php';
+	include APPPATH.'views/footer.php';
 } elseif (php_sapi_name() === 'cli' OR defined('STDIN')) {
 	echo "# $heading\n";
 	$msg = strip_tags(str_replace("<br>", "\n", $message));
