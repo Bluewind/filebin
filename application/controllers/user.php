@@ -401,8 +401,6 @@ class User extends MY_Controller {
 			break;
 		}
 
-		$this->db->where('key', $key)
-			->delete('actions');
 		$this->data["alerts"] = $alerts;
 
 		return $this->profile();
