@@ -16,6 +16,7 @@ class Duser_db extends Duser_Driver {
 	public $optional_functions = array(
 		'can_reset_password',
 		'can_register_new_users',
+		'can_change_email',
 	);
 
 	public function login($username, $password)

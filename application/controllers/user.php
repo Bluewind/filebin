@@ -358,6 +358,56 @@ class User extends MY_Controller {
 		$this->load->view('footer', $this->data);
 	}
 
+	public function change_email()
+	{
+		$this->duser->require_implemented("can_change_email");
+		$key = $this->uri->segment(3);
+		$action = $this->uri->segment(4);
+
+		$alerts = array();
+
+		$query = $this->muser->get_action("change_email", $key);
+
+		$userid = $query["user"];
+		$data = json_decode($query['data'], true);
+
+		switch ($action) {
+		case 'confirm':
+			$this->db->where('id', $userid)
+				->update('users', array(
+					"email" => $data['new_email'],
+				));
+			$alerts[] = array(
+				"type" => "success",
+				"message" => "Your email address has been updated",
+			);
+			break;
+		case 'reject':
+			$this->db->where('id', $userid)
+				->update('users', array(
+					"email" => $data['old_email'],
+				));
+			foreach ($data['keys'] as $k) {
+				$this->db->where('key', $k)
+					->delete('actions');
+			}
+			$alerts[] = array(
+				"type" => "success",
+				"message" => "Your email change request has been canceled and/or your old email address has been restored",
+			);
+			break;
+		default:
+			assert(false);
+			break;
+		}
+
+		$this->db->where('key', $key)
+			->delete('actions');
+		$this->data["alerts"] = $alerts;
+
+		return $this->profile();
+	}
+
 	function profile()
 	{
 		$this->muser->require_access();
@@ -377,12 +427,15 @@ class User extends MY_Controller {
 	{
 		$this->muser->require_access();
 
+		$old = $this->muser->get_profile_data();
+
 		/*
 		 * Key = name of the form field
 		 * Value = function that sanatizes the value and returns it
 		 * TODO: some kind of error handling that doesn't loose correctly filled out fields
 		 */
 		$value_processor = array();
+		$alerts = array();
 
 		$value_processor["upload_id_limits"] = function($value) {
 			$values = explode("-", $value);
@@ -405,12 +458,88 @@ class User extends MY_Controller {
 			return $lower."-".$upper;
 		};
 
+		$value_processor["email"] = function($value) use ($old, &$alerts) {
+			if (!$this->duser->is_implemented("can_change_email")) {
+				return null;
+			}
+
+			if ($value === $old["email"]) {
+				return null;
+			}
+
+			$this->load->helper("email");
+			if (!valid_email($value)) {
+				throw new \exceptions\PublicApiException("user/profile/invalid-email", "Invalid email");
+			}
+
+			$this->load->library("email");
+			$keys = array(
+				"old" => random_alphanum(12,16),
+				"new" => random_alphanum(12,16),
+			);
+			$emails = array(
+				array(
+					"key" => $keys['old'],
+					"email" => $old['email'],
+					"user" => $this->muser->get_userid(),
+				),
+				array(
+					"key" => $keys['new'],
+					"email" => $value,
+					"user" => $this->muser->get_userid(),
+				),
+			);
+
+			foreach ($emails as $email) {
+				$key = $email['key'];
+
+				$this->db->set(array(
+						'key'    => $key,
+						'user'   => $this->muser->get_userid(),
+						'date'   => time(),
+						'action' => 'change_email',
+						'data'   => json_encode(array(
+							'old_email' => $old['email'],
+							'new_email' => $value,
+							'keys' => $keys,
+						)),
+					))
+					->insert('actions');
+
+				$this->email->from($this->config->item("email_from"));
+				$this->email->to($email['email']);
+				$this->email->subject("FileBin email change confirmation");
+				$this->email->message(""
+					."A request has been sent to change the email address of account '${old["username"]}'\n"
+					."from ".$old['email']." to $value.\n"
+					."\n"
+					."Please follow this link to CONFIRM the change:\n"
+					.site_url("user/change_email/$key/confirm")."\n\n"
+					."Please follow this link to REJECT the change:\n"
+					.site_url("user/change_email/$key/reject")."\n\n"
+					);
+				$this->email->send();
+				$this->email->clear();
+			}
+
+			$alerts[] = array(
+				"type" => "info",
+				"message" => "Reset and confirmation emails have been sent to your new and old address. Until your new address is confirmed the old one will be displayed and used.",
+			);
+
+			return null;
+		};
+
+
 		$data = array();
 		foreach (array_keys($value_processor) as $field) {
 			$value = $this->input->post($field);
 
 			if ($value !== false) {
-				$data[$field] = $value_processor[$field]($value);
+				$new_value = $value_processor[$field]($value);
+				if ($new_value !== null) {
+					$data[$field] = $new_value;
+				}
 			}
 		}
 
@@ -418,10 +547,11 @@ class User extends MY_Controller {
 			$this->muser->update_profile($data);
 		}
 
-		$this->data["alerts"][] = array(
+		$alerts[] = array(
 			"type" => "success",
 			"message" => "Changes saved",
 		);
+		$this->data["alerts"] = $alerts;
 
 		return true;
 	}

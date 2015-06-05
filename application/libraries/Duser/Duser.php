@@ -14,6 +14,7 @@ abstract class Duser_Driver extends CI_Driver {
 	// Possible values are:
 	//  - can_register_new_users (only supported with the DB driver!)
 	//  - can_reset_password (only supported with the DB driver!)
+	//  - can_change_email (only supported with the DB driver!)
 	public $optional_functions = array();
 
 	/*

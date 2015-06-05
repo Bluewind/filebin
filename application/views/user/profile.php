@@ -14,7 +14,7 @@
 	<div class="form-group col-lg-8 col-md-10">
 		<label class="control-label col-lg-2 col-md-2" for="inputEmail">Email</label>
 		<div class="col-lg-5 col-md-5">
-			<input type="text" id="inputEmail" name="email" placeholder="Email" disabled="disabled" value="<?php echo $profile_data["email"]; ?>" class="form-control">
+			<input type="text" id="inputEmail" name="email" placeholder="Email" <?php if(!auth_driver_function_implemented("can_change_email")) { ?>disabled="disabled" <?php } ?>value="<?php echo $profile_data["email"]; ?>" class="form-control">
 		</div>
 	</div>
 </div>
