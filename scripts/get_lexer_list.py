@@ -6,7 +6,7 @@ import json
 ret = []
 
 def dictify(list):
-    return {k:True for k in list}
+    return dict([(k, True) for k in list])
 
 for fullname, names, exts, mimetypes in pygments.lexers.get_all_lexers():
     ret.append({
