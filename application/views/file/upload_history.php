@@ -1,6 +1,6 @@
 <?php include 'nav_history.php'; ?>
 <?php echo form_open("file/do_delete") ?>
-    <div class="table-responsive">
+    <div class="table-responsive" data-toggle="checkboxes" data-range="true">
         <table id="upload_history" class="table table-striped tablesorter {sortlist: [[4,1]]}">
             <thead>
                 <tr>
