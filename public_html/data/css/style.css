@@ -59,7 +59,17 @@
 }
 
 .nav-history {
+	height: 63px;
+}
+
+.nav-history .container {
+	padding-top: 20px;
 	margin-bottom: 1em;
+	position: fixed;
+	background: #fff;
+	left: 0;
+	right: 0;
+	margin-top: -19px;
 }
 
 .navbar-paste {
@@ -87,6 +97,12 @@
 @media (max-width: 767px) {
 	.navbar-fixed-top {
 		position: relative;
+	}
+	.nav-history .container {
+		position: relative;
+	}
+	.nav-history {
+		height: auto;
 	}
 }
 

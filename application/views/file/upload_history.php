@@ -1,5 +1,10 @@
-<?php include 'nav_history.php'; ?>
 <?php echo form_open("file/do_delete") ?>
+	<div class="nav-history">
+		<div class="container">
+			<input class="btn btn-danger pull-right" type="submit" value="Delete checked" name="process">
+		<?php include 'nav_history.php'; ?>
+		</div>
+	</div>
     <div class="table-responsive">
         <table id="upload_history" class="table table-striped tablesorter {sortlist: [[4,1]]}">
             <thead>
