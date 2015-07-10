@@ -31,7 +31,7 @@ if (is_cli_client() && !isset($force_full_html)) {
 		/* <![CDATA[ */
 		window.appConfig = {};
 		require.config({
-			baseUrl: '/data/js',
+			baseUrl: '<?php echo base_url('/data/js'); ?>',
 			urlArgs: '<?php echo js_cache_buster(); ?>',
 			paths: {
 				'main': ['main.min', 'main']
