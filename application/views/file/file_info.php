@@ -26,6 +26,10 @@
 					<td class="title">Mimetype</td>
 					<td class="text"><?php echo $filedata["mimetype"]; ?></td>
 				</tr>
+				<tr>
+					<td class="title">Hash (MD5)</td>
+					<td class="text"><?php echo $filedata["hash"]; ?></td>
+				</tr>
 			</table>
 		</div>
 	<?php endif; ?>
