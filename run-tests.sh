@@ -33,7 +33,7 @@ cleanup() {
 	php index.php tools drop_all_tables
 }
 
-php -S "$ip:$port" 2>/dev/null 1>&2 &
+php -S "$ip:$port" -t public_html 2>/dev/null 1>&2 &
 
 while ! curl -s "$url" >/dev/null; do
 	sleep 0.1;
