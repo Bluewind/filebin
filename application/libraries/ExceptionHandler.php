@@ -130,7 +130,7 @@ class ExceptionHandler {
 		}
 
 		$message = "$message";
-		include FCPATH.APPPATH."/errors/error_general.php";
+		include APPPATH."/errors/error_general.php";
 	}
 
 	/**
