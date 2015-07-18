@@ -1,5 +1,11 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+2015-07-18 Public files moved to public_html. Old setups will continue to work
+           though it is encouraged to change the document root of the web server
+           to ./public_html.
+2015-07-18 Users can now change their account's email address if the `db` user
+           backend is used.
+
 2015-05-21 Restructure file storage to prevent issues with different
            files that have the same md5 hash. This also needs a new munin
            plugin if used which can be found in ./extras/munin/.
