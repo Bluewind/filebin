@@ -141,6 +141,11 @@ class File extends MY_Controller {
 				return $this->_tarball($id);
 			}
 
+		case "pls":
+			if ($is_multipaste) {
+				return $this->_generate_playlist($id);
+			}
+
 		default:
 			if ($is_multipaste) {
 				throw new \exceptions\UserInputException("file/download/invalid-action", "Invalid action \"".htmlspecialchars($lexer)."\"");
@@ -466,6 +471,32 @@ class File extends MY_Controller {
 			$this->load->driver("ddownload");
 			$this->ddownload->serveFile($archive->get_file(), "$id.tar.gz", "application/x-gzip");
 		}
+	}
+
+	/**
+	 * Generate a PLS v2 playlist
+	 */
+	private function _generate_playlist($id)
+	{
+		$files = $this->mmultipaste->get_files($id);
+		$counter = 1;
+
+		$playlist = "[playlist]\n";
+		foreach ($files as $file) {
+			// only add audio/video files
+			$base = explode("/", $file['mimetype'])[0];
+			if (!($base === "audio" || $base === "video")) {
+				continue;
+			}
+
+			$url = site_url($file["id"]);
+			$playlist .= sprintf("File%d=%s\n", $counter++, $url);
+		}
+		$playlist .= sprintf("NumberOfEntries=%d\n", $counter - 1);
+		$playlist .= "Version=2\n";
+
+		$this->output->set_content_type('audio/x-scpls');
+		$this->output->set_output($playlist);
 	}
 
 	function _non_existent()
