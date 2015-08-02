@@ -6,7 +6,8 @@ requirejs.config({
 		'bootstrap': ['jquery'],
 		'jquery.tablesorter': ['jquery'],
 		'jquery.lazyload': ['jquery'],
-		'jquery.colorbox': ['jquery']
+		'jquery.colorbox': ['jquery'],
+		'jquery.checkboxes': ['jquery']
 	},
 	paths: {
 		'jquery': 'vendor/jquery-2.0.3.min',
@@ -15,6 +16,7 @@ requirejs.config({
 		'jquery.tablesorter': 'vendor/jquery.tablesorter.min',
 		'jquery.lazyload': 'vendor/jquery.lazyload',
 		'jquery.colorbox': 'vendor/jquery.colorbox',
+		'jquery.checkboxes': 'vendor/jquery.checkboxes-1.0.6.min',
 		'underscore': 'vendor/underscore'
 	}
 });
