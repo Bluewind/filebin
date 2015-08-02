@@ -202,6 +202,11 @@ if (false && defined('ENVIRONMENT'))
 require APPPATH.'libraries/ExceptionHandler.php';
 \libraries\ExceptionHandler::setup();
 
+// wrapper for CI so that it calls our handler rather than it's own
+function _exception_handler($severity, $message, $filepath, $line) {
+	return \libraries\ExceptionHandler::error_handler($severity, $message, $filepath, $line);
+}
+
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
