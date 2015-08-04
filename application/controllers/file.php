@@ -203,7 +203,6 @@ class File extends MY_Controller {
 					$mimetype = $filedata["mimetype"];
 					$base = explode("/", $filedata["mimetype"])[0];
 
-					// TODO: handle video/audio
 					if (\libraries\Image::type_supported($mimetype)) {
 						$filedata["tooltip"] = $this->_tooltip_for_image($filedata);
 						$filedata["orientation"] = libraries\Image::get_exif_orientation($file);
@@ -211,6 +210,10 @@ class File extends MY_Controller {
 							array("items" => array($filedata)),
 							'file/fragments/thumbnail'
 						);
+					} else if ($base == "audio") {
+						$this->output_cache->add(array("filedata" => $filedata), "file/fragments/audio-player");
+					} else if ($base == "video") {
+						$this->output_cache->add(array("filedata" => $filedata), "file/fragments/video-player");
 					} else {
 						$this->output_cache->add_merge(
 							array("items" => array($filedata)),

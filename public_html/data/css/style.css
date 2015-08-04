@@ -330,6 +330,10 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 input[type="number"] { 	-moz-appearance: textfield; }
 
+video {
+	max-width: 100%;
+}
+
 /* highlighting theme */
 .hll { background-color: #ffffcc }
 .c { color: #999988; font-style: italic } /* Comment */
