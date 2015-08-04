@@ -20,7 +20,7 @@ class Migration_Repurpose_invitations extends CI_Migration {
 			');
 
 			$this->db->query('
-				ALTER TABLE "'.$prefix.'invitations" RENAME TO "actions";
+				ALTER TABLE "'.$prefix.'invitations" RENAME TO '.$prefix.'actions;
 			');
 
 		} else {
