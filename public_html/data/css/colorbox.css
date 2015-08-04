@@ -29,7 +29,7 @@
 		.cboxPhoto{float:left !important; background: #fff;}
 		#cboxLoadingGraphic{background:url(/data/img/colorbox/loading.gif) no-repeat center center;}
 		#cboxLoadingOverlay{background:#000;}
-		#cboxTitle{position:absolute; top:-22px; left:0; color:#000;}
+		#cboxTitle{position:fixed; top:0; right:66px; color:#fff;}
 		#cboxCurrent{position:absolute; top:-22px; right:205px; text-indent:-9999px; display: none;}
 
 		/* these elements are buttons, and may need to have additional styles reset to avoid unwanted base styles */
@@ -42,8 +42,8 @@
 			overflow:visible;
 			width:20px;
 			height:20px;
-			position:absolute;
-			top:-20px;
+			position:fixed;
+			top:0;
 			background: transparent;
 			color: #fff;
 		}

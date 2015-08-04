@@ -526,10 +526,10 @@
 						publicMethod.close();
 					}
 					if (open && settings.get('arrowKey') && $related[1] && !e.altKey) {
-						if (key === 37) {
+						if (key === 37 || key == 72) {
 							e.preventDefault();
 							$prev.click();
-						} else if (key === 39) {
+						} else if (key === 39 || key === 76) {
 							e.preventDefault();
 							$next.click();
 						}
