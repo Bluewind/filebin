@@ -62,7 +62,7 @@ class CI_Cache_file extends CI_Driver {
 
 		if (time() >  $data['time'] + $data['ttl'])
 		{
-			unlink($this->_cache_path.$id);
+			$this->delete($id);
 			return FALSE;
 		}
 
