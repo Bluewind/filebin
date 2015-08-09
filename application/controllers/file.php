@@ -641,6 +641,7 @@ class File extends MY_Controller {
 		handle_etag($etag);
 
 		$thumb_size = 150;
+		$cache_timeout = 60*60*24*30; # 1 month
 
 		$filedata = $this->mfile->get_filedata($id);
 		if (!$filedata) {
@@ -649,7 +650,7 @@ class File extends MY_Controller {
 
 		$cache_key = $filedata['data_id'].'_thumb_'.$thumb_size;
 
-		$thumb = cache_function($cache_key, 100, function() use ($filedata, $thumb_size){
+		$thumb = cache_function($cache_key, $cache_timeout, function() use ($filedata, $thumb_size){
 			$CI =& get_instance();
 			$img = new libraries\Image($this->mfile->file($filedata["data_id"]));
 			$img->makeThumb($thumb_size, $thumb_size);
