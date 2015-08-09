@@ -687,7 +687,7 @@ class File extends MY_Controller {
 			assert($item["user"] === $user);
 			$item["data_id"] = $item['hash']."-".$item['storage_id'];
 			$query[$key]["data_id"] =  $item["data_id"];
-			if (!$this->mfile->valid_id($item["id"])) {
+			if (!$this->mfile->valid_filedata($item)) {
 				unset($query[$key]);
 				continue;
 			}

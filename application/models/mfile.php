@@ -9,10 +9,19 @@
 
 class Mfile extends CI_Model {
 
+	private $upload_path;
+
 	function __construct()
 	{
 		parent::__construct();
 		$this->load->model("muser");
+
+		$this->upload_path = $this->config->item('upload_path');
+		$this->id_validation_config = array(
+			"upload_max_age" => $this->config->item("upload_max_age"),
+			"small_upload_size" => $this->config->item("small_upload_size"),
+			"sess_expiration" => $this->config->item("sess_expiration"),
+		);
 	}
 
 	// Returns an unused ID
@@ -85,7 +94,7 @@ class Mfile extends CI_Model {
 
 	// return the folder in which the file with $data_id is stored
 	function folder($data_id) {
-		return $this->config->item('upload_path').'/'.substr($data_id, 0, 3);
+		return $this->upload_path.'/'.substr($data_id, 0, 3);
 	}
 
 	// Returns the full path to the file with $data_id
@@ -119,20 +128,15 @@ class Mfile extends CI_Model {
 	}
 
 	// remove old/invalid/broken IDs
-	function valid_id($id)
+	public function valid_id($id)
 	{
 		$filedata = $this->get_filedata($id);
-		if (!$filedata) {
-			return false;
-		}
+		return \service\files::valid_id($filedata, $this->id_validation_config, $this, time());
+	}
 
-		$config = array(
-			"upload_max_age" => $this->config->item("upload_max_age"),
-			"small_upload_size" => $this->config->item("small_upload_size"),
-			"sess_expiration" => $this->config->item("sess_expiration"),
-		);
-
-		return \service\files::valid_id($filedata, $config, $this, time());
+	public function valid_filedata($filedata)
+	{
+		return \service\files::valid_id($filedata, $this->id_validation_config, $this, time());
 	}
 
 	public function file_exists($file)
