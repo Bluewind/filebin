@@ -88,7 +88,7 @@ define(
 
 			setupLazyLoadingImages: function () {
 				if ($(ui.lazyLoadingImages).length > 0) {
-					$(ui.lazyLoadingImages).show().lazyload({treshold: 200});
+					$(ui.lazyLoadingImages).lazyload({treshold: 200});
 				}
 			}
 		};

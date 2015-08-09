@@ -25,7 +25,7 @@
 }
 
 .lazyload {
-	display: none;
+	background: #C3C3C3;
 }
 
 .divider {
@@ -301,8 +301,45 @@ body {
 
 .upload_thumbnails {
 	margin: 0 auto;
+	width: 152px;
 }
 
+/* min-width and width increase by 152px each step (one more image per line)
+ * Take care to align to bootstrap's viewport breakpoints */
+@media (min-width: 389px) {
+	.upload_thumbnails {
+		width: 304px;
+	}
+}
+
+@media (min-width: 541px) {
+	.upload_thumbnails {
+		width: 456px;
+	}
+}
+
+@media (min-width: 693px) {
+	.upload_thumbnails {
+		width: 608px;
+	}
+}
+
+/* bootstrap viewport breakpoint @768px */
+/* bootstrap viewport breakpoint @992px */
+@media (min-width: 992px) {
+	.upload_thumbnails {
+		width: 760px;
+	}
+}
+
+/* bootstrap viewport breakpoint @1220px */
+@media (min-width: 1200px) {
+	.upload_thumbnails {
+		width: 1064px;
+	}
+}
+
+/* XXX: change values above if img width chanegs */
 .upload_thumbnails img.thumb,
 .upload_thumbnails a {
 	width: 150px;

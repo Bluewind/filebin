@@ -89,11 +89,11 @@
             self.loaded = false;
 
             /* If no src attribute given use data:uri. */
-            if ($self.attr("src") === undefined || $self.attr("src") === false) {
-                if ($self.is("img")) {
-                    $self.attr("src", settings.placeholder);
-                }
-            }
+            //if ($self.attr("src") === undefined || $self.attr("src") === false) {
+                //if ($self.is("img")) {
+                    //$self.attr("src", settings.placeholder);
+                //}
+            //}
 
             /* When appear is triggered load original image. */
             $self.one("appear", function() {
