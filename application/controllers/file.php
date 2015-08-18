@@ -516,11 +516,19 @@ class File extends MY_Controller {
 		if (!$this->muser->logged_in()) {
 			$this->muser->require_session();
 			// keep the upload but require the user to login
-			$this->session->set_userdata("last_upload", array(
-				"ids" => $ids,
-				"lexer" => $lexer
-			));
-			$this->session->set_flashdata("uri", "file/claim_id");
+			$last_upload = $this->session->userdata("last_upload");
+			if ($last_upload === false) {
+				$last_upload = array(
+					"ids" => [],
+					"lexer" => "",
+				);
+			}
+			$last_upload = array(
+				"ids" => array_merge($last_upload['ids'], $ids),
+				"lexer" => "",
+			);
+			$this->session->set_userdata("last_upload", $last_upload);
+			$this->data["redirect_uri"] = "file/claim_id";
 			$this->muser->require_access("basic");
 		}
 
