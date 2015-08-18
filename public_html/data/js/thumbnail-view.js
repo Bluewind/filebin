@@ -30,7 +30,7 @@ define(['jquery', 'underscore', 'jquery.colorbox'], function ($, _) {
 				retinaImage: true,
 				maxHeight: "100%",
 				maxWidth: "100%",
-				title: 'Use h/l or right/left arrow keys or these buttons:',
+				current: 'Image {current} of {total}. Use h/l or right/left arrow keys or these buttons:',
 				next: '<span class="glyphicon glyphicon-chevron-right"></span>',
 				previous: '<span class="glyphicon glyphicon-chevron-left"></span>',
 				close: '<span class="glyphicon glyphicon-remove"></span>',
