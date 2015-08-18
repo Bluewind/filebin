@@ -299,7 +299,7 @@ class CI_Config {
 			{
 				$uri = implode('/', $uri);
 			}
-			$uri = trim($uri, '/');
+			$uri = ltrim($uri, '/');
 		}
 		else
 		{

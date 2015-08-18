@@ -44,8 +44,18 @@ class User extends MY_Controller {
 
 	function login()
 	{
+		$redirect_uri = $this->input->get("redirect_uri");
 		$this->muser->require_session();
-		$this->session->keep_flashdata("uri");
+
+		if (!preg_match('/^[0-9a-zA-Z\/_]*$/', $redirect_uri)) {
+			$redirect_uri = '/';
+		}
+
+		if ($this->muser->logged_in()) {
+			redirect($redirect_uri);
+		}
+
+		$this->data['redirect_uri'] = $redirect_uri;
 
 		if ($this->input->post('process') !== false) {
 			$username = $this->input->post('username');
@@ -59,12 +69,7 @@ class User extends MY_Controller {
 				$this->load->view($this->var->view_dir.'login', $this->data);
 				$this->load->view('footer', $this->data);
 			} else {
-				$uri = $this->session->flashdata("uri");
-				if ($uri) {
-					redirect($uri);
-				} else {
-					redirect("/");
-				}
+				redirect($redirect_uri);
 			}
 		} else {
 			$this->load->view('header', $this->data);

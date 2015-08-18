@@ -3,7 +3,7 @@ if (isset($login_error)) { ?>
 	<div class="alert alert-danger">The entered credentials are invalid.</div>
 <?php } ?>
 
-<?php echo form_open('user/login', array("class" => "form-horizontal login-page")); ?>
+<?php echo form_open("user/login?redirect_uri=$redirect_uri", array("class" => "form-horizontal login-page")); ?>
 	<div class="form-group">
 		<label class="control-label" for="inputUsername">Username</label>
 		<div class="controls">

@@ -18,10 +18,6 @@ class Muser extends CI_Model {
 	{
 		parent::__construct();
 
-		if ($this->has_session() && !$this->logged_in()) {
-			$this->session->keep_flashdata("uri");
-		}
-
 		$this->load->helper("filebin");
 		$this->load->driver("duser");
 	}
@@ -182,14 +178,6 @@ class Muser extends CI_Model {
 
 		if ($this->logged_in()) {
 			return $this->check_access_level($wanted_level);
-		}
-
-		if (stateful_client()) {
-			// desktop clients get redirected to the login form
-			$this->require_session();
-			if (!$this->session->userdata("flash:new:uri")) {
-				$this->session->set_flashdata("uri", $this->uri->uri_string());
-			}
 		}
 
 		throw new \exceptions\NotAuthenticatedException("api/not-authenticated", "Not authenticated. FileBin requires you to have an account, please go to the homepage for more information.");
