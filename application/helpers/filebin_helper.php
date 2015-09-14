@@ -369,4 +369,16 @@ function files_are_equal($a, $b)
 	return $result;
 }
 
+# Source: http://php.net/manual/en/function.ini-get.php#96996
+function return_bytes($size_str)
+{
+    switch (substr ($size_str, -1))
+    {
+        case 'K': case 'k': return (int)$size_str * 1024;
+        case 'M': case 'm': return (int)$size_str * 1048576;
+        case 'G': case 'g': return (int)$size_str * 1073741824;
+        default: return $size_str;
+    }
+}
+
 # vim: set noet:
