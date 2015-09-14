@@ -9,7 +9,7 @@
 
 namespace test\tests;
 
-class test_api_v1 extends \test\Test {
+class test_api_v2 extends \test\Test {
 
 	public function __construct()
 	{
@@ -23,7 +23,7 @@ class test_api_v1 extends \test\Test {
 
 	private function uploadFile($apikey, $file)
 	{
-		$ret = $this->CallAPI("POST", "$this->server/api/v1.1.0/file/upload", array(
+		$ret = $this->CallAPI("POST", "$this->server/api/v2.0.0/file/upload", array(
 			"apikey" => $apikey,
 			"file[1]" => curl_file_create($file),
 		));
@@ -35,7 +35,7 @@ class test_api_v1 extends \test\Test {
 	{
 		$CI =& get_instance();
 		$CI->db->insert("users", array(
-			'username' => "testuser-api_v1-$counter",
+			'username' => "testuser-api_v2-$counter",
 			'password' => $CI->muser->hash_password("testpass$counter"),
 			'email'    => "testuser$counter@localhost.invalid",
 			'referrer' => NULL
@@ -59,7 +59,7 @@ class test_api_v1 extends \test\Test {
 
 	private function callEndpoint($verb, $endpoint, $data)
 	{
-		return $this->CallAPI($verb, "$this->server/api/v1.0.0/$endpoint", $data);
+		return $this->CallAPI($verb, "$this->server/api/v2.0.0/$endpoint", $data);
 	}
 
 	public function test_callPrivateEndpointsWithoutApikey()
@@ -123,7 +123,7 @@ class test_api_v1 extends \test\Test {
 	{
 		$this->createUser(1);
 		$ret = $this->CallEndpoint("POST", "user/create_apikey", array(
-			"username" => "testuser-api_v1-1",
+			"username" => "testuser-api_v2-1",
 			"password" => "testpass1",
 			"access_level" => "apikey",
 			"comment" => "main api key",
@@ -138,7 +138,7 @@ class test_api_v1 extends \test\Test {
 		$userid = $this->createUser(2);
 		$apikey = $this->createApikey($userid);
 		$ret = $this->CallEndpoint("POST", "user/apikeys", array(
-			"username" => "testuser-api_v1-2",
+			"username" => "testuser-api_v2-2",
 			"password" => "testpass2",
 		));
 		$this->expectSuccess("get apikeys", $ret);
@@ -181,7 +181,7 @@ class test_api_v1 extends \test\Test {
 	{
 		$userid = $this->createUser(3);
 		$ret = $this->CallEndpoint("POST", "user/apikeys", array(
-			"username" => "testuser-api_v1-3",
+			"username" => "testuser-api_v2-3",
 			"password" => "wrongpass",
 		));
 		$this->expectError("invalid password", $ret);
@@ -197,7 +197,7 @@ class test_api_v1 extends \test\Test {
 	{
 		$userid = $this->createUser(4);
 		$ret = $this->CallEndpoint("POST", "user/apikeys", array(
-			"username" => "testuser-api_v1-invalid",
+			"username" => "testuser-api_v2-invalid",
 			"password" => "testpass4",
 		));
 		$this->expectError("invalid username", $ret);
@@ -315,7 +315,7 @@ class test_api_v1 extends \test\Test {
 		$this->t->ok(!empty($ret["data"]["items"]), "history not empty after multipaste (items)");
 		$this->t->is($ret['data']["multipaste_items"][$multipasteid]['items'][$uploadid]['id'], $uploadid, "multipaste contains correct id");
 		$this->t->is_deeply(array(
-			'url_id', 'multipaste_id', 'user_id', 'date', 'items'
+			'url_id', 'date', 'items'
 		), array_keys($ret['data']["multipaste_items"][$multipasteid]), "multipaste info only lists correct keys");
 		$this->t->is_deeply(array('id'), array_keys($ret['data']["multipaste_items"][$multipasteid]['items'][$uploadid]), "multipaste item info only lists correct keys");
 	}
