@@ -1,5 +1,10 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+2015-09-18 API v2.0: Add and remove some information in from file/history
+           API v1 is hereby deprecated and will be removed in a future update
+2015-09-18 API v1.4: Add more information to file/get_config
+2015-09-18 Add robots.txt to './public_html'. It got lost during the move to the subdir.
+
 2015-07-18 Public files moved to public_html. Old setups will continue to work
            though it is encouraged to change the document root of the web server
            to ./public_html.
