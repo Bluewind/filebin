@@ -158,7 +158,8 @@ class CI_DB_postgre_driver extends CI_DB {
 	 */
 	function _version()
 	{
-		return "SELECT version() AS ver";
+		$pg_version = pg_version($this->conn_id);
+		return $pg_version;
 	}
 
 	// --------------------------------------------------------------------
