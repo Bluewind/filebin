@@ -31,12 +31,12 @@ class files {
 		}
 
 		$total_size = $CI->db->query("
-			SELECT coalesce(sum(filesize), 0) sum
+			SELECT coalesce(sum(sub.filesize), 0) sum
 			FROM (
-				SELECT DISTINCT `".$CI->db->dbprefix."file_storage`.id, filesize
-				FROM `".$CI->db->dbprefix."file_storage`
-				JOIN `".$CI->db->dbprefix."files` ON `".$CI->db->dbprefix."file_storage`.id = `".$CI->db->dbprefix."files`.file_storage_id
-				WHERE user = ?
+				SELECT DISTINCT fs.id, filesize
+				FROM ".$CI->db->dbprefix."file_storage fs
+				JOIN ".$CI->db->dbprefix."files f ON fs.id = f.file_storage_id
+				WHERE f.user = ?
 
 			) sub
 			", array($user))->row_array();
