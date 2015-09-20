@@ -65,7 +65,7 @@ class Mmultipaste extends CI_Model {
 
 		$sql = '
 			SELECT url_id
-			FROM `'.$this->db->dbprefix.'multipaste`
+			FROM '.$this->db->dbprefix.'multipaste
 			WHERE url_id = ?
 			LIMIT 1';
 		$query = $this->db->query($sql, array($id));
@@ -124,7 +124,7 @@ class Mmultipaste extends CI_Model {
 	{
 		return $this->db->query("
 			SELECT user_id
-			FROM `".$this->db->dbprefix."multipaste`
+			FROM ".$this->db->dbprefix."multipaste
 			WHERE url_id = ?
 			", array($id))->row_array()["user_id"];
 	}
@@ -133,7 +133,7 @@ class Mmultipaste extends CI_Model {
 	{
 		return $this->db->query("
 			SELECT url_id, user_id, date
-			FROM `".$this->db->dbprefix."multipaste`
+			FROM ".$this->db->dbprefix."multipaste
 			WHERE url_id = ?
 			", array($id))->row_array();
 	}
@@ -144,8 +144,8 @@ class Mmultipaste extends CI_Model {
 
 		$query = $this->db->query("
 			SELECT mfm.file_url_id
-			FROM `".$this->db->dbprefix."multipaste_file_map` mfm
-			JOIN `".$this->db->dbprefix."multipaste` m ON m.multipaste_id = mfm.multipaste_id
+			FROM ".$this->db->dbprefix."multipaste_file_map mfm
+			JOIN ".$this->db->dbprefix."multipaste m ON m.multipaste_id = mfm.multipaste_id
 			WHERE m.url_id = ?
 			ORDER BY mfm.sort_order
 			", array($url_id))->result_array();
@@ -162,7 +162,7 @@ class Mmultipaste extends CI_Model {
 	{
 		$query = $this->db->query("
 			SELECT multipaste_id
-			FROM `".$this->db->dbprefix."multipaste`
+			FROM ".$this->db->dbprefix."multipaste
 			WHERE url_id = ?
 			", array($url_id));
 

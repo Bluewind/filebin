@@ -18,8 +18,8 @@ class Migration_Add_files extends CI_Migration {
 					"mimetype" varchar(255) NOT NULL,
 					PRIMARY KEY ("id")
 				);
-				CREATE INDEX "files_date_idx" ON '.$prefix.'files ("date");
-				CREATE INDEX "files_hash_id_idx" ON '.$prefix.'files ("hash", "id");
+				CREATE INDEX "'.$prefix.'files_date_idx" ON '.$prefix.'files ("date");
+				CREATE INDEX "'.$prefix.'files_hash_id_idx" ON '.$prefix.'files ("hash", "id");
 			');
 		} else {
 			$this->db->query('

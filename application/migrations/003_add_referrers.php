@@ -15,8 +15,8 @@ class Migration_Add_referrers extends CI_Migration {
 					"date" integer NOT NULL,
 					PRIMARY KEY ("key")
 				);
-				CREATE INDEX "invitations_user_idx" ON "'.$prefix.'invitations" ("user");
-				CREATE INDEX "invitations_date_idx" ON "'.$prefix.'invitations" ("date");
+				CREATE INDEX "'.$prefix.'invitations_user_idx" ON "'.$prefix.'invitations" ("user");
+				CREATE INDEX "'.$prefix.'invitations_date_idx" ON "'.$prefix.'invitations" ("date");
 			');
 			$this->db->query('
 				ALTER TABLE "'.$prefix.'users"

@@ -26,12 +26,12 @@ class Migration_Add_users extends CI_Migration {
 					"user_data" text NOT NULL,
 					PRIMARY KEY ("session_id")
 				);
-				CREATE INDEX "ci_sessions_last_activity_idx" ON "'.$prefix.'ci_sessions" ("last_activity");
+				CREATE INDEX "'.$prefix.'ci_sessions_last_activity_idx" ON "'.$prefix.'ci_sessions" ("last_activity");
 			');
 
 			$this->db->query('
 				ALTER TABLE "'.$prefix.'files" ADD "user" integer NOT NULL DEFAULT 0;
-				CREATE INDEX "user_idx" ON "'.$prefix.'files" ("user");
+				CREATE INDEX "'.$prefix.'user_idx" ON "'.$prefix.'files" ("user");
 			');
 
 		} else {

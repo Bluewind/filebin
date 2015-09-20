@@ -59,9 +59,14 @@ class Tools extends MY_Controller {
 			return;
 		}
 
-		$this->db->query('SET FOREIGN_KEY_CHECKS = 0');
+
+		if ($this->db->dbdriver !== 'postgre') {
+			$this->db->query('SET FOREIGN_KEY_CHECKS = 0');
+		}
 		$this->db->query('DROP TABLE '.implode(", ", $tables_to_drop));
-		$this->db->query('SET FOREIGN_KEY_CHECKS = 1');
+		if ($this->db->dbdriver !== 'postgre') {
+			$this->db->query('SET FOREIGN_KEY_CHECKS = 1');
+		}
 	}
 
 	function test()

@@ -8,7 +8,48 @@ class Migration_deduplicate_file_storage extends CI_Migration {
 		$prefix = $this->db->dbprefix;
 
 		if ($this->db->dbdriver == 'postgre') {
-			throw new \exceptions\ApiException("migration/postgres/not-implemented", "migration 14 not yet implemented for postgres");
+			$this->db->query('
+				CREATE TABLE "'.$prefix.'file_storage" (
+					"id" serial NOT NULL,
+					"filesize" integer NOT NULL,
+					"mimetype" varchar(255) NOT NULL,
+					"hash" char(32) NOT NULL,
+					"date" integer NOT NULL,
+					PRIMARY KEY ("id"),
+					UNIQUE ("id", "hash")
+				);
+			');
+			$this->db->query('
+				ALTER TABLE "'.$prefix.'files"
+				ADD "file_storage_id" integer NULL;
+				CREATE INDEX "'.$prefix.'files_file_storage_id_idx" ON "'.$prefix.'files" ("file_storage_id");
+			');
+
+			$this->db->query('
+				INSERT INTO "'.$prefix.'file_storage" (filesize, mimetype, hash, date)
+				SELECT filesize, mimetype, hash, date FROM "'.$prefix.'files";
+			');
+
+			$this->db->query('
+				UPDATE "'.$prefix.'files" f
+				SET file_storage_id = fs.id
+				FROM "'.$prefix.'file_storage" fs
+				WHERE fs.hash = f.hash
+			');
+
+			// remove file_storage rows that are not referenced by files.id
+			// AND that are duplicates when grouped by hash
+			$this->db->query('
+				DELETE
+				FROM "'.$prefix.'file_storage" fs
+				USING "'.$prefix.'file_storage" fs2
+				WHERE fs.hash = fs2.hash
+				AND fs.id > fs2.id
+				AND fs.id NOT IN (
+					SELECT file_storage_id
+					FROM "'.$prefix.'files" f
+				);
+			');
 		} else {
 			$this->db->query('
 				CREATE TABLE `'.$prefix.'file_storage` (
@@ -52,38 +93,45 @@ class Migration_deduplicate_file_storage extends CI_Migration {
 					GROUP BY x.hash
 				)
 				AND `'.$prefix.'files`.id IS NULL
-			');
+				');
+		}
 
-			$chunk = 500;
-			$total = $this->db->count_all("file_storage");
+		$chunk = 500;
+		$total = $this->db->count_all("file_storage");
 
-			for ($limit = 0; $limit < $total; $limit += $chunk) {
-				$query = $this->db->select('hash, id')
-					->from('file_storage')
-					->limit($chunk, $limit)
-					->get()->result_array();
+		for ($limit = 0; $limit < $total; $limit += $chunk) {
+			$query = $this->db->select('hash, id')
+				->from('file_storage')
+				->limit($chunk, $limit)
+				->get()->result_array();
 
-				foreach ($query as $key => $item) {
-					$old = $this->mfile->file($item["hash"]);
-					$data_id = $item["hash"].'-'.$item["id"];
-					$new = $this->mfile->file($data_id);
-					if (file_exists($old)) {
-						rename($old, $new);
-					} else {
-						echo "Warning: no file found for $data_id. Skipping...\n";
-					}
+			foreach ($query as $key => $item) {
+				$old = $this->mfile->file($item["hash"]);
+				$data_id = $item["hash"].'-'.$item["id"];
+				$new = $this->mfile->file($data_id);
+				if (file_exists($old)) {
+					rename($old, $new);
+				} else {
+					echo "Warning: no file found for $data_id. Skipping...\n";
 				}
 			}
+		}
 
+		if ($this->db->dbdriver == 'postgre') {
+			$this->db->query('
+				ALTER TABLE "'.$prefix.'files"
+				ADD FOREIGN KEY ("file_storage_id") REFERENCES "'.$prefix.'file_storage"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+			');
+		} else {
 			$this->db->query('
 				ALTER TABLE `'.$prefix.'files`
 				ADD FOREIGN KEY (`file_storage_id`) REFERENCES `'.$prefix.'file_storage`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 			');
-
-			$this->dbforge->drop_column("files", "hash");
-			$this->dbforge->drop_column("files", "mimetype");
-			$this->dbforge->drop_column("files", "filesize");
 		}
+
+		$this->dbforge->drop_column("files", "hash");
+		$this->dbforge->drop_column("files", "mimetype");
+		$this->dbforge->drop_column("files", "filesize");
 	}
 
 	public function down()
