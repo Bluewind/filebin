@@ -59,6 +59,9 @@ class file extends \controllers\api\api_controller {
 	{
 		$this->muser->require_access("apikey");
 		$history = \service\files::history($this->muser->get_userid());
+		foreach ($history['items'] as $key => $item) {
+			unset($history['items'][$key]['thumbnail']);
+		}
 		return $history;
 	}
 

@@ -323,7 +323,9 @@ class test_api_v1 extends \test\Test {
 	public function test_history_notEmptyAfterUpload()
 	{
 		$apikey = $this->createUserAndApikey();
-		$this->uploadFile($apikey, "data/tests/small-file");
+		$uploadid = $this->uploadFile($apikey, "data/tests/small-file")['data']['ids'][0];
+		$uploadid_image = $this->uploadFile($apikey, "data/tests/black_white.png")['data']['ids'][0];
+		$expected_size = filesize("data/tests/small-file") + filesize("data/tests/black_white.png");
 
 		$ret = $this->CallEndpoint("POST", "file/history", array(
 			"apikey" => $apikey,
@@ -331,8 +333,14 @@ class test_api_v1 extends \test\Test {
 		$this->expectSuccess("history not empty after upload", $ret);
 
 		$this->t->ok(!empty($ret["data"]["items"]), "history not empty after upload (items)");
+		$this->t->is_deeply(array(
+			'id', 'filename', 'mimetype', 'date', 'hash', 'filesize'
+		), array_keys($ret['data']["items"][$uploadid]), "item info only lists correct keys");
+		$this->t->is_deeply(array(
+			'id', 'filename', 'mimetype', 'date', 'hash', 'filesize'
+		), array_keys($ret['data']["items"][$uploadid_image]), "item info for image does not list thumbnail in v1");
 		$this->t->ok(empty($ret["data"]["multipaste_items"]), "didn't upload multipaste");
-		$this->t->is($ret["data"]["total_size"], filesize("data/tests/small-file"), "total_size == uploaded file");
+		$this->t->is($ret["data"]["total_size"], $expected_size, "total_size == uploaded files");
 	}
 
 	public function test_history_notSharedBetweenUsers()

@@ -24,6 +24,9 @@ class files {
 			->where('user', $user)
 			->get()->result_array();
 		foreach ($query as $key => $item) {
+			if (\libraries\Image::type_supported($item["mimetype"])) {
+				$item['thumbnail'] = site_url("file/thumbnail/".$item['id']);
+			}
 			$items[$item["id"]] = $item;
 		}
 
