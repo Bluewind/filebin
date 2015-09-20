@@ -684,10 +684,10 @@ class File extends MY_Controller {
 			->from('files')
 			->join('file_storage', 'file_storage.id = files.file_storage_id')
 			->where('
-				(user = '.$this->db->escape($user).')
+				(files.user = '.$this->db->escape($user).')
 				AND (
-					mimetype LIKE "image%"
-					OR mimetype IN ("application/pdf")
+					mimetype LIKE \'image%\'
+					OR mimetype IN (\'application/pdf\')
 				)', null, false)
 			->order_by('date', 'desc')
 			->get()->result_array();
