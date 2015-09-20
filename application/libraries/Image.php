@@ -131,15 +131,22 @@ class Image {
 	 */
 	public static function type_supported($mimetype)
 	{
+		static $cache = array();
+		if (isset($cache[$mimetype])) {
+			return $cache[$mimetype];
+		}
+
 		try {
 			$driver = self::best_driver(self::get_image_drivers(), $mimetype);
+			$cache[$mimetype] = true;
 		} catch (\exceptions\ApiException $e) {
 			if ($e->get_error_id() == "libraries/Image/unsupported-image-type") {
-				return false;
+				$cache[$mimetype] = false;
+			} else {
+				throw $e;
 			}
-			throw $e;
 		}
-		return true;
+		return $cache[$mimetype];
 	}
 
 	/**
