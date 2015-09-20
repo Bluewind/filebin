@@ -10,7 +10,7 @@ class Migration_add_constraints extends CI_Migration {
 		if ($this->db->dbdriver == 'postgre') {
 			$this->db->query('ALTER TABLE "'.$prefix.'users" ALTER COLUMN "referrer" TYPE integer');
 			$this->db->query('ALTER TABLE "'.$prefix.'users" ALTER COLUMN "referrer" DROP NOT NULL');
-			$this->db->query('CREATE INDEX "users_referrer_idx" ON "'.$prefix.'users" ("referrer")');
+			$this->db->query('CREATE INDEX "'.$prefix.'users_referrer_idx" ON "'.$prefix.'users" ("referrer")');
 			$this->db->query('UPDATE "'.$prefix.'users" SET "referrer" = NULL where "referrer" = 0');
 			$this->db->query('
 				ALTER TABLE "'.$prefix.'users"

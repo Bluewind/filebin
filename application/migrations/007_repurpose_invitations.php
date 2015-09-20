@@ -12,7 +12,7 @@ class Migration_Repurpose_invitations extends CI_Migration {
 				ALTER TABLE "'.$prefix.'invitations"
 					ADD "action" character varying(255) NOT NULL,
 					ADD "data" TEXT NULL;
-				CREATE INDEX "invitations_action_idx" ON '.$prefix.'invitations ("action");
+				CREATE INDEX "'.$prefix.'invitations_action_idx" ON '.$prefix.'invitations ("action");
 			');
 
 			$this->db->query('

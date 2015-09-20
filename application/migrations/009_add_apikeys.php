@@ -16,7 +16,7 @@ class Migration_Add_apikeys extends CI_Migration {
 					"comment" varchar(255) NOT NULL,
 					PRIMARY KEY ("key")
 				);
-				CREATE INDEX "apikeys_user_idx" ON "'.$prefix.'apikeys" ("user");
+				CREATE INDEX "'.$prefix.'apikeys_user_idx" ON "'.$prefix.'apikeys" ("user");
 			');
 
 		} else {
