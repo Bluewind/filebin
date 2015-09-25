@@ -1062,10 +1062,11 @@ class File extends MY_Controller {
 			"sess_expiration" => $this->config->item("sess_expiration"),
 		);
 
-		$query = $this->db->select('file_storage_id storage_id, id, user, date')
+		$query = $this->db->select('file_storage_id storage_id, files.id, user, files.date, hash')
 			->from('files')
+			->join('file_storage', "file_storage.id = files.file_storage_id")
 			->where("user", 0)
-			->where("date <", $oldest_session_time)
+			->where("files.date <", $oldest_session_time)
 			->get()->result_array();
 
 		foreach($query as $row) {
