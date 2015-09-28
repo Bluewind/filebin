@@ -47,7 +47,7 @@ class User extends MY_Controller {
 		$redirect_uri = $this->input->get("redirect_uri");
 		$this->muser->require_session();
 
-		if (!preg_match('/^[0-9a-zA-Z\/_]*$/', $redirect_uri)) {
+		if (!preg_match('/^[0-9a-zA-Z\/_-]*$/', $redirect_uri)) {
 			$redirect_uri = '/';
 		}
 
