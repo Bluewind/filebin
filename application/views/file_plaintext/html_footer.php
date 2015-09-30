@@ -1,1 +1,1 @@
-<?php include "application/views/file/html_footer.php"; ?>
+<?php include FCPATH."application/views/file/html_footer.php"; ?>
