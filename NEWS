@@ -1,5 +1,8 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+2015-10-06 Postgres support has been updated and everything should work now.
+2015-10-06 API 2.1: Add thumbnail link to file/history
+
 2015-09-18 API v2.0: Add and remove some information in from file/history
            API v1 is hereby deprecated and will be removed in a future update
 2015-09-18 API v1.4: Add more information to file/get_config
