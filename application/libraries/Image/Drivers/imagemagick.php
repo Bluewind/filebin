@@ -70,7 +70,7 @@ class imagemagick implements \libraries\Image\ImageDriver {
 		}
 
 		try {
-			$ret = (new \libraries\ProcRunner($command))->execSafe();
+			$ret = (new \libraries\ProcRunner($command))->forbid_nonzero()->exec();
 		} catch (\exceptions\ApiException $e) {
 			throw new \exceptions\ApiException("libraries/Image/thumbnail-creation-failed", "Failed to create thumbnail", null, $e);
 		}
