@@ -583,9 +583,6 @@ class File extends MY_Controller {
 		} else {
 			$this->data['client_link'] = false;
 		}
-		$this->data['client_link_dir'] = base_url().'data/client/';
-		$this->data['client_link_deb'] = base_url().'data/client/deb/';
-		$this->data['client_link_slackware'] = base_url().'data/client/slackware/';
 
 		if (preg_match('#^https?://(.*?)/.*$#', site_url(), $matches) === 1) {
 			$this->data["domain"] = $matches[1];
