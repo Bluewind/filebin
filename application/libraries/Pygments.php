@@ -173,6 +173,9 @@ class Pygments {
 
 		if (strpos($this->filename, ".") !== false) {
 			$extension = substr($this->filename, strrpos($this->filename, ".") + 1);
+			if ($extension === false) {
+				return false;
+			}
 
 			$extensionarray = array(
 				'awk' => 'awk',

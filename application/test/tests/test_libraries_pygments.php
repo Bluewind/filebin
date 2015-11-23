@@ -80,7 +80,14 @@ class test_libraries_pygments extends \test\Test {
     {
 		$p = new \libraries\Pygments('/invalid/filepath', 'image/svg+xml', 'foo.svg');
         $this->t->is($p->can_highlight(), true, "image/svg+xml can highlight");
-    }
+	}
+
+	public function test_autodetect_lexer_strangeFilenames()
+	{
+		$p = new \libraries\Pygments('/invalid/filepath', 'text/plain', 'foo.');
+        $this->t->is($p->autodetect_lexer(), 'text', "foo. should be text");
+
+	}
 
 }
 
