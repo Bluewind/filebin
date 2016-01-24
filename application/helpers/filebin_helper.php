@@ -337,7 +337,12 @@ function cache_function_full($key, $ttl, $function) {
 // Return mimetype of file
 function mimetype($file) {
 	$fileinfo = new finfo(FILEINFO_MIME_TYPE);
+
+	// XXX: Workaround for PHP#71434 https://bugs.php.net/bug.php?id=71434
+	$old = error_reporting();
+	error_reporting($old &~ E_NOTICE);
 	$mimetype = $fileinfo->file($file);
+	error_reporting($old);
 
 	return $mimetype;
 }
