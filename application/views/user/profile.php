@@ -25,7 +25,7 @@
 		<label class="control-label col-lg-2 col-md-2" for="inputUploadIDLimits">Upload ID length limits</label>
 		<div class="col-lg-5 col-md-5">
 			<input type="text" id="inputUploadIDLimits" name="upload_id_limits" placeholder="number-number" value="<?php echo $profile_data["upload_id_limits"]; ?>" class="form-control">
-			<span class="help-block">Values have to be between 3 and 64 inclusive. Please remember that longer IDs don't protect your pastes from being found if you post the link somewhere a search enginge can see it.</span>
+			<span class="help-block">Values have to be between 3 and 64 inclusive. Please remember that longer IDs don't protect your pastes from being found if you post the link somewhere a search engine can see it.</span>
 		</div>
 	</div>
 </div>
