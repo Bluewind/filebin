@@ -258,11 +258,7 @@ class Muser extends CI_Model {
 
 	function hash_password($password)
 	{
-
-		require_once APPPATH."third_party/PasswordHash.php";
-
-		$hasher = new PasswordHash(9, false);
-		return $hasher->HashPassword($password);
+		return password_hash($password, PASSWORD_DEFAULT);
 	}
 
 }

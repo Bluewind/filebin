@@ -32,7 +32,7 @@ class Duser_db extends Duser_Driver {
 			return false;
 		}
 
-		if (crypt($password, $query["password"]) === $query["password"]) {
+		if (password_verify($password, $query['password'])) {
 			return array(
 				"username" => $username,
 				"userid" => $query["id"]
