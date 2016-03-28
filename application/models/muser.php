@@ -258,7 +258,11 @@ class Muser extends CI_Model {
 
 	function hash_password($password)
 	{
-		return password_hash($password, PASSWORD_DEFAULT);
+		$hash = password_hash($password, PASSWORD_DEFAULT);
+		if ($hash === false) {
+			throw new \exceptions\ApiException('user/hash_password/failed', "Failed to hash password");
+		}
+		return $hash;
 	}
 
 }
