@@ -245,6 +245,13 @@ class Muser extends CI_Model {
 		}
 	}
 
+	public function set_password($userid, $password) {
+		$this->db->where('id', $userid)
+			->update('users', array(
+				'password' => $this->hash_password($password)
+			));
+	}
+
 	public function get_upload_id_limits()
 	{
 		$userid = $this->get_userid();

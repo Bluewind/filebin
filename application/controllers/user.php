@@ -340,10 +340,7 @@ class User extends MY_Controller {
 			}
 
 			if (empty($error)) {
-				$this->db->where('id', $userid)
-					->update('users', array(
-						'password' => $this->muser->hash_password($password)
-					));
+				$this->muser->set_password($userid, $password);
 
 				$this->db->where('key', $key)
 					->delete('actions');
