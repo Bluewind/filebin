@@ -440,6 +440,15 @@ $config['auth_fluxbb'] = array(
 	'database' => 'fluxbb'
 );
 
+// This is only used if the driver is set to db
+// For information about these values refer to https://secure.php.net/manual/en/function.password-hash.php
+$config['auth_db'] = array(
+	'hashing_options' => array(
+		'cost' => 10,
+	),
+	'hashing_algorithm' => PASSWORD_DEFAULT,
+);
+
 
 // Possible values: production, development
 // "development" enables features like profiling and display of SQL queries.

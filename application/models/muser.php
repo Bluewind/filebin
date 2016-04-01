@@ -14,12 +14,17 @@ class Muser extends CI_Model {
 	// last level has the most access
 	private $access_levels = array("basic", "apikey", "full");
 
+	private $hashalgo;
+	private $hashoptions = array();
+
 	function __construct()
 	{
 		parent::__construct();
 
 		$this->load->helper("filebin");
 		$this->load->driver("duser");
+		$this->hashalgo = $this->config->item('auth_db')['hashing_algorithm'];
+		$this->hashoptions = $this->config->item('auth_db')['hashing_options'];
 	}
 
 	function has_session()
@@ -258,7 +263,7 @@ class Muser extends CI_Model {
 
 	function hash_password($password)
 	{
-		$hash = password_hash($password, PASSWORD_DEFAULT);
+		$hash = password_hash($password, $this->hashalgo, $this->hashoptions);
 		if ($hash === false) {
 			throw new \exceptions\ApiException('user/hash_password/failed', "Failed to hash password");
 		}
