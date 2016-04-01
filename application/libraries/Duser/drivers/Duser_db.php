@@ -33,6 +33,7 @@ class Duser_db extends Duser_Driver {
 		}
 
 		if (password_verify($password, $query['password'])) {
+			$CI->muser->rehash_password($query['id'], $password, $query['password']);
 			return array(
 				"username" => $username,
 				"userid" => $query["id"]

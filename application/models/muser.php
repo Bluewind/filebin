@@ -252,6 +252,12 @@ class Muser extends CI_Model {
 			));
 	}
 
+	public function rehash_password($userid, $password, $hash) {
+		if (password_needs_rehash($hash, $this->hashalgo, $this->hashoptions)) {
+			$this->set_password($userid, $password);
+		}
+	}
+
 	public function get_upload_id_limits()
 	{
 		$userid = $this->get_userid();
