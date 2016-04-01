@@ -435,7 +435,7 @@ if (extension_loaded("ldap")) {
 	);
 }
 
-// This is only used it the driver is set to fluxbb
+// This is only used if the driver is set to fluxbb
 $config['auth_fluxbb'] = array(
 	'database' => 'fluxbb'
 );
