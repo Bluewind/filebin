@@ -25,7 +25,6 @@ RUN useradd -m -g users -d $FILEBIN_HOME_DIR filebin
 USER filebin
 
 ADD filebin_starter.sh $FILEBIN_HOME_DIR
-ADD add_user.expect $FILEBIN_HOME_DIR
 ADD add_user.sh $FILEBIN_HOME_DIR
 
 RUN git clone https://git.server-speed.net/users/flo/filebin/ $FILEBIN_DIR
