@@ -131,6 +131,11 @@ class Mfile extends CI_Model {
 	public function valid_id($id)
 	{
 		$filedata = $this->get_filedata($id);
+
+		if (!$filedata) {
+			return false;
+		}
+
 		return \service\files::valid_id($filedata, $this->id_validation_config, $this, time());
 	}
 
