@@ -1,5 +1,10 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+2016-06-05 PHP COMPATABILITY NOTE: This software now requires PHP >= 5.5
+2016-06-05 Switch to PHP's password_hash function. Allow changing password
+           hashing settings (see config.php)
+2016-05-05 Add Dockerfile
+
 2015-10-06 Postgres support has been updated and everything should work now.
 2015-10-06 API 2.1: Add thumbnail link to file/history
 
