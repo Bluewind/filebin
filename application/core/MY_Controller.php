@@ -103,5 +103,6 @@ class MY_Controller extends CI_Controller {
 
 		$this->load->model("muser");
 		$this->data["user_logged_in"] = $this->muser->logged_in();
+		$this->data['redirect_uri'] = $this->uri->uri_string();
 	}
 }

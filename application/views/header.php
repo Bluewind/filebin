@@ -77,7 +77,7 @@ if (is_cli_client() && !isset($force_full_html)) {
 										<?php if(auth_driver_function_implemented("can_reset_password")) { ?>
 											<p><?php echo anchor("user/reset_password", "Forgot your password?"); ?></p>
 										<?php } ?>
-										<?php echo form_open("user/login?redirect_uri=".get_instance()->uri->uri_string(), array("class" => "form-signin")); ?>
+										<?php echo form_open("user/login?redirect_uri=".$redirect_uri, array("class" => "form-signin")); ?>
 											<input type="text" name="username" placeholder="Username" class="form-control">
 											<input type="password" name="password" placeholder="Password" class="form-control">
 											<button type="submit" name="process" class="btn btn-default btn-block">Login</button>

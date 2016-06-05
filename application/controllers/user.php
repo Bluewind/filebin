@@ -192,6 +192,8 @@ class User extends MY_Controller {
 
 		$referrer = $query["user"];
 
+		$this->data['redirect_uri'] = "/";
+
 		if ($process !== false) {
 			$username = $this->input->post("username");
 			$email = $this->input->post("email");
