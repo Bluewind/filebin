@@ -1,6 +1,6 @@
 # FileBin
 
-A pastebin software running on [https://paste.xinu.at](https///paste.xinu.at).
+A pastebin software running on [https://paste.xinu.at](https://paste.xinu.at).
 In addition to uploading text and code it also supports binary files.
 
 Additional documentation can be found in [`./doc`](doc/).
@@ -8,7 +8,7 @@ Additional documentation can be found in [`./doc`](doc/).
 ## Installation/Development
 
 Git is used for tracking changes and updating installations. The repository is
-located at [https://git.server-speed.net/users/flo/filebin/](https///git.server-speed.net/users/flo/filebin/).
+located at [https://git.server-speed.net/users/flo/filebin/](https://git.server-speed.net/users/flo/filebin/).
 Clone the repository and follow the instructions in `./INSTALL`. Do not
 install using tarballs as this is not supported.
 
@@ -21,14 +21,14 @@ There is currently no bug tracking software.
 ### Mailing List
 
 Currently there is only [one mailing
-list](https///lists.server-speed.net/listinfo/filebin-general) for everything
+list](https://lists.server-speed.net/listinfo/filebin-general) for everything
 (general discussion, patches, announcements, ...). If need be more lists will be
 created at a later date.
 
 ### Patches
 
 Please submit patches (preferably git send-email) to the [filebin-general
-mailing list](https///lists.server-speed.net/listinfo/filebin-general). You do
+mailing list](https://lists.server-speed.net/listinfo/filebin-general). You do
 not need to register to be allowed to post.
 
 
@@ -47,5 +47,5 @@ not need to register to be allowed to post.
 *  [ansi2html](http://pypi.python.org/pypi/ansi2html) for shell output rendering (ANSI color codes)
 *  [qrencode](http://megaui.net/fukuchi/works/qrencode/index.en.html) for qrcode generation
 *  [imagemagick](http://www.imagemagick.org/) for additional thumbnail generation
-*  [node.js](https///nodejs.org/) for javascript minification
+*  [node.js](https://nodejs.org/) for javascript minification
 
