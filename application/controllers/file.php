@@ -229,9 +229,13 @@ class File extends MY_Controller {
 				}
 			}
 
-			$this->output_cache->add_function(function() use ($filedata, $lexer, $is_multipaste) {
-				$this->_highlight_file($filedata, $lexer, $is_multipaste);
-			});
+			if ($lexer == "asciinema") {
+				$this->output_cache->add(array("filedata" => $filedata), "file/fragments/asciinema-player");
+			} else {
+				$this->output_cache->add_function(function() use ($filedata, $lexer, $is_multipaste) {
+					$this->_highlight_file($filedata, $lexer, $is_multipaste);
+				});
+			}
 		}
 
 		// TODO: move lexers json to dedicated URL

@@ -17,6 +17,7 @@ if (is_cli_client() && !isset($force_full_html)) {
 	<link href="<?php echo link_with_mtime("/data/css/bootstrap.min.css"); ?>" rel="stylesheet">
 	<link href="<?php echo link_with_mtime("/data/css/style.css"); ?>" rel="stylesheet">
 	<link href="<?php echo link_with_mtime("/data/css/colorbox.css"); ?>" rel="stylesheet">
+	<link href="<?php echo link_with_mtime("/data/css/asciinema-player.css"); ?>" rel="stylesheet">
 	<?php
 		if (file_exists(FCPATH."data/local/style.css")) {
 			echo '<link href="'.link_with_mtime("/data/local/style.css").'" rel="stylesheet">';
@@ -26,6 +27,7 @@ if (is_cli_client() && !isset($force_full_html)) {
 			echo '<link href="'.link_with_mtime("/data/local/favicon.png").'" rel="shortcut icon">';
 		}
 	?>
+	<script src="<?php echo link_with_mtime("/data/js/vendor/asciinema-player.js"); ?>"></script>
 	<script src="<?php echo link_with_mtime("/data/js/vendor/require.js"); ?>"></script>
 	<script type="text/javascript">
 		/* <![CDATA[ */

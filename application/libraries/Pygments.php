@@ -165,6 +165,7 @@ class Pygments {
 	private function filename2lexer()
 	{
 		$namearray = array(
+			'asciinema.json' => 'asciinema',
 			'PKGBUILD' => 'bash',
 			'.vimrc' => 'vim'
 		);

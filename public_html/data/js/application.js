@@ -12,7 +12,7 @@ define(
 		'jquery',
 		'jquery.lazyload',
 		'bootstrap',
-		'jquery.checkboxes'
+		'jquery.checkboxes',
 	],
 	function (
 		require,
@@ -52,6 +52,7 @@ define(
 				this.setupLineWrapToggle();
 				this.setupLazyLoadingImages();
 				this.setupTableRangeSelect();
+				this.setupAsciinema();
 			},
 
 			setupTableRangeSelect: function () {
@@ -101,6 +102,13 @@ define(
 				if ($(ui.lazyLoadingImages).length > 0) {
 					$(ui.lazyLoadingImages).lazyload({treshold: 200});
 				}
+			},
+
+			setupAsciinema: function () {
+				_.each($('.asciinema_player'), function (item) {
+					item = $(item);
+					asciinema.player.js.CreatePlayer(item.attr("id"), item.data("url"));
+				});
 			}
 		};
 
