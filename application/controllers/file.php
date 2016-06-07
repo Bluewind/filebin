@@ -90,6 +90,7 @@ class File extends MY_Controller {
 			$is_multipaste = true;
 
 			if(!$this->mmultipaste->valid_id($id)) {
+				$this->mmultipaste->delete_id($id);
 				return $this->_non_existent();
 			}
 			$files = $this->mmultipaste->get_files($id);
