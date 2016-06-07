@@ -48,11 +48,11 @@ changed without notice.
 An api key can have one of the following access levels. Levels further down in
 the table include those above themselves.
 
- | access-level | Comment                                       | 
- | ------------ | -------                                       | 
- | basic        | Allows only uploading of files                | 
- | apikey       | Allows to delete uploads and view the history | 
- | full         | Allows everything                             | 
+| access-level | Comment                                       |
+| ------------ | -------                                       |
+| basic        | Allows only uploading of files                |
+| apikey       | Allows to delete uploads and view the history |
+| full         | Allows everything                             |
 
 ## General response structure
 
@@ -82,16 +82,16 @@ responseError = {
 
 These are the most common errors that can be returned by any API call.
 
- | error_id                     | Message                                    | Note                      | 
- | --------                     | -------                                    | ----                      | 
- | api/invalid-version          | Invalid API version requested              | Failed syntax check       | 
- | api/invalid-endpoint         | Invalid endpoint requested                 | Failed syntax check       | 
- | api/version-not-supported    | Requested API version is not supported     |                           | 
- | api/unknown-endpoint         | Unknown endpoint requested                 | Likely a typo in your URL | 
- | internal-error               | An unhandled internal server error occured |                           | 
- | user/api-login-failed        | API key login failed                       |                           | 
- | api/insufficient-permissions | Access denied: Access level too low        |                           | 
- | api/not-authenticated        | Not authenticated                          | Likely no apikey was sent | 
+| error_id                     | Message                                    | Note                      |
+| --------                     | -------                                    | ----                      |
+| api/invalid-version          | Invalid API version requested              | Failed syntax check       |
+| api/invalid-endpoint         | Invalid endpoint requested                 | Failed syntax check       |
+| api/version-not-supported    | Requested API version is not supported     |                           |
+| api/unknown-endpoint         | Unknown endpoint requested                 | Likely a typo in your URL |
+| internal-error               | An unhandled internal server error occured |                           |
+| user/api-login-failed        | API key login failed                       |                           |
+| api/insufficient-permissions | Access denied: Access level too low        |                           |
+| api/not-authenticated        | Not authenticated                          | Likely no apikey was sent |
 
 ## Endpoints
 

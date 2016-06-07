@@ -38,10 +38,9 @@ Example:
 }
 ```
 
-
- | Version | Change                                     |
- | ------- | ------                                     |
- | 1.4.0   | Add data.{max_input_vars,request_max_size} |
+| Version | Change                                     |
+| ------- | ------                                     |
+| 1.4.0   | Add data.{max_input_vars,request_max_size} |
 
 ### file/upload
 
