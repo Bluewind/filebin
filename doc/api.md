@@ -1,5 +1,18 @@
 # API
 
+**Table of Contents**
+
+- [General notes](#general-notes)
+	- [URLs](#urls)
+	- [Compatibility](#compatibility)
+	- [Unless stated otherwise ...](#unless-stated-otherwise-)
+	- [Access levels](#access-levels)
+- [General response structure](#general-response-structure)
+	- [Error handling](#error-handling)
+- [General errors](#general-errors)
+- [Endpoints](#endpoints)
+	- [Examples](#examples)
+
 The API provides programmatic access to upload, delete files, view the
 currently uploaded ones and combine them to multipastes, as well as functions
 to manage api keys. Responses are available in JSON.
