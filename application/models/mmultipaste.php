@@ -80,6 +80,10 @@ class Mmultipaste extends CI_Model {
 	public function valid_id($id)
 	{
 		$files = $this->get_files($id);
+		if (count($files) === 0) {
+			return false;
+		}
+
 		foreach ($files as $file) {
 			if (!$this->mfile->valid_id($file["id"])) {
 				return false;
