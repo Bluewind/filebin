@@ -1,4 +1,14 @@
-### file/get_config
+# /file API endpoints
+
+**Table of Contents**
+
+- [file/get_config](#fileget_config)
+- [file/upload](#fileupload)
+- [file/history](#filehistory)
+- [file/delete](#filedelete)
+- [file/create_multipaste](#filecreate_multipaste)
+
+## file/get_config
 
 Request method: GET
 This is a public method and does not require an apikey.
@@ -42,7 +52,7 @@ Example:
 | ------- | ------                                     |
 | 1.4.0   | Add data.{max_input_vars,request_max_size} |
 
-### file/upload
+## file/upload
 
 Required access level: `basic`
 
@@ -91,7 +101,7 @@ Example:
 }
 ```
 
-### file/history
+## file/history
 
 Return the currently available files/multipastes.
 
@@ -178,7 +188,7 @@ Example:
 | 2.0.0   | Add ''multipaste_item.date''. Remove ''multipaste_item.{multipaste_id,user_id}''. |
 | 2.1.0   | Add ''item.thumbnail''                                                            |
 
-### file/delete
+## file/delete
 
 Delete files or multipastes. Multipastes containing deleted files will also be silently removed.
 
@@ -232,7 +242,7 @@ Example:
 }
 ```
 
-### file/create_multipaste
+## file/create_multipaste
 
 Required access level: `basic`
 
