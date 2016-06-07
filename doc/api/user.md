@@ -1,4 +1,11 @@
-### user/apikeys
+# /user API endpoints
+**Table of Contents**
+
+- [user/apikeys](#userapikeys)
+- [user/create_apikey](#usercreate_apikey)
+- [user/delete_apikey](#userdelete_apikey)
+
+## user/apikeys
 
 Required access level: `full`
 
@@ -37,7 +44,7 @@ Example:
 }
 ```
 
-### user/create_apikey
+## user/create_apikey
 
 Required access level: `full`
 
@@ -71,7 +78,7 @@ Example:
 }
 ```
 
-### user/delete_apikey
+## user/delete_apikey
 
 Required access level: `full`
 
