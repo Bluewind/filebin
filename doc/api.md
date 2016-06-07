@@ -95,8 +95,10 @@ These are the most common errors that can be returned by any API call.
 
 ## Endpoints
 
-All return values below assume success unless stated otherwise and are the
-content of the `data` field mentioned above.
+Documentation for specific endpoints can be found in `./doc/api/`:
+
+* [Documentation for the /file/ endpoints](api/file.md)
+* [Documentation for the /user/ endpoints](api/user.md)
 
 ```javascript
 // General definitions
@@ -114,13 +116,15 @@ upload-id: String;
 // General success response
 responseSuccess = {
 	"status": "success",
-	"data": object or array,
+	"data": object or array, // Differs per endpoint. Refer to the specific endpoint documentation.
 }
 ```
 
-For the examples set the following variables in your shell. Please note that
-they and their values will show up in your shell history and in top/ps if used.
-Be careful on untrusted systems.
+### Examples
+
+For the examples given in the endpoint documentation, set the following
+variables in your shell. Please note that they and their values will show up in
+your shell history and in top/ps if used.  Be careful on untrusted systems.
 
 ```bash
 apikey="anApiKey"
