@@ -3,7 +3,7 @@
 A pastebin software running on [https://paste.xinu.at](https///paste.xinu.at).
 In addition to uploading text and code it also supports binary files.
 
-Additional documentation can be found in `./doc`.
+Additional documentation can be found in [`./doc`](doc/).
 
 ## Installation/Development
 
