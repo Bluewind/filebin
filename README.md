@@ -45,7 +45,6 @@ not need to register to be allowed to post.
 
 *  [pygmentize](http://pygments.org/) for code highlighting
 *  [ansi2html](http://pypi.python.org/pypi/ansi2html) for shell output rendering (ANSI color codes)
-*  [qrencode](http://megaui.net/fukuchi/works/qrencode/index.en.html) for qrcode generation
 *  [imagemagick](http://www.imagemagick.org/) for additional thumbnail generation
 *  [node.js](https://nodejs.org/) for javascript minification
 

@@ -131,7 +131,11 @@ class File extends MY_Controller {
 			handle_etag($etag);
 			header("Content-disposition: inline; filename=\"".$id."_qr.png\"\n");
 			header("Content-Type: image/png\n");
-			echo (new \libraries\ProcRunner(array('qrencode', '-s', '10', '-o', '-', site_url($id).'/')))->execSafe()['stdout'];
+			$qr = new \Endroid\QrCode\QrCode();
+			$qr->setText(site_url($id).'/')
+			   ->setSize(350)
+			   ->setErrorCorrection('low')
+			   ->render();
 			exit();
 
 		case "info":

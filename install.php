@@ -60,14 +60,6 @@ if ($buf != "0") {
 	$errors .= " - Error when testing ansi2html: Return code was \"$buf\".\n";
 }
 
-// test qrencode
-ob_start();
-passthru("qrencode -V 2>&1", $buf);
-ob_end_clean();
-if ($buf != "0") {
-	$errors .= " - Error when testing qrencode: Return code was \"$buf\".\n";
-}
-
 // test imagemagick
 ob_start();
 passthru("convert --version 2>&1", $buf);

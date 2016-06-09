@@ -17,6 +17,9 @@ class CustomAutoloader{
 	public function loader($className)
 	{
 		$namespaces = array(
+			'Endroid\QrCode' => [
+				["path" => APPPATH."/third_party/QrCode/src/"],
+			],
 			'' => [
 				["path" => APPPATH],
 				["path" => APPPATH."/third_party/mockery/library/"]

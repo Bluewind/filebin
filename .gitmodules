@@ -1,3 +1,6 @@
 [submodule "application/third_party/mockery"]
 	path = application/third_party/mockery
 	url = https://github.com/padraic/mockery.git
+[submodule "application/third_party/QrCode"]
+	path = application/third_party/QrCode
+	url = https://github.com/endroid/QrCode.git

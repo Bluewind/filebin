@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update -y && \
     apt-get install -y php5 php5-mysql php5-gd php5-imagick libtext-markdown-perl expect \
-                       python-pygments qrencode  imagemagick git python-pip realpath curl apt-transport-https
+                       python-pygments imagemagick git python-pip realpath curl apt-transport-https
 
 RUN echo 'deb https://deb.nodesource.com/node_4.x trusty main' > /etc/apt/sources.list.d/nodesource.list
 RUN echo 'deb-src https://deb.nodesource.com/node_4.x trusty main' >> /etc/apt/sources.list.d/nodesource.list
