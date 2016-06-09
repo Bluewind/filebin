@@ -16,16 +16,23 @@ class CustomAutoloader{
 
 	public function loader($className)
 	{
-		$base_paths = array(
-			APPPATH,
-			APPPATH."/third_party/mockery/library/",
+		$namespaces = array(
+			'' => [
+				["path" => APPPATH],
+				["path" => APPPATH."/third_party/mockery/library/"]
+			],
 		);
 
-		foreach ($base_paths as $base_path) {
-			$path = $base_path.str_replace('\\', DIRECTORY_SEPARATOR, $className).'.php';
-			if (file_exists($path)) {
-				require $path;
-				return;
+		foreach ($namespaces as $namespace => $search_items) {
+			if ($namespace === '' || strpos($className, $namespace) === 0) {
+				foreach ($search_items as $search_item) {
+					$nameToLoad = str_replace($namespace, '', $className);
+					$path = $search_item['path'].str_replace('\\', DIRECTORY_SEPARATOR, $nameToLoad).'.php';
+					if (file_exists($path)) {
+						require $path;
+						return;
+					}
+				}
 			}
 		}
 	}
