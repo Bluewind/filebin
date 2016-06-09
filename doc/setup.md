@@ -1,12 +1,16 @@
 # Setup
 
+For installation instructions follow `./INSTALL`.
+
+## Fancy URLs
+
 Set `$config['index_page'] = '';` in `application/config/config-local.php` and adjust your webserver's rewrite config.
 
-## Apache
+### Apache
 
 See the shipped htaccess.txt
 
-## Nginx
+### Nginx
 
 ```
 location / {
@@ -17,7 +21,7 @@ location @ee {
 }
 ```
 
-## Lighttpd
+### Lighttpd
 
 ```
 url.rewrite-if-not-file = ( "^(.*)$" => "/index.php/?$1" )
