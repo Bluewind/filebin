@@ -29,6 +29,8 @@ Please submit patches (preferably git send-email) to the [filebin-general
 mailing list](https://lists.server-speed.net/listinfo/filebin-general). You do
 not need to register to be allowed to post.
 
+You can also open a pull request on [GitHub](https://github.com/Bluewind/filebin).
+
 
 ## Dependencies
 
