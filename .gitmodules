@@ -4,3 +4,6 @@
 [submodule "application/third_party/QrCode"]
 	path = application/third_party/QrCode
 	url = https://github.com/endroid/QrCode.git
+[submodule "application/third_party/parsedown"]
+	path = application/third_party/parsedown
+	url = https://github.com/erusev/parsedown.git

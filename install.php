@@ -29,21 +29,6 @@ $buf = ob_get_contents();
 ob_end_clean();
 $buf == "works" || $errors .= "passthru() failed\n";
 
-// test perl deps
-$perldeps = array(
-	"Text::Markdown"
-);
-foreach ($perldeps as $dep) {
-	ob_start();
-	passthru("perl 2>&1 -M'$dep' -e1");
-	$buf = ob_get_contents();
-	ob_end_clean();
-	if ($buf != "") {
-		$errors .= " - failed to find perl module: $dep.\n";
-		$errors .= $buf;
-	}
-}
-
 // test pygmentize
 ob_start();
 passthru("pygmentize -V 2>&1", $buf);

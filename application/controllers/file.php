@@ -320,14 +320,16 @@ class File extends MY_Controller {
 					echo '<div class="code content table markdownrender">'."\n";
 					echo '<div class="table-row">'."\n";
 					echo '<div class="table-cell">'."\n";
-					// TODO: use exec safe and catch exception
-					$r = (new \libraries\ProcRunner(array(FCPATH.'scripts/Markdown.pl', $file)))->forbid_stderr()->exec();
-					echo $r['stdout'];
+
+					require_once(APPPATH."/third_party/parsedown/Parsedown.php");
+					$parsedown = new Parsedown();
+					echo $parsedown->text(file_get_contents($file));
+
 					echo '</div></div></div>';
 
 					return array(
 						"output" => ob_get_clean(),
-						"return_value" => $r["return_code"],
+						"return_value" => 0,
 					);
 				} else {
 					return get_instance()->_colorify($file, $lexer, $is_multipaste ? $filedata["id"] : false);
