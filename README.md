@@ -16,8 +16,6 @@ install using tarballs as this is not supported.
 stable changes go to `master` and will be tagged regularly following [semver
 guidelines](http://semver.org/).
 
-There is currently no bug tracking software.
-
 ### Mailing List
 
 Currently there is only [one mailing
