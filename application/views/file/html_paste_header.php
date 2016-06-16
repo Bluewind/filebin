@@ -1,4 +1,4 @@
-<div class="container paste-container container-wide">
+<div class="container-fluid paste-container">
 	<div style="border:1px solid #ccc;">
 		<div class="navbar navbar-default navbar-static-top navbar-paste">
 			<ul class="nav navbar-nav navbar-left dont-float">

@@ -1,4 +1,4 @@
-<div class="container-wide">
+<div class="container-fluid">
 <div class='panel panel-default'>
 	<div class='panel-heading'>
 		<?php echo anchor(site_url($filedata['id']), htmlspecialchars($filedata["filename"])); ?>

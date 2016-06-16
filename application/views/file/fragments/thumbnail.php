@@ -1,5 +1,5 @@
 <!-- Comment markers background: http://stackoverflow.com/a/14776780/953022 -->
-<div class="container container-wide">
+<div class="container container-fluid">
 <?php
 $base_url = site_url();
 if (substr($base_url, -1) !== "/") {

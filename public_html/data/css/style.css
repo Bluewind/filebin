@@ -201,14 +201,6 @@ body {
 	padding-left: 0;
 }
 
-.container-wide {
-	padding: 0;
-	max-width: 100%;
-	margin-left: 20px;
-	margin-right: 20px;
-	margin-bottom: 20px;
-}
-
 .simple-container {
 	margin-left: 20px;
 	margin-right: 20px;
@@ -218,6 +210,7 @@ body {
 .paste-container {
 	padding: 3px;
 	background: #eee;
+	margin: 0 15px 20px 15px;
 }
 
 .code pre {
