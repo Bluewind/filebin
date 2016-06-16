@@ -16,7 +16,6 @@ class files {
 		$CI =& get_instance();
 		$items = array();
 
-		// TODO: thumbnail urls where available
 		$fields = array("files.id", "filename", "mimetype", "files.date", "hash", "filesize");
 		$query = $CI->db->select(implode(',', $fields))
 			->from('files')
