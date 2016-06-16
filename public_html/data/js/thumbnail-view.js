@@ -48,7 +48,7 @@ define(['jquery', 'underscore', 'jquery.colorbox'], function ($, _) {
 		setupPopovers: function () {
 			$(ui.thumbnailLinks).popover({
 				trigger: 'hover',
-				placement: 'bottom',
+				placement: 'auto bottom',
 				html: true
 			});
 		},
