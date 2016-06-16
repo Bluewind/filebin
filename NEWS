@@ -1,5 +1,7 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+2016-06-16 Automatically update submodules in post-merge hook
+
 2016-06-16 Replace qrencode and markdown with PHP libraries (managed via git submodules)
 2016-06-16 Include all documentation from the wiki in ./doc
 
