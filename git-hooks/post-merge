@@ -14,6 +14,9 @@ if [ ! $fresh_clone ] && [[ -z "$changes" ]]; then
 	exit
 fi
 
+# Make sure submodules are up to date
+git submodule update --init --recursive
+
 # Update databse
 php index.php tools update_database
 
