@@ -764,6 +764,11 @@ class File extends MY_Controller {
 
 		foreach($history["items"] as $key => $item) {
 			$history["items"][$key]["filesize"] = format_bytes($item["filesize"]);
+
+			if (isset($item['preview_text'])) {
+				$history["items"][$key]["preview_text"] = htmlentities($item['preview_text']);
+			}
+
 			if (is_cli_client()) {
 				// Keep track of longest string to pad plaintext output correctly
 				foreach($fields as $length_key => $value) {

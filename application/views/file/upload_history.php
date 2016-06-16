@@ -16,7 +16,7 @@
                 <?php foreach($items as $key => $item): ?>
                     <tr>
                         <td><input type="checkbox" name="ids[<?php echo $item["id"] ?>]" value="<?php echo $item["id"] ?>" class="delete-history"></td>
-                        <td><a href="<?php echo site_url("/".$item["id"]) ?>/"><?php echo $item["id"] ?></a></td>
+                        <td><a href="<?php echo site_url("/".$item["id"]) ?>/" data-content="<?php if (isset($item['preview_text'])) {echo htmlentities($item['preview_text']);} ?>"><?php echo $item["id"] ?></a></td>
                         <td class="wrap"><?php echo htmlspecialchars($item["filename"]); ?></td>
                         <td><?php echo $item["mimetype"] ?></td>
                         <td class="nowrap" data-sort-value="<?=$item["date"]; ?>"><?php echo date("r", $item["date"]); ?></td>

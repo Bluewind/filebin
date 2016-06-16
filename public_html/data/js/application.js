@@ -47,6 +47,7 @@ define(
 				Uploader.initialize();
 				TableSorter.initialize();
 				this.configureTooltips();
+				this.setupHistoryPopovers();
 				this.setupToggleSelectAllEvent();
 				this.setupLineWrapToggle();
 				this.setupLazyLoadingImages();
@@ -65,6 +66,16 @@ define(
 				$('[rel="tooltip"]').tooltip({
 					placement: 'bottom',
 					container: 'body',
+				});
+			},
+
+			setupHistoryPopovers: function () {
+				$('#upload_history a').popover({
+					trigger: 'hover',
+					placement: 'bottom',
+					html: true,
+					viewport: '#upload_history',
+					template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><pre class="popover-content"></pre></div>'
 				});
 			},
 

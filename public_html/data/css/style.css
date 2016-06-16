@@ -296,6 +296,17 @@ body {
 	max-width: 400px;
 }
 
+#upload_history .popover {
+    max-width: 100%;
+}
+
+#upload_history .popover pre {
+    background-color: transparent;
+    border: 0;
+    margin: 0;
+    line-height: 1.4;
+}
+
 .upload_thumbnails {
 	margin: 0 auto;
 	width: 152px;
