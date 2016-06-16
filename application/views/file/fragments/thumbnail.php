@@ -12,8 +12,8 @@ if (substr($base_url, -1) !== "/") {
 			<?php if (strpos($item["mimetype"], "image/") === 0) {?>rel="gallery" class="colorbox"<?php } ?>
 			data-orientation="<?php echo $item["orientation"]; ?>"
 			href="<?php echo $base_url.$item["id"]."/"; ?>"
-			title="<?php echo htmlentities($item["filename"]); ?>"
-			data-content="<?php echo htmlentities($item["tooltip"]); ?>"
+			title="<?php echo htmlentities($item["filename"], ENT_QUOTES); ?>"
+			data-content="<?php echo htmlentities($item["tooltip"], ENT_QUOTES); ?>"
 			data-id="<?php echo $item["id"]; ?>"><!--
 			--><img	class="thumb lazyload"
 				data-original="<?php echo $base_url."file/thumbnail/".$item["id"]; ?>"
