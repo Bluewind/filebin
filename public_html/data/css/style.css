@@ -20,6 +20,10 @@
 	vertical-align: bottom;
 }
 
+.navbar-brand > img {
+    display: inline-block;
+}
+
 .login-page {
 	max-width: 300px;
 }
