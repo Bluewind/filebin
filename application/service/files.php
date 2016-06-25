@@ -95,6 +95,44 @@ class files {
 		self::add_file_callback($id, $file, $filename);
 	}
 
+	/**
+	 * Ellipsize text to be at max $max_lines lines long. If the last line is
+	 * not complete (strlen($text) < $filesize), drop it so that every line of
+	 * the returned text is complete. If there is only one line, return that
+	 * line as is and add the ellipses at the end.
+	 *
+	 * @param text Text to add ellipses to
+	 * @param max_lines Number of lines the returned text should contain
+	 * @param filesize size of the original file where the text comes from
+	 * @return ellipsized text
+	 */
+	static public function ellipsize($text, $max_lines, $filesize)
+	{
+		$lines = explode("\n", $text);
+		$orig_len = strlen($text);
+		$orig_linecount = count($lines);
+
+		if ($orig_linecount > 1) {
+			if ($orig_len < $filesize) {
+				// ensure we have a full line at the end
+				$lines = array_slice($lines, 0, -1);
+			}
+
+			if (count($lines) > $max_lines) {
+				$lines = array_slice($lines, 0, $max_lines);
+			}
+
+			if (count($lines) != $orig_linecount) {
+				// only add elipses when we drop at least one line
+				$lines[] = "...";
+			}
+		} elseif ($orig_len < $filesize) {
+			$lines[count($lines) - 1] .= " ...";
+		}
+
+		return implode("\n", $lines);
+	}
+
 	static public function add_uploaded_file($id, $file, $filename)
 	{
 		self::add_file_callback($id, $file, $filename);
