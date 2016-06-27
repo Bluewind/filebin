@@ -141,3 +141,16 @@ These are the most common errors that can be returned by any API call.
 | user/api-login-failed        | API key login failed                       |                           |
 | api/insufficient-permissions | Access denied: Access level too low        |                           |
 | api/not-authenticated        | Not authenticated                          | Likely no apikey was sent |
+
+## Overview over API versions
+
+| Version | Endpoint | Note |
+| ------- | -------- | ---- |
+| 2.1.0   | file/history | Add ''item.thumbnail'' |
+| 2.0.0   | file/history | Add ''multipaste_item.date'' |
+| 2.0.0   | file/history | Remove private fields in response |
+| 1.4.0   | file/get_config | Add data.{max_input_vars,request_max_size} |
+| 1.3.0   | file/create_multipaste | Allow multipaste creation for basic access level |
+| 1.2.0   | user/delete_apikeys | Add this endpoint |
+| 1.1.0   | file/create_multipaste | Add url key to response |
+| 1.0.0   | * | Initial API version |
