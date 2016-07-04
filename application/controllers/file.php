@@ -738,8 +738,27 @@ class File extends MY_Controller {
 
 		foreach ($history["multipaste_items"] as $key => $item) {
 			$size = 0;
+			$filenames = array();
+			$files = array();
+			$max_filenames = 10;
+
 			foreach ($item["items"] as $i) {
 				$size += $history["items"][$i["id"]]["filesize"];
+				$files[] = array(
+					"filename" => $history["items"][$i["id"]]['filename'],
+					"sort_order" => $i["sort_order"],
+				);
+			}
+
+			uasort($files, function ($a, $b) {
+				return $a['sort_order'] - $b['sort_order'];
+			});
+
+			$filenames = array_map(function ($a) {return $a['filename'];}, $files);
+
+			if (count($filenames) > $max_filenames) {
+				$filenames = array_slice($filenames, 0, $max_filenames);
+				$filenames[] = "...";
 			}
 
 			$history["items"][] = array(
@@ -749,6 +768,7 @@ class File extends MY_Controller {
 				"date" => $item["date"],
 				"hash" => "",
 				"filesize" => $size,
+				"preview_text" => implode("\n", $filenames),
 			);
 		}
 
