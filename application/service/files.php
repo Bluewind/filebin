@@ -70,10 +70,17 @@ class files {
 			->join("multipaste_file_map mfm", "m.multipaste_id = mfm.multipaste_id")
 			->join("files f", "f.id = mfm.file_url_id")
 			->where("m.user_id", $user)
+			->order_by("mfm.sort_order")
 			->get()->result_array();
 
+		$counter = 0;
+
 		foreach ($multipaste_items_query as $item) {
-			$multipaste_info[$item["url_id"]]["items"][$item["id"]] = array("id" => $item["id"]);
+			$multipaste_info[$item["url_id"]]["items"][$item["id"]] = array(
+				"id" => $item["id"],
+				// normalize sort_order value so we don't leak any information
+				"sort_order" => $counter++,
+			);
 		}
 
 		// No idea why, but this can/could happen so be more forgiving and clean up

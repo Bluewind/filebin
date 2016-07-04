@@ -62,6 +62,11 @@ class file extends \controllers\api\api_controller {
 		foreach ($history['items'] as $key => $item) {
 			unset($history['items'][$key]['thumbnail']);
 		}
+		foreach ($history['multipaste_items'] as $key => $multipaste_item) {
+			foreach ($multipaste_item['items'] as $inner_key => $item) {
+				unset($history['multipaste_items'][$key]['items'][$inner_key]['sort_order']);
+			}
+		}
 		return $history;
 	}
 

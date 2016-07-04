@@ -59,10 +59,14 @@ class file extends \controllers\api\api_controller {
 	{
 		$this->muser->require_access("apikey");
 		$history = \service\files::history($this->muser->get_userid());
-		# APIv1-cleanup: Remove this
 		foreach ($history['multipaste_items'] as $key => $item) {
+			# APIv1-cleanup: Remove this
 			unset($history['multipaste_items'][$key]['user_id']);
 			unset($history['multipaste_items'][$key]['multipaste_id']);
+
+			foreach ($item['items'] as $inner_key => $item) {
+				unset($history['multipaste_items'][$key]['items'][$inner_key]['sort_order']);
+			}
 		}
 		return $history;
 	}
