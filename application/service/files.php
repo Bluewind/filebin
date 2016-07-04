@@ -26,6 +26,29 @@ class files {
 			if (\libraries\Image::type_supported($item["mimetype"])) {
 				$item['thumbnail'] = site_url("file/thumbnail/".$item['id']);
 			}
+
+			// FIXME performance is baaaaad here. put this in the db and populate when uploading
+			$filedata = $CI->mfile->get_filedata($item['id']);
+			$file = $CI->mfile->file($filedata["data_id"]);
+			$pygments = new \libraries\Pygments($file, $item['mimetype'], $item['filename']);
+			if ($pygments->should_highlight()) {
+				$max_preview_len = 1024;
+				$max_lines = 15;
+
+				try {
+					$f = fopen($file, "r");
+				} catch (\ErrorException $e) {
+					$f = null;
+				}
+
+				if ($f) {
+					$text = fread($f, $max_preview_len);
+					fclose($f);
+
+					$item['preview_text'] = self::ellipsize($text, $max_lines, filesize($file));
+				}
+			}
+
 			$items[$item["id"]] = $item;
 		}
 

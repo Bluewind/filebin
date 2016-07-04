@@ -60,6 +60,9 @@ class file extends \controllers\api\api_controller {
 	{
 		$this->CI->muser->require_access("apikey");
 		$history = \service\files::history($this->CI->muser->get_userid());
+		foreach ($history['items'] as $key => $item) {
+			unset($history['items'][$key]['preview_text']);
+		}
 		foreach ($history['multipaste_items'] as $key => $item) {
 			foreach ($item['items'] as $inner_key => $item) {
 				unset($history['multipaste_items'][$key]['items'][$inner_key]['sort_order']);
