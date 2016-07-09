@@ -1,4 +1,4 @@
-<div class="table-responsive container-fluid">
+<div class="table-responsive container-wide">
 	<p>Non-previewable file(s):</p>
 	<table class="table table-striped tablesorter">
 		<thead>

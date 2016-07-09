@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-wide">
 <p>
 	<audio controls="controls">
 		<source src="<?php echo site_url($filedata["id"]); ?>">
