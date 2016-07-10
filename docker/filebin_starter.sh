@@ -12,6 +12,13 @@ function set_database_config() {
     sed -i "s/\$db\['default'\]\['database'\] = .*/\$db['default']['database'] = \"${FB_DB_DATABASE}\";/" ${FILEBIN_DIR}/application/config/database.php
 }
 
+# wait for DB to be ready
+while ! nc "$FB_DB_HOSTNAME" 3306 </dev/null >/dev/null; do
+	echo "Waiting for database"
+	sleep 0.5
+done
+
+
 if [[ ! -e $FILEBIN_DIR/application/config/config-local.php ]]; then
     echo "no config found, new config will be generated"
     cp $FILEBIN_DIR/application/config/example/config-local.php ${FILEBIN_DIR}/application/config/config-local.php
