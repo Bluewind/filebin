@@ -1,5 +1,10 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+2016-07-10 API: Fix error when trying to use v2.1 saying that that version is
+           not supported even though it is
+2016-07-10 Add docker-compose file to easily spin up a demo instance
+2016-07-10 Update to current Bootstrap CSS framework version
+
 2016-06-16 Automatically update submodules in post-merge hook
 
 2016-06-16 Replace qrencode and markdown with PHP libraries (managed via git submodules)
