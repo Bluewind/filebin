@@ -1,0 +1,25 @@
+version: '2'
+services:
+    mysql:
+        image: mysql
+        environment:
+            - MYSQL_DATABASE=filebin
+            - MYSQL_USER=filebin
+            # TODO: can this be set to a random password?
+            - MYSQL_PASSWORD=filebin-docker-demo
+            - MYSQL_RANDOM_ROOT_PASSWORD=yes
+
+    filebin:
+        links:
+            - mysql
+        build: .
+        ports:
+            - "8080:8080"
+        environment:
+            - FB_DB_HOSTNAME=mysql
+            - FB_DB_USERNAME=filebin
+            - FB_DB_PASSWORD=filebin-docker-demo
+            - FB_DB_DATABASE=filebin
+            - FB_CONTACT_NAME=John Doe
+            - FB_CONTACT_MAIL=root@example.local
+

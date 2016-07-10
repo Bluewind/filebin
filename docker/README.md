@@ -27,5 +27,12 @@ The PHP webserver is listening on ```8080```
 The first user is **admin** with the password **admin**
 
 ## Run
+
+### with docker-compose
+```bash
+docker-compose build
+docker-compose up
+```
+
 ### with linked mysql/mariadb database server
 ```docker run -ti --rm -p <port>:8080 --link mdb:mysql  -e FB_DB_HOSTNAME=mysql -e FB_DB_USERNAME=filebin_usr -e FB_DB_PASSWORD=test -e FB_DB_DATABASE=filebin -e FB_CONTACT_NAME="John Doe" -e FB_CONTACT_MAIL="john.doe@localmail.local"  sebastianrakel/filebin```
