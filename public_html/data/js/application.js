@@ -53,6 +53,7 @@ define(
 				this.setupLazyLoadingImages();
 				this.setupTableRangeSelect();
 				this.setupAsciinema();
+				this.focusLoginFormOnClick();
 			},
 
 			setupTableRangeSelect: function () {
@@ -109,7 +110,15 @@ define(
 					item = $(item);
 					asciinema.player.js.CreatePlayer(item.attr("id"), item.data("url"));
 				});
-			}
+			},
+
+			focusLoginFormOnClick: function () {
+				$('.dropdown-toggle').on('click', function (e) {
+					setTimeout(function() {
+						$(e.target).parent().find(".dropdown-menu input.form-control").first().focus();
+					}, 0);
+				});
+			},
 		};
 
 		return App;
