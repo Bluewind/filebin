@@ -293,13 +293,17 @@ class File extends MY_Controller {
 				$anchor = "n-$anchor_id-$line_number";
 			}
 
+			if ($line === "") {
+				$line = "<br>";
+			}
+
 			// Be careful not to add superflous whitespace here (we are in a <code>)
 			$output .= "<div class=\"table-row\">"
 							."<a href=\"#$anchor\" class=\"linenumber table-cell\">"
 								."<span class=\"anchor\" id=\"$anchor\"> </span>"
 							."</a>"
-							."<span class=\"line table-cell\">".$line."</span>\n";
-			$output .= "</div>";
+							."<span class=\"line table-cell\">".$line."</span><!--\n";
+			$output .= "--></div>";
 		}
 
 		$output .= "</code></div>";
