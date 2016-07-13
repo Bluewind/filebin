@@ -200,7 +200,7 @@ class User extends MY_Controller {
 			$password = $this->input->post("password");
 			$password_confirm = $this->input->post("password_confirm");
 
-			if (!$username || strlen($username) > 32 || !preg_match("/^[a-z0-9]+$/", $username)) {
+			if (!$this->valid_username($username)) {
 				$error[]= "Invalid username (only up to 32 chars of a-z0-9 are allowed).";
 			} else {
 				if ($this->muser->username_exists($username)) {
@@ -615,6 +615,19 @@ class User extends MY_Controller {
 		}
 	}
 
+	/*
+	 * Check if a given username is valid.
+	 *
+	 * Valid usernames contain only lowercase characters and numbers. They are
+	 * also <= 32 characters in length.
+	 *
+	 * @return boolean
+	 */
+	private function valid_username($username)
+	{
+		return !$username || strlen($username) > 32 || !preg_match("/^[a-z0-9]+$/", $username);
+	}
+
 	function add_user()
 	{
 		if (!$this->input->is_cli_request()) return;
@@ -624,7 +637,7 @@ class User extends MY_Controller {
 
 		// FIXME: deduplicate username/email verification with register()
 		$username = $this->_get_line_cli("Username", function($username) {
-			if (!$username || strlen($username) > 32 || !preg_match("/^[a-z0-9]+$/", $username)) {
+			if (!$this->valid_username($username)) {
 				echo "Invalid username (only up to 32 chars of a-z0-9 are allowed).\n";
 				return false;
 			} else {
