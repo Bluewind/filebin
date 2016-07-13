@@ -160,7 +160,6 @@ class files {
 			$data_id = implode("-", array($row['hash'], $row['id']));
 			$old_file = $CI->mfile->file($data_id);
 
-			// TODO: set $new_file
 			if (files_are_equal($old_file, $new_file)) {
 				$storage_id = $row["id"];
 				break;
