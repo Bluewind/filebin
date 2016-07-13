@@ -1,5 +1,9 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+2016-07-13 Fix incorrect content in clipboard when copying paste content from
+           the HTML render with firefox
+2016-07-13 Add asciinema support for files called asciinema.json
+
 2016-07-10 API: Fix error when trying to use v2.1 saying that that version is
            not supported even though it is
 2016-07-10 Add docker-compose file to easily spin up a demo instance
