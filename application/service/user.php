@@ -14,9 +14,11 @@ class user {
 	/**
 	 * Create a new api key.
 	 *
-	 * @param userid TODO
-	 * @param comment TODO
-	 * @param access_level TODO
+	 * Refer to Muser->get_access_levels() for a list of valid access levels.
+	 *
+	 * @param userid ID of the user
+	 * @param comment free text comment describing the api key/it's usage/allowing to identify the key
+	 * @param access_level access level of the key
 	 * @return the new key
 	 */
 	static public function create_apikey($userid, $comment, $access_level)
@@ -47,7 +49,7 @@ class user {
 
 	/**
 	 * Get apikeys for a user
-	 * @param userid TODO
+	 * @param userid ID of the user
 	 * @return array with the key data
 	 */
 	static public function apikeys($userid)
