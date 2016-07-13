@@ -168,7 +168,7 @@ class Muser extends CI_Model {
 			return;
 		}
 
-		throw new \exceptions\InsufficientPermissionsException("api/insufficient-permissions", "Access denied: Access level too low");
+		throw new \exceptions\InsufficientPermissionsException("api/insufficient-permissions", "Access denied: Access level too low. Required: $wanted_level; Have: $session_level");
 	}
 
 	function require_access($wanted_level = "full")

@@ -89,6 +89,8 @@ class test_api_v2 extends \test\Test {
 	{
 		$testconfig = array(
 			array(
+				"have_level" => "basic",
+				"wanted_level" => "apikey",
 				"apikey" => $this->createUserAndApikey('basic'),
 				"endpoints" => array(
 					"file/delete",
@@ -96,6 +98,8 @@ class test_api_v2 extends \test\Test {
 				),
 			),
 			array(
+				"have_level" => "apikey",
+				"wanted_level" => "full",
 				"apikey" => $this->createUserAndApikey(),
 				"endpoints" => array(
 					"user/apikeys",
@@ -113,7 +117,7 @@ class test_api_v2 extends \test\Test {
 				$this->t->is_deeply(array(
 					'status' => "error",
 					'error_id' => "api/insufficient-permissions",
-					'message' => "Access denied: Access level too low",
+					'message' => "Access denied: Access level too low. Required: ${test['wanted_level']}; Have: ${test['have_level']}",
 				   ), $ret, "expected permission error");
 			}
 		}
