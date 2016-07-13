@@ -586,7 +586,7 @@ class User extends MY_Controller {
 
 	function cron()
 	{
-		if (!$this->input->is_cli_request()) return;
+		$this->_require_cli_request();
 
 		if ($this->config->item('actions_max_age') == 0) return;
 
@@ -641,7 +641,7 @@ class User extends MY_Controller {
 
 	function add_user()
 	{
-		if (!$this->input->is_cli_request()) return;
+		$this->_require_cli_request();
 		$this->duser->require_implemented("can_register_new_users");
 
 		$error = array();

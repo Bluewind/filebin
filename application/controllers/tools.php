@@ -14,9 +14,7 @@ class Tools extends MY_Controller {
 		parent::__construct();
 
 		$this->load->model('mfile');
-		if (!$this->input->is_cli_request()) {
-			throw new \exceptions\PublicApiException("api/cli-only", "This can only be called via CLI");
-		}
+		$this->_require_cli_request();
 	}
 
 	function index()

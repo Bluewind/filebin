@@ -105,4 +105,11 @@ class MY_Controller extends CI_Controller {
 		$this->data["user_logged_in"] = $this->muser->logged_in();
 		$this->data['redirect_uri'] = $this->uri->uri_string();
 	}
+
+	protected function _require_cli_request()
+	{
+		if (!$this->input->is_cli_request()) {
+			throw new \exceptions\PublicApiException("api/cli-only", "This function can only be accessed via the CLI interface");
+		}
+	}
 }

@@ -1066,7 +1066,7 @@ class File extends MY_Controller {
 	// Removes old files
 	function cron()
 	{
-		if (!$this->input->is_cli_request()) return;
+		$this->_require_cli_request();
 
 		$tarball_dir = $this->config->item("upload_path")."/special/multipaste-tarballs";
 		if (is_dir($tarball_dir)) {
@@ -1124,7 +1124,7 @@ class File extends MY_Controller {
 	/* remove files without database entries */
 	function clean_stale_files()
 	{
-		if (!$this->input->is_cli_request()) return;
+		$this->_require_cli_request();
 
 		$upload_path = $this->config->item("upload_path");
 		$outer_dh = opendir($upload_path);
@@ -1178,7 +1178,7 @@ class File extends MY_Controller {
 
 	function nuke_id()
 	{
-		if (!$this->input->is_cli_request()) return;
+		$this->_require_cli_request();
 
 		$id = $this->uri->segment(3);
 
@@ -1196,7 +1196,7 @@ class File extends MY_Controller {
 
 	function update_file_metadata()
 	{
-		if (!$this->input->is_cli_request()) return;
+		$this->_require_cli_request();
 
 		$chunk = 500;
 
