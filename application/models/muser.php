@@ -185,7 +185,7 @@ class Muser extends CI_Model {
 			return $this->check_access_level($wanted_level);
 		}
 
-		throw new \exceptions\NotAuthenticatedException("api/not-authenticated", "Not authenticated. FileBin requires you to have an account, please go to the homepage for more information.");
+		throw new \exceptions\NotAuthenticatedException("api/not-authenticated", "Not authenticated. FileBin requires you to have an account, please go to the homepage at ".site_url()." for more information.");
 	}
 
 	function username_exists($username)

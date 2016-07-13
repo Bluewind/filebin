@@ -80,7 +80,7 @@ class test_api_v2 extends \test\Test {
 			$this->t->is_deeply(array(
 				'status' => 'error',
 				'error_id' => 'api/not-authenticated',
-				'message' => 'Not authenticated. FileBin requires you to have an account, please go to the homepage for more information.',
+				'message' => 'Not authenticated. FileBin requires you to have an account, please go to the homepage at http://127.0.0.1:23115/ for more information.',
 			   ), $ret, "expected error");
 		}
 	}
