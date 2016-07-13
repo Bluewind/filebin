@@ -210,7 +210,7 @@ class Mfile extends CI_Model {
 
 		// Delete the file and all multipastes using it
 		// Note that this does not delete all relations in multipaste_file_map
-		// which is actually done by a SQL contraint.
+		// which is actually done by an SQL contraint.
 		// TODO: make it work properly without the constraint
 		$map = $this->db->select('url_id')
 			->distinct()
