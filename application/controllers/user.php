@@ -208,8 +208,7 @@ class User extends MY_Controller {
 				}
 			}
 
-			$this->load->helper("email");
-			if (!valid_email($email)) {
+			if (!$this->valid_email($email)) {
 				$error[]= "Invalid email.";
 			}
 
@@ -628,6 +627,18 @@ class User extends MY_Controller {
 		return !$username || strlen($username) > 32 || !preg_match("/^[a-z0-9]+$/", $username);
 	}
 
+	/**
+	 * Check if a given email is valid. Only perform minimal checking since
+	 * verifying emails is very very difficuly.
+	 *
+	 * @return boolean
+	 */
+	private function valid_email($email)
+	{
+		$this->load->helper("email");
+		return valid_email($email);
+	}
+
 	function add_user()
 	{
 		if (!$this->input->is_cli_request()) return;
@@ -635,7 +646,6 @@ class User extends MY_Controller {
 
 		$error = array();
 
-		// FIXME: deduplicate username/email verification with register()
 		$username = $this->_get_line_cli("Username", function($username) {
 			if (!$this->valid_username($username)) {
 				echo "Invalid username (only up to 32 chars of a-z0-9 are allowed).\n";
@@ -649,9 +659,8 @@ class User extends MY_Controller {
 			return true;
 		});
 
-		$this->load->helper("email");
 		$email = $this->_get_line_cli("Email", function($email) {
-			if (!valid_email($email)) {
+			if (!$this->valid_email($email)) {
 				echo "Invalid email.\n";
 				return false;
 			}
