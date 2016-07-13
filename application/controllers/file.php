@@ -256,7 +256,7 @@ class File extends MY_Controller {
 		$lines_to_remove = 0;
 
 		$output .= '<div class="code content table">'."\n";
-		$output .= '<div class="highlight"><pre>'."\n";
+		$output .= '<div class="highlight"><code class="code-container">'."\n";
 
 		if ($lexer == "ascii") {
 			// TODO: use exec safe and catch exception
@@ -293,7 +293,7 @@ class File extends MY_Controller {
 				$anchor = "n-$anchor_id-$line_number";
 			}
 
-			// Be careful not to add superflous whitespace here (we are in a <pre>)
+			// Be careful not to add superflous whitespace here (we are in a <code>)
 			$output .= "<div class=\"table-row\">"
 							."<a href=\"#$anchor\" class=\"linenumber table-cell\">"
 								."<span class=\"anchor\" id=\"$anchor\"> </span>"
@@ -302,7 +302,7 @@ class File extends MY_Controller {
 			$output .= "</div>";
 		}
 
-		$output .= "</pre></div>";
+		$output .= "</code></div>";
 		$output .= "</div>";
 
 		return array(

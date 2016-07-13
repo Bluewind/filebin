@@ -236,7 +236,7 @@ body {
 	background: #eee;
 }
 
-.code pre {
+.code .code-container {
 	counter-reset: line-numbering;
 }
 
@@ -244,7 +244,7 @@ body {
 .code .table-row {display: table-row;}
 .code .table-cell {display: table-cell;}
 
-.code pre a.linenumber {
+.code .code-container a.linenumber {
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -253,12 +253,12 @@ body {
 	user-select: none;
 }
 
-.code pre a.linenumber::before {
+.code .code-container a.linenumber::before {
 	content: counter(line-numbering);
 	counter-increment: line-numbering;
 }
 
-.code pre a.linenumber {
+.code .code-container a.linenumber {
 	padding: 0 6px 0 16px;
 	text-align: right;
 	background: #ececec;
@@ -269,20 +269,20 @@ body {
 	word-break: normal;
 }
 
-.code pre :last-child a {
+.code .code-container :last-child a {
 	padding-bottom: 10px;
 }
 
-.code pre :first-child a {
+.code .code-container :first-child a {
 	padding-top: 10px;
 }
 
-.code pre .table-row .line {
+.code .code-container .table-row .line {
 	padding-left: 10px;
 	width: 100%
 }
 
-.content .highlight > pre {
+.content .highlight > .code-container {
 	background-color: transparent;
 	border: 0;
 	border-radius: 0;
@@ -302,8 +302,10 @@ body {
 	position: relative;
 	padding-left: 0;
 }
-.code .highlight pre {
+.code .highlight .code-container {
 	position: relative;
+	display: table;
+	color: inherit;
 }
 .highlight_line {
 	background: #ffffcc;
