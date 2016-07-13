@@ -379,7 +379,6 @@ class File extends MY_Controller {
 			list($width, $height) = getimagesize($file);
 		} catch (\ErrorException $e) {
 			// likely unsupported filetype
-			// TODO: support more (using identify from imagemagick is likely slow :( )
 		}
 
 		$tooltip  = "${filedata["id"]} - $filesize<br>";
