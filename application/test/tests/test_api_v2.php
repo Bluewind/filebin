@@ -34,13 +34,8 @@ class test_api_v2 extends \test\Test {
 	private function createUser($counter)
 	{
 		$CI =& get_instance();
-		$CI->db->insert("users", array(
-			'username' => "testuser-api_v2-$counter",
-			'password' => $CI->muser->hash_password("testpass$counter"),
-			'email'    => "testuser$counter@localhost.invalid",
-			'referrer' => NULL
-		));
-
+		$CI->muser->add_user("apiv2testuser$counter", "testpass$counter",
+			"testuser$counter@testsuite.local", NULL);
 		return $CI->db->insert_id();
 	}
 
@@ -127,7 +122,7 @@ class test_api_v2 extends \test\Test {
 	{
 		$this->createUser(1);
 		$ret = $this->CallEndpoint("POST", "user/create_apikey", array(
-			"username" => "testuser-api_v2-1",
+			"username" => "apiv2testuser1",
 			"password" => "testpass1",
 			"access_level" => "apikey",
 			"comment" => "main api key",
@@ -142,7 +137,7 @@ class test_api_v2 extends \test\Test {
 		$userid = $this->createUser(2);
 		$apikey = $this->createApikey($userid);
 		$ret = $this->CallEndpoint("POST", "user/apikeys", array(
-			"username" => "testuser-api_v2-2",
+			"username" => "apiv2testuser2",
 			"password" => "testpass2",
 		));
 		$this->expectSuccess("get apikeys", $ret);
@@ -185,7 +180,7 @@ class test_api_v2 extends \test\Test {
 	{
 		$userid = $this->createUser(3);
 		$ret = $this->CallEndpoint("POST", "user/apikeys", array(
-			"username" => "testuser-api_v2-3",
+			"username" => "apiv2testuser3",
 			"password" => "wrongpass",
 		));
 		$this->expectError("invalid password", $ret);
@@ -201,7 +196,7 @@ class test_api_v2 extends \test\Test {
 	{
 		$userid = $this->createUser(4);
 		$ret = $this->CallEndpoint("POST", "user/apikeys", array(
-			"username" => "testuser-api_v2-invalid",
+			"username" => "apiv2testuserinvalid",
 			"password" => "testpass4",
 		));
 		$this->expectError("invalid username", $ret);
