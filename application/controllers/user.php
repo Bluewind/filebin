@@ -624,7 +624,7 @@ class User extends MY_Controller {
 	 */
 	private function valid_username($username)
 	{
-		return !$username || strlen($username) > 32 || !preg_match("/^[a-z0-9]+$/", $username);
+		return strlen($username) <= 32 && preg_match("/^[a-z0-9]+$/", $username);
 	}
 
 	/**
