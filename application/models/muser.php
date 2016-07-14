@@ -134,6 +134,31 @@ class Muser extends CI_Model {
 		return $this->session->userdata('username');
 	}
 
+	/*
+	 * Check if a given username is valid.
+	 *
+	 * Valid usernames contain only lowercase characters and numbers. They are
+	 * also <= 32 characters in length.
+	 *
+	 * @return boolean
+	 */
+	public function valid_username($username)
+	{
+		return strlen($username) <= 32 && preg_match("/^[a-z0-9]+$/", $username);
+	}
+
+	/**
+	 * Check if a given email is valid. Only perform minimal checking since
+	 * verifying emails is very very difficuly.
+	 *
+	 * @return boolean
+	 */
+	public function valid_email($email)
+	{
+		$this->load->helper("email");
+		return valid_email($email);
+	}
+
 	function get_userid()
 	{
 		if (!$this->logged_in()) {

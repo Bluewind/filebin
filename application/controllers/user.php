@@ -200,7 +200,7 @@ class User extends MY_Controller {
 			$password = $this->input->post("password");
 			$password_confirm = $this->input->post("password_confirm");
 
-			if (!$this->valid_username($username)) {
+			if (!$this->muser->valid_username($username)) {
 				$error[]= "Invalid username (only up to 32 chars of a-z0-9 are allowed).";
 			} else {
 				if ($this->muser->username_exists($username)) {
@@ -208,7 +208,7 @@ class User extends MY_Controller {
 				}
 			}
 
-			if (!$this->valid_email($email)) {
+			if (!$this->muser->valid_email($email)) {
 				$error[]= "Invalid email.";
 			}
 
@@ -614,31 +614,6 @@ class User extends MY_Controller {
 		}
 	}
 
-	/*
-	 * Check if a given username is valid.
-	 *
-	 * Valid usernames contain only lowercase characters and numbers. They are
-	 * also <= 32 characters in length.
-	 *
-	 * @return boolean
-	 */
-	private function valid_username($username)
-	{
-		return strlen($username) <= 32 && preg_match("/^[a-z0-9]+$/", $username);
-	}
-
-	/**
-	 * Check if a given email is valid. Only perform minimal checking since
-	 * verifying emails is very very difficuly.
-	 *
-	 * @return boolean
-	 */
-	private function valid_email($email)
-	{
-		$this->load->helper("email");
-		return valid_email($email);
-	}
-
 	function add_user()
 	{
 		$this->_require_cli_request();
@@ -647,7 +622,7 @@ class User extends MY_Controller {
 		$error = array();
 
 		$username = $this->_get_line_cli("Username", function($username) {
-			if (!$this->valid_username($username)) {
+			if (!$this->muser->valid_username($username)) {
 				echo "Invalid username (only up to 32 chars of a-z0-9 are allowed).\n";
 				return false;
 			} else {
@@ -660,7 +635,7 @@ class User extends MY_Controller {
 		});
 
 		$email = $this->_get_line_cli("Email", function($email) {
-			if (!$this->valid_email($email)) {
+			if (!$this->muser->valid_email($email)) {
 				echo "Invalid email.\n";
 				return false;
 			}
