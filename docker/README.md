@@ -11,14 +11,14 @@ The PHP webserver is listening on ```8080```
 
 ## Volumes
 
-- **Uploaded Data:** uploaded files are saved to ```/var/lib/filebin/data/uploads```
-- **Advanced Configuration:** the configuration is located at ```/var/lib/filebin/application/config```
+- **Uploaded Data:** uploaded files are saved to ```/var/lib/filebin/filebin/data/uploads```
+- **Advanced Configuration:** the configuration is located at ```/var/lib/filebin/filebin/application/config```
 
 ## Environment Variables
 - **FB_DB_HOSTNAME:** the hostname of the mysql/mariadb server
 - **FB_DB_USERNAME:** the username for the mysql/mariadb server
 - **FB_DB_PASSWORD:** the password for the mysql/mariadb server
-- **FB_DB_DATABSE:** the database on the mysql/mariadb for Filebin
+- **FB_DB_DATABASE:** the database on the mysql/mariadb for Filebin
 
 - **FB_CONTACT_NAME:** Contact Name
 - **FB_CONTACT_MAIL:** Contact E-Mail (will be used as email for the first user)
