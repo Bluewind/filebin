@@ -468,8 +468,7 @@ class User extends MY_Controller {
 				return null;
 			}
 
-			$this->load->helper("email");
-			if (!valid_email($value)) {
+			if (!$this->muser->valid_email($value)) {
 				throw new \exceptions\PublicApiException("user/profile/invalid-email", "Invalid email");
 			}
 
