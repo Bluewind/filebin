@@ -217,13 +217,7 @@ class User extends MY_Controller {
 			}
 
 			if (empty($error)) {
-				$this->db->set(array(
-						'username' => $username,
-						'password' => $this->muser->hash_password($password),
-						'email'    => $email,
-						'referrer' => $referrer
-					))
-					->insert('users');
+				$this->muser->add_user($username, $password, $email, $referrer);
 
 				$this->db->where('key', $key)
 					->delete('actions');
@@ -649,13 +643,7 @@ class User extends MY_Controller {
 			return true;
 		});
 
-		$this->db->set(array(
-				'username' => $username,
-				'password' => $this->muser->hash_password($password),
-				'email'    => $email,
-				'referrer' => NULL
-			))
-			->insert('users');
+		$this->muser->add_user($username, $password, $email, NULL);
 
 		echo "User added\n";
 	}
