@@ -171,6 +171,14 @@ class Pygments {
 		);
 		if (array_key_exists($this->filename, $namearray)) return $namearray[$this->filename];
 
+		$longextarray = array(
+				'.asciinema.json' => 'asciinema',
+			);
+		foreach ($longextarray as $key => $lexer) {
+			if (substr($this->filename, -strlen($key)) === $key) {
+				return $lexer;
+			}
+		}
 
 		if (strpos($this->filename, ".") !== false) {
 			$extension = substr($this->filename, strrpos($this->filename, ".") + 1);

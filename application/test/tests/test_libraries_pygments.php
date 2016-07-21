@@ -47,6 +47,12 @@ class test_libraries_pygments extends \test\Test {
 
 		$p = new \libraries\Pygments('/invalid/filepath', 'text/plain', 'PKGBUILD');
         $this->t->is($p->autodetect_lexer(), 'bash', "PKGBUILD should be bash");
+
+		$p = new \libraries\Pygments('/invalid/filepath', 'text/plain', 'asciinema.json');
+        $this->t->is($p->autodetect_lexer(), 'asciinema', "asciinema.json should be asciinema");
+
+		$p = new \libraries\Pygments('/invalid/filepath', 'text/plain', 'test.asciinema.json');
+        $this->t->is($p->autodetect_lexer(), 'asciinema', "asciinema.json should be asciinema");
     }
 
 	public function test_autodetect_lexer_specialFilenamesBinaryShouldNotHighlight()
