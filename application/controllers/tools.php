@@ -88,6 +88,7 @@ class Tools extends MY_Controller {
 				try {
 					$test->setTestNamePrefix($method->name." - ");
 					$test->init();
+					$test->setTestID("{$testcase}->{$method->name}");
 					$test->{$method->name}();
 					$test->cleanup();
 				} catch (\Exception $e) {
@@ -97,10 +98,26 @@ class Tools extends MY_Controller {
 				}
 			}
 		}
+
 		if ($exitcode == 0) {
 			$test->done_testing();
 		} else {
 			exit($exitcode);
 		}
+	}
+
+	function generate_coverage_report()
+	{
+		include APPPATH."../vendor/autoload.php";
+		$coverage = new \SebastianBergmann\CodeCoverage\CodeCoverage();
+		foreach (glob(FCPATH."/test-coverage-data/*") as $file) {
+			$coverage->merge(unserialize(file_get_contents($file)));
+		}
+
+		//$writer = new \SebastianBergmann\CodeCoverage\Report\Text();
+		//print $writer->process($coverage, 'code-coverage-report');
+		$writer = new \SebastianBergmann\CodeCoverage\Report\Html\Facade();
+		print $writer->process($coverage, 'code-coverage-report');
+		print "Report saved to ./code-coverage-report/index.html\n";
 	}
 }

@@ -26,6 +26,7 @@ class TestMore extends \TestMore {
 abstract class Test {
 	protected $t;
 	protected $server = "";
+	private $testid = "";
 
 	public function __construct()
 	{
@@ -36,6 +37,11 @@ abstract class Test {
 	public function setServer($server)
 	{
 		$this->server = $server;
+	}
+
+	public function setTestID($testid)
+	{
+		$this->testid = $testid;
 	}
 
 	// Method: POST, PUT, GET etc
@@ -77,6 +83,7 @@ abstract class Test {
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($curl, CURLOPT_HTTPHEADER, array(
 			"Accept: application/json",
+			"X-Testsuite-Testname: API request from ".$this->testid,
 			"Expect: ",
 		));
 

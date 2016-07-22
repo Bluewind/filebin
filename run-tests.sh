@@ -35,12 +35,18 @@ cleanup() {
 
 php -S "$ip:$port" -t public_html 2>/dev/null 1>&2 &
 
+mkdir -p test-coverage-data
+
 while ! curl -s "$url" >/dev/null; do
 	sleep 0.1;
 done
 
 #  run tests
-php index.php tools drop_all_tables || exit 1
-php index.php tools update_database || exit 1
-prove --ext .php --state=hot,slow,all,save --timer -o -e "php index.php tools test $url" -r "$@" application/test/tests/
+phpdbg -qrr index.php tools drop_all_tables || exit 1
+phpdbg -qrr index.php tools update_database || exit 1
+prove --ext .php --state=hot,slow,all,save --timer -o -e "phpdbg -qrr index.php tools test $url" -r "$@" application/test/tests/ || exit 1
+
+
+php index.php tools generate_coverage_report
+rm -rf test-coverage-data
 

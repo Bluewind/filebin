@@ -207,6 +207,18 @@ function _exception_handler($severity, $message, $filepath, $line) {
 	return \libraries\ExceptionHandler::error_handler($severity, $message, $filepath, $line);
 }
 
+// Source: http://stackoverflow.com/a/15875555
+function guidv4()
+{
+	$data = openssl_random_pseudo_bytes(16);
+    assert(strlen($data) == 16);
+
+    $data[6] = chr(ord($data[6]) & 0x0f | 0x40); // set version to 0100
+    $data[8] = chr(ord($data[8]) & 0x3f | 0x80); // set bits 6-7 to 10
+
+    return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+}
+
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
@@ -215,6 +227,29 @@ function _exception_handler($severity, $message, $filepath, $line) {
  * And away we go...
  *
  */
+
+$testname = null;
+
+if (getenv("ENVIRONMENT") === "testsuite") {
+	if (function_exists("phpdbg_get_executable")) {
+		$testname = implode(' ', $argv);
+	} elseif (isset($_SERVER["HTTP_X_TESTSUITE_TESTNAME"])) {
+		$testname = $_SERVER["HTTP_X_TESTSUITE_TESTNAME"];
+	}
+}
+
+if ($testname) {
+	include APPPATH."../vendor/autoload.php";
+	$filter = new \SebastianBergmann\CodeCoverage\Filter();
+	$filter->addDirectoryToWhitelist(APPPATH);
+	$filter->removeDirectoryFromWhitelist(APPPATH."/third_party/");
+	// Force phpdbg for speed
+	//$driver = new \SebastianBergmann\CodeCoverage\Driver\PHPDBG();
+	$driver = null;
+	$coverage = new \SebastianBergmann\CodeCoverage\CodeCoverage($driver, $filter);
+	$coverage->start($testname);
+}
+
 try {
 	require_once BASEPATH.'core/CodeIgniter.php';
 } catch (\exceptions\NotAuthenticatedException $e) {
@@ -230,6 +265,12 @@ try {
 	}
 } catch (\exceptions\PublicApiException $e) {
 	show_error(nl2br(htmlspecialchars($e->__toString())), $e->get_http_error_code());
+} finally {
+	if ($testname) {
+		$coverage->stop();
+		$outputfile = FCPATH."/test-coverage-data/".guidv4();
+		file_put_contents($outputfile, serialize($coverage));
+	}
 }
 
 /* End of file index.php */
