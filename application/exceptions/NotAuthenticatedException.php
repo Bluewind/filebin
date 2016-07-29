@@ -9,6 +9,6 @@ namespace exceptions;
 class NotAuthenticatedException extends UserInputException {
 	public function get_http_error_code()
 	{
-		return 401;
+		return 403;
 	}
 }

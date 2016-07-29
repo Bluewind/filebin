@@ -38,7 +38,7 @@ class User extends MY_Controller {
 		if ($this->muser->login($username, $password)) {
 			$this->output->set_status_header(204);
 		} else {
-			$this->output->set_status_header(401);
+			$this->output->set_status_header(403);
 		}
 	}
 
