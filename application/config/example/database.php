@@ -68,7 +68,7 @@ if (getenv("ENVIRONMENT") === "testsuite") {
 	// Change these to your likeing, just make sure they
 	// don't overlap with the normal settings.
 	$db['default']['database'] = "filebin_testsuite";
-	$db['default']['dbprefix'] = "testsuite-prefix-";
+	$db['default']['dbprefix'] = "testsuite_prefix_";
 }
 
 
