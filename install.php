@@ -1,7 +1,7 @@
 <?php
 
-if (version_compare(PHP_VERSION, '5.3.0') < 0) {
-	echo "Just a heads up: Filebin has not been tested with php older than 5.3. You might run into problems.";
+if (version_compare(PHP_VERSION, '5.5.0') < 0) {
+	echo "Filebin will most certainly not work with php older than 5.5. Use at your own risk!\n\n";
 }
 
 $errors = "";
