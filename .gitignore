@@ -20,3 +20,4 @@ application/logs/*
 !application/logs/.htaccess
 
 data/js/main.min.js
+vendor
