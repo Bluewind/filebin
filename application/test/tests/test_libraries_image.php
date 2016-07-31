@@ -60,7 +60,9 @@ class test_libraries_image extends \test\Test {
 			$correct_error = $e->get_error_id() == "libraries/Image/unsupported-image-type";
 			$this->t->ok($correct_error, "Should get exception");
 			if (!$correct_error) {
+				// @codeCoverageIgnoreStart
 				throw $e;
+				// @codeCoverageIgnoreEnd
 			}
 		}
 	}

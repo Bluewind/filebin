@@ -26,7 +26,9 @@ class test_service_files extends \test\Test {
 		$a = array();
 		try {
 			\service\files::verify_uploaded_files($a);
+			// @codeCoverageIgnoreStart
 			$this->t->fail("verify should error");
+			// @codeCoverageIgnoreEnd
 		} catch (\exceptions\UserInputException $e) {
 			$this->t->is($e->get_error_id(), "file/no-file", "verify should error");
 		}
@@ -66,7 +68,9 @@ class test_service_files extends \test\Test {
 
 		try {
 			\service\files::verify_uploaded_files($a);
+			// @codeCoverageIgnoreStart
 			$this->t->fail("verify should error");
+			// @codeCoverageIgnoreEnd
 		} catch (\exceptions\UserInputException $e) {
 			$data = $e->get_data();
 			$this->t->is($e->get_error_id(), "file/upload-verify", "verify should error");
