@@ -18,6 +18,8 @@ if echo "$changes" | grep scripts/install-git-hooks.sh; then
 	scripts/install-git-hooks.sh
 fi
 
+composer install --no-dev
+
 # Make sure submodules are up to date
 git submodule update --init --recursive
 
