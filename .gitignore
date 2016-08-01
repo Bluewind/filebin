@@ -21,3 +21,5 @@ application/logs/*
 
 data/js/main.min.js
 vendor
+code-coverage-report.xml
+code-coverage-report/
