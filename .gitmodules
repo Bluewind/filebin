@@ -7,3 +7,6 @@
 [submodule "application/third_party/parsedown"]
 	path = application/third_party/parsedown
 	url = https://github.com/erusev/parsedown.git
+[submodule "data/tests/exif-orientation-examples"]
+	path = data/tests/exif-orientation-examples
+	url = https://github.com/recurser/exif-orientation-examples.git

@@ -66,5 +66,20 @@ class test_libraries_image extends \test\Test {
 			}
 		}
 	}
+
+	public function test_get_exif_orientation()
+	{
+		$ret = \libraries\Image::get_exif_orientation(FCPATH."/data/tests/black_white.png");
+		$this->t->is($ret, 0, "Got correct Orientation for image without orientation information");
+
+		foreach ([1,2,3,4,5,6,7,8] as $orientation) {
+			$ret = \libraries\Image::get_exif_orientation(FCPATH."/data/tests/exif-orientation-examples/Landscape_$orientation.jpg");
+			$this->t->is($ret, $orientation, "Got correct Orientation for Landscape_$orientation.jpg");
+
+			$ret = \libraries\Image::get_exif_orientation(FCPATH."/data/tests/exif-orientation-examples/Portrait_$orientation.jpg");
+			$this->t->is($ret, $orientation, "Got correct Orientation for Portrait_$orientation.jpg");
+		}
+	}
+
 }
 
