@@ -114,10 +114,10 @@ class Tools extends MY_Controller {
 			$coverage->merge(unserialize(file_get_contents($file)));
 		}
 
-		//$writer = new \SebastianBergmann\CodeCoverage\Report\Text();
-		//print $writer->process($coverage, 'code-coverage-report');
+		$writer = new \SebastianBergmann\CodeCoverage\Report\Clover();
+		$writer->process($coverage, 'code-coverage-report.xml');
 		$writer = new \SebastianBergmann\CodeCoverage\Report\Html\Facade();
-		print $writer->process($coverage, 'code-coverage-report');
+		$writer->process($coverage, 'code-coverage-report');
 		print "Report saved to ./code-coverage-report/index.html\n";
 	}
 }
