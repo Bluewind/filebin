@@ -95,5 +95,21 @@ class test_libraries_pygments extends \test\Test {
 
 	}
 
+	public function test_get_lexers()
+	{
+		$l = \libraries\Pygments::get_lexers();
+
+		$this->t->is($l['text'], 'Plain text', 'Plain text lexer exists');
+		$this->t->is($l['c'], 'C', 'C lexer exists');
+	}
+
+	public function test_resolve_lexer_alias()
+	{
+		$p = new \libraries\Pygments('/invalid/filepath', 'text/plain', 'foo.pl');
+		$this->t->is($p->resolve_lexer_alias('pl'), 'perl', "Test pl alias for perl");
+
+        $this->t->is($p->resolve_lexer_alias('thisIsInvalid'), 'thisIsInvalid', "Test invalid alias");
+	}
+
 }
 
