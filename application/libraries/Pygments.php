@@ -192,6 +192,7 @@ class Pygments {
 				'coffee' => 'coffee-script',
 				'cpp' => 'cpp',
 				'diff' => 'diff',
+				'haml' => 'haml',
 				'h' => 'c',
 				'hs' => 'haskell',
 				'html' => 'xml',
