@@ -214,6 +214,7 @@ class Pygments {
 				'sh' => 'bash',
 				'tcl' => 'tcl',
 				'tex' => 'tex',
+				'yml' => 'yaml',
 			);
 			if (array_key_exists($extension, $extensionarray)) return $extensionarray[$extension];
 		}
