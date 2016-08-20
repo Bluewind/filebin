@@ -81,5 +81,20 @@ class test_libraries_image extends \test\Test {
 		}
 	}
 
+	public function test_makeThumb_differentOrientation()
+	{
+		foreach ([1,2,3,4,5,6,7,8] as $orientation) {
+			$img = new \libraries\Image(FCPATH."/data/tests/exif-orientation-examples/Landscape_$orientation.jpg");
+			$img->makeThumb(100, 100);
+			$thumb = $img->get();
+			$this->t->ok($thumb != '', "Got thumbnail for Landscape_$orientation.jpg");
+
+			$img = new \libraries\Image(FCPATH."/data/tests/exif-orientation-examples/Portrait_$orientation.jpg");
+			$img->makeThumb(100, 100);
+			$thumb = $img->get();
+			$this->t->ok($thumb != '', "Got thumbnail for Portrait_$orientation.jpg");
+		}
+	}
+
 }
 
