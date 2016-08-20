@@ -110,4 +110,15 @@ class Duser extends CI_Driver_Library {
 	{
 		return $this->{$this->_adapter}->get_email($userid);
 	}
+
+	public function test_login_credentials($username, $password)
+	{
+		$login_info = $this->{$this->_adapter}->login($username, $password);
+
+		if (isset($login_info['username']) && $login_info['username'] === $username) {
+			return true;
+		}
+
+		return false;
+	}
 }
