@@ -25,8 +25,9 @@ class TestMore extends \TestMore {
 
 abstract class Test {
 	protected $t;
-	protected $server = "";
+	protected $server_url = "";
 	private $testid = "";
+	private $server_proc = null;
 
 	public function __construct()
 	{
@@ -34,9 +35,51 @@ abstract class Test {
 		$this->t->plan("no_plan");
 	}
 
-	public function setServer($server)
+	public function __destruct()
 	{
-		$this->server = $server;
+		if ($this->server_proc) {
+			proc_terminate($this->server_proc);
+		}
+	}
+
+	public function startServer($port)
+	{
+		$url = "http://127.0.0.1:$port/index.php";
+
+		$pipes = [];
+		$descriptorspec = [
+			0 => ['file', '/dev/null', 'r'],
+			1 => STDOUT,
+			2 => STDOUT,
+		];
+
+		$this->server_proc = proc_open("php -S 127.0.0.1:$port", $descriptorspec, $pipes);
+
+		$this->wait_for_server($url);
+		$this->server_url = $url;
+	}
+
+	private function wait_for_server($url)
+	{
+		while (!$this->url_is_reachable($url)) {
+			echo "Waiting for server at $url to start...\n";
+			usleep(10000);
+		}
+	}
+
+	private function url_is_reachable($url)
+	{
+		$handle = curl_init($url);
+		curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
+		curl_exec($handle);
+		$status = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+		curl_close($handle);
+
+		if ($status == 200) {
+			return true;
+		}
+
+		return false;
 	}
 
 	public function setTestID($testid)

@@ -19,11 +19,12 @@ class test_api_v2 extends \test\Test {
 		$CI->load->model("muser");
 		$CI->load->model("mfile");
 
+		$this->startServer(23116);
 	}
 
 	private function uploadFile($apikey, $file)
 	{
-		$ret = $this->CallAPI("POST", "$this->server/api/v2.0.0/file/upload", array(
+		$ret = $this->CallAPI("POST", "$this->server_url/api/v2.0.0/file/upload", array(
 			"apikey" => $apikey,
 			"file[1]" => curl_file_create($file),
 		));
@@ -54,7 +55,7 @@ class test_api_v2 extends \test\Test {
 
 	private function callEndpoint($verb, $endpoint, $data)
 	{
-		return $this->CallAPI($verb, "$this->server/api/v2.0.0/$endpoint", $data);
+		return $this->CallAPI($verb, "$this->server_url/api/v2.0.0/$endpoint", $data);
 	}
 
 	public function test_callPrivateEndpointsWithoutApikey()
@@ -75,7 +76,7 @@ class test_api_v2 extends \test\Test {
 			$this->t->is_deeply(array(
 				'status' => 'error',
 				'error_id' => 'api/not-authenticated',
-				'message' => 'Not authenticated. FileBin requires you to have an account, please go to the homepage at http://127.0.0.1:23115/ for more information.',
+				'message' => 'Not authenticated. FileBin requires you to have an account, please go to the homepage at http://127.0.0.1:23116/ for more information.',
 			   ), $ret, "expected error");
 		}
 	}

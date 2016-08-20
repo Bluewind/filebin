@@ -19,11 +19,12 @@ class test_api_v1 extends \test\Test {
 		$CI->load->model("muser");
 		$CI->load->model("mfile");
 
+		$this->startServer(23115);
 	}
 
 	private function uploadFile($apikey, $file)
 	{
-		$ret = $this->CallAPI("POST", "$this->server/api/v1.1.0/file/upload", array(
+		$ret = $this->CallAPI("POST", "$this->server_url/api/v1.1.0/file/upload", array(
 			"apikey" => $apikey,
 			"file[1]" => curl_file_create($file),
 		));
@@ -54,7 +55,7 @@ class test_api_v1 extends \test\Test {
 
 	private function callEndpoint($verb, $endpoint, $data)
 	{
-		return $this->CallAPI($verb, "$this->server/api/v1.0.0/$endpoint", $data);
+		return $this->CallAPI($verb, "$this->server_url/api/v1.0.0/$endpoint", $data);
 	}
 
 	public function test_callPrivateEndpointsWithoutApikey()
