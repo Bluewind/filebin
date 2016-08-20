@@ -109,7 +109,6 @@ class storage {
 	 * Based on function by Kioob at:
 	 * http://www.php.net/manual/en/function.gzwrite.php#34955
 	 *
-	 * @param string $source Path to file that should be compressed
 	 * @param integer $level GZIP compression level (default: 6)
 	 * @return boolean true if operation succeeds, false on error
 	 */
