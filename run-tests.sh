@@ -34,7 +34,8 @@ mkdir -p test-coverage-data
 #  run tests
 phpdbg -qrr index.php tools drop_all_tables || exit 1
 phpdbg -qrr index.php tools update_database || exit 1
-prove --ext .php --state=hot,slow,all,save --timer -o -e "phpdbg -qrr index.php tools test"  -r "$@" application/test/tests/ || exit 1
+
+prove --ext .php --state=failed,save --timer --comments --exec 'phpdbg -qrr index.php tools test' --recurse "${@:-application/test/tests/}" || exit 1
 
 php index.php tools generate_coverage_report
 rm -rf test-coverage-data
