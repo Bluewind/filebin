@@ -135,15 +135,6 @@ class GD implements \libraries\Image\ImageDriver {
 		$this->apply_exif_orientation();
 	}
 
-	static public function get_exif_orientation($file)
-	{
-		$exif = \libraries\Exif::get_exif($file);
-		if (isset($exif["Orientation"])) {
-			return $exif["Orientation"];
-		}
-		return 0;
-	}
-
 	public function apply_exif_orientation()
 	{
 		if (isset($this->exif['Orientation'])) {
