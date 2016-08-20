@@ -108,6 +108,18 @@ class Mmultipaste extends CI_Model {
 		return $this->config->item("upload_path")."/special/multipaste-tarballs/".substr(md5($id), 0, 3)."/$id.tar.gz";
 	}
 
+	public function delete_by_user($userid)
+	{
+		$query = $this->db->select("url_id")
+			->where("user_id", $userid)
+			->get("multipaste")->result_array();
+		$ids = array_map(function ($a) {return $a['url_id'];}, $query);
+
+		foreach ($ids as $id) {
+			$this->delete_id($id);
+		}
+	}
+
 	public function delete_id($id)
 	{
 		$this->db->where('url_id', $id)

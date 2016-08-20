@@ -17,6 +17,7 @@ class Duser_db extends Duser_Driver {
 		'can_reset_password',
 		'can_register_new_users',
 		'can_change_email',
+		'can_delete_account',
 	);
 
 	public function login($username, $password)

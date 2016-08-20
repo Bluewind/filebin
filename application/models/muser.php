@@ -182,6 +182,47 @@ class Muser extends CI_Model {
 		->insert('users');
 	}
 
+	/**
+	 * Delete a user.
+	 *
+	 * @param username
+	 * @param password
+	 * @return true on sucess, false otherwise
+	 */
+	public function delete_user($username, $password)
+	{
+		$this->duser->require_implemented("can_delete_account");
+
+		if ($this->duser->test_login_credentials($username, $password)) {
+			$userid = $this->get_userid_by_name($username);
+			assert($userid !== null);
+
+			$this->db->delete('profiles', array('user' => $userid));
+
+			$this->load->model("mfile");
+			$this->load->model("mmultipaste");
+			$this->mfile->delete_by_user($userid);
+			$this->mmultipaste->delete_by_user($userid);
+
+			# null out user data to keep referer information traceable
+			# If referer information was relinked, one user could create many
+			# accounts, delete the account that was used to invite them and
+			# then cause trouble so that the account that invited him gets
+			# banned because the admin thinks that account invited abusers
+			$this->db->set(array(
+				'username' => null,
+				'password' => null,
+				'email'    => null,
+			))
+			->where(array('username' => $username))
+			->update('users');
+
+			return true;
+		}
+
+		return false;
+	}
+
 	function get_userid()
 	{
 		if (!$this->logged_in()) {
@@ -189,6 +230,19 @@ class Muser extends CI_Model {
 		}
 
 		return $this->session->userdata("userid");
+	}
+
+	public function get_userid_by_name($username)
+	{
+		$query = $this->db->select('id')
+			->from('users')
+			->where('username', $username)
+			->get()->row_array();
+		if ($query) {
+			return $query['id'];
+		}
+
+		return null;
 	}
 
 	function get_email($userid)

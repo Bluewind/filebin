@@ -52,5 +52,62 @@ class test_models_muser extends \test\Test {
 		$this->t->is($CI->muser->valid_email("joebob.com"), false, "missing @");
 	}
 
+	public function test_delete_user()
+	{
+		$CI =& get_instance();
+		$CI->muser->add_user("userdeltest1", "supersecret", "tester@localhost.lan", null);
+		$this->t->is($CI->muser->username_exists("userdeltest1"), true, "User should exist after creation");
+
+		$ret = $CI->muser->delete_user("userdeltest1", "wrongpassword");
+		$this->t->is($ret, false, "Deletion should fail with incorrect password");
+
+		$ret = $CI->muser->delete_user("userdeltest1", "");
+		$this->t->is($ret, false, "Deletion should fail with empty password");
+
+		$this->t->is($CI->muser->username_exists("userdeltest1"), true, "User should exist after failed deletions");
+
+		$ret = $CI->muser->delete_user("userdeltest1", "supersecret");
+		$this->t->is($ret, true, "Deletion should succeed with correct data");
+		$this->t->is($CI->muser->username_exists("userdeltest1"), false, "User should not exist after deletion");
+	}
+
+	public function test_delete_user_verifyFilesDeleted()
+	{
+		$CI =& get_instance();
+
+		$id = "testid1";
+		$id2 = "testid2";
+		$content = "test content";
+		$filename = "some cool name";
+		$username = "testuser1";
+		$password = "testpass";
+
+		$CI->muser->add_user($username, $password, "tester@localhost.lan", null);
+		$userid = $CI->muser->get_userid_by_name($username);
+
+		$CI->muser->add_user("joe", "joeisawesome", "tester2@localhost.lan", null);
+		$userid2 = $CI->muser->get_userid_by_name("joe");
+
+		\service\files::add_file_data($userid, $id, $content, $filename);
+		\service\files::add_file_data($userid2, $id2, $content, $filename);
+
+		$mid = \service\files::create_multipaste([$id], $userid, [3,6])['url_id'];
+		$mid2 = \service\files::create_multipaste([$id2], $userid2, [3,6])['url_id'];
+
+		$this->t->is($CI->mfile->id_exists($id), true, "File exists after being added");
+		$this->t->is($CI->mmultipaste->id_exists($mid), true, "Multipaste exists after creation");
+		$this->t->is($CI->mfile->id_exists($id2), true, "File2 exists after being added");
+		$this->t->is($CI->mmultipaste->id_exists($mid2), true, "Multipaste2 exists after creation");
+
+		$ret = $CI->muser->delete_user($username, $password);
+		$this->t->is($ret, true, "Delete user");
+
+		$this->t->is($CI->mfile->id_exists($id), false, "File should be gone after deletion of user");
+		$this->t->is($CI->mmultipaste->id_exists($mid), false, "Multipaste should be gone after deletion of user");
+		$this->t->is($CI->mfile->id_exists($id2), true, "File2 owned by different user should still exist after deletion from other user");
+		$this->t->is($CI->mmultipaste->id_exists($mid2), true, "Multipaste2 owned by different user should still exist after deletion from other user");
+	}
+
+
 }
 

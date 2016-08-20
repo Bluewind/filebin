@@ -202,6 +202,18 @@ class Mfile extends CI_Model {
 		}
 	}
 
+	public function delete_by_user($userid)
+	{
+		$query = $this->db->select("id")
+			->where("user", $userid)
+			->get("files")->result_array();
+		$ids = array_map(function ($a) {return $a['id'];}, $query);
+
+		foreach ($ids as $id) {
+			$this->delete_id($id);
+		}
+	}
+
 	public function delete_id($id)
 	{
 		$filedata = $this->get_filedata($id);
