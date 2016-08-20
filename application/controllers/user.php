@@ -241,6 +241,67 @@ class User extends MY_Controller {
 		$this->load->view('footer', $this->data);
 	}
 
+	public function delete_account()
+	{
+		$this->muser->require_access();
+		$this->duser->require_implemented("can_delete_account");
+
+		if ($_SERVER["REQUEST_METHOD"] == "GET") {
+			return $this->_delete_account_form();
+		} elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
+			return $this->_delete_account_process();
+		}
+	}
+
+	public function _delete_account_form()
+	{
+		$this->data['username'] = $this->muser->get_username();
+
+		$this->load->view('header', $this->data);
+		$this->load->view($this->var->view_dir.'delete_account_form', $this->data);
+		$this->load->view('footer', $this->data);
+	}
+
+	public function _delete_account_process()
+	{
+		$username = $this->muser->get_username();
+		$password = $this->input->post("password");
+
+		$useremail = $this->muser->get_email($this->muser->get_userid());
+
+		if ($this->muser->delete_user($username, $password)) {
+			$this->muser->logout();
+
+			$this->load->library("email");
+			$this->email->from($this->config->item("email_from"));
+			$this->email->to($useremail);
+			$this->email->subject("FileBin account deleted");
+			$this->email->message(""
+				."Your FileBin account '${username}' at ".site_url()."\n"
+				."has been permemently deleted.\n"
+				."\n"
+				."The request has been sent from the IP address '${_SERVER["REMOTE_ADDR"]}'\n"
+				."and was confirmed with your password.\n"
+				."\n"
+				."Thank you for using FileBin!\n"
+				);
+			$this->email->send();
+			unset($this->data['username']);
+			unset($this->data['user_logged_in']);
+
+			$this->load->view('header', $this->data);
+			$this->load->view($this->var->view_dir.'delete_account_success', $this->data);
+			$this->load->view('footer', $this->data);
+			return;
+		} else {
+			$this->data['alerts'][] = array(
+				"type" => "danger",
+				"message" => "Your password was incorrect",
+			);
+			return $this->_delete_account_form();
+		}
+	}
+
 	// This routes the different steps of a password reset
 	function reset_password()
 	{
