@@ -171,7 +171,7 @@ class File extends MY_Controller {
 			exit();
 		}
 
-		$this->load->library("output_cache");
+		$output_cache = new \libraries\Output_cache();
 
 		foreach ($files as $key => $filedata) {
 			$file = $this->mfile->file($filedata['data_id']);
@@ -211,16 +211,16 @@ class File extends MY_Controller {
 					if (\libraries\Image::type_supported($mimetype)) {
 						$filedata["tooltip"] = $this->_tooltip_for_image($filedata);
 						$filedata["orientation"] = libraries\Image::get_exif_orientation($file);
-						$this->output_cache->add_merge(
+						$output_cache->add_merge(
 							array("items" => array($filedata)),
 							'file/fragments/thumbnail'
 						);
 					} else if ($base == "audio") {
-						$this->output_cache->add(array("filedata" => $filedata), "file/fragments/audio-player");
+						$output_cache->add(array("filedata" => $filedata), "file/fragments/audio-player");
 					} else if ($base == "video") {
-						$this->output_cache->add(array("filedata" => $filedata), "file/fragments/video-player");
+						$output_cache->add(array("filedata" => $filedata), "file/fragments/video-player");
 					} else {
-						$this->output_cache->add_merge(
+						$output_cache->add_merge(
 							array("items" => array($filedata)),
 							'file/fragments/uploads_table'
 						);
@@ -230,10 +230,10 @@ class File extends MY_Controller {
 			}
 
 			if ($lexer == "asciinema") {
-				$this->output_cache->add(array("filedata" => $filedata), "file/fragments/asciinema-player");
+				$output_cache->add(array("filedata" => $filedata), "file/fragments/asciinema-player");
 			} else {
-				$this->output_cache->add_function(function() use ($filedata, $lexer, $is_multipaste) {
-					$this->_highlight_file($filedata, $lexer, $is_multipaste);
+				$output_cache->add_function(function() use ($output_cache, $filedata, $lexer, $is_multipaste) {
+					$this->_highlight_file($output_cache, $filedata, $lexer, $is_multipaste);
 				});
 			}
 		}
@@ -246,7 +246,7 @@ class File extends MY_Controller {
 		// much magic ({elapsed_time} and {memory_usage}).
 		// Direct echo puts us on the safe side.
 		echo $this->load->view($this->var->view_dir.'/html_header', $this->data, true);
-		$this->output_cache->render();
+		$output_cache->render();
 		echo $this->load->view($this->var->view_dir.'/html_footer', $this->data, true);
 	}
 
@@ -315,7 +315,7 @@ class File extends MY_Controller {
 		);
 	}
 
-	private function _highlight_file($filedata, $lexer, $is_multipaste)
+	private function _highlight_file($output_cache, $filedata, $lexer, $is_multipaste)
 	{
 		// highlight the file and cache the result, fall back to plain text if $lexer fails
 		foreach (array($lexer, "text") as $lexer) {
@@ -351,7 +351,7 @@ class File extends MY_Controller {
 				if ($lexer != "text") {
 					$message .= " Falling back to plain text.";
 				}
-				$this->output_cache->render_now(
+				$output_cache->render_now(
 					array("error_message" => "<p>$message</p>"),
 					"file/fragments/alert-wide"
 				);
@@ -366,9 +366,9 @@ class File extends MY_Controller {
 			'filedata' => $filedata,
 		));
 
-		$this->output_cache->render_now($data, $this->var->view_dir.'/html_paste_header');
-		$this->output_cache->render_now($highlit["output"]);
-		$this->output_cache->render_now($data, $this->var->view_dir.'/html_paste_footer');
+		$output_cache->render_now($data, $this->var->view_dir.'/html_paste_header');
+		$output_cache->render_now($highlit["output"]);
+		$output_cache->render_now($data, $this->var->view_dir.'/html_paste_footer');
 	}
 
 	private function _tooltip_for_image($filedata)

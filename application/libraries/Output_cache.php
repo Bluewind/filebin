@@ -1,11 +1,13 @@
 <?php
 /*
- * Copyright 2014 Florian "Bluewind" Pritz <bluewind@server-speed.net>
+ * Copyright 2014,2016 Florian "Bluewind" Pritz <bluewind@server-speed.net>
  *
  * Licensed under AGPLv3
  * (see COPYING for full license text)
  *
  */
+
+namespace libraries;
 
 class Output_cache {
 	private $output_cache = array();
