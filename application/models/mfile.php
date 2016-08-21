@@ -64,11 +64,7 @@ class Mfile extends CI_Model {
 			->limit(1)
 			->get();
 
-		if ($query->num_rows() == 1) {
-			return true;
-		} else {
-			return false;
-		}
+		return $query->num_rows() == 1;
 	}
 
 	function get_filedata($id)
@@ -195,11 +191,7 @@ class Mfile extends CI_Model {
 			->limit(1)
 			->get();
 
-		if ($query->num_rows() == 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return $query->num_rows() == 0;
 	}
 
 	public function delete_by_user($userid)

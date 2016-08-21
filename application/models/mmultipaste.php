@@ -70,11 +70,7 @@ class Mmultipaste extends CI_Model {
 			LIMIT 1';
 		$query = $this->db->query($sql, array($id));
 
-		if ($query->num_rows() == 1) {
-			return true;
-		} else {
-			return false;
-		}
+		return $query->num_rows() == 1;
 	}
 
 	public function valid_id($id)
@@ -129,11 +125,7 @@ class Mmultipaste extends CI_Model {
 		$f = new \service\storage($this->get_tarball_path($id));
 		$f->unlink();
 
-		if ($this->id_exists($id))  {
-			return false;
-		}
-
-		return true;
+		return $this->id_exists($id);
 	}
 
 	public function get_owner($id)
