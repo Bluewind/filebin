@@ -85,6 +85,13 @@ class File extends MY_Controller {
 		$id = $this->uri->segment(1);
 		$lexer = urldecode($this->uri->segment(2));
 
+		if (isset($_GET["cli_deprecated"])) {
+			$this->data['alerts'][] = [
+				"type" => "warning",
+				"message" => "<b>WARNING:</b> This file has been uploaded with a client that uses an old and deprecated API.<br> This API will be removed in the near future. Please update your client to one that uses a more recent API."
+			];
+		}
+
 		$is_multipaste = false;
 		if ($this->mmultipaste->id_exists($id)) {
 			$is_multipaste = true;
