@@ -246,7 +246,7 @@ class Mfile extends CI_Model {
 	public function delete_data_id($data_id)
 	{
 		list ($hash, $storage_id) = explode("-", $data_id);
-		
+
 		$this->db->where('id', $storage_id)
 			->delete('file_storage');
 		if (file_exists($this->file($data_id))) {
