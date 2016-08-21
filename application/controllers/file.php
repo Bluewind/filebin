@@ -921,11 +921,12 @@ class File extends MY_Controller {
 
 		if (!empty($files)) {
 			$limits = $this->muser->get_upload_id_limits();
+			$userid = $this->muser->get_userid();
 			service\files::verify_uploaded_files($files);
 
 			foreach ($files as $key => $file) {
 				$id = $this->mfile->new_id($limits[0], $limits[1]);
-				service\files::add_uploaded_file($id, $file["tmp_name"], $file["name"]);
+				service\files::add_uploaded_file($userid, $id, $file["tmp_name"], $file["name"]);
 				$ids[] = $id;
 			}
 		}
@@ -950,6 +951,8 @@ class File extends MY_Controller {
 		}
 
 		$limits = $this->muser->get_upload_id_limits();
+		$userid = $this->muser->get_userid();
+
 		foreach ($contents as $key => $content) {
 			$filename = "stdin";
 			if (isset($filenames[$key]) && $filenames[$key] != "") {
@@ -957,7 +960,7 @@ class File extends MY_Controller {
 			}
 
 			$id = $this->mfile->new_id($limits[0], $limits[1]);
-			service\files::add_file_data($id, $content, $filename);
+			service\files::add_file_data($userid, $id, $content, $filename);
 			$ids[] = $id;
 		}
 
@@ -986,6 +989,8 @@ class File extends MY_Controller {
 		service\files::verify_uploaded_files($files);
 		$limits = $this->muser->get_upload_id_limits();
 
+		$userid = $this->muser->get_userid();
+
 		foreach ($files as $key => $file) {
 			$id = $this->mfile->new_id($limits[0], $limits[1]);
 
@@ -1003,12 +1008,11 @@ class File extends MY_Controller {
 
 			$filename = trim($filename, "\r\n\0\t\x0B");
 
-			service\files::add_uploaded_file($id, $file["tmp_name"], $filename);
+			service\files::add_uploaded_file($userid, $id, $file["tmp_name"], $filename);
 			$ids[] = $id;
 		}
 
 		if ($multipaste !== false) {
-			$userid = $this->muser->get_userid();
 			$ids[] = \service\files::create_multipaste($ids, $userid, $limits)["url_id"];
 		}
 

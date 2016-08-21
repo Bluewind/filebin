@@ -94,12 +94,12 @@ class files {
 		return $multipaste_info;
 	}
 
-	static public function add_file_data($id, $content, $filename)
+	static public function add_file_data($userid, $id, $content, $filename)
 	{
 		$f = new \libraries\Tempfile();
 		$file = $f->get_file();
 		file_put_contents($file, $content);
-		self::add_file_callback($id, $file, $filename);
+		self::add_file_callback($userid, $id, $file, $filename);
 	}
 
 	/**
@@ -140,12 +140,12 @@ class files {
 		return implode("\n", $lines);
 	}
 
-	static public function add_uploaded_file($id, $file, $filename)
+	static public function add_uploaded_file($userid, $id, $file, $filename)
 	{
-		self::add_file_callback($id, $file, $filename);
+		self::add_file_callback($userid, $id, $file, $filename);
 	}
 
-	static private function add_file_callback($id, $new_file, $filename)
+	static private function add_file_callback($userid, $id, $new_file, $filename)
 	{
 		$CI =& get_instance();
 		$hash = md5_file($new_file);
@@ -191,7 +191,7 @@ class files {
 		rename($new_file, $tmpfile);
 		$dest->commit();
 
-		$CI->mfile->add_file($id, $filename, $storage_id);
+		$CI->mfile->add_file($userid, $id, $filename, $storage_id);
 	}
 
 	static public function verify_uploaded_files($files)

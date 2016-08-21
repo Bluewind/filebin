@@ -103,10 +103,8 @@ class Mfile extends CI_Model {
 	}
 
 	// Add a file to the DB
-	function add_file($id, $filename, $storage_id)
+	function add_file($userid, $id, $filename, $storage_id)
 	{
-		$userid = $this->muser->get_userid();
-
 		$this->db->insert("files", array(
 			"id" => $id,
 			"filename" => $filename,

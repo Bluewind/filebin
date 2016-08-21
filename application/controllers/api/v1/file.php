@@ -30,11 +30,12 @@ class file extends \controllers\api\api_controller {
 		\service\files::verify_uploaded_files($files);
 
 		$limits = $this->muser->get_upload_id_limits();
+		$userid = $this->muser->get_userid();
 		$urls = array();
 
 		foreach ($files as $file) {
 			$id = $this->mfile->new_id($limits[0], $limits[1]);
-			\service\files::add_uploaded_file($id, $file["tmp_name"], $file["name"]);
+			\service\files::add_uploaded_file($userid, $id, $file["tmp_name"], $file["name"]);
 			$ids[] = $id;
 			$urls[] = site_url($id).'/';
 		}
