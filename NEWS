@@ -1,5 +1,18 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+2016-08-23 DEPRECATION: The old plain text API used by fb-client <2.0 is now
+           deprecated. A warning will be shown for every file uploaded via
+           the old API.
+2016-08-23 IMPORTANT: Fix an issue with git hooks not working when the installation is
+           moved. install-git-hooks.sh now creates relative symlinks. If you have moved
+           your installation and `git pull` does not display the content of the NEWS file,
+           you have to run `scripts/install-git-hooks.sh` manually once. Working
+           installations are upgraded automatically.
+2016-08-23 NEW DEPENDENCY: composer. Currently only used for the test suite, but it will
+           likely be used more widely in the future.
+2016-08-23 Allow users to delete their own account via a link on the profile page.
+2016-08-23 Add code coverage output to test suite and lots of new tests.
+
 2016-07-21 Add asciinema support for files called *.asciinema.json
 
 2016-07-13 Fix incorrect content in clipboard when copying paste content from
