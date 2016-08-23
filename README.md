@@ -40,6 +40,7 @@ You can also open a pull request on [GitHub](https://github.com/Bluewind/filebin
     * phar for tarball creation
     * mysql, mysqli, pgsql, pdo_mysql (any of those) for database access
 
+*  [composer](https://getcomposer.org/) for dependency management
 *  [pygmentize](http://pygments.org/) for code highlighting
 *  [ansi2html](http://pypi.python.org/pypi/ansi2html) for shell output rendering (ANSI color codes)
 *  [imagemagick](http://www.imagemagick.org/) for additional thumbnail generation
