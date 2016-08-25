@@ -594,32 +594,6 @@ class File extends MY_Controller {
 		}
 	}
 
-	function client()
-	{
-		$this->data['title'] .= ' - Client';
-
-		if (file_exists(FCPATH.'data/client/latest')) {
-			$this->var->latest_client = trim(file_get_contents(FCPATH.'data/client/latest'));
-			$this->data['client_link'] = base_url().'data/client/fb-'.$this->var->latest_client.'.tar.gz';
-		} else {
-			$this->data['client_link'] = false;
-		}
-
-		if (preg_match('#^https?://(.*?)/.*$#', site_url(), $matches) === 1) {
-			$this->data["domain"] = $matches[1];
-		} else {
-			$this->data["domain"] = "unknown domain";
-		}
-
-		if (!is_cli_client()) {
-			$this->load->view('header', $this->data);
-		}
-		$this->load->view($this->var->view_dir.'/client', $this->data);
-		if (!is_cli_client()) {
-			$this->load->view('footer', $this->data);
-		}
-	}
-
 	function upload_form()
 	{
 		$this->data['title'] .= ' - Upload';
@@ -638,6 +612,13 @@ class File extends MY_Controller {
 			if ($filedata !== false && $pygments->can_highlight()) {
 				$this->data["textarea_content"] = file_get_contents($this->mfile->file($filedata["data_id"]));
 			}
+		}
+
+		if (file_exists(FCPATH.'data/client/latest')) {
+			$this->var->latest_client = trim(file_get_contents(FCPATH.'data/client/latest'));
+			$this->data['client_link'] = base_url().'data/client/fb-'.$this->var->latest_client.'.tar.gz';
+		} else {
+			$this->data['client_link'] = false;
 		}
 
 		$this->load->view('header', $this->data);

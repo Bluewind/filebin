@@ -88,9 +88,6 @@
 <div class="row">
 	<div class="col-lg-6">
 		<div class="page-header"><h1>Features</h1></div>
-		<p>For shell uploading/pasting and download information for the client go to <a href="<?php echo site_url("file/client"); ?>"><?php echo site_url("file/client"); ?></a></p>
-		<p>You can use the <?php echo anchor("file/upload_history", "history"); ?> to find old uploads.</p>
-
 		<h3>How to link your pastes:</h3>
 		<dl class="dl-horizontal">
 			<dt>/&lt;ID&gt;/</dt><dd>automatically highlight the paste</dd>
@@ -128,5 +125,25 @@
 			<p>If you want an account, ask someone who is already using this service to <a href="<?php echo site_url("user/invite"); ?>">invite</a> you.</p>
 			<p>Invitations are used to control abuse and encourage users to "be nice". They are not intended as a means of exclusivity. In case of abuse reports, involved accounts may be banned and the user who invited them may also be banned. The invitation tree will be followed upwards if necessary.</p>
 		<?php } ?>
+
+		<h3>Clients</h3>
+			<h4>Linux</h4>
+				<p>
+					Development: <?php echo anchor("https://git.server-speed.net/users/flo/fb/"); ?><br />
+					Latest release: <?php echo $client_link ? anchor($client_link) : "unknown"; ?><br />
+					GPG sigs, older versions: <?php echo anchor("https://paste.xinu.at/data/client"); ?>
+				</p>
+
+				<p>
+					Arch Linux: pacman -S fb-client<br />
+					Gentoo: Add <a href="https://git.holgersson.xyz/holgersson-overlay/tree/README">this overlay</a> and run <code>emerge -a fb-client</code><br />
+				</p>
+
+			<h4>Android</h4>
+				<p>
+					Development: <a href="https://github.com/sebastianrakel/fb-client-android">sebastianrakel/fb-client-android @ Github</a><br>
+					Google Playstore: <a href="https://play.google.com/store/apps/details?id=eu.devunit.fb_client">fb-client Android @ Google Play</a><br>
+					F-Droid Store:<a href="https://f-droid.org/repository/browse/?fdid=eu.devunit.fb_client">fb-client Android @ F-Droid</a><br>
+				</p>
 	</div>
 </div>
