@@ -1,7 +1,7 @@
 <h1>Client</h1>
 
 <p>
-	Development (git): <?php echo anchor("http://git.server-speed.net/users/flo/fb/"); ?><br />
+	Development (git): <?php echo anchor("https://git.server-speed.net/users/flo/fb/"); ?><br />
 	Latest release: <?php echo $client_link ? anchor($client_link) : "unknown"; ?><br />
 	GPG sigs, older versions: <?php echo anchor("https://paste.xinu.at/data/client"); ?>
 </p>
