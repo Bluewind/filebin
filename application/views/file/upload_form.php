@@ -112,6 +112,11 @@
 			<dt>/&lt;ID&gt;/tar</dt><dd>download a tarball of all files in the multipaste (files may be renamed to avoid conflicts)</dd>
 			<dt>/&lt;ID&gt;/pls</dt><dd>download a PLS playlist of all audio/video files in the multipaste</dd>
 		</dl>
+
+		<h3>Special filenames:</h3>
+		<dl class="dl-horizontal">
+			<dt>*.asciinema.json</dt><dd>treat the file as an <a href="https://asciinema.org/">asciinema screencast</a> and display a videoplayer for it</dd>
+		</dl>
 	</div>
 	<div class="col-lg-6">
 		<div class="page-header"><h1>Information</h1></div>
