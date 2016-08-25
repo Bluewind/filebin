@@ -90,6 +90,7 @@
 		<div class="page-header"><h1>Features</h1></div>
 		<p>For shell uploading/pasting and download information for the client go to <a href="<?php echo site_url("file/client"); ?>"><?php echo site_url("file/client"); ?></a></p>
 		<p>You can use the <?php echo anchor("file/upload_history", "history"); ?> to find old uploads.</p>
+
 		<h3>How to link your pastes:</h3>
 		<dl class="dl-horizontal">
 			<dt>/&lt;ID&gt;/</dt><dd>automatically highlight the paste</dd>
@@ -103,6 +104,7 @@
 			<dt>/file/thumbnail/&lt;ID&gt;</dt><dd>return a JPEG thumbnail for the ID (only work for some file types)</dd>
 		</dl>
 		<p>If your upload is not detected as text, only <b>/&lt;ID&gt;/qr</b>, <b>/&lt;ID&gt;/plain</b>, <b>/&lt;ID&gt;/info</b> and <b>/file/thumbnail/&lt;ID&gt;</b> will work as above and all others will simply return the file with the detected MIME type.</p>
+
 		<h3>How to link your multipastes:</h3>
 		<p>Multipaste IDs begin with <code>m-</code> and only support the following features.</p>
 		<dl class="dl-horizontal">
@@ -118,6 +120,7 @@
 			<dt>*.asciinema.json</dt><dd>treat the file as an <a href="https://asciinema.org/">asciinema screencast</a> and display a videoplayer for it</dd>
 		</dl>
 	</div>
+
 	<div class="col-lg-6">
 		<div class="page-header"><h1>Information</h1></div>
 		<p>This website's primary goal is aiding developers, power users, students and alike in solving problems, debugging software, sharing their configuration, etc. It is not intended to distribute confidential or harmful information, scripts or software.</p>
