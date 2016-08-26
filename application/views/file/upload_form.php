@@ -98,9 +98,14 @@
 			<dt>/&lt;ID&gt;/rmd</dt><dd>convert markdown to HTML</dd>
 			<dt>/&lt;ID&gt;/ascii</dt><dd>convert text with ANSI (shell) escape codes to HTML</dd>
 			<dt>/&lt;ID&gt;/info</dt><dd>display some information about the ID</dd>
-			<dt>/file/thumbnail/&lt;ID&gt;</dt><dd>return a JPEG thumbnail for the ID (only work for some file types)</dd>
+			<dt>/file/thumbnail/&lt;ID&gt;</dt><dd>return a JPEG thumbnail for the ID (only works for some file types)</dd>
 		</dl>
-		<p>If your upload is not detected as text, only <b>/&lt;ID&gt;/qr</b>, <b>/&lt;ID&gt;/plain</b>, <b>/&lt;ID&gt;/info</b> and <b>/file/thumbnail/&lt;ID&gt;</b> will work as above and all others will simply return the file with the detected MIME type.</p>
+		<p>
+			If your upload is not detected as text, only <b>/&lt;ID&gt;/qr</b>,
+			<b>/&lt;ID&gt;/plain</b>, <b>/&lt;ID&gt;/info</b> and
+			<b>/file/thumbnail/&lt;ID&gt;</b> will work as above and all others will simply
+			return the file with the detected MIME type.
+		</p>
 
 		<h3>How to link your multipastes:</h3>
 		<p>Multipaste IDs begin with <code>m-</code> and only support the following features.</p>
@@ -120,10 +125,24 @@
 
 	<div class="col-lg-6">
 		<div class="page-header"><h1>Information</h1></div>
-		<p>This website's primary goal is aiding developers, power users, students and alike in solving problems, debugging software, sharing their configuration, etc. It is not intended to distribute confidential or harmful information, scripts or software.</p>
+		<p>
+			This website's primary goal is aiding developers, power users, students and
+			alike in solving problems, debugging software, sharing their configuration,
+			etc. It is not intended to distribute confidential or harmful information,
+			scripts or software or copyrighted content for which you do not have a
+			distribution license.
+		</p>
 		<?php if(auth_driver_function_implemented("can_register_new_users")) { ?>
-			<p>If you want an account, ask someone who is already using this service to <a href="<?php echo site_url("user/invite"); ?>">invite</a> you.</p>
-			<p>Invitations are used to control abuse and encourage users to "be nice". They are not intended as a means of exclusivity. In case of abuse reports, involved accounts may be banned and the user who invited them may also be banned. The invitation tree will be followed upwards if necessary.</p>
+			<p>
+				If you want an account, ask someone who is already using this
+				service to <a href="<?php echo site_url("user/invite"); ?>">invite</a> you.
+			</p>
+			<p>
+				Invitations are used to control abuse and encourage users to "be nice". They
+				are not intended as a means of exclusivity. In case of abuse reports, involved
+				accounts may be banned and the user who invited them may also be banned. The
+				invitation tree will be followed upwards if necessary.
+			</p>
 		<?php } ?>
 
 		<h3>Clients</h3>
