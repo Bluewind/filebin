@@ -5,7 +5,7 @@ define(['jquery', 'underscore', 'jquery.colorbox'], function ($, _) {
 		thumbnailLinks: '.upload_thumbnails a',
 		deleteButton: '#delete_button',
 		deleteForm: '#delete_form',
-		markedThumbnails: '.upload_thumbnails marked',
+		markedThumbnails: '.upload_thumbnails .marked',
 		colorbox: '.colorbox',
 		thumbnails: '.upload_thumbnails',
 		toggleDeleteModeButton: '#toggle_delete_mode'
