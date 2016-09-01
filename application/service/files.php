@@ -411,4 +411,32 @@ class files {
 
 		return true;
 	}
+
+	static public function tooltip(array $filedata)
+	{
+		$filesize = format_bytes($filedata["filesize"]);
+		$file = get_instance()->mfile->file($filedata["data_id"]);
+		$upload_date = date("r", $filedata["date"]);
+
+		$height = 0;
+		$width = 0;
+		try {
+			list($width, $height) = getimagesize($file);
+		} catch (\ErrorException $e) {
+			// likely unsupported filetype
+		}
+
+		$tooltip  = "${filedata["id"]} - $filesize<br>";
+		$tooltip .= "$upload_date<br>";
+
+
+		if ($height > 0 && $width > 0) {
+			$tooltip .= "${width}x${height} - ${filedata["mimetype"]}<br>";
+		} else {
+			$tooltip .= "${filedata["mimetype"]}<br>";
+		}
+
+		return $tooltip;
+	}
+
 }

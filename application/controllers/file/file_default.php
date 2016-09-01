@@ -216,7 +216,7 @@ class File_default extends MY_Controller {
 					$base = explode("/", $filedata["mimetype"])[0];
 
 					if (\libraries\Image::type_supported($mimetype)) {
-						$filedata["tooltip"] = $this->_tooltip_for_image($filedata);
+						$filedata["tooltip"] = \service\files::tooltip($filedata);
 						$filedata["orientation"] = libraries\Image::get_exif_orientation($file);
 						$output_cache->add_merge(
 							array("items" => array($filedata)),
@@ -378,32 +378,6 @@ class File_default extends MY_Controller {
 		$output_cache->render_now($data, $this->var->view_dir.'/html_paste_footer');
 	}
 
-	private function _tooltip_for_image($filedata)
-	{
-		$filesize = format_bytes($filedata["filesize"]);
-		$file = $this->mfile->file($filedata["data_id"]);
-		$upload_date = date("r", $filedata["date"]);
-
-		$height = 0;
-		$width = 0;
-		try {
-			list($width, $height) = getimagesize($file);
-		} catch (\ErrorException $e) {
-			// likely unsupported filetype
-		}
-
-		$tooltip  = "${filedata["id"]} - $filesize<br>";
-		$tooltip .= "$upload_date<br>";
-
-
-		if ($height > 0 && $width > 0) {
-			$tooltip .= "${width}x${height} - ${filedata["mimetype"]}<br>";
-		} else {
-			$tooltip .= "${filedata["mimetype"]}<br>";
-		}
-
-		return $tooltip;
-	}
 
 	private function _display_info($id)
 	{
@@ -699,7 +673,7 @@ class File_default extends MY_Controller {
 				unset($query[$key]);
 				continue;
 			}
-			$query[$key]["tooltip"] = $this->_tooltip_for_image($item);
+			$query[$key]["tooltip"] = \service\files::tooltip($item);
 			$query[$key]["orientation"] = libraries\Image::get_exif_orientation($this->mfile->file($item["data_id"]));
 		}
 
