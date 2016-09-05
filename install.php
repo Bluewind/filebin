@@ -12,10 +12,6 @@ if (getenv("HOME") == "") {
 	putenv('HOME='.FCPATH);
 }
 
-if (file_exists(FCPATH."is_installed")) {
-	exit("already installed\n");
-}
-
 $old_path = getenv("PATH");
 putenv("PATH=$old_path:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin");
 
@@ -82,14 +78,8 @@ foreach ($mod_groups as $function => $mods) {
 
 
 if ($errors != "") {
-	echo nl2br("Errors occured:\n");
-	echo nl2br($errors);
+	echo "Errors occured:\n";
+	echo $errors;
 } else {
-// TODO: Make this an actual installer
-	file_put_contents(FCPATH."is_installed", "true");
-	echo nl2br("Tests completed.\n"
-		."The following steps remain:\n"
-		." - copy the files from ./application/config/example/ to ./application/config/ and edit them to suit your setup\n"
-		." - the database will be set up automatically\n"
-	);
+	echo "Dependency checks completed sucessfully.\n";
 }
