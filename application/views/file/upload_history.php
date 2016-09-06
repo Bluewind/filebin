@@ -1,7 +1,10 @@
-<?php echo form_open("file/do_delete") ?>
+<?php echo form_open("file/handle_history_submit") ?>
 	<div class="nav-history">
 		<div class="container">
-			<input class="btn btn-danger pull-right" type="submit" value="Delete checked" name="process">
+			<div class="pull-right">
+				<button class="btn btn-danger" name="process" value="delete">Delete checked</button>
+				<button class="btn btn-primary" name="process" value="multipaste">Add checked to multipaste queue</button>
+			</div>
 		<?php include 'nav_history.php'; ?>
 		</div>
 	</div>
@@ -32,6 +35,7 @@
         </table>
     </div>
     <input class="btn btn-danger" type="submit" value="Delete checked" name="process">
+    <button class="add_multipaste btn btn-primary">Add checked to multipaste queue</button>
 </form>
 
 <p>Total sum of your distinct uploads: <?php echo $total_size; ?>.</p>

@@ -683,6 +683,40 @@ class File_default extends MY_Controller {
 		$this->load->view('footer', $this->data);
 	}
 
+	public function handle_history_submit()
+	{
+		$this->muser->require_access("apikey");
+
+		$process = $this->input->post("process");
+
+		$dispatcher = [
+			"delete" => function() {
+				return $this->do_delete();
+			},
+			"multipaste" => function() {
+				return $this->_append_multipaste_queue();
+			},
+		];
+
+		if (isset($dispatcher[$process])) {
+			$dispatcher[$process]();
+		} else {
+			throw new \exceptions\UserInputException("file/handle_history_submit/invalid-process-value", "Value in process field not found in dispatch table");
+		}
+	}
+
+	private function _append_multipaste_queue()
+	{
+		$ids = $this->input->post("ids");
+		if ($ids === false) {
+			$ids = [];
+		}
+
+		$m = new \service\multipaste_queue();
+		$m->append($ids);
+		redirect("file/multipaste/queue");
+	}
+
 	function upload_history()
 	{
 		$this->muser->require_access("apikey");
