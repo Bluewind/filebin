@@ -42,6 +42,38 @@
 	height: 50px;
 }
 
+.multipasteQueue .items>div {
+	height: 190px;
+	display: inline-block;
+	width: 150px;
+	vertical-align: top;
+	margin: 0 1px 20px 1px;
+}
+
+.multipasteQueue .items .item {
+	height: 160px;
+}
+
+.ajaxFeedback {
+	display: inline-block;
+}
+
+/* Source: http://stackoverflow.com/a/26283602 */
+.glyphicon.spinning {
+	animation: spin 1s infinite linear;
+	-webkit-animation: spin2 1s infinite linear;
+}
+
+@keyframes spin {
+	from { transform: scale(1) rotate(0deg); }
+	to { transform: scale(1) rotate(360deg); }
+}
+
+@-webkit-keyframes spin2 {
+	from { -webkit-transform: rotate(0deg); }
+	to { -webkit-transform: rotate(360deg); }
+}
+
 @media (max-width: 768px) {
 	.dont-float {
 		float: left;

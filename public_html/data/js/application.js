@@ -7,6 +7,7 @@ define(
 		'lexer-input',
 		'tabwidth-input',
 		'thumbnail-view',
+		'multipaste',
 		'uploader',
 		'tablesorter',
 		'jquery',
@@ -20,6 +21,7 @@ define(
 		LexerInput,
 		TabwidthInput,
 		ThumbnailView,
+		Multipaste,
 		Uploader,
 		TableSorter,
 		$
@@ -44,6 +46,7 @@ define(
 				TabwidthInput.initialize();
 				LexerInput.initialize();
 				ThumbnailView.initialize();
+				Multipaste.initialize();
 				Uploader.initialize();
 				TableSorter.initialize();
 				this.configureTooltips();

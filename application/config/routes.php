@@ -40,6 +40,7 @@
 
 $route['default_controller'] = "file/file_default";
 $route['user/(:any)'] = "user/$1";
+$route['file/multipaste/(:any)'] = "file/multipaste/$1";
 $route['file/(:any)'] = "file/file_default/$1";
 $route['tools/(:any)'] = "tools/$1";
 $route['api/(:any)'] = "api/route/$1";
