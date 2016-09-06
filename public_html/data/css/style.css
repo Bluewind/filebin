@@ -360,6 +360,7 @@ body {
 	word-break: break-word;
 	word-wrap: normal;
 	max-width: 400px;
+	min-width: 250px
 }
 
 #upload_history .popover {
