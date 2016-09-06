@@ -54,6 +54,10 @@
 	height: 160px;
 }
 
+.nav li.multipaste_button a {
+	color: #fff;
+}
+
 .ajaxFeedback {
 	display: inline-block;
 }
