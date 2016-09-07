@@ -11,13 +11,26 @@ namespace service;
 
 class multipaste_queue {
 
-	public function __construct() {
+	public function __construct($session = null, $mfile = null, $mmultipaste = null) {
 		$CI =& get_instance();
-		$CI->load->model("mfile");
-		$CI->load->model("mmultipaste");
-		$this->session = $CI->session;
-		$this->mfile = $CI->mfile;
-		$this->mmultipaste = $CI->mmultipaste;
+
+		$this->session = $session;
+		$this->mfile = $mfile;
+		$this->mmultipaste = $mmultipaste;
+
+		if ($this->session === null) {
+			$this->session = $CI->session;
+		}
+
+		if ($this->mfile === null) {
+			$CI->load->model("mfile");
+			$this->mfile = $CI->mfile;
+		}
+
+		if ($this->mmultipaste === null) {
+			$CI->load->model("mmultipaste");
+			$this->mmultipaste = $CI->mmultipaste;
+		}
 	}
 
 	/**
