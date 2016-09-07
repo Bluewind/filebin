@@ -29,8 +29,6 @@ class multipaste_queue {
 	public function append(array $ids) {
 		$old_ids = $this->get();
 
-		$old_ids = $this->get();
-
 		# replace multipaste ids with their corresponding paste ids
 		$ids = array_map(function($id) {return array_values($this->resolve_multipaste($id));}, $ids);
 		$ids = array_reduce($ids, function($a, $b) {return array_merge($a, $b);}, []);
