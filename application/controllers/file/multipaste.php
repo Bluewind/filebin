@@ -74,7 +74,7 @@ class Multipaste extends MY_Controller {
 				$limits = $this->muser->get_upload_id_limits();
 				$ret = \service\files::create_multipaste($ids, $userid, $limits);
 				$m->set([]);
-				redirect($ret['url_id']);
+				redirect($ret['url_id'].'/');
 			},
 		];
 
