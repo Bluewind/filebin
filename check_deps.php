@@ -81,6 +81,7 @@ foreach ($mod_groups as $function => $mods) {
 if ($errors != "") {
 	echo "Errors occured:\n";
 	echo $errors;
+	exit(1);
 } else {
 	echo "Dependency checks completed sucessfully.\n";
 }
