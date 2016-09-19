@@ -38,7 +38,7 @@ define(['jquery'], function () {
 			value = value || 8;
 			$('span.tabwidth-value').html(value);
 			$('.tabwidth-form input').val(value);
-			$('.highlight pre').css('tab-size', value);
+			$('.highlight .code-container').css('tab-size', value);
 			localStorage.setItem('tabwidth', value);
 		},
 		setTabwidthFromLocalStorage: function () {
@@ -46,7 +46,7 @@ define(['jquery'], function () {
 		},
 		setLineWrap: function (lines_wrapped) {
 			var whitespaceMode = lines_wrapped ? 'pre-wrap' : 'pre';
-			$('.highlight > pre').css('white-space', whitespaceMode);
+			$('.highlight > .code-container').css('white-space', whitespaceMode);
 			localStorage.setItem('lines_wrapped', lines_wrapped);
 		},
 		toggleLineWrap: function() {
