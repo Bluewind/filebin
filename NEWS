@@ -1,5 +1,8 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+1.0.0 2016-09-19
+ - Code refactoring and various small bugfixes
+
 2016-08-23 DEPRECATION: The old plain text API used by fb-client <2.0 is now
            deprecated. A warning will be shown for every file uploaded via
            the old API.
