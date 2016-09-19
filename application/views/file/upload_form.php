@@ -162,7 +162,7 @@
 				<p>
 					Development: <a href="https://github.com/sebastianrakel/fb-client-android">sebastianrakel/fb-client-android @ Github</a><br>
 					Google Playstore: <a href="https://play.google.com/store/apps/details?id=eu.devunit.fb_client">fb-client Android @ Google Play</a><br>
-					F-Droid Store:<a href="https://f-droid.org/repository/browse/?fdid=eu.devunit.fb_client">fb-client Android @ F-Droid</a><br>
+					F-Droid Store: <a href="https://f-droid.org/repository/browse/?fdid=eu.devunit.fb_client">fb-client Android @ F-Droid</a><br>
 				</p>
 	</div>
 </div>
