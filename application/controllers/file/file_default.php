@@ -599,9 +599,6 @@ class File_default extends MY_Controller {
 
 		$this->load->view('header', $this->data);
 		$this->load->view($this->var->view_dir.'/upload_form', $this->data);
-		if (is_cli_client()) {
-			$this->client();
-		}
 		$this->load->view('footer', $this->data);
 	}
 
