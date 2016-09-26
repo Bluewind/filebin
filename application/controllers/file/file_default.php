@@ -818,38 +818,6 @@ class File_default extends MY_Controller {
 		return $this->_show_url(array($ret["url_id"]), false);
 	}
 
-	function delete()
-	{
-		$this->muser->require_access("apikey");
-
-		if (!is_cli_client()) {
-			throw new \exceptions\InsufficientPermissionsException("file/delete/unlisted-client", "Not a listed cli client, please use the history to delete uploads");
-		}
-
-		$id = $this->uri->segment(3);
-		$this->data["id"] = $id;
-		$userid = $this->muser->get_userid();
-
-		foreach (array($this->mfile, $this->mmultipaste) as $model) {
-			if ($model->id_exists($id)) {
-				if ($model->get_owner($id) !== $userid) {
-					echo "You don't own this file\n";
-					return;
-				}
-				if ($model->delete_id($id)) {
-					echo "$id has been deleted.\n";
-				} else {
-					echo "Deletion failed. Unknown error\n";
-				}
-				return;
-			}
-		}
-
-		throw new \exceptions\NotFoundException("file/delete/unknown-id", "Unknown ID '$id'.", array(
-			"id" => $id,
-		));
-	}
-
 	/**
 	 * Handle submissions from the web form (files and textareas).
 	 */
