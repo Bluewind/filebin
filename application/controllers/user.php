@@ -93,11 +93,7 @@ class User extends MY_Controller {
 
 		$key = \service\user::create_apikey($userid, $comment, $access_level);
 
-		if (is_cli_client()) {
-			echo "$key\n";
-		} else {
-			redirect("user/apikeys");
-		}
+		redirect("user/apikeys");
 	}
 
 	function delete_apikey()

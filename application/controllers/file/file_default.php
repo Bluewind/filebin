@@ -553,10 +553,6 @@ class File_default extends MY_Controller {
 			}
 		}
 
-		if (is_cli_client()) {
-			$redirect = false;
-		}
-
 		if ($redirect && count($ids) == 1) {
 			redirect($this->data['urls'][0], "location", 303);
 		} else {
@@ -770,14 +766,8 @@ class File_default extends MY_Controller {
 			);
 		}
 
-		$order = is_cli_client() ? "ASC" : "DESC";
-
-		uasort($history["items"], function($a, $b) use ($order) {
-			if ($order == "ASC") {
-				return $a["date"] - $b["date"];
-			} else {
+		uasort($history["items"], function($a, $b) {
 				return $b["date"] - $a["date"];
-			}
 		});
 
 		foreach($history["items"] as $key => $item) {
@@ -785,16 +775,6 @@ class File_default extends MY_Controller {
 
 			if (isset($item['preview_text'])) {
 				$history["items"][$key]["preview_text"] = htmlentities($item['preview_text']);
-			}
-
-			if (is_cli_client()) {
-				// Keep track of longest string to pad plaintext output correctly
-				foreach($fields as $length_key => $value) {
-					$len = mb_strlen($history["items"][$key][$length_key]);
-					if ($len > $lengths[$length_key]) {
-						$lengths[$length_key] = $len;
-					}
-				}
 			}
 		}
 
