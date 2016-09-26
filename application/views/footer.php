@@ -1,8 +1,3 @@
-<?php
-if (is_cli_client() && !isset($force_full_html)) {
-	return;
-}
-?>
 	</div><!-- .container -->
 <div id="push"></div>
 </div> <!-- #wrap -->
