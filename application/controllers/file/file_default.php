@@ -16,11 +16,7 @@ class File_default extends MY_Controller {
 		$this->load->model('mfile');
 		$this->load->model('mmultipaste');
 
-		if (is_cli_client()) {
-			$this->var->view_dir = "file_plaintext";
-		} else {
-			$this->var->view_dir = "file";
-		}
+		$this->var->view_dir = "file";
 	}
 
 	function index()
