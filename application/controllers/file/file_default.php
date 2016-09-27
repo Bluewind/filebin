@@ -26,9 +26,7 @@ class File_default extends MY_Controller {
 
 		// Try to guess what the user would like to do.
 		$id = $this->uri->segment(1);
-		if (!empty($_FILES)) {
-			$this->do_upload();
-		} elseif (strpos($id, "m-") === 0 && $this->mmultipaste->id_exists($id)) {
+		if (strpos($id, "m-") === 0 && $this->mmultipaste->id_exists($id)) {
 			$this->_download();
 		} elseif ($id != "file" && $this->mfile->id_exists($id)) {
 			$this->_download();
