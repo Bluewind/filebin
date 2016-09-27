@@ -893,58 +893,6 @@ class File_default extends MY_Controller {
 		return $ids;
 	}
 
-	/**
-	 * Handles uploaded files
-	 * @Deprecated only used by the cli client
-	 */
-	function do_upload()
-	{
-		// stateful clients get a cookie to claim the ID later
-		// don't force them to log in just yet
-		if (!stateful_client()) {
-			$this->muser->require_access("basic");
-		}
-
-		$ids = array();
-
-		$extension = $this->input->post('extension');
-		$multipaste = $this->input->post('multipaste');
-
-		$files = getNormalizedFILES();
-
-		service\files::verify_uploaded_files($files);
-		$limits = $this->muser->get_upload_id_limits();
-
-		$userid = $this->muser->get_userid();
-
-		foreach ($files as $key => $file) {
-			$id = $this->mfile->new_id($limits[0], $limits[1]);
-
-			// work around a curl bug and allow the client to send the real filename base64 encoded
-			// TODO: this interface currently sets the same filename for every file if you use multiupload
-			$filename = $this->input->post("filename");
-			if ($filename !== false) {
-				$filename = base64_decode($filename, true);
-			}
-
-			// fall back if base64_decode failed
-			if ($filename === false) {
-				$filename = $file['name'];
-			}
-
-			$filename = trim($filename, "\r\n\0\t\x0B");
-
-			service\files::add_uploaded_file($userid, $id, $file["tmp_name"], $filename);
-			$ids[] = $id;
-		}
-
-		if ($multipaste !== false) {
-			$ids[] = \service\files::create_multipaste($ids, $userid, $limits)["url_id"];
-		}
-
-		$this->_show_url($ids, $extension);
-	}
-
 	function claim_id()
 	{
 		$this->muser->require_access();

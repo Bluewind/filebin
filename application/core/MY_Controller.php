@@ -67,8 +67,6 @@ class MY_Controller extends CI_Controller {
 				 * and we don't want to annoy them when they upload a big file and the
 				 * CSRF check fails.
 				 */
-				"file/do_upload",
-				"file/do_paste",
 			),
 		);
 		if (in_array($uri_start, $csrf_whitelisted_handlers["always"])) {
