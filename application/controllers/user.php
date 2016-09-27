@@ -12,8 +12,6 @@ class User extends MY_Controller {
 	function __construct()
 	{
 		parent::__construct();
-
-		$this->var->view_dir = "user/";
 	}
 
 	function index()
@@ -26,7 +24,7 @@ class User extends MY_Controller {
 		$this->data["username"] = $this->muser->get_username();
 
 		$this->load->view('header', $this->data);
-		$this->load->view($this->var->view_dir.'index', $this->data);
+		$this->load->view('user/index', $this->data);
 		$this->load->view('footer', $this->data);
 	}
 
@@ -66,14 +64,14 @@ class User extends MY_Controller {
 			if ($result !== true) {
 				$this->data['login_error'] = true;
 				$this->load->view('header', $this->data);
-				$this->load->view($this->var->view_dir.'login', $this->data);
+				$this->load->view('user/login', $this->data);
 				$this->load->view('footer', $this->data);
 			} else {
 				redirect($redirect_uri);
 			}
 		} else {
 			$this->load->view('header', $this->data);
-			$this->load->view($this->var->view_dir.'login', $this->data);
+			$this->load->view('user/login', $this->data);
 			$this->load->view('footer', $this->data);
 		}
 	}
@@ -119,7 +117,7 @@ class User extends MY_Controller {
 		$this->data["query"] = $apikeys["apikeys"];
 
 		$this->load->view('header', $this->data);
-		$this->load->view($this->var->view_dir.'apikeys', $this->data);
+		$this->load->view('user/apikeys', $this->data);
 		$this->load->view('footer', $this->data);
 	}
 
@@ -169,7 +167,7 @@ class User extends MY_Controller {
 		$this->data["query"] = $query;
 
 		$this->load->view('header', $this->data);
-		$this->load->view($this->var->view_dir.'invite', $this->data);
+		$this->load->view('user/invite', $this->data);
 		$this->load->view('footer', $this->data);
 	}
 
@@ -219,7 +217,7 @@ class User extends MY_Controller {
 					->delete('actions');
 
 				$this->load->view('header', $this->data);
-				$this->load->view($this->var->view_dir.'registered', $this->data);
+				$this->load->view('user/registered', $this->data);
 				$this->load->view('footer', $this->data);
 				return;
 			} else {
@@ -233,7 +231,7 @@ class User extends MY_Controller {
 		$this->data["error"] = $error;
 
 		$this->load->view('header', $this->data);
-		$this->load->view($this->var->view_dir.'register', $this->data);
+		$this->load->view('user/register', $this->data);
 		$this->load->view('footer', $this->data);
 	}
 
@@ -254,7 +252,7 @@ class User extends MY_Controller {
 		$this->data['username'] = $this->muser->get_username();
 
 		$this->load->view('header', $this->data);
-		$this->load->view($this->var->view_dir.'delete_account_form', $this->data);
+		$this->load->view('user/delete_account_form', $this->data);
 		$this->load->view('footer', $this->data);
 	}
 
@@ -286,7 +284,7 @@ class User extends MY_Controller {
 			unset($this->data['user_logged_in']);
 
 			$this->load->view('header', $this->data);
-			$this->load->view($this->var->view_dir.'delete_account_success', $this->data);
+			$this->load->view('user/delete_account_success', $this->data);
 			$this->load->view('footer', $this->data);
 			return;
 		} else {
@@ -323,7 +321,7 @@ class User extends MY_Controller {
 		$this->data['username'] = $this->muser->get_username();
 
 		$this->load->view('header', $this->data);
-		$this->load->view($this->var->view_dir.'reset_password_username_form', $this->data);
+		$this->load->view('user/reset_password_username_form', $this->data);
 		$this->load->view('footer', $this->data);
 	}
 
@@ -368,7 +366,7 @@ class User extends MY_Controller {
 		$this->data["email_domain"] = substr($userinfo["email"], strpos($userinfo["email"], "@") + 1);
 
 		$this->load->view('header', $this->data);
-		$this->load->view($this->var->view_dir.'reset_password_link_sent', $this->data);
+		$this->load->view('user/reset_password_link_sent', $this->data);
 		$this->load->view('footer', $this->data);
 	}
 
@@ -398,7 +396,7 @@ class User extends MY_Controller {
 					->delete('actions');
 
 				$this->load->view('header', $this->data);
-				$this->load->view($this->var->view_dir.'reset_password_success', $this->data);
+				$this->load->view('user/reset_password_success', $this->data);
 				$this->load->view('footer', $this->data);
 				return;
 			}
@@ -408,7 +406,7 @@ class User extends MY_Controller {
 		$this->data["error"] = $error;
 
 		$this->load->view('header', $this->data);
-		$this->load->view($this->var->view_dir.'reset_password_form', $this->data);
+		$this->load->view('user/reset_password_form', $this->data);
 		$this->load->view('footer', $this->data);
 	}
 
@@ -471,7 +469,7 @@ class User extends MY_Controller {
 		$this->data["profile_data"] = $this->muser->get_profile_data();
 
 		$this->load->view('header', $this->data);
-		$this->load->view($this->var->view_dir.'profile', $this->data);
+		$this->load->view('user/profile', $this->data);
 		$this->load->view('footer', $this->data);
 	}
 
@@ -630,7 +628,7 @@ class User extends MY_Controller {
 		}
 
 		$this->load->view('header', $this->data);
-		$this->load->view($this->var->view_dir.'hash_password', $this->data);
+		$this->load->view('user/hash_password', $this->data);
 		$this->load->view('footer', $this->data);
 	}
 
