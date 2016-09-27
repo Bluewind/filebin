@@ -22,20 +22,7 @@ class MY_Controller extends CI_Controller {
 
 		// check if DB is up to date
 		if (!($this->input->is_cli_request() && $this->uri->segment(1) === "tools")) {
-			if (!$this->db->table_exists('migrations')){
-				throw new \exceptions\PublicApiException("general/db/not-initialized", "Database not initialized. Can't find migrations table. Please run the migration script. (php index.php tools update_database)");
-			} else {
-				$this->config->load("migration", true);
-				$target_version = $this->config->item("migration_version", "migration");
-
-				// TODO: wait 20 seconds for an update so requests don't get lost for short updates?
-				$row = $this->db->get('migrations')->row();
-
-				$current_version = $row ? $row->version : 0;
-				if ($current_version != $target_version) {
-					throw new \exceptions\PublicApiException("general/db/wrong-version", "Database version is $current_version, we want $target_version. Please run the migration script. (php index.php tools update_database)");
-				}
-			}
+			$this->_ensure_database_schema_up_to_date();
 		}
 
 		$old_path = getenv("PATH");
@@ -102,4 +89,23 @@ class MY_Controller extends CI_Controller {
 			throw new \exceptions\PublicApiException("api/cli-only", "This function can only be accessed via the CLI interface");
 		}
 	}
+
+	private function _ensure_database_schema_up_to_date()
+	{
+		if (!$this->db->table_exists('migrations')){
+			throw new \exceptions\PublicApiException("general/db/not-initialized", "Database not initialized. Can't find migrations table. Please run the migration script. (php index.php tools update_database)");
+		} else {
+			$this->config->load("migration", true);
+			$target_version = $this->config->item("migration_version", "migration");
+
+			// TODO: wait 20 seconds for an update so requests don't get lost for short updates?
+			$row = $this->db->get('migrations')->row();
+
+			$current_version = $row ? $row->version : 0;
+			if ($current_version != $target_version) {
+				throw new \exceptions\PublicApiException("general/db/wrong-version", "Database version is $current_version, we want $target_version. Please run the migration script. (php index.php tools update_database)");
+			}
+		}
+	}
+
 }
