@@ -15,8 +15,6 @@ class File_default extends MY_Controller {
 
 		$this->load->model('mfile');
 		$this->load->model('mmultipaste');
-
-		$this->var->view_dir = "file";
 	}
 
 	function index()
@@ -241,9 +239,9 @@ class File_default extends MY_Controller {
 		// Don't use the output class/append_output because it does too
 		// much magic ({elapsed_time} and {memory_usage}).
 		// Direct echo puts us on the safe side.
-		echo $this->load->view($this->var->view_dir.'/html_header', $this->data, true);
+		echo $this->load->view('file/html_header', $this->data, true);
 		$output_cache->render();
-		echo $this->load->view($this->var->view_dir.'/html_footer', $this->data, true);
+		echo $this->load->view('file/html_footer', $this->data, true);
 	}
 
 	private function _colorify($file, $lexer, $anchor_id = false)
@@ -362,9 +360,9 @@ class File_default extends MY_Controller {
 			'filedata' => $filedata,
 		));
 
-		$output_cache->render_now($data, $this->var->view_dir.'/html_paste_header');
+		$output_cache->render_now($data, 'file/html_paste_header');
 		$output_cache->render_now($highlit["output"]);
-		$output_cache->render_now($data, $this->var->view_dir.'/html_paste_footer');
+		$output_cache->render_now($data, 'file/html_paste_footer');
 	}
 
 
@@ -395,7 +393,7 @@ class File_default extends MY_Controller {
 			));
 
 			$this->load->view('header', $this->data);
-			$this->load->view($this->var->view_dir.'/multipaste_info', $data);
+			$this->load->view('file/multipaste_info', $data);
 			$this->load->view('footer', $this->data);
 			return;
 		} elseif ($this->mfile->id_exists($id)) {
@@ -405,7 +403,7 @@ class File_default extends MY_Controller {
 			$this->data['timeout'] = $this->mfile->get_timeout_string($id);
 
 			$this->load->view('header', $this->data);
-			$this->load->view($this->var->view_dir.'/file_info', $this->data);
+			$this->load->view('file/file_info', $this->data);
 			$this->load->view('footer', $this->data);
 		}
 	}
@@ -491,7 +489,7 @@ class File_default extends MY_Controller {
 		$this->data["title"] .= " - Not Found";
 		$this->output->set_status_header(404);
 		$this->load->view('header', $this->data);
-		$this->load->view($this->var->view_dir.'/non_existent', $this->data);
+		$this->load->view('file/non_existent', $this->data);
 		$this->load->view('footer', $this->data);
 	}
 
@@ -548,7 +546,7 @@ class File_default extends MY_Controller {
 			redirect($this->data['urls'][0], "location", 303);
 		} else {
 			$this->load->view('header', $this->data);
-			$this->load->view($this->var->view_dir.'/show_url', $this->data);
+			$this->load->view('file/show_url', $this->data);
 			$this->load->view('footer', $this->data);
 		}
 	}
@@ -581,7 +579,7 @@ class File_default extends MY_Controller {
 		}
 
 		$this->load->view('header', $this->data);
-		$this->load->view($this->var->view_dir.'/upload_form', $this->data);
+		$this->load->view('file/upload_form', $this->data);
 		$this->load->view('footer', $this->data);
 	}
 
@@ -662,7 +660,7 @@ class File_default extends MY_Controller {
 		$this->data["items"] = $query;
 
 		$this->load->view('header', $this->data);
-		$this->load->view($this->var->view_dir.'/upload_history_thumbnails', $this->data);
+		$this->load->view('file/upload_history_thumbnails', $this->data);
 		$this->load->view('footer', $this->data);
 	}
 
@@ -775,7 +773,7 @@ class File_default extends MY_Controller {
 		$this->data["total_size"] = format_bytes($history["total_size"]);
 
 		$this->load->view('header', $this->data);
-		$this->load->view($this->var->view_dir.'/upload_history', $this->data);
+		$this->load->view('file/upload_history', $this->data);
 		$this->load->view('footer', $this->data);
 	}
 
@@ -792,7 +790,7 @@ class File_default extends MY_Controller {
 		$this->data["total_count"] = $ret["total_count"];
 
 		$this->load->view('header', $this->data);
-		$this->load->view($this->var->view_dir.'/deleted', $this->data);
+		$this->load->view('file/deleted', $this->data);
 		$this->load->view('footer', $this->data);
 	}
 
