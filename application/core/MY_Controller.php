@@ -62,11 +62,7 @@ class MY_Controller extends CI_Controller {
 		}
 
 		if ($csrf_protection && !$this->input->is_cli_request()) {
-			// 2 functions for accessing config options, really?
-			$this->config->set_item('csrf_protection', true);
-			config_item("csrf_protection", true);
-			$this->security->__construct();
-			$this->security->csrf_verify();
+			$this->_setup_csrf_protection();
 		}
 
 		if ($this->config->item("environment") == "development") {
@@ -108,4 +104,12 @@ class MY_Controller extends CI_Controller {
 		}
 	}
 
+	private function _setup_csrf_protection()
+	{
+		// 2 functions for accessing config options, really?
+		$this->config->set_item('csrf_protection', true);
+		config_item("csrf_protection", true);
+		$this->security->__construct();
+		$this->security->csrf_verify();
+	}
 }
