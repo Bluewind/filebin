@@ -253,16 +253,12 @@ if ($testname) {
 try {
 	require_once BASEPATH.'core/CodeIgniter.php';
 } catch (\exceptions\NotAuthenticatedException $e) {
-	if (is_cli_client()) {
-		show_error(nl2br(htmlspecialchars($e->__toString())), $e->get_http_error_code());
-	} else {
-		$CI =& get_instance();
-		$redirect_uri = $CI->uri->uri_string();
-		if (isset($CI->data["redirect_uri"])) {
-			$redirect_uri = $CI->data["redirect_uri"];
-		}
-		redirect("user/login?redirect_uri=".$redirect_uri);
+	$CI =& get_instance();
+	$redirect_uri = $CI->uri->uri_string();
+	if (isset($CI->data["redirect_uri"])) {
+		$redirect_uri = $CI->data["redirect_uri"];
 	}
+	redirect("user/login?redirect_uri=".$redirect_uri);
 } catch (\exceptions\PublicApiException $e) {
 	show_error(nl2br(htmlspecialchars($e->__toString())), $e->get_http_error_code());
 } finally {
