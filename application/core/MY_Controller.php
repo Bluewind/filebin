@@ -70,20 +70,8 @@ class MY_Controller extends CI_Controller {
 				"file/do_upload",
 				"file/do_paste",
 			),
-			"cli_client" => array(
-				"file/do_delete",
-				"file/delete",
-				"file/do_multipaste",
-				"file/upload_history",
-				"user/create_apikey",
-				"file/get_max_size",
-			),
 		);
 		if (in_array($uri_start, $csrf_whitelisted_handlers["always"])) {
-			$csrf_protection = false;
-		}
-
-		if (is_api_client() && in_array($uri_start, $csrf_whitelisted_handlers["cli_client"])) {
 			$csrf_protection = false;
 		}
 
