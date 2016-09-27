@@ -279,9 +279,10 @@ class Muser extends CI_Model {
 			$this->apilogin($this->input->post("apikey"));
 		}
 
-		if (is_cli_client()) {
-			$this->login_cli_client();
-		}
+		# keep for now. might be useful if adapted to apikeys instead of passwords
+		//if (is_cli_client()) {
+			//$this->login_cli_client();
+		//}
 
 		if ($this->logged_in()) {
 			return $this->check_access_level($wanted_level);
