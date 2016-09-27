@@ -84,18 +84,18 @@ function mb_str_pad($ps_input, $pn_pad_length, $ps_pad_string = " ", $pn_pad_typ
 	return $ret;
 }
 
-function is_cli_client($override = null)
+function is_api_client($override = null)
 {
-	static $is_cli = null;
+	static $is_api = null;
 
 	if ($override !== null) {
-		$is_cli = $override;
+		$is_api = $override;
 	}
 
-	if ($is_cli === null) {
-		$is_cli = false;
+	if ($is_api === null) {
+		$is_api = false;
 	}
-	return $is_cli;
+	return $is_api;
 }
 
 function random_alphanum($min_length, $max_length = null)
@@ -268,7 +268,7 @@ function stateful_client()
 		return false;
 	}
 
-	if (is_cli_client()) {
+	if (is_api_client()) {
 		return false;
 	}
 

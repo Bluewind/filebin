@@ -45,10 +45,10 @@ class MY_Controller extends CI_Controller {
 		$this->load->helper(array('form', 'filebin'));
 
 		if ($this->uri->segment(1) == "api") {
-			is_cli_client(true);
+			is_api_client(true);
 		}
 
-		if ($this->input->post("apikey") !== false || is_cli_client()) {
+		if ($this->input->post("apikey") !== false || is_api_client()) {
 			/* This relies on the authentication code always verifying the supplied
 			 * apikey. If the key is not verified/logged in an attacker could simply
 			 * add an empty "apikey" field to the CSRF form to circumvent the
@@ -83,7 +83,7 @@ class MY_Controller extends CI_Controller {
 			$csrf_protection = false;
 		}
 
-		if (is_cli_client() && in_array($uri_start, $csrf_whitelisted_handlers["cli_client"])) {
+		if (is_api_client() && in_array($uri_start, $csrf_whitelisted_handlers["cli_client"])) {
 			$csrf_protection = false;
 		}
 
