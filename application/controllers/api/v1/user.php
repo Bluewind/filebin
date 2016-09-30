@@ -24,7 +24,16 @@ class user extends \controllers\api\api_controller {
 
 	public function create_apikey()
 	{
+		$username = $this->input->post("username");
+		$password = $this->input->post("password");
+		if ($username && $password) {
+			if (!$this->muser->login($username, $password)) {
+				throw new \exceptions\NotAuthenticatedException("user/login-failed", "Login failed");
+			}
+		}
+
 		$this->muser->require_access("full");
+
 		$userid = $this->muser->get_userid();
 		$comment = $this->input->post("comment");
 		$comment = $comment === false ? "" : $comment;
