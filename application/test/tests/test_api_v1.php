@@ -137,9 +137,9 @@ class test_api_v1 extends \test\Test {
 	{
 		$userid = $this->createUser(2);
 		$apikey = $this->createApikey($userid);
+		$apikey_full = $this->createApikey($userid, "full");
 		$ret = $this->CallEndpoint("POST", "user/apikeys", array(
-			"username" => "apiv1testuser2",
-			"password" => "testpass2",
+			"apikey" => $apikey_full,
 		));
 		$this->expectSuccess("get apikeys", $ret);
 
@@ -180,7 +180,7 @@ class test_api_v1 extends \test\Test {
 	public function test_authentication_invalidPassword()
 	{
 		$userid = $this->createUser(3);
-		$ret = $this->CallEndpoint("POST", "user/apikeys", array(
+		$ret = $this->CallEndpoint("POST", "user/create_apikey", array(
 			"username" => "apiv1testuser3",
 			"password" => "wrongpass",
 		));
@@ -196,7 +196,7 @@ class test_api_v1 extends \test\Test {
 	public function test_authentication_invalidUser()
 	{
 		$userid = $this->createUser(4);
-		$ret = $this->CallEndpoint("POST", "user/apikeys", array(
+		$ret = $this->CallEndpoint("POST", "user/create_apikey", array(
 			"username" => "apiv1testuserinvalid",
 			"password" => "testpass4",
 		));
