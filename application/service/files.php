@@ -53,9 +53,8 @@ class files {
 		$multipaste_items_grouped = array();
 		$multipaste_items = array();
 
-		# APIv1-cleanup: Remove multipaste_id and user_id
 		$query = $CI->db
-			->select('m.url_id, m.multipaste_id, m.user_id, m.date')
+			->select('m.url_id, m.date')
 			->from("multipaste m")
 			->where("user_id", $user)
 			->get()->result_array();
