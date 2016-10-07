@@ -81,6 +81,32 @@ class test_api_v2 extends \test\Test {
 		}
 	}
 
+	public function test_callPrivateEndpointsWithUnsupportedAuthentication()
+	{
+		$endpoints = array(
+			"file/upload",
+			"file/history",
+			"file/delete",
+			"file/create_multipaste",
+			"user/apikeys",
+			// create_apikey is the only one that supports username/pw
+			//"user/create_apikey",
+			"user/delete_apikey",
+		);
+		foreach ($endpoints as $endpoint) {
+			$ret = $this->CallEndpoint("POST", $endpoint, array(
+				"username" => "apiv2testuser1",
+				"password" => "testpass1",
+			));
+			$this->expectError("call $endpoint without apikey", $ret);
+			$this->t->is_deeply(array(
+				'status' => 'error',
+				'error_id' => 'api/not-authenticated',
+				'message' => 'Not authenticated. FileBin requires you to have an account, please go to the homepage at http://127.0.0.1:23116/ for more information.',
+			   ), $ret, "expected error");
+		}
+	}
+
 	public function test_callEndpointsWithoutEnoughPermissions()
 	{
 		$testconfig = array(
