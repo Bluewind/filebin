@@ -16,7 +16,6 @@ class MY_Controller extends CI_Controller {
 		parent::__construct();
 
 		$this->var = new StdClass();
-		$csrf_protection = true;
 
 		$this->load->library('customautoloader');
 
@@ -35,33 +34,7 @@ class MY_Controller extends CI_Controller {
 			is_api_client(true);
 		}
 
-		if ($this->input->post("apikey") !== false || is_api_client()) {
-			/* This relies on the authentication code always verifying the supplied
-			 * apikey. If the key is not verified/logged in an attacker could simply
-			 * add an empty "apikey" field to the CSRF form to circumvent the
-			 * protection. If we always log in if a key is supplied we can ensure
-			 * that an attacker (and the victim since they get a cookie) can only
-			 * access the attacker's account.
-			 */
-			$csrf_protection = false;
-		}
-
-		$uri_start = $this->uri->rsegment(1)."/".$this->uri->rsegment(2);
-		$csrf_whitelisted_handlers = array(
-			"always" => array(
-				/* Whitelist the upload pages because they don't cause harm and a user
-				 * might keep the upload page open for more than csrf_expire seconds
-				 * and we don't want to annoy them when they upload a big file and the
-				 * CSRF check fails.
-				 */
-				"file/do_websubmit",
-			),
-		);
-		if (in_array($uri_start, $csrf_whitelisted_handlers["always"])) {
-			$csrf_protection = false;
-		}
-
-		if ($csrf_protection && !$this->input->is_cli_request()) {
+		if ($this->_check_csrf_protection_required()) {
 			$this->_setup_csrf_protection();
 		}
 
@@ -102,6 +75,42 @@ class MY_Controller extends CI_Controller {
 				throw new \exceptions\PublicApiException("general/db/wrong-version", "Database version is $current_version, we want $target_version. Please run the migration script. (php index.php tools update_database)");
 			}
 		}
+	}
+
+	private function _check_csrf_protection_required()
+	{
+		if ($this->input->post("apikey") !== false || is_api_client()) {
+			/* This relies on the authentication code always verifying the supplied
+			 * apikey. If the key is not verified/logged in an attacker could simply
+			 * add an empty "apikey" field to the CSRF form to circumvent the
+			 * protection. If we always log in if a key is supplied we can ensure
+			 * that an attacker (and the victim since they get a cookie) can only
+			 * access the attacker's account.
+			 */
+			// TODO: perform the apikey login here to make sure this works as expected?
+			return false;
+		}
+
+		$uri_start = $this->uri->rsegment(1)."/".$this->uri->rsegment(2);
+		$csrf_whitelisted_handlers = array(
+			"always" => array(
+				/* Whitelist the upload pages because they don't cause harm and a user
+				 * might keep the upload page open for more than csrf_expire seconds
+				 * and we don't want to annoy them when they upload a big file and the
+				 * CSRF check fails.
+				 */
+				"file/do_websubmit",
+			),
+		);
+		if (in_array($uri_start, $csrf_whitelisted_handlers["always"])) {
+			return false;
+		}
+
+		if ($this->input->is_cli_request()) {
+			return false;
+		}
+
+		return true;
 	}
 
 	private function _setup_csrf_protection()
