@@ -359,6 +359,19 @@ class test_api_v2 extends \test\Test {
 		$this->t->is($ret["data"]["total_size"], 0, "total_size = 0 since no uploads");
 	}
 
+	public function test_history_specialVarsNotExpanded()
+	{
+		$apikey = $this->createUserAndApikey();
+		$uploadid = $this->uploadFile($apikey, "data/tests/{elapsed_time}.txt")['data']['ids'][0];
+
+		$ret = $this->CallEndpoint("POST", "file/history", array(
+			"apikey" => $apikey,
+		));
+		$this->expectSuccess("get history", $ret);
+
+		$this->t->is($ret["data"]["items"][$uploadid]['filename'], '{elapsed_time}.txt', "{elapsed_time} is not expanded in history reply");
+	}
+
 	public function test_delete_canDeleteUploaded()
 	{
 		$apikey = $this->createUserAndApikey();
