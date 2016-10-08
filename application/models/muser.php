@@ -67,18 +67,19 @@ class Muser extends CI_Model {
 		return $this->duser->login($username, $password);
 	}
 
-	private function login_cli_client()
+	private function login_api_client()
 	{
 		$username = $this->input->post("username");
 		$password = $this->input->post("password");
 
+		// TODO keep for now. might be useful if adapted to apikeys instead of passwords
 		// prefer post parameters if either (username or password) is set
-		if ($username === false && $password === false) {
-			if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
-				$username = $_SERVER['PHP_AUTH_USER'];
-				$password = $_SERVER['PHP_AUTH_PW'];
-			}
-		}
+		//if ($username === false && $password === false) {
+			//if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
+				//$username = $_SERVER['PHP_AUTH_USER'];
+				//$password = $_SERVER['PHP_AUTH_PW'];
+			//}
+		//}
 
 		if ($username !== false && $password !== false) {
 			if ($this->login($username, $password)) {
@@ -279,9 +280,8 @@ class Muser extends CI_Model {
 			$this->apilogin($this->input->post("apikey"));
 		}
 
-		# keep for now. might be useful if adapted to apikeys instead of passwords
-		//if (is_cli_client()) {
-			//$this->login_cli_client();
+		//if (is_api_client()) {
+			//$this->login_api_client();
 		//}
 
 		if ($this->logged_in()) {
