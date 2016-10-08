@@ -7,55 +7,15 @@
  *
  */
 
-namespace test\tests;
+namespace test\tests\api_v2;
 
-class test_api_v2 extends \test\Test {
+class test_api extends common {
 
 	public function __construct()
 	{
 		parent::__construct();
-
-		$CI =& get_instance();
-		$CI->load->model("muser");
-		$CI->load->model("mfile");
-
 		$this->startServer(23116);
-	}
-
-	private function uploadFile($apikey, $file)
-	{
-		$ret = $this->CallAPI("POST", "$this->server_url/api/v2.0.0/file/upload", array(
-			"apikey" => $apikey,
-			"file[1]" => curl_file_create($file),
-		));
-		$this->expectSuccess("upload file", $ret);
-		return $ret;
-	}
-
-	private function createUser($counter)
-	{
-		$CI =& get_instance();
-		$CI->muser->add_user("apiv2testuser$counter", "testpass$counter",
-			"testuser$counter@testsuite.local", NULL);
-		return $CI->db->insert_id();
-	}
-
-	private function createApikey($userid, $access_level = "apikey")
-	{
-		return \service\user::create_apikey($userid, "", $access_level);
-	}
-
-	private function createUserAndApikey($access_level = "apikey")
-	{
-		static $counter = 100;
-		$counter++;
-		$userid = $this->createUser($counter);
-		return $this->createApikey($userid, $access_level);
-	}
-
-	private function callEndpoint($verb, $endpoint, $data)
-	{
-		return $this->CallAPI($verb, "$this->server_url/api/v2.0.0/$endpoint", $data);
+		$this->userCounter = 100;
 	}
 
 	public function test_callPrivateEndpointsWithoutApikey()
@@ -302,100 +262,6 @@ class test_api_v2 extends \test\Test {
 			'error_id' => 'file/no-file',
 			'message' => 'No file was uploaded or unknown error occurred.',
 		), $ret, "expected reply");
-	}
-
-	public function test_history_notEmptyAfterUploadSameMD5()
-	{
-		$apikey = $this->createUserAndApikey();
-		$this->CallEndpoint("POST", "file/upload", array(
-			"apikey" => $apikey,
-			"file[1]" => curl_file_create("data/tests/message1.bin"),
-			"file[2]" => curl_file_create("data/tests/message2.bin"),
-		));
-		$expected_filesize = filesize("data/tests/message1.bin") + filesize("data/tests/message2.bin");
-
-		$ret = $this->CallEndpoint("POST", "file/history", array(
-			"apikey" => $apikey,
-		));
-		$this->expectSuccess("history not empty after upload", $ret);
-
-		$this->t->ok(!empty($ret["data"]["items"]), "history not empty after upload (items)");
-		$this->t->ok(empty($ret["data"]["multipaste_items"]), "didn't upload multipaste");
-		$this->t->is($ret["data"]["total_size"], $expected_filesize, "total_size == uploaded files");
-	}
-
-	public function test_history_notEmptyAfterMultipaste()
-	{
-		$apikey = $this->createUserAndApikey();
-		$uploadid = $this->uploadFile($apikey, "data/tests/small-file")['data']['ids'][0];
-		$multipasteid = $this->CallEndpoint("POST", "file/create_multipaste", array(
-			"apikey" => $apikey,
-			'ids[1]' => $uploadid,
-		))['data']['url_id'];
-
-		$ret = $this->CallEndpoint("POST", "file/history", array(
-			"apikey" => $apikey,
-		));
-		$this->expectSuccess("history not empty after multipaste", $ret);
-
-		$this->t->ok(!empty($ret["data"]["items"]), "history not empty after multipaste (items)");
-		$this->t->is($ret['data']["multipaste_items"][$multipasteid]['items'][$uploadid]['id'], $uploadid, "multipaste contains correct id");
-		$this->t->is_deeply(array(
-			'url_id', 'date', 'items'
-		), array_keys($ret['data']["multipaste_items"][$multipasteid]), "multipaste info only lists correct keys");
-		$this->t->is_deeply(array('id'), array_keys($ret['data']["multipaste_items"][$multipasteid]['items'][$uploadid]), "multipaste item info only lists correct keys");
-	}
-
-	public function test_history_notEmptyAfterUpload()
-	{
-		$apikey = $this->createUserAndApikey();
-		$uploadid = $this->uploadFile($apikey, "data/tests/small-file")['data']['ids'][0];
-		$uploadid_image = $this->uploadFile($apikey, "data/tests/black_white.png")['data']['ids'][0];
-		$expected_size = filesize("data/tests/small-file") + filesize("data/tests/black_white.png");
-
-		$ret = $this->CallEndpoint("POST", "file/history", array(
-			"apikey" => $apikey,
-		));
-		$this->expectSuccess("history not empty after upload", $ret);
-
-		$this->t->ok(!empty($ret["data"]["items"]), "history not empty after upload (items)");
-		$this->t->is_deeply(array(
-			'id', 'filename', 'mimetype', 'date', 'hash', 'filesize'
-		), array_keys($ret['data']["items"][$uploadid]), "item info only lists correct keys");
-		$this->t->is_deeply(array(
-			'id', 'filename', 'mimetype', 'date', 'hash', 'filesize', 'thumbnail'
-		), array_keys($ret['data']["items"][$uploadid_image]), "item info for image lists thumbnail too");
-		$this->t->ok(empty($ret["data"]["multipaste_items"]), "didn't upload multipaste");
-		$this->t->is($ret["data"]["total_size"], $expected_size, "total_size == uploaded files");
-	}
-
-	public function test_history_notSharedBetweenUsers()
-	{
-		$apikey = $this->createUserAndApikey();
-		$apikey2 = $this->createUserAndApikey();
-		$this->uploadFile($apikey, "data/tests/small-file");
-
-		$ret = $this->CallEndpoint("POST", "file/history", array(
-			"apikey" => $apikey2,
-		));
-		$this->expectSuccess("get history", $ret);
-
-		$this->t->ok(empty($ret["data"]["items"]), "items key exists and empty");
-		$this->t->ok(empty($ret["data"]["multipaste_items"]), "multipaste_items key exists and empty");
-		$this->t->is($ret["data"]["total_size"], 0, "total_size = 0 since no uploads");
-	}
-
-	public function test_history_specialVarsNotExpanded()
-	{
-		$apikey = $this->createUserAndApikey();
-		$uploadid = $this->uploadFile($apikey, "data/tests/{elapsed_time}.txt")['data']['ids'][0];
-
-		$ret = $this->CallEndpoint("POST", "file/history", array(
-			"apikey" => $apikey,
-		));
-		$this->expectSuccess("get history", $ret);
-
-		$this->t->is($ret["data"]["items"][$uploadid]['filename'], '{elapsed_time}.txt', "{elapsed_time} is not expanded in history reply");
 	}
 
 	public function test_delete_canDeleteUploaded()
