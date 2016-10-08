@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2015 Florian "Bluewind" Pritz <bluewind@server-speed.net>
+ * Copyright 2016 Florian "Bluewind" Pritz <bluewind@server-speed.net>
  *
  * Licensed under AGPLv3
  * (see COPYING for full license text)
@@ -14,7 +14,7 @@ class test_history extends common {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->startServer(23116);
+		$this->startServer(23201);
 		$this->userCounter = 1100;
 	}
 
