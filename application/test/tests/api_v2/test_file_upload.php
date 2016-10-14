@@ -45,9 +45,13 @@ class test_file_upload extends common {
 		$this->t->ok(!empty($ret["data"]["urls"]), "got URLs");
 
 		foreach ($ret["data"]["urls"] as $url) {
+			# remove tailing /
+			$url = substr($url, 0, strlen($url) - 1);
 			$data[] = $this->SendHTTPRequest("GET", $url, '');
 		}
 		$this->t->ok($data[0] !== $data[1], 'Returned file contents should differ');
+		$this->t->ok($data[0] === file_get_contents("data/tests/message1.bin"), "Returned correct data for file 1");
+		$this->t->ok($data[1] === file_get_contents("data/tests/message2.bin"), "Returned correct data for file 2");
 	}
 
 	public function test_upload_uploadNothing()
