@@ -230,7 +230,7 @@ function guidv4()
 
 $testname = null;
 
-if (getenv("ENVIRONMENT") === "testsuite") {
+if (getenv("ENVIRONMENT") === "testsuite" && getenv("COLLECT_COVERAGE") == 1) {
 	if (function_exists("phpdbg_get_executable")) {
 		$testname = implode(' ', $argv);
 	} elseif (isset($_SERVER["HTTP_X_TESTSUITE_TESTNAME"])) {

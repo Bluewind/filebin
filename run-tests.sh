@@ -4,6 +4,7 @@
 #
 
 export ENVIRONMENT="testsuite"
+export COLLECT_COVERAGE=1
 
 startdir="$(dirname "$0")"
 
@@ -37,6 +38,8 @@ phpdbg -qrr index.php tools update_database || exit 1
 
 prove --ext .php --state=failed,save --timer --comments --exec 'phpdbg -qrr index.php tools test' --recurse "${@:-application/test/tests/}" || exit 1
 
-php index.php tools generate_coverage_report
-rm -rf test-coverage-data
+if (($COLLECT_COVERAGE)); then
+	php index.php tools generate_coverage_report
+	rm -rf test-coverage-data
+fi
 
