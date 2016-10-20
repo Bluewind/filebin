@@ -35,7 +35,7 @@
         </table>
     </div>
     <input class="btn btn-danger" type="submit" value="Delete checked" name="process">
-    <button class="add_multipaste btn btn-primary">Add checked to multipaste queue</button>
+    <button class="btn btn-primary" name="process" value="multipaste">Add checked to multipaste queue</button>
 </form>
 
 <p>Total sum of your distinct uploads: <?php echo $total_size; ?>.</p>
