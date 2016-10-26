@@ -11,6 +11,7 @@
 	- [Examples](#examples)
 - [Error handling](#error-handling)
 	- [General errors](#general-errors)
+- [Overview over API versions](#overview-over-api-versions)
 
 The API provides programmatic access to upload, delete files, view the
 currently uploaded ones and combine them to multipastes, as well as functions
