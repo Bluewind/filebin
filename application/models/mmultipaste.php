@@ -125,7 +125,7 @@ class Mmultipaste extends CI_Model {
 		$f = new \service\storage($this->get_tarball_path($id));
 		$f->unlink();
 
-		return $this->id_exists($id);
+		return !$this->id_exists($id);
 	}
 
 	public function get_owner($id)

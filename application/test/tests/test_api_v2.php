@@ -494,4 +494,33 @@ class test_api_v2 extends \test\Test {
 			),
 		), $ret, "expected error response");
 	}
+
+	public function test_delete_canDeleteMultipaste()
+	{
+		$apikey = $this->createUserAndApikey();
+		$ret = $this->uploadFile($apikey, "data/tests/small-file");
+		$id = $ret["data"]["ids"][0];
+		$ret = $this->CallEndpoint("POST", "file/create_multipaste", array(
+			"apikey" => $apikey,
+			"ids[1]" => $id,
+		));
+		$this->expectSuccess("create multipaste", $ret);
+
+		$mid = $ret['data']['url_id'];
+		$ret = $this->CallEndpoint("POST", "file/delete", array(
+			"apikey" => $apikey,
+			"ids[1]" => $mid,
+		));
+		$this->expectSuccess("delete uploaded file", $ret);
+
+		$this->t->ok(empty($ret["data"]["errors"]), "no errors");
+		$this->t->is_deeply(array(
+			$mid => array(
+				"id" => $mid
+			)
+		), $ret["data"]["deleted"], "deleted wanted ID");
+		$this->t->is($ret["data"]["total_count"], 1, "total_count correct");
+		$this->t->is($ret["data"]["deleted_count"], 1, "deleted_count correct");
+	}
+
 }
