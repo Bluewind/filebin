@@ -14,5 +14,5 @@ for hook in $HOOK_NAMES; do
     # create the symlink, overwriting the file if it exists
     # probably the only way this would happen is if you're using an old version of git
     # -- back when the sample hooks were not executable, instead of being named ____.sample
-    ln -r -s -f $SCRIPTS_DIR/hooks-wrapper.sh $HOOK_DIR/$hook
+    ln -f ../../scripts/hooks-wrapper.sh $HOOK_DIR/$hook
 done
