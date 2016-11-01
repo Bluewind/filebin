@@ -1,10 +1,11 @@
 <div class="nav-history">
 	<div class="container">
 		<div class="pull-right">
-			<?php echo form_open("file/do_delete/", array("id" => "delete_form", "style" => "display: inline")); ?>
-				<button type="submit" class="btn btn-danger" id="delete_button" style="display: none">Delete selected</button>
+			<?php echo form_open("file/handle_history_submit/", array("id" => "submit_form", "style" => "display: inline")); ?>
+				<button type="submit" class="btn btn-danger" style="display: none" name='process' value='delete'>Delete selected</button>
+				<button type="submit" class="btn btn-primary" style="display: none" name='process' value='multipaste'>Add selected to multipaste queue</button>
 			</form>
-			<button class="btn btn-default" id="toggle_delete_mode" style="display: inline">Delete mode</button>
+			<button class="btn btn-default" id="toggle_select_mode" style="display: inline">Select mode</button>
 		</div>
 
 	<?php include 'nav_history.php'; ?>

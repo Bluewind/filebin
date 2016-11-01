@@ -101,6 +101,9 @@ if (is_cli_client() && !isset($force_full_html)) {
 									<?php include "user/nav.php"; ?>
 								</ul>
 							</li>
+							<?php if (isset($show_multipaste_queue) && $show_multipaste_queue) {?>
+								<li class="btn-primary multipaste_button"><a href="<?php echo site_url("file/multipaste/queue"); ?>">Multipaste queue</a></li>
+							<?php } ?>
 						<?php } ?>
 					</ul>
 			</div>

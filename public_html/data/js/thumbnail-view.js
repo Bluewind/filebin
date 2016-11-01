@@ -1,22 +1,22 @@
 (function () {
 'use strict';
-define(['jquery', 'underscore', 'jquery.colorbox'], function ($, _) {
+define(['jquery', 'underscore', 'multipaste', 'jquery.colorbox'], function ($, _, Multipaste) {
 	var ui = {
 		thumbnailLinks: '.upload_thumbnails a',
-		deleteButton: '#delete_button',
-		deleteForm: '#delete_form',
+		formButtons: '#submit_form button[type=submit]',
+		submitForm: '#submit_form',
 		markedThumbnails: '.upload_thumbnails .marked',
 		colorbox: '.colorbox',
 		thumbnails: '.upload_thumbnails',
-		toggleDeleteModeButton: '#toggle_delete_mode'
+		toggleSelectModeButton: '#toggle_select_mode',
 	};
 
 	var PrivateFunctions = {
-		inDeleteMode: false,
+		inSelectMode: false,
 
 		setupEvents: function () {
-			$(ui.toggleDeleteModeButton).on('click', _.bind(this.toggleDeleteMode, this));
-			$(ui.thumbnailLinks).on('click', _.bind(this.toggleMarkForDeletion, this));
+			$(ui.toggleSelectModeButton).on('click', _.bind(this.toggleSelectMode, this));
+			$(ui.thumbnailLinks).on('click', _.bind(this.thumbnailClick, this));
 			$(window).resize(_.bind(this.onResize, this));
 		},
 
@@ -53,39 +53,39 @@ define(['jquery', 'underscore', 'jquery.colorbox'], function ($, _) {
 			});
 		},
 
-		toggleDeleteMode: function () {
-			if (this.inDeleteMode) {
-				$(ui.deleteButton).hide();
-				$(ui.deleteForm).find('input').remove();
+		toggleSelectMode: function () {
+			if (this.inSelectMode) {
+				$(ui.formButtons).hide();
+				$(ui.submitForm).find('input').remove();
 				$(ui.markedThumbnails).removeClass('marked');
 				this.setupColorbox();
 			} else {
-				$(ui.deleteButton).show();
+				$(ui.formButtons).show();
 				this.removeColorbox();
 			}
-			this.inDeleteMode = !this.inDeleteMode;
+			this.inSelectMode = !this.inSelectMode;
 		},
 
-		deleteInput: function (id) {
+		submitInput: function (id) {
 			return $('<input>').attr({
 				type: 'hidden',
 				name: 'ids[' + id + ']',
 				value: id,
-				id: 'delete_' +id
+				id: 'submit_' +id
 			});
 		},
 
-		toggleMarkForDeletion: function (event) {
-			if (!this.inDeleteMode) { return; }
+		thumbnailClick: function (event) {
+			if (!this.inSelectMode) { return; }
 			event.preventDefault();
 			var id = $(event.target).closest('a').data('id');
 
-			var deleteInput = $(ui.deleteForm).find('input#delete_' + id);
+			var submitInput = $(ui.submitForm).find('input#submit_' + id);
 
-			if (deleteInput.length === 0) {
-				$(ui.deleteForm).append(this.deleteInput(id));
+			if (submitInput.length === 0) {
+				$(ui.submitForm).append(this.submitInput(id));
 			} else {
-				deleteInput.remove();
+				submitInput.remove();
 			}
 			$(event.target).closest('a').toggleClass('marked');
 		},
