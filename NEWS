@@ -1,5 +1,9 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+1.1.0 2016-11-05
+ - Add support for creating multipastes via the web interface
+ - Misc bug fixes
+
 1.0.0 2016-09-19
  - Code refactoring and various small bugfixes
 
