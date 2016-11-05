@@ -1,5 +1,8 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+1.1.1 2016-11-05
+ - Fix bug in install-git-hooks.sh
+
 1.1.0 2016-11-05
  - Add support for creating multipastes via the web interface
  - Misc bug fixes
