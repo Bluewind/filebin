@@ -375,7 +375,7 @@ function return_bytes($size_str)
         case 'K': case 'k': return (int)$size_str * 1024;
         case 'M': case 'm': return (int)$size_str * 1048576;
         case 'G': case 'g': return (int)$size_str * 1073741824;
-        default: return $size_str;
+        default: return (int)$size_str;
     }
 }
 
