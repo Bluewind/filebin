@@ -375,7 +375,11 @@ function return_bytes($size_str)
 		case 'K': case 'k': return (int)$size_str * 1024;
 		case 'M': case 'm': return (int)$size_str * 1048576;
 		case 'G': case 'g': return (int)$size_str * 1073741824;
-		default: return (int)$size_str;
+		default:
+		if (strlen($size_str) === strlen(intval($size_str))) {
+			return (int)$size_str;
+		}
+		throw new \exceptions\ApiException('filebin-helper/invalid-input-unit', "Input has invalid unit");
 	}
 }
 

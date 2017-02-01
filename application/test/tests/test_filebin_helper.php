@@ -65,7 +65,13 @@ class test_filebin_helper extends \test\Test {
 		$this->t->is(return_bytes("1k"), 1*1024, "1k");
 		$this->t->is(return_bytes("1M"), 1*1024*1024, "1M");
 		$this->t->is(return_bytes("1G"), 1*1024*1024*1024, "1G");
-		$this->t->is(return_bytes("1P"), "1P", "unhandled text: 1P");
-		$this->t->ok(return_bytes("106954752") === 106954752, "value without unit is returned as int");
+
+		try {
+			return_bytes("1P");
+		} catch (\exceptions\ApiException $e) {
+			$this->t->is($e->get_error_id(), 'filebin-helper/invalid-input-unit', "unhandled text: 1P");
+		}
+
+		$this->t->is(return_bytes("106954752"), 106954752, "value without unit is returned as int");
 	}
 }
