@@ -79,19 +79,28 @@ class TestMore extends TestSimple {
         $result = eval("return (\$thing1 $operator \$thing2);");
 
         return $this->ok($result, $name);
-    }
+	}
+
+	private function dumpvar($a) {
+		ob_start();
+		var_dump($a);
+		$ret = ob_get_clean();
+		$ret = preg_replace("/^[^\n]*\n/", "", $ret);
+		$ret = preg_replace("/\n$/", "", $ret);
+		return $ret;
+	}
 
     function is ($thing1, $thing2, $name = NULL) {
-        $pass = $this->_compare ('==',$thing1,$thing2,$name);
+        $pass = $this->_compare ('===',$thing1,$thing2,$name);
         if (!$pass) {
-            $this->diag("         got: '$thing1'",
-                        "    expected: '$thing2'");
+            $this->diag("         got: ".$this->dumpvar($thing1)."",
+                        "    expected: ".$this->dumpvar($thing2)."");
         }
         return $pass;
     }
 
     function isnt ($thing1, $thing2, $name = NULL) {
-        $pass = $this->_compare ('!=',$thing1,$thing2,$name);
+        $pass = $this->_compare ('!==',$thing1,$thing2,$name);
         if (!$pass) {
             $this->diag("         got: '$thing1'",
                         "    expected: '$thing2'");
