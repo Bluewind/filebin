@@ -28,7 +28,7 @@ class test_history extends common {
 
 		$this->t->ok(empty($ret["data"]["items"]), "items key exists and empty");
 		$this->t->ok(empty($ret["data"]["multipaste_items"]), "multipaste_items key exists and empty");
-		$this->t->is($ret["data"]["total_size"], 0, "total_size = 0 since no uploads");
+		$this->t->is($ret["data"]["total_size"], "0", "total_size = 0 since no uploads");
 	}
 
 	public function test_history_notEmptyAfterUploadSameMD5()
@@ -48,7 +48,7 @@ class test_history extends common {
 
 		$this->t->ok(!empty($ret["data"]["items"]), "history not empty after upload (items)");
 		$this->t->ok(empty($ret["data"]["multipaste_items"]), "didn't upload multipaste");
-		$this->t->is($ret["data"]["total_size"], $expected_filesize, "total_size == uploaded files");
+		$this->t->is($ret["data"]["total_size"], "$expected_filesize", "total_size == uploaded files");
 	}
 
 	public function test_history_notEmptyAfterMultipaste()
@@ -93,7 +93,7 @@ class test_history extends common {
 			'id', 'filename', 'mimetype', 'date', 'hash', 'filesize', 'thumbnail'
 		), array_keys($ret['data']["items"][$uploadid_image]), "item info for image lists thumbnail too");
 		$this->t->ok(empty($ret["data"]["multipaste_items"]), "didn't upload multipaste");
-		$this->t->is($ret["data"]["total_size"], $expected_size, "total_size == uploaded files");
+		$this->t->is($ret["data"]["total_size"], "$expected_size", "total_size == uploaded files");
 	}
 
 	public function test_history_notSharedBetweenUsers()
@@ -109,7 +109,7 @@ class test_history extends common {
 
 		$this->t->ok(empty($ret["data"]["items"]), "items key exists and empty");
 		$this->t->ok(empty($ret["data"]["multipaste_items"]), "multipaste_items key exists and empty");
-		$this->t->is($ret["data"]["total_size"], 0, "total_size = 0 since no uploads");
+		$this->t->is($ret["data"]["total_size"], "0", "total_size = 0 since no uploads");
 	}
 
 	public function test_history_specialVarsNotExpanded()
