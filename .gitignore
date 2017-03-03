@@ -19,7 +19,7 @@ application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
 
-data/js/main.min.js
+public_html/data/js/main.min.js
 /vendor
 code-coverage-report.xml
 code-coverage-report/
