@@ -32,11 +32,16 @@ cleanup() {
 
 mkdir -p test-coverage-data
 
-#  run tests
-phpdbg -qrr index.php tools drop_all_tables || exit 1
-phpdbg -qrr index.php tools update_database || exit 1
+php=(php)
+if ((COLLECT_COVERAGE)); then
+	php=(phpdbg -qrr)
+fi
 
-prove --ext .php --state=failed,save --timer --comments --exec 'phpdbg -qrr index.php tools test' --recurse "${@:-application/test/tests/}" || exit 1
+#  run tests
+"${php[@]}" index.php tools drop_all_tables || exit 1
+"${php[@]}" index.php tools update_database || exit 1
+
+prove --ext .php --state=failed,save --timer --comments --exec "${php[*]} index.php tools test" --recurse "${@:-application/test/tests/}" || exit 1
 
 if (($COLLECT_COVERAGE)); then
 	php index.php tools generate_coverage_report
