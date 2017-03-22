@@ -252,6 +252,11 @@ class File_default extends MY_Controller {
 
 		$content = file_get_contents($file);
 
+		$linecount = count(explode("\n", $content));
+		if ($lexer === "json" && $linecount === 1) {
+			$content = json_encode(json_decode($content), JSON_PRETTY_PRINT);
+		}
+
 		if ($lexer == "ascii") {
 			// TODO: use exec safe and catch exception
 			$ret = (new \libraries\ProcRunner(array('ansi2html', '-p')))
