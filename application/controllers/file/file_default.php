@@ -250,17 +250,20 @@ class File_default extends MY_Controller {
 		$output .= '<div class="code content table">'."\n";
 		$output .= '<div class="highlight"><code class="code-container">'."\n";
 
+		$content = file_get_contents($file);
+
 		if ($lexer == "ascii") {
 			// TODO: use exec safe and catch exception
 			$ret = (new \libraries\ProcRunner(array('ansi2html', '-p')))
-				->input(file_get_contents($file))
+				->input($content)
 				->forbid_stderr()
 				->exec();
 			// Last line is empty
 			$lines_to_remove = 1;
 		} else {
 			// TODO: use exec safe and catch exception
-			$ret = (new \libraries\ProcRunner(array('pygmentize', '-F', 'codetagify', '-O', 'encoding=guess,outencoding=utf8,stripnl=False', '-l', $lexer, '-f', 'html', $file)))
+			$ret = (new \libraries\ProcRunner(array('pygmentize', '-F', 'codetagify', '-O', 'encoding=guess,outencoding=utf8,stripnl=False', '-l', $lexer, '-f', 'html')))
+				->input($content)
 				->exec();
 			// Last 2 items are "</pre></div>" and ""
 			$lines_to_remove = 2;
