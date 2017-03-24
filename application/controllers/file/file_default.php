@@ -242,7 +242,7 @@ class File_default extends MY_Controller {
 		echo $this->load->view('file/html_footer', $this->data, true);
 	}
 
-	private function _colorify($file, $lexer, $anchor_id = false)
+	private function _colorify($output_cache, $file, $lexer, $anchor_id = false)
 	{
 		$output = "";
 		$lines_to_remove = 0;
@@ -254,7 +254,20 @@ class File_default extends MY_Controller {
 
 		$linecount = count(explode("\n", $content));
 		if ($lexer === "json" && $linecount === 1) {
-			$content = json_encode(json_decode($content), JSON_PRETTY_PRINT);
+			$decoded_json = json_decode($content);
+			if ($decoded_json !== null && $decoded_json !== false) {
+				$pretty_json = json_encode($decoded_json, JSON_PRETTY_PRINT);
+				if ($pretty_json !== false) {
+					$content = $pretty_json;
+					$output_cache->render_now(
+						array(
+							"error_type" => "alert-info",
+							"error_message" => "<p>The file below has been reformated for readability. It may differ from the original.</p>"
+						),
+						"file/fragments/alert-wide"
+					);
+				}
+			}
 		}
 
 		if ($lexer == "ascii") {
@@ -320,7 +333,7 @@ class File_default extends MY_Controller {
 		// highlight the file and cache the result, fall back to plain text if $lexer fails
 		foreach (array($lexer, "text") as $lexer) {
 			$highlit = cache_function($filedata['data_id'].'_'.$lexer, 100,
-									  function() use ($filedata, $lexer, $is_multipaste) {
+									  function() use ($output_cache, $filedata, $lexer, $is_multipaste) {
 				$file = $this->mfile->file($filedata['data_id']);
 				if ($lexer == "rmd") {
 					ob_start();
@@ -340,7 +353,7 @@ class File_default extends MY_Controller {
 						"return_value" => 0,
 					);
 				} else {
-					return get_instance()->_colorify($file, $lexer, $is_multipaste ? $filedata["id"] : false);
+					return get_instance()->_colorify($output_cache, $file, $lexer, $is_multipaste ? $filedata["id"] : false);
 				}
 			});
 
