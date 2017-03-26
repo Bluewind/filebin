@@ -34,22 +34,7 @@ class renderer {
 		$content = file_get_contents($file);
 
 		$linecount = count(explode("\n", $content));
-		if ($lexer === "json" && $linecount === 1) {
-			$decoded_json = json_decode($content);
-			if ($decoded_json !== null && $decoded_json !== false) {
-				$pretty_json = json_encode($decoded_json, JSON_PRETTY_PRINT);
-				if ($pretty_json !== false) {
-					$content = $pretty_json;
-					$this->output_cache->render_now(
-						array(
-							"error_type" => "alert-info",
-							"error_message" => "<p>The file below has been reformated for readability. It may differ from the original.</p>"
-						),
-						"file/fragments/alert-wide"
-					);
-				}
-			}
-		}
+		$content = $this->reformat_json($lexer, $linecount, $content);
 
 		if ($lexer == "ascii") {
 			// TODO: use exec safe and catch exception
@@ -163,6 +148,33 @@ class renderer {
 		$this->output_cache->render_now($data, 'file/html_paste_header');
 		$this->output_cache->render_now($highlit["output"]);
 		$this->output_cache->render_now($data, 'file/html_paste_footer');
+	}
+
+	/**
+	 * @param $lexer
+	 * @param $linecount
+	 * @param $content
+	 * @return string
+	 */
+	private function reformat_json($lexer, $linecount, $content)
+	{
+		if ($lexer === "json" && $linecount === 1) {
+			$decoded_json = json_decode($content);
+			if ($decoded_json !== null && $decoded_json !== false) {
+				$pretty_json = json_encode($decoded_json, JSON_PRETTY_PRINT);
+				if ($pretty_json !== false) {
+					$content = $pretty_json;
+					$this->output_cache->render_now(
+						array(
+							"error_type" => "alert-info",
+							"error_message" => "<p>The file below has been reformated for readability. It may differ from the original.</p>"
+						),
+						"file/fragments/alert-wide"
+					);
+				}
+			}
+		}
+		return $content;
 	}
 
 
