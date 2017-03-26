@@ -12,15 +12,18 @@ class renderer {
 
 
 	/**
-	 * @param mixed $mfile
+	 * @param $output_cache output cache object
+	 * @param $mfile mfile object
+	 * @param $data data for the rendering of views
 	 */
-	public function __construct($mfile, $data)
+	public function __construct($output_cache, $mfile, $data)
 	{
+		$this->output_cache = $output_cache;
         $this->mfile = $mfile;
         $this->data = $data;
 	}
 
-	private function colorify($output_cache, $file, $lexer, $anchor_id = false)
+	private function colorify($file, $lexer, $anchor_id = false)
 	{
 		$output = "";
 		$lines_to_remove = 0;
@@ -37,7 +40,7 @@ class renderer {
 				$pretty_json = json_encode($decoded_json, JSON_PRETTY_PRINT);
 				if ($pretty_json !== false) {
 					$content = $pretty_json;
-					$output_cache->render_now(
+					$this->output_cache->render_now(
 						array(
 							"error_type" => "alert-info",
 							"error_message" => "<p>The file below has been reformated for readability. It may differ from the original.</p>"
@@ -106,12 +109,12 @@ class renderer {
 		);
 	}
 
-	public function highlight_file($output_cache, $filedata, $lexer, $is_multipaste)
+	public function highlight_file($filedata, $lexer, $is_multipaste)
 	{
 		// highlight the file and cache the result, fall back to plain text if $lexer fails
 		foreach (array($lexer, "text") as $lexer) {
 			$highlit = cache_function($filedata['data_id'].'_'.$lexer, 100,
-									  function() use ($output_cache, $filedata, $lexer, $is_multipaste) {
+									  function() use ($filedata, $lexer, $is_multipaste) {
 				$file = $this->mfile->file($filedata['data_id']);
 				if ($lexer == "rmd") {
 					ob_start();
@@ -131,7 +134,7 @@ class renderer {
 						"return_value" => 0,
 					);
 				} else {
-					return $this->colorify($output_cache, $file, $lexer, $is_multipaste ? $filedata["id"] : false);
+					return $this->colorify($file, $lexer, $is_multipaste ? $filedata["id"] : false);
 				}
 			});
 
@@ -142,7 +145,7 @@ class renderer {
 				if ($lexer != "text") {
 					$message .= " Falling back to plain text.";
 				}
-				$output_cache->render_now(
+				$this->output_cache->render_now(
 					array("error_message" => "<p>$message</p>"),
 					"file/fragments/alert-wide"
 				);
@@ -157,9 +160,9 @@ class renderer {
 			'filedata' => $filedata,
 		));
 
-		$output_cache->render_now($data, 'file/html_paste_header');
-		$output_cache->render_now($highlit["output"]);
-		$output_cache->render_now($data, 'file/html_paste_footer');
+		$this->output_cache->render_now($data, 'file/html_paste_header');
+		$this->output_cache->render_now($highlit["output"]);
+		$this->output_cache->render_now($data, 'file/html_paste_footer');
 	}
 
 

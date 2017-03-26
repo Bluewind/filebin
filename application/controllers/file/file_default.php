@@ -225,8 +225,8 @@ class File_default extends MY_Controller {
 				$output_cache->add(array("filedata" => $filedata), "file/fragments/asciinema-player");
 			} else {
 				$output_cache->add_function(function() use ($output_cache, $filedata, $lexer, $is_multipaste) {
-					$renderer = new \service\renderer($this->mfile, $this->data);
-					$renderer->highlight_file($output_cache, $filedata, $lexer, $is_multipaste);
+					$renderer = new \service\renderer($output_cache, $this->mfile, $this->data);
+					$renderer->highlight_file($filedata, $lexer, $is_multipaste);
 				});
 			}
 		}
