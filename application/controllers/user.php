@@ -206,7 +206,7 @@ class User extends MY_Controller {
 				$error[]= "Invalid email.";
 			}
 
-			if (!$password || $password != $password_confirm) {
+			if (!$password || $password !== $password_confirm) {
 				$error[]= "No password or passwords don't match.";
 			}
 
@@ -385,7 +385,7 @@ class User extends MY_Controller {
 			$password = $this->input->post("password");
 			$password_confirm = $this->input->post("password_confirm");
 
-			if (!$password || $password != $password_confirm) {
+			if (!$password || $password !== $password_confirm) {
 				$error[]= "No password or passwords don't match.";
 			}
 
@@ -620,7 +620,7 @@ class User extends MY_Controller {
 		$this->data["password"] = $password;
 
 		if ($process !== false) {
-			if (!$password || $password != $password_confirm) {
+			if (!$password || $password !== $password_confirm) {
 				$error[]= "No password or passwords don't match.";
 			} else {
 				$this->data["hash"] = $this->muser->hash_password($password);

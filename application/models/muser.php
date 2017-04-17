@@ -55,7 +55,7 @@ class Muser extends CI_Model {
 	function logged_in()
 	{
 		if ($this->has_session()) {
-			return $this->session->userdata('logged_in') == true;
+			return $this->session->userdata('logged_in') === true;
 		}
 
 		return false;
@@ -303,7 +303,7 @@ class Muser extends CI_Model {
 			->where('action', $action)
 			->get()->row_array();
 
-		if (!isset($query["key"]) || $key != $query["key"]) {
+		if (!isset($query["key"]) || $key !== $query["key"]) {
 			throw new \exceptions\UserInputException("user/get_action/invalid-action", "Invalid action key. Has the key been used already?");
 		}
 
