@@ -19,7 +19,7 @@ class Multipaste extends MY_Controller {
 	public function append_multipaste_queue() {
 		$this->muser->require_access("basic");
 
-		$ids = $this->input->post("ids");
+		$ids = $this->input->post_array("ids");
 		if ($ids === false) {
 			$ids = [];
 		}
@@ -55,7 +55,7 @@ class Multipaste extends MY_Controller {
 	public function form_submit() {
 		$this->muser->require_access("basic");
 
-		$ids = $this->input->post('ids');
+		$ids = $this->input->post_array('ids');
 		$process = $this->input->post('process');
 
 		if ($ids === false) {
@@ -87,7 +87,7 @@ class Multipaste extends MY_Controller {
 
 	public function ajax_submit() {
 		$this->muser->require_access("basic");
-		$ids = $this->input->post('ids');
+		$ids = $this->input->post_array('ids');
 
 		if ($ids === false) {
 			$ids = [];

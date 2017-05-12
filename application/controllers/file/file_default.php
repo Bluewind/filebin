@@ -565,7 +565,7 @@ class File_default extends MY_Controller {
 
 	private function _append_multipaste_queue()
 	{
-		$ids = $this->input->post("ids");
+		$ids = $this->input->post_array("ids");
 		if ($ids === false) {
 			$ids = [];
 		}
@@ -658,7 +658,7 @@ class File_default extends MY_Controller {
 	{
 		$this->muser->require_access("apikey");
 
-		$ids = $this->input->post("ids");
+		$ids = $this->input->post_array("ids");
 
 		$ret = \service\files::delete($ids);
 
@@ -675,7 +675,7 @@ class File_default extends MY_Controller {
 	{
 		$this->muser->require_access("basic");
 
-		$ids = $this->input->post("ids");
+		$ids = $this->input->post_array("ids");
 		$userid = $this->muser->get_userid();
 		$limits = $this->muser->get_upload_id_limits();
 
@@ -690,8 +690,8 @@ class File_default extends MY_Controller {
 	public function do_websubmit()
 	{
 		$files = getNormalizedFILES();
-		$contents = $this->input->post("content");
-		$filenames = $this->input->post("filename");
+		$contents = $this->input->post_array("content");
+		$filenames = $this->input->post_array("filename");
 
 		if (!is_array($filenames) || !is_array($contents)) {
 			throw new \exceptions\UserInputException('file/websubmit/invalid-form', 'The submitted POST form is invalid');

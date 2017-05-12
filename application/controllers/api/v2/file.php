@@ -71,14 +71,14 @@ class file extends \controllers\api\api_controller {
 	public function delete()
 	{
 		$this->muser->require_access("apikey");
-		$ids = $this->input->post("ids");
+		$ids = $this->input->post_array("ids");
 		return \service\files::delete($ids);
 	}
 
 	public function create_multipaste()
 	{
 		$this->muser->require_access("basic");
-		$ids = $this->input->post("ids");
+		$ids = $this->input->post_array("ids");
 		$userid = $this->muser->get_userid();
 		$limits = $this->muser->get_upload_id_limits();
 
