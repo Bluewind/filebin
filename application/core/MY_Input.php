@@ -26,7 +26,13 @@ class MY_Input extends CI_Input {
 
 	public function post_array($key) {
 		$ret = parent::post($key);
-		if (!is_array($ret)) {
+		if ($ret === false) {
+			return false;
+		} elseif (!is_array($ret)) {
+			$data = [
+				"key" => $key,
+				"ret" => $ret
+			];
 			throw new \exceptions\UserInputException("input/invalid-form-field", "Invalid input", $data);
 		}
 		return $ret;
