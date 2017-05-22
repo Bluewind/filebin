@@ -1,5 +1,8 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+2.1.1 2017-05-22
+ - Bugfixes
+
 2.1.0 2017-05-14
  - Autoformat single-line JSON file when rendering
  - Improved error checking
