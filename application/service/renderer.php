@@ -109,7 +109,7 @@ class renderer {
 					echo '<div class="table-cell">'."\n";
 
 					require_once(APPPATH."/third_party/parsedown/Parsedown.php");
-					$parsedown = new Parsedown();
+					$parsedown = new \Parsedown();
 					echo $parsedown->text(file_get_contents($file));
 
 					echo '</div></div></div>';
