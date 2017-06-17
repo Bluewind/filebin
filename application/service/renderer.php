@@ -38,7 +38,7 @@ class renderer {
 
 		if ($lexer == "ascii") {
 			// TODO: use exec safe and catch exception
-			$ret = (new \libraries\ProcRunner(array('ansi2html', '-p')))
+			$ret = (new \libraries\ProcRunner(array('ansi2html', '-p', '-m')))
 				->input($content)
 				->forbid_stderr()
 				->exec();
