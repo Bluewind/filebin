@@ -1,5 +1,8 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+2.1.3 2017-07-04
+ - API 2.1.1: Fix incorrect types of empty objects returned by file/history and file/delete
+
 2.1.2 2017-06-17
  - Fix broken lineendings when rendering ascii colors
 
