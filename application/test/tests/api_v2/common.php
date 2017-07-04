@@ -53,8 +53,8 @@ class common extends \test\Test {
 		return $this->createApikey($userid, $access_level);
 	}
 
-	protected function callEndpoint($verb, $endpoint, $data)
+	protected function callEndpoint($verb, $endpoint, $data, $return_json = false)
 	{
-		return $this->CallAPI($verb, "$this->server_url/api/v2.0.0/$endpoint", $data);
+		return $this->CallAPI($verb, "$this->server_url/api/v2.0.0/$endpoint", $data, $return_json);
 	}
 }

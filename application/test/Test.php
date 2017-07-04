@@ -90,9 +90,13 @@ abstract class Test {
 	// Method: POST, PUT, GET etc
 	// Data: array("param" => "value") ==> index.php?param=value
 	// Source: http://stackoverflow.com/a/9802854/953022
-	protected function CallAPI($method, $url, $data = false)
+	protected function CallAPI($method, $url, $data = false, $return_json = false)
 	{
 		$result = $this->SendHTTPRequest($method, $url, $data);
+
+		if ($return_json) {
+			return $result;
+		}
 
 		$json = json_decode($result, true);
 		if ($json === NULL) {

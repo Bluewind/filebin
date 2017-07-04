@@ -125,8 +125,8 @@ multipaste_item = {
 
 // Success response
 responseSuccess.data = {
-	"items": [item.id: item, ...],
-	"multipaste_items": [multipaste_item.url_id: multipaste_item, ...],
+	"items": {item.id: item, ...},
+	"multipaste_items": {multipaste_item.url_id: multipaste_item, ...},
 	"total_size": int, // total size of all files (excluding duplicates)
 }
 ```
@@ -187,6 +187,7 @@ Example:
 | ------- | ------                                                                            |
 | 2.0.0   | Add ''multipaste_item.date''. Remove ''multipaste_item.{multipaste_id,user_id}''. |
 | 2.1.0   | Add ''item.thumbnail''                                                            |
+| 2.1.1   | Empty objects (values of `items` and `multipaste_items`) are now always returned as {}. Before they were returned as [] |
 
 ## file/delete
 

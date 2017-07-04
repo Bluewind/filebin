@@ -147,6 +147,7 @@ These are the most common errors that can be returned by any API call.
 
 | Version | Endpoint | Note |
 | ------- | -------- | ---- |
+| 2.1.1   | file/history | Empty objects (values of `items` and `multipaste_items`) are now always returned as {}. Before they were returned as [] |
 | 2.1.0   | file/history | Add ''item.thumbnail'' |
 | 2.0.0   | file/history | Add ''multipaste_item.date'' |
 | 2.0.0   | file/history | Remove private fields in response |

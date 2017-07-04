@@ -65,6 +65,13 @@ class file extends \controllers\api\api_controller {
 				unset($history['multipaste_items'][$key]['items'][$inner_key]['sort_order']);
 			}
 		}
+
+		foreach (array("items", "multipaste_items") as $key) {
+			if (empty($history[$key])) {
+				$history[$key] = (object) array();
+			}
+		}
+
 		return $history;
 	}
 

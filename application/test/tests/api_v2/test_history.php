@@ -31,6 +31,16 @@ class test_history extends common {
 		$this->t->is($ret["data"]["total_size"], "0", "total_size = 0 since no uploads");
 	}
 
+	public function test_history_empty_json_structure()
+	{
+		$apikey = $this->createUserAndApikey();
+		$ret = $this->CallEndpoint("POST", "file/history", array(
+			"apikey" => $apikey,
+		), true);
+
+		$this->t->is($ret, '{"status":"success","data":{"items":{},"multipaste_items":{},"total_size":"0"}}', "empty lists should be json objects, not arrays");
+	}
+
 	public function test_history_notEmptyAfterUploadSameMD5()
 	{
 		$apikey = $this->createUserAndApikey();
