@@ -29,7 +29,7 @@ The version number follows the [semantic versioning guidelines](http://semver.or
 The requested version number must be of the format `vX[.X[.X]]` with X being
 a positive number. `v1` and `v1.0` will both be treated as `v1.0.0`.
 
-The most recent API version is `v2.1.0`.
+The most recent API version is `v2.1.1`.
 
 ### Compatibility
 
