@@ -64,4 +64,19 @@ class test_file_delete extends common {
 		$this->t->is($ret["data"]["deleted_count"], 0, "deleted_count correct");
 	}
 
+	public function test_delete_empty_json_structure()
+	{
+		$apikey = $this->createUserAndApikey();
+		$ret = $this->uploadFile($apikey, "data/tests/small-file");
+		$id = $ret["data"]["ids"][0];
+
+		$ret = $this->CallEndpoint("POST", "file/delete", array(
+			"apikey" => $apikey,
+			"ids[1]" => $id,
+		), true);
+
+		$this->t->is($ret, '{"status":"success","data":{"errors":{},"deleted":{"'.$id.'":{"id":"'.$id.'"}},"total_count":1,"deleted_count":1}}', "empty lists should be json objects, not arrays");
+	}
+
+
 }

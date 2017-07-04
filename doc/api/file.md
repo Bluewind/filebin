@@ -230,7 +230,7 @@ Example:
 > curl -s $base/file/delete -F apikey=$apikey -F "ids[1]=uu28" | json_pp
 {
    "data" : {
-      "errors" : [],
+      "errors" : {},
       "total_count" : 1,
       "deleted" : {
          "uu28" : {
@@ -242,6 +242,10 @@ Example:
    "status" : "success"
 }
 ```
+
+| Version | Change                                                    |
+| ------- | ------                                                    |
+| 2.1.1   | Empty objects (values of `errors` and `deleted`) are now always returned as {}. Before they were returned as [] |
 
 ## file/create_multipaste
 
