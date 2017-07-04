@@ -383,4 +383,13 @@ function return_bytes($size_str)
 	}
 }
 
+function ensure_json_keys_contain_objects($data, $keys) {
+	foreach ($keys as $key) {
+		if (empty($data[$key])) {
+			$data[$key] = (object) array();
+		}
+	}
+	return $data;
+}
+
 # vim: set noet:

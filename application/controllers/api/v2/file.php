@@ -66,11 +66,7 @@ class file extends \controllers\api\api_controller {
 			}
 		}
 
-		foreach (array("items", "multipaste_items") as $key) {
-			if (empty($history[$key])) {
-				$history[$key] = (object) array();
-			}
-		}
+		$history = ensure_json_keys_contain_objects($history, array("items", "multipaste_items"));
 
 		return $history;
 	}
