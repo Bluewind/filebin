@@ -971,11 +971,14 @@ class File_default extends MY_Controller {
 
 			foreach ($query as $key => $item) {
 				$data_id = $item["hash"].'-'.$item['id'];
-				$mimetype = mimetype($this->mfile->file($data_id));
+				$filepath = $this->mfile->file($data_id);
+				$mimetype = mimetype($filepath);
+				$filesize = filesize($filepath);
 
 				$this->db->where('id', $item['id'])
 					->set(array(
 						'mimetype' => $mimetype,
+						'filesize' => $filesize,
 					))
 					->update('file_storage');
 			}
