@@ -18,6 +18,29 @@ class Migration_change_filesize_type extends CI_Migration {
 					MODIFY `filesize` bigint;
 				');
 		}
+
+		$chunk = 500;
+
+		$total = $this->db->count_all("file_storage");
+
+		for ($limit = 0; $limit < $total; $limit += $chunk) {
+			$query = $this->db->select('hash, id')
+				->from('file_storage')
+				->where('filesize', 2147483647)
+				->limit($chunk, $limit)
+				->get()->result_array();
+
+			foreach ($query as $key => $item) {
+				$data_id = $item["hash"].'-'.$item['id'];
+				$filesize = filesize($this->mfile->file($data_id));
+
+				$this->db->where('id', $item['id'])
+					->set(array(
+						'filesize' => $filesize,
+					))
+					->update('file_storage');
+			}
+		}
 	}
 
 	public function down()
