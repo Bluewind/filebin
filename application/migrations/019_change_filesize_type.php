@@ -21,7 +21,8 @@ class Migration_change_filesize_type extends CI_Migration {
 
 		$chunk = 500;
 
-		$total = $this->db->count_all("file_storage");
+		$this->db->where('filesize', 2147483647);
+		$total = $this->db->count_all_results("file_storage");
 
 		for ($limit = 0; $limit < $total; $limit += $chunk) {
 			$query = $this->db->select('hash, id')
