@@ -9,13 +9,13 @@ class Migration_change_filesize_type extends CI_Migration {
 
 		if ($this->db->dbdriver == 'postgre') {
 			$this->db->query('
-				ALTER TABLE "'.$prefix.'file_storage"
-					MODIFY `filesize` bigint;
+				ALTER TABLE `'.$prefix.'file_storage`
+					ALTER "filesize" TYPE bigint;
 				');
 		} else {
 			$this->db->query('
-				ALTER TABLE `'.$prefix.'file_storage`
-					ALTER "filesize" TYPE bigint;
+				ALTER TABLE "'.$prefix.'file_storage"
+					MODIFY `filesize` bigint;
 				');
 		}
 	}
