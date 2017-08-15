@@ -36,8 +36,17 @@ class Tools extends MY_Controller {
 	function update_database()
 	{
 		$this->load->library('migration');
-		if ( ! $this->migration->current()) {
+		$upgraded = $this->migration->current();
+		if ( ! $upgraded) {
 			throw new \exceptions\ApiException("tools/update_database/migration-error", $this->migration->error_string());
+		}
+
+		if ($upgraded === true) {
+			echo "Already at latest database version. No upgrade performed\n";
+		}
+
+		if (is_int($upgraded)) {
+			echo "Database upgraded sucessfully to version: $upgraded\n";
 		}
 	}
 
