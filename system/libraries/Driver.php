@@ -102,6 +102,7 @@ class CI_Driver_Library {
 		// The child will be prefixed with the parent lib
 		$child_name = $this->lib_name.'_'.$child;
 
+		var_dump($child, $this->valid_drivers);
 		// See if requested child is a valid driver
 		if ( ! in_array($child, $this->valid_drivers))
 		{
