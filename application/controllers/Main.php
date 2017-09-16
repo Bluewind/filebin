@@ -376,7 +376,7 @@ class Main extends MY_Controller {
 			$this->muser->require_session();
 			// keep the upload but require the user to login
 			$last_upload = $this->session->userdata("last_upload");
-			if ($last_upload === false) {
+			if ($last_upload === NULL) {
 				$last_upload = array(
 					"ids" => [],
 					"lexer" => "",
@@ -778,7 +778,7 @@ class Main extends MY_Controller {
 
 		$last_upload = $this->session->userdata("last_upload");
 
-		if ($last_upload === false) {
+		if ($last_upload === NULL) {
 			throw new \exceptions\PublicApiException("file/claim_id/last_upload-failed", "Failed to get last upload data, unable to claim uploads");
 		}
 
