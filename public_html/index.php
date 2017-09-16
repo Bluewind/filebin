@@ -317,7 +317,11 @@ switch (ENVIRONMENT)
 require APPPATH.'libraries/ExceptionHandler.php';
 \libraries\ExceptionHandler::setup();
 
-// wrapper for CI so that it calls our handler rather than it's own
+// wrapper for CI so that it calls our handlers rather than it's own
+function _error_handler($severity, $message, $filepath, $line) {
+	return \libraries\ExceptionHandler::error_handler($severity, $message, $filepath, $line);
+}
+
 function _exception_handler($ex) {
 	return \libraries\ExceptionHandler::exception_handler($ex);
 }
