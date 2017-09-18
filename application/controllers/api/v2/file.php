@@ -13,13 +13,13 @@ class file extends \controllers\api\api_controller {
 	{
 		parent::__construct();
 
-		$this->load->model('mfile');
-		$this->load->model('mmultipaste');
+		$this->CI->load->model('mfile');
+		$this->CI->load->model('mmultipaste');
 	}
 
 	public function upload()
 	{
-		$this->muser->require_access("basic");
+		$this->CI->muser->require_access("basic");
 
 		$files = getNormalizedFILES();
 
@@ -29,12 +29,12 @@ class file extends \controllers\api\api_controller {
 
 		\service\files::verify_uploaded_files($files);
 
-		$limits = $this->muser->get_upload_id_limits();
-		$userid = $this->muser->get_userid();
+		$limits = $this->CI->muser->get_upload_id_limits();
+		$userid = $this->CI->muser->get_userid();
 		$urls = array();
 
 		foreach ($files as $file) {
-			$id = $this->mfile->new_id($limits[0], $limits[1]);
+			$id = $this->CI->mfile->new_id($limits[0], $limits[1]);
 			\service\files::add_uploaded_file($userid, $id, $file["tmp_name"], $file["name"]);
 			$ids[] = $id;
 			$urls[] = site_url($id).'/';
@@ -49,7 +49,7 @@ class file extends \controllers\api\api_controller {
 	public function get_config()
 	{
 		return array(
-			"upload_max_size" => $this->config->item("upload_max_size"),
+			"upload_max_size" => $this->CI->config->item("upload_max_size"),
 			"max_files_per_request" => intval(ini_get("max_file_uploads")),
 			"max_input_vars" => intval(ini_get("max_input_vars")),
 			"request_max_size" => return_bytes(ini_get("post_max_size")),
@@ -58,8 +58,8 @@ class file extends \controllers\api\api_controller {
 
 	public function history()
 	{
-		$this->muser->require_access("apikey");
-		$history = \service\files::history($this->muser->get_userid());
+		$this->CI->muser->require_access("apikey");
+		$history = \service\files::history($this->CI->muser->get_userid());
 		foreach ($history['multipaste_items'] as $key => $item) {
 			foreach ($item['items'] as $inner_key => $item) {
 				unset($history['multipaste_items'][$key]['items'][$inner_key]['sort_order']);
@@ -73,8 +73,8 @@ class file extends \controllers\api\api_controller {
 
 	public function delete()
 	{
-		$this->muser->require_access("apikey");
-		$ids = $this->input->post_array("ids");
+		$this->CI->muser->require_access("apikey");
+		$ids = $this->CI->input->post_array("ids");
 		$ret = \service\files::delete($ids);
 
 		$ret = ensure_json_keys_contain_objects($ret, array("errors", "deleted"));
@@ -84,10 +84,10 @@ class file extends \controllers\api\api_controller {
 
 	public function create_multipaste()
 	{
-		$this->muser->require_access("basic");
-		$ids = $this->input->post_array("ids");
-		$userid = $this->muser->get_userid();
-		$limits = $this->muser->get_upload_id_limits();
+		$this->CI->muser->require_access("basic");
+		$ids = $this->CI->input->post_array("ids");
+		$userid = $this->CI->muser->get_userid();
+		$limits = $this->CI->muser->get_upload_id_limits();
 
 		return \service\files::create_multipaste($ids, $userid, $limits);
 	}
