@@ -8,7 +8,7 @@
  */
 
 // Original source: http://stackoverflow.com/a/9526005/953022
-class CustomAutoloader{
+class Customautoloader {
 	public function __construct()
 	{
 		spl_autoload_register(array($this, 'loader'));
