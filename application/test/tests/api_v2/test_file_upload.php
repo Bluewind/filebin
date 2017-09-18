@@ -50,8 +50,8 @@ class test_file_upload extends common {
 			$data[] = $this->SendHTTPRequest("GET", $url, '');
 		}
 		$this->t->ok($data[0] !== $data[1], 'Returned file contents should differ');
-		$this->t->ok($data[0] === file_get_contents("data/tests/message1.bin"), "Returned correct data for file 1");
-		$this->t->ok($data[1] === file_get_contents("data/tests/message2.bin"), "Returned correct data for file 2");
+		$this->t->is($data[0], file_get_contents("data/tests/message1.bin"), "Returned correct data for file 1");
+		$this->t->is($data[1], file_get_contents("data/tests/message2.bin"), "Returned correct data for file 2");
 	}
 
 	public function test_upload_uploadNothing()
