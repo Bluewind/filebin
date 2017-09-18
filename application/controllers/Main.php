@@ -566,7 +566,7 @@ class Main extends MY_Controller {
 	private function _append_multipaste_queue()
 	{
 		$ids = $this->input->post_array("ids");
-		if ($ids === false) {
+		if ($ids === null) {
 			$ids = [];
 		}
 

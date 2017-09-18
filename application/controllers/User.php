@@ -55,7 +55,7 @@ class User extends MY_Controller {
 
 		$this->data['redirect_uri'] = $redirect_uri;
 
-		if ($this->input->post('process') !== false) {
+		if ($this->input->post('process') !== null) {
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
 
@@ -82,10 +82,10 @@ class User extends MY_Controller {
 
 		$userid = $this->muser->get_userid();
 		$comment = $this->input->post("comment");
-		$comment = $comment === false ? "" : $comment;
+		$comment = $comment === null ? "" : $comment;
 		$access_level = $this->input->post("access_level");
 
-		if ($access_level === false) {
+		if ($access_level === null) {
 			$access_level = "apikey";
 		}
 
@@ -188,7 +188,7 @@ class User extends MY_Controller {
 
 		$this->data['redirect_uri'] = "/";
 
-		if ($process !== false) {
+		if ($process !== null) {
 			$username = $this->input->post("username");
 			$email = $this->input->post("email");
 			$password = $this->input->post("password");
@@ -381,7 +381,7 @@ class User extends MY_Controller {
 
 		$userid = $query["user"];
 
-		if ($process !== false) {
+		if ($process !== null) {
 			$password = $this->input->post("password");
 			$password_confirm = $this->input->post("password_confirm");
 
@@ -462,7 +462,7 @@ class User extends MY_Controller {
 	{
 		$this->muser->require_access();
 
-		if ($this->input->post("process") !== false) {
+		if ($this->input->post("process") !== null) {
 			$this->_save_profile();
 		}
 
@@ -584,7 +584,7 @@ class User extends MY_Controller {
 		foreach (array_keys($value_processor) as $field) {
 			$value = $this->input->post($field);
 
-			if ($value !== false) {
+			if ($value !== null) {
 				$new_value = $value_processor[$field]($value);
 				if ($new_value !== null) {
 					$data[$field] = $new_value;
@@ -619,7 +619,7 @@ class User extends MY_Controller {
 		$this->data["hash"] = false;
 		$this->data["password"] = $password;
 
-		if ($process !== false) {
+		if ($process !== null) {
 			if (!$password || $password !== $password_confirm) {
 				$error[]= "No password or passwords don't match.";
 			} else {

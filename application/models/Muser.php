@@ -276,7 +276,7 @@ class Muser extends CI_Model {
 
 	function require_access($wanted_level = "full")
 	{
-		if ($this->input->post("apikey") !== false) {
+		if ($this->input->post("apikey") !== null) {
 			$this->apilogin($this->input->post("apikey"));
 		}
 

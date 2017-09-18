@@ -36,7 +36,7 @@ class user extends \controllers\api\api_controller {
 
 		$userid = $this->CI->muser->get_userid();
 		$comment = $this->CI->input->post("comment");
-		$comment = $comment === false ? "" : $comment;
+		$comment = $comment === null ? "" : $comment;
 		$access_level = $this->CI->input->post("access_level");
 
 		$key = \service\user::create_apikey($userid, $comment, $access_level);

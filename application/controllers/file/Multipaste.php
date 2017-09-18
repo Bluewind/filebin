@@ -20,7 +20,7 @@ class Multipaste extends MY_Controller {
 		$this->muser->require_access("basic");
 
 		$ids = $this->input->post_array("ids");
-		if ($ids === false) {
+		if ($ids === null) {
 			$ids = [];
 		}
 
@@ -58,7 +58,7 @@ class Multipaste extends MY_Controller {
 		$ids = $this->input->post_array('ids');
 		$process = $this->input->post('process');
 
-		if ($ids === false) {
+		if ($ids === null) {
 			$ids = [];
 		}
 
@@ -89,7 +89,7 @@ class Multipaste extends MY_Controller {
 		$this->muser->require_access("basic");
 		$ids = $this->input->post_array('ids');
 
-		if ($ids === false) {
+		if ($ids === null) {
 			$ids = [];
 		}
 

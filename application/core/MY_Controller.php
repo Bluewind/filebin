@@ -79,7 +79,7 @@ class MY_Controller extends CI_Controller {
 
 	private function _check_csrf_protection_required()
 	{
-		if ($this->input->post("apikey") !== false || is_api_client()) {
+		if ($this->input->post("apikey") !== null || is_api_client()) {
 			/* This relies on the authentication code always verifying the supplied
 			 * apikey. If the key is not verified/logged in an attacker could simply
 			 * add an empty "apikey" field to the CSRF form to circumvent the
