@@ -642,3 +642,7 @@ $config['download_nginx_location'] = '/protected-uploads';
 if (file_exists(APPPATH.'config/config-local.php')) {
 	include APPPATH.'config/config-local.php';
 }
+
+if (getenv("ENVIRONMENT") === "testsuite" && isset($_SERVER['SERVER_PORT'])) {
+	$config['base_url'] = 'http://127.0.0.1:'.$_SERVER['SERVER_PORT'].'/';
+}
