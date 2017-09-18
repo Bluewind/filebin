@@ -20,8 +20,8 @@ class Main extends MY_Controller {
 	function index()
 	{
 		if ($this->input->is_cli_request()) {
-			$this->load->library("../controllers/tools");
-			return $this->tools->index();
+			output_cli_usage();
+			exit;
 		}
 
 		// Try to guess what the user would like to do.

@@ -19,17 +19,7 @@ class Tools extends MY_Controller {
 
 	function index()
 	{
-		echo "php index.php <controller> <function> [arguments]\n";
-		echo "\n";
-		echo "Functions:\n";
-		echo "  file cron               Cronjob\n";
-		echo "  file nuke_id <ID>       Nukes all IDs sharing the same hash\n";
-		echo "  user cron               Cronjob\n";
-		echo "  tools update_database   Update/Initialise the database\n";
-		echo "\n";
-		echo "Functions that shouldn't have to be run:\n";
-		echo "  file clean_stale_files     Remove files without database entries\n";
-		echo "  file update_file_metadata  Update filesize and mimetype in database\n";
+		output_cli_usage();
 		exit;
 	}
 
