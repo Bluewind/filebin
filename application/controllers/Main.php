@@ -19,7 +19,7 @@ class Main extends MY_Controller {
 
 	function index()
 	{
-		if ($this->input->is_cli_request()) {
+		if (is_cli()) {
 			output_cli_usage();
 			exit;
 		}

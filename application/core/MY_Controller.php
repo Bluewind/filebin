@@ -20,7 +20,7 @@ class MY_Controller extends CI_Controller {
 		$this->load->library('customautoloader');
 
 		// check if DB is up to date
-		if (!($this->input->is_cli_request() && $this->uri->segment(1) === "tools")) {
+		if (!(is_cli() && $this->uri->segment(1) === "tools")) {
 			$this->_ensure_database_schema_up_to_date();
 		}
 
@@ -54,7 +54,7 @@ class MY_Controller extends CI_Controller {
 
 	protected function _require_cli_request()
 	{
-		if (!$this->input->is_cli_request()) {
+		if (!is_cli()) {
 			throw new \exceptions\PublicApiException("api/cli-only", "This function can only be accessed via the CLI interface");
 		}
 	}
@@ -106,7 +106,7 @@ class MY_Controller extends CI_Controller {
 			return false;
 		}
 
-		if ($this->input->is_cli_request()) {
+		if (is_cli()) {
 			return false;
 		}
 

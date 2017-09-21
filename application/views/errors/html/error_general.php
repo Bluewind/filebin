@@ -12,7 +12,7 @@ if (class_exists("CI_Controller") && !isset($GLOBALS["is_error_page"]) && isset(
 	$CI->load->helper("filebin");
 	$CI->load->helper("url");
 
-	if ($CI->input->is_cli_request()) {
+	if (is_cli()) {
 		$message = str_replace("</p>", "</p>\n", $message);
 		$message = strip_tags($message);
 		echo "$heading: $message\n";

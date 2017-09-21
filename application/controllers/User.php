@@ -16,7 +16,7 @@ class User extends MY_Controller {
 
 	function index()
 	{
-		if ($this->input->is_cli_request()) {
+		if (is_cli()) {
 			$this->load->library("../controllers/tools");
 			return $this->tools->index();
 		}
