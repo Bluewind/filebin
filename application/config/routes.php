@@ -50,8 +50,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = "main";
-$route['user/(:any)'] = "user/$1";
-$route['file/multipaste/(:any)'] = "file/multipaste/$1";
+$route['user/(.+)'] = "user/$1";
+$route['file/multipaste/(.+)'] = "file/multipaste/$1";
 $route['file/(.+)'] = "main/$1";
 $route['tools/(.+)'] = "tools/$1";
 $route['api/(.+)'] = "api/route/$1";
