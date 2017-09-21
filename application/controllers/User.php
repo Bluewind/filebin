@@ -302,15 +302,15 @@ class User extends MY_Controller {
 		$this->duser->require_implemented("can_reset_password");
 		$key = $this->uri->segment(3);
 
-		if ($_SERVER["REQUEST_METHOD"] == "GET" && $key === false) {
+		if ($_SERVER["REQUEST_METHOD"] == "GET" && $key === null) {
 			return $this->_reset_password_username_form();
 		}
 
-		if ($key === false) {
+		if ($key === null) {
 			return $this->_reset_password_send_mail();
 		}
 
-		if ($key !== false) {
+		if ($key !== null) {
 			return $this->_reset_password_form();
 		}
 	}

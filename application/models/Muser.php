@@ -324,6 +324,10 @@ class Muser extends CI_Model {
 			->where('user', $userid)
 			->get()->row_array();
 
+		if ($query === null) {
+			$query = [];
+		}
+
 		$extra_fields = array(
 			"username" => $this->get_username(),
 			"email" => $this->get_email($userid),
