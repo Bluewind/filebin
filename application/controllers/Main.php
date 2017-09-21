@@ -171,7 +171,7 @@ class Main extends MY_Controller {
 
 			// autodetect the lexer for highlighting if the URL contains a / after the ID (/ID/)
 			// /ID/lexer disables autodetection
-			$autodetect_lexer = !$lexer && substr_count(ltrim($this->uri->uri_string(), "/"), '/') >= 1;
+			$autodetect_lexer = !$lexer && preg_match('/^[^?]*\/(\?.*)?$/', $_SERVER['REQUEST_URI']);
 			$autodetect_lexer = $is_multipaste ? true : $autodetect_lexer;
 			if ($autodetect_lexer) {
 				$lexer = $pygments->autodetect_lexer();
