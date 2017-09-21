@@ -156,8 +156,7 @@ class Muser extends CI_Model {
 	 */
 	public function valid_email($email)
 	{
-		$this->load->helper("email");
-		return valid_email($email);
+		return $email === filter_var($email, FILTER_VALIDATE_EMAIL);
 	}
 
 	public function add_user($username, $password, $email, $referrer)
