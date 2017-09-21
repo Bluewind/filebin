@@ -74,6 +74,7 @@ class Main extends MY_Controller {
 
 	function _download()
 	{
+		session_write_close();
 		$id = $this->uri->segment(1);
 		$lexer = urldecode($this->uri->segment(2));
 
@@ -469,6 +470,7 @@ class Main extends MY_Controller {
 
 	function thumbnail()
 	{
+		session_write_close();
 		$id = $this->uri->segment(3);
 
 		if (!$this->mfile->valid_id($id)) {
