@@ -9,6 +9,7 @@
 		<label class="control-label col-lg-2 col-md-2" for="inputUsername">Username</label>
 		<div class="col-lg-5 col-md-5">
 			<input type="text" id="inputUsername" name="username" placeholder="Username" value="<?php echo $values["username"]; ?>" class="form-control">
+			<span class="help-block">The username may contain up to 32 chars of a-z0-9 (only lowercase characters).</span>
 		</div>
 	</div>
 </div>
