@@ -2,6 +2,8 @@ This file lists major, incompatible or otherwise important changes, you should l
 
 3.0.0
 
+ - This version ensures PHP 7.2 support
+
  - INCOMPATIBLE:
    - Changes in application/config/database.php
      + Change "$active_record = TRUE" to "$query_builder = TRUE"
