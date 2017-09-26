@@ -26,8 +26,8 @@ class MY_Input extends CI_Input {
 
 	public function post_array($key) {
 		$ret = parent::post($key);
-		if ($ret === false) {
-			return false;
+		if ($ret === null) {
+			return null;
 		} elseif (!is_array($ret)) {
 			$data = [
 				"key" => $key,

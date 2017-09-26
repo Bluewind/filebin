@@ -87,6 +87,11 @@ class TestMore extends TestSimple {
 		$ret = ob_get_clean();
 		$ret = preg_replace("/^[^\n]*\n/", "", $ret);
 		$ret = preg_replace("/\n$/", "", $ret);
+		# replace unprintable characters with questionmarks
+		$old = ini_get("mbstring.substitute_character");
+		ini_set("mbstring.substitute_character", "?");
+		$ret = mb_convert_encoding($ret, 'UTF-8', 'UTF-8');
+		ini_set("mbstring.substitute_character", $old);
 		return $ret;
 	}
 

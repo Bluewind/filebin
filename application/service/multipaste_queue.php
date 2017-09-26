@@ -73,7 +73,7 @@ class multipaste_queue {
 	 */
 	public function get() {
 		$ids = $this->session->userdata("multipaste_queue");
-		if ($ids === false) {
+		if ($ids === NULL) {
 			$ids = [];
 		}
 

@@ -13,31 +13,31 @@ class user extends \controllers\api\api_controller {
 	{
 		parent::__construct();
 
-		$this->load->model('muser');
+		$this->CI->load->model('muser');
 	}
 
 	public function apikeys()
 	{
-		$this->muser->require_access("full");
-		return \service\user::apikeys($this->muser->get_userid());
+		$this->CI->muser->require_access("full");
+		return \service\user::apikeys($this->CI->muser->get_userid());
 	}
 
 	public function create_apikey()
 	{
-		$username = $this->input->post("username");
-		$password = $this->input->post("password");
+		$username = $this->CI->input->post("username");
+		$password = $this->CI->input->post("password");
 		if ($username && $password) {
-			if (!$this->muser->login($username, $password)) {
+			if (!$this->CI->muser->login($username, $password)) {
 				throw new \exceptions\NotAuthenticatedException("user/login-failed", "Login failed");
 			}
 		}
 
-		$this->muser->require_access("full");
+		$this->CI->muser->require_access("full");
 
-		$userid = $this->muser->get_userid();
-		$comment = $this->input->post("comment");
-		$comment = $comment === false ? "" : $comment;
-		$access_level = $this->input->post("access_level");
+		$userid = $this->CI->muser->get_userid();
+		$comment = $this->CI->input->post("comment");
+		$comment = $comment === null ? "" : $comment;
+		$access_level = $this->CI->input->post("access_level");
 
 		$key = \service\user::create_apikey($userid, $comment, $access_level);
 
@@ -48,16 +48,16 @@ class user extends \controllers\api\api_controller {
 
 	public function delete_apikey()
 	{
-		$this->muser->require_access("full");
+		$this->CI->muser->require_access("full");
 
-		$userid = $this->muser->get_userid();
-		$key = $this->input->post("delete_key");
+		$userid = $this->CI->muser->get_userid();
+		$key = $this->CI->input->post("delete_key");
 
-		$this->db->where('user', $userid)
+		$this->CI->db->where('user', $userid)
 			->where('key', $key)
 			->delete('apikeys');
 
-		$affected = $this->db->affected_rows();
+		$affected = $this->CI->db->affected_rows();
 
 		assert($affected >= 0 && $affected <= 1);
 		if ($affected == 1) {

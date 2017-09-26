@@ -9,6 +9,10 @@
 
 namespace controllers\api;
 
-abstract class api_controller extends \CI_Controller {
+abstract class api_controller {
+	public function __construct() {
+		$this->CI =& get_instance();
+	}
+
 }
 

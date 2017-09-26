@@ -17,7 +17,7 @@ class Ddownload extends CI_Driver_Library {
 	protected $_adapter = null;
 
 	protected $valid_drivers = array(
-		'ddownload_php', 'ddownload_nginx', 'ddownload_lighttpd'
+		'php', 'nginx', 'lighttpd'
 	);
 
 	function __construct()

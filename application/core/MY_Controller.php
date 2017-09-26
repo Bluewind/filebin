@@ -20,7 +20,7 @@ class MY_Controller extends CI_Controller {
 		$this->load->library('customautoloader');
 
 		// check if DB is up to date
-		if (!($this->input->is_cli_request() && $this->uri->segment(1) === "tools")) {
+		if (!(is_cli() && $this->uri->segment(1) === "tools")) {
 			$this->_ensure_database_schema_up_to_date();
 		}
 
@@ -54,7 +54,7 @@ class MY_Controller extends CI_Controller {
 
 	protected function _require_cli_request()
 	{
-		if (!$this->input->is_cli_request()) {
+		if (!is_cli()) {
 			throw new \exceptions\PublicApiException("api/cli-only", "This function can only be accessed via the CLI interface");
 		}
 	}
@@ -79,7 +79,7 @@ class MY_Controller extends CI_Controller {
 
 	private function _check_csrf_protection_required()
 	{
-		if ($this->input->post("apikey") !== false || is_api_client()) {
+		if ($this->input->post("apikey") !== null || is_api_client()) {
 			/* This relies on the authentication code always verifying the supplied
 			 * apikey. If the key is not verified/logged in an attacker could simply
 			 * add an empty "apikey" field to the CSRF form to circumvent the
@@ -106,7 +106,7 @@ class MY_Controller extends CI_Controller {
 			return false;
 		}
 
-		if ($this->input->is_cli_request()) {
+		if (is_cli()) {
 			return false;
 		}
 

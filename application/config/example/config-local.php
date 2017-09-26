@@ -6,6 +6,9 @@
  * For descriptions of the options please refer to config.php.
  */
 
+# URL to the application
+$config['base_url'] = '';
+
 // set this to a 32char random string
 $config['encryption_key'] = '';
 

@@ -38,7 +38,7 @@ class test_service_multipaste_queue extends \test\Test {
 
 	public function test_get()
 	{
-		$this->session->shouldReceive('userdata')->with("multipaste_queue")->once()->andReturn(false);
+		$this->session->shouldReceive('userdata')->with("multipaste_queue")->once()->andReturn(null);
 		$this->t->is_deeply($this->m->get(), [], "Fresh queue is empty");
 	}
 
@@ -54,7 +54,7 @@ class test_service_multipaste_queue extends \test\Test {
 
 	public function test_append()
 	{
-		$this->session->shouldReceive('userdata')->with("multipaste_queue")->once()->andReturn(false);
+		$this->session->shouldReceive('userdata')->with("multipaste_queue")->once()->andReturn(null);
 		$this->mfile->shouldReceive('valid_id')->with('abc')->times(2)->andReturn(true);
 		$this->session->shouldReceive('set_userdata')->with("multipaste_queue", ['abc'])->once();
 		$this->t->is($this->m->append(['abc']), null, "append([abc]) should succeed");
