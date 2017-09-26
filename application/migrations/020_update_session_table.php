@@ -24,11 +24,14 @@ class Migration_update_session_table extends CI_Migration {
 				ALTER TABLE "'.$prefix.'ci_sessions"
 					RENAME COLUMN "user_data" TO "data";
 				');
+			$this->db->query('
+				ALTER TABLE ci_sessions ALTER COLUMN id SET DATA TYPE varchar(128);
+				');
 		} else {
 			$this->db->query('
 				ALTER TABLE `'.$prefix.'ci_sessions`
 					DROP `user_agent`,
-					CHANGE `session_id` `id` VARCHAR(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 0,
+					CHANGE `session_id` `id` VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
 					CHANGE `last_activity` `timestamp` INT(10) UNSIGNED NOT NULL DEFAULT 0,
 					CHANGE `user_data` `data` BLOB NOT NULL;
 				');
