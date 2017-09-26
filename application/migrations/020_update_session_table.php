@@ -25,7 +25,7 @@ class Migration_update_session_table extends CI_Migration {
 					RENAME COLUMN "user_data" TO "data";
 				');
 			$this->db->query('
-				ALTER TABLE ci_sessions ALTER COLUMN id SET DATA TYPE varchar(128);
+				ALTER TABLE "'.$prefix.'ci_sessions" ALTER COLUMN id SET DATA TYPE varchar(128);
 				');
 		} else {
 			$this->db->query('
