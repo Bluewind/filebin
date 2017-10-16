@@ -33,11 +33,10 @@ class Tools extends MY_Controller {
 
 		if ($upgraded === true) {
 			echo "Already at latest database version. No upgrade performed\n";
+			return;
 		}
 
-		if (is_int($upgraded)) {
-			echo "Database upgraded sucessfully to version: $upgraded\n";
-		}
+		echo "Database upgraded sucessfully to version: $upgraded\n";
 	}
 
 	function drop_all_tables()
