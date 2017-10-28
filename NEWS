@@ -8,6 +8,9 @@ This file lists major, incompatible or otherwise important changes, you should l
    - Changes in application/config/database.php
      + Change "$active_record = TRUE" to "$query_builder = TRUE"
      + Change the pconnect setting to FALSE
+	 + Change the char_set settign to "utf8mb4"
+	 + Change the dbcollat setting to "utf8mb4_bin"
+	 + Change the stricton setting to TRUE
    - Changes in application/config/config-local.php
      + Set base_url to your domain and installation directory
        (if used). Example: $config['base_url'] = "https://paste.xinu.at/"
