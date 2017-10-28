@@ -2,9 +2,9 @@ This file lists major, incompatible or otherwise important changes, you should l
 
 3.0.0
 
- - This version ensures PHP 7.2 support
+ - This version ensures PHP 7.2 support by updating the underlying framework
 
- - INCOMPATIBLE:
+ - INCOMPATIBLE: You need to perform the following actions for this update:
    - Changes in application/config/database.php
      + Change "$active_record = TRUE" to "$query_builder = TRUE"
      + Change the pconnect setting to FALSE
