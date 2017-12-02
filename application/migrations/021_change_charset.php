@@ -11,10 +11,11 @@ class Migration_change_charset extends CI_Migration {
 			# nothing to do
 		} else {
 			$this->db->query('SET FOREIGN_KEY_CHECKS = 0');
-			foreach (['actions', 'apikeys', 'files', 'file_storage', 'multipaste', 'multipaste_file_map', 'profiles', 'users'] as $table) {
-				$this->db->query('
-					ALTER TABLE `'.$prefix.$table.'` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
-				');
+			foreach ([
+				['apikeys', 'comment', 'VARCHAR(255)'],
+				['files', 'filename', 'VARCHAR(256)'],
+			] as $col) {
+				$this->db->query('ALTER TABLE `'.$prefix.$col[0].'` CHANGE `'.$col[1].'` `'.$col[1].'` '.$col[2].' CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;');
 			}
 			$this->db->query('SET FOREIGN_KEY_CHECKS = 1');
 		}
