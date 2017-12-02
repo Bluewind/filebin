@@ -1,24 +1,20 @@
 {
-	"description": "The CodeIgniter framework",
-	"name": "codeigniter/framework",
+	"description": "FileBin",
+	"name": "bluewind/filebin",
 	"type": "project",
-	"homepage": "https://codeigniter.com",
-	"license": "MIT",
+	"homepage": "https://github.com/Bluewind/filebin",
+	"license": "AGPLv3",
 	"support": {
-		"forum": "http://forum.codeigniter.com/",
-		"wiki": "https://github.com/bcit-ci/CodeIgniter/wiki",
-		"irc": "irc://irc.freenode.net/codeigniter",
-		"source": "https://github.com/bcit-ci/CodeIgniter"
+		"forum": "https://github.com/Bluewind/filebin",
+		"source": "https://github.com/Bluewind/filebin"
 	},
 	"require": {
-		"php": ">=5.3.7"
+		"php": ">=5.5"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
 	},
 	"require-dev": {
-		"mikey179/vfsStream": "1.1.*",
-		"phpunit/phpunit": "4.* || 5.*",
-		"phpunit/php-code-coverage": "^5"
+		"phpunit/php-code-coverage": "^4 || ^5"
 	}
 }
