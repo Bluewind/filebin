@@ -210,6 +210,7 @@ class Pygments {
 				'php' => 'php',
 				'pl' => 'perl',
 				'plpgsql' => 'plpgsql',
+				'pm' => 'perl',
 				'postgresql' => 'postgresql',
 				'pp' => 'puppet',
 				'py' => 'python',
