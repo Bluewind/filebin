@@ -187,6 +187,11 @@ class Main extends MY_Controller {
 
 			$filesize_too_big = filesize($file) > $this->config->item('upload_max_text_size');
 
+			if ($lexer == "asciinema") {
+				$output_cache->add(array("filedata" => $filedata), "file/fragments/asciinema-player");
+				continue;
+			}
+
 			if (!$can_highlight || $filesize_too_big || !$lexer) {
 				if (!$is_multipaste) {
 					// prevent javascript from being executed and forbid frames
@@ -222,14 +227,10 @@ class Main extends MY_Controller {
 				}
 			}
 
-			if ($lexer == "asciinema") {
-				$output_cache->add(array("filedata" => $filedata), "file/fragments/asciinema-player");
-			} else {
-				$output_cache->add_function(function() use ($output_cache, $filedata, $lexer, $is_multipaste) {
-					$renderer = new \service\renderer($output_cache, $this->mfile, $this->data);
-					$renderer->highlight_file($filedata, $lexer, $is_multipaste);
-				});
-			}
+			$output_cache->add_function(function() use ($output_cache, $filedata, $lexer, $is_multipaste) {
+				$renderer = new \service\renderer($output_cache, $this->mfile, $this->data);
+				$renderer->highlight_file($filedata, $lexer, $is_multipaste);
+			});
 		}
 
 		// TODO: move lexers json to dedicated URL
