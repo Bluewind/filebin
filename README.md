@@ -23,6 +23,10 @@ list](https://lists.server-speed.net/listinfo/filebin-general) for everything
 (general discussion, patches, announcements, ...). If need be more lists will be
 created at a later date.
 
+### IRC
+
+The official IRC channel is [irc.freenode.net/#filebin](irc://irc.freenode.net/#filebin).
+
 ### Patches
 
 Please submit patches (preferably git send-email) to the [filebin-general
