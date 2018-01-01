@@ -646,3 +646,7 @@ if (file_exists(APPPATH.'config/config-local.php')) {
 if (getenv("ENVIRONMENT") === "testsuite" && isset($_SERVER['SERVER_PORT'])) {
 	$config['base_url'] = 'http://127.0.0.1:'.$_SERVER['SERVER_PORT'].'/';
 }
+
+if (getenv("ENVIRONMENT") === "testsuite") {
+	$config['upload_path'] = FCPATH.'testsuite-tmp';
+}

@@ -7,6 +7,7 @@ export ENVIRONMENT="testsuite"
 export COLLECT_COVERAGE=1
 
 startdir="$(dirname "$0")"
+datadir="testsuite-tmp"
 
 die() {
 	echo "$@" >&2
@@ -28,9 +29,13 @@ trap cleanup EXIT INT
 cleanup() {
 	pkill -P $$
 	php index.php tools drop_all_tables
+	rm -rf "$datadir"
 }
 
+rm -rf "$datadir"
+
 mkdir -p test-coverage-data
+mkdir -p "$datadir"
 
 php=(php)
 if ((COLLECT_COVERAGE)); then
