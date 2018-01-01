@@ -649,4 +649,5 @@ if (getenv("ENVIRONMENT") === "testsuite" && isset($_SERVER['SERVER_PORT'])) {
 
 if (getenv("ENVIRONMENT") === "testsuite") {
 	$config['upload_path'] = FCPATH.'testsuite-tmp';
+	$config['auth_db']['hashing_options']['cost']  = 5;
 }
