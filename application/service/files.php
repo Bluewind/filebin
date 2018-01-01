@@ -178,6 +178,7 @@ class files {
 			));
 			$storage_id = $CI->db->insert_id();
 			$new_storage_id_created = true;
+			assert(!file_exists($CI->mfile->file($hash."-".$storage_id)));
 		}
 		$data_id = $hash."-".$storage_id;
 
