@@ -165,6 +165,7 @@ class files {
 			}
 		}
 
+		$new_storage_id_created = false;
 		if ($storage_id === null) {
 			$filesize = filesize($new_file);
 			$mimetype = mimetype($new_file);
@@ -176,19 +177,29 @@ class files {
 				"date" => time(),
 			));
 			$storage_id = $CI->db->insert_id();
+			$new_storage_id_created = true;
 		}
 		$data_id = $hash."-".$storage_id;
 
-		// TODO: all this doesn't have to run if the file exists. updating the mtime would be enough
-		//       that would also be better for COW filesystems
 		$dir = $CI->mfile->folder($data_id);
 		file_exists($dir) || mkdir ($dir);
 		$new_path = $CI->mfile->file($data_id);
 
-		$dest = new \service\storage($new_path);
-		$tmpfile = $dest->begin();
-		rename($new_file, $tmpfile);
-		$dest->commit();
+		// Update mtime for cronjob
+		touch($new_path);
+
+		// touch may create a new file if the cronjob cleaned up in between the db check and here.
+		// In that case the file will be empty so move in the data
+		if ($new_storage_id_created || filesize($new_path) === 0) {
+			$dest = new \service\storage($new_path);
+			$tmpfile = $dest->begin();
+
+			// $new_file may reside on a different file system so this call
+			// could perform a copy operation internally. $dest->commit() will
+			// ensure that it performs an atomic overwrite (rename).
+			rename($new_file, $tmpfile);
+			$dest->commit();
+		}
 
 		$CI->mfile->add_file($userid, $id, $filename, $storage_id);
 	}
