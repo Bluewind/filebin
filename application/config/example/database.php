@@ -96,3 +96,7 @@ $db['default'] = array(
 	'save_queries' => TRUE
 );
 
+if (getenv("ENVIRONMENT") === "testsuite") {
+	$db['default']['database'] = "filebin_testsuite";
+	$db['default']['dbprefix'] = "testsuite_prefix_";
+}
