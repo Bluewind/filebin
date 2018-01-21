@@ -27,8 +27,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |				 to the table name when using the  Query Builder class
 |	['pconnect'] TRUE/FALSE - Whether to use a persistent connection
 |	['db_debug'] TRUE/FALSE - Whether database errors should be displayed.
-|	['cache_on'] TRUE/FALSE - Enables/disables query caching
-|	['cachedir'] The path to the folder where cache files should be stored
 |	['char_set'] The character set used in communicating with the database
 |	['dbcollat'] The character collation used in communicating with the database
 |				 NOTE: For MySQL and MySQLi databases, this setting is only used
@@ -84,8 +82,6 @@ $db['default'] = array(
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => TRUE,
-	'cache_on' => FALSE,
-	'cachedir' => '',
 	'char_set' => 'utf8mb4', // if you use postgres, set this to utf8
 	'dbcollat' => 'utf8mb4_bin', // if you use postgres, set this to utf8_bin
 	'swap_pre' => '',
