@@ -9,12 +9,16 @@
 		"source": "https://github.com/Bluewind/filebin"
 	},
 	"require": {
-		"php": ">=5.5"
+		"php": ">=5.5",
+		"ext-gd": "*",
+		"ext-exif": "*",
+		"ext-phar": "*"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
 	},
 	"require-dev": {
-		"phpunit/php-code-coverage": "^4 || ^5"
+		"phpunit/php-code-coverage": "^4 || ^5",
+		"ext-xdebug": "*"
 	}
 }
