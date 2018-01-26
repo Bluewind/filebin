@@ -53,7 +53,7 @@
 					<p><button type="submit" id="upload_button" class="btn btn-primary">Upload/Paste it!</button></p>
 					<p>
 						Uploads/pastes are <?php if ($upload_max_age > 0) {
-							echo "deleted after ".$upload_max_age." days";
+							echo "deleted after ".expiration_duration($upload_max_age);
 							if ($small_upload_size > 0) {
 								echo " unless they are smaller than ".format_bytes($small_upload_size);
 							}

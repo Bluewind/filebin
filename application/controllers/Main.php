@@ -435,7 +435,7 @@ class Main extends MY_Controller {
 		$this->data['title'] .= ' - Upload';
 		$this->data['small_upload_size'] = $this->config->item('small_upload_size');
 		$this->data['max_upload_size'] = $this->config->item('upload_max_size');
-		$this->data['upload_max_age'] = $this->config->item('upload_max_age')/60/60/24;
+		$this->data['upload_max_age'] = $this->config->item('upload_max_age');
 
 		$this->data['username'] = $this->muser->get_username();
 
