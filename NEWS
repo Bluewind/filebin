@@ -1,5 +1,18 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+3.0.2 2018-02-06
+ - Ensure newly uploaded files do not exist before adding them to the DB
+ - Update file modification time instead of overwriting it with it's own data
+   when a file is uploaded multiple times
+ - Minor changes:
+   + Support values that are not multiples of one day for upload_max_age
+   + Add config settings for testsuite to example configs
+   + Include most php extension dependencies in composer.json
+   + Use dedicated, temporary upload directory for testsuite
+
+3.0.1 2017-12-02
+ - Document different database settings for postgres in example config
+
 3.0.0 2017-12-02
 
  - This version ensures PHP 7.2 support by updating the underlying framework
