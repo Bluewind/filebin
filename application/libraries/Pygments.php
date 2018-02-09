@@ -215,6 +215,7 @@ class Pygments {
 				'pp' => 'puppet',
 				'py' => 'python',
 				'rb' => 'ruby',
+				'rs' => 'rust',
 				's' => 'asm',
 				'sh' => 'bash',
 				'sql' => 'sql',
