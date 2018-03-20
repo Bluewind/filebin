@@ -13,11 +13,11 @@ is_installed
 
 application/cache/*
 !application/cache/index.html
-!application/cache/.htaccess
 
 application/logs/*
 !application/logs/index.html
-!application/logs/.htaccess
+
+!application/*/.htaccess
 
 public_html/data/js/main.min.js
 /vendor
@@ -43,3 +43,5 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.stTheme.cache
 *.sublime-workspace
 *.sublime-project
+/tests/tests/
+/tests/results/
