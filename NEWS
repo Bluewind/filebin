@@ -1,5 +1,8 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+3.0.3 2018-03-23
+ - Update codeiginiter to 3.1.8
+
 3.0.2 2018-02-06
  - Ensure newly uploaded files do not exist before adding them to the DB
  - Update file modification time instead of overwriting it with it's own data
