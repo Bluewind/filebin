@@ -832,23 +832,7 @@ class Main extends MY_Controller {
 	{
 		$this->_require_cli_request();
 
-		$tarball_dir = $this->config->item("upload_path")."/special/multipaste-tarballs";
-		if (is_dir($tarball_dir)) {
-			$tarball_cache_time = $this->config->item("tarball_cache_time");
-			$it = new RecursiveIteratorIterator(
-				new RecursiveDirectoryIterator($tarball_dir), RecursiveIteratorIterator::SELF_FIRST);
-
-			foreach ($it as $file) {
-				if ($file->isFile()) {
-					if ($file->getMTime() < time() - $tarball_cache_time) {
-						$lock = fopen($file, "r+");
-						flock($lock, LOCK_EX);
-						unlink($file);
-						flock($lock, LOCK_UN);
-					}
-				}
-			}
-		}
+		$this->clean_multipaste_tarballs();
 
 		$oldest_time = (time() - $this->config->item('upload_max_age'));
 		$oldest_session_time = (time() - $this->config->item("sess_expiration"));
@@ -882,6 +866,27 @@ class Main extends MY_Controller {
 		foreach($query as $row) {
 			$row['data_id'] = $row['hash'].'-'.$row['storage_id'];
 			\service\files::valid_id($row, $config, $this->mfile, time());
+		}
+	}
+
+	private function clean_multipaste_tarballs()
+	{
+		$tarball_dir = $this->config->item("upload_path")."/special/multipaste-tarballs";
+		if (is_dir($tarball_dir)) {
+			$tarball_cache_time = $this->config->item("tarball_cache_time");
+			$it = new RecursiveIteratorIterator(
+				new RecursiveDirectoryIterator($tarball_dir), RecursiveIteratorIterator::SELF_FIRST);
+
+			foreach ($it as $file) {
+				if ($file->isFile()) {
+					if ($file->getMTime() < time() - $tarball_cache_time) {
+						$lock = fopen($file, "r+");
+						flock($lock, LOCK_EX);
+						unlink($file);
+						flock($lock, LOCK_UN);
+					}
+				}
+			}
 		}
 	}
 
