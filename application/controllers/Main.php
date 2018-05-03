@@ -895,6 +895,13 @@ class Main extends MY_Controller {
 	{
 		$this->_require_cli_request();
 
+		$this->remove_files_missing_in_db();
+		$this->remove_files_missing_on_disk();
+		$this->clean_multipaste_tarballs();
+	}
+
+	private function remove_files_missing_in_db()
+	{
 		$upload_path = $this->config->item("upload_path");
 		$outer_dh = opendir($upload_path);
 
@@ -940,7 +947,10 @@ class Main extends MY_Controller {
 			}
 		}
 		closedir($outer_dh);
+	}
 
+	private function remove_files_missing_on_disk()
+	{
 		$chunk = 500;
 		$total = $this->db->count_all("file_storage");
 
@@ -959,8 +969,6 @@ class Main extends MY_Controller {
 				}
 			}
 		}
-
-		$this->clean_multipaste_tarballs();
 	}
 
 	function nuke_id()
