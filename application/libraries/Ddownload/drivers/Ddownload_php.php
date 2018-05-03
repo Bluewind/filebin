@@ -12,7 +12,7 @@ class Ddownload_php extends Ddownload_Driver {
 	// Original source: http://www.phpfreaks.com/forums/index.php?topic=198274.msg895468#msg895468
 	public function serveFile($file, $filename, $type)
 	{
-		$fp = @fopen($file, 'r');
+		$fp = fopen($file, 'r');
 
 		$size	= filesize($file); // File size
 		$length = $size;	   // Content length
