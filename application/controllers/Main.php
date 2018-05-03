@@ -960,8 +960,7 @@ class Main extends MY_Controller {
 			}
 		}
 
-		// TODO: clean up special/multipaste-tarballs? cron() already expires
-		// after a rather short time, do we really need this here then?
+		$this->clean_multipaste_tarballs();
 	}
 
 	function nuke_id()
