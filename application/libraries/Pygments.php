@@ -189,6 +189,7 @@ class Pygments {
 			$extensionarray = array(
 				'awk' => 'awk',
 				'c' => 'c',
+				'cast' => 'asciinema',
 				'coffee' => 'coffee-script',
 				'cpp' => 'cpp',
 				'diff' => 'diff',
