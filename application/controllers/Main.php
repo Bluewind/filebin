@@ -941,6 +941,25 @@ class Main extends MY_Controller {
 		}
 		closedir($outer_dh);
 
+		$chunk = 500;
+		$total = $this->db->count_all("file_storage");
+
+		for ($limit = 0; $limit < $total; $limit += $chunk) {
+			$query = $this->db->select('hash, id')
+				->from('file_storage')
+				->limit($chunk, $limit)
+				->get()->result_array();
+
+			foreach ($query as $key => $item) {
+				$data_id = $item["hash"].'-'.$item['id'];
+				$file = $this->mfile->file($data_id);
+
+				if (!$this->mfile->file_exists($file)) {
+					$this->mfile->delete_data_id($data_id);
+				}
+			}
+		}
+
 		// TODO: clean up special/multipaste-tarballs? cron() already expires
 		// after a rather short time, do we really need this here then?
 	}
