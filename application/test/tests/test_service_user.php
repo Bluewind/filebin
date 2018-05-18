@@ -34,24 +34,28 @@ class test_service_user extends \test\Test {
 		$result = $CI->db->select('user, key, action')->from('actions')->get()->result_array();
 		$this->t->is_deeply([['user' => "".$userid, 'key' => $key, 'action' => 'invitation']], $result, "database contains new key");
 
-		\service\user::delete_invitation_key($userid+1, $key);
+		$ret = \service\user::delete_invitation_key($userid+1, $key);
+		$this->t->is(0, $ret, "Should have removed no keys because incorrect user/key");
 		$result = $CI->db->select('user, key, action')->from('actions')->get()->result_array();
 		$this->t->is_deeply([['user' => "".$userid, 'key' => $key, 'action' => 'invitation']], $result, "database contains new key after incorrect deletion");
 
-		\service\user::delete_invitation_key($userid+1, "foobar-");
+		$ret = \service\user::delete_invitation_key($userid+1, "foobar-");
+		$this->t->is(0, $ret, "Should have removed no keys because incorrect user/key");
 		$result = $CI->db->select('user, key, action')->from('actions')->get()->result_array();
 		$this->t->is_deeply([['user' => "".$userid, 'key' => $key, 'action' => 'invitation']], $result, "database contains new key after incorrect deletion");
 
-		\service\user::delete_invitation_key($userid+1, "");
+		$ret = \service\user::delete_invitation_key($userid+1, "");
+		$this->t->is(0, $ret, "Should have removed no keys because incorrect user/key");
 		$result = $CI->db->select('user, key, action')->from('actions')->get()->result_array();
 		$this->t->is_deeply([['user' => "".$userid, 'key' => $key, 'action' => 'invitation']], $result, "database contains new key after incorrect deletion");
 
-		\service\user::delete_invitation_key($userid, "");
+		$ret = \service\user::delete_invitation_key($userid, "");
+		$this->t->is(0, $ret, "Should have removed no keys because incorrect user/key");
 		$result = $CI->db->select('user, key, action')->from('actions')->get()->result_array();
 		$this->t->is_deeply([['user' => "".$userid, 'key' => $key, 'action' => 'invitation']], $result, "database contains new key");
 
-		\service\user::delete_invitation_key($userid, $key);
-
+		$ret = \service\user::delete_invitation_key($userid, $key);
+		$this->t->is(1, $ret, "One key should be removed");
 		$result = $CI->db->select('user, key, action')->from('actions')->get()->result_array();
 		$this->t->is_deeply([], $result, "key has been deleted");
 
