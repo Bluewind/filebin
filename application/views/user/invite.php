@@ -26,6 +26,12 @@
 					<td><?php echo $i++; ?></td>
 					<td><?php echo anchor("user/register/".$item["key"], $item["key"]) ?></td>
 					<td><?php echo date("Y/m/d H:i", $item["date"]) ?></td>
+					<td>
+						<?php echo form_open('user/delete_invitation_key'); ?>
+							<input class="btn btn-danger btn-xs" type="submit" value="Delete" name="delete" />
+							<input type="hidden" name="key" value="<?php echo $item["key"]; ?>" />
+						</form>
+					</td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>

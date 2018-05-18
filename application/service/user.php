@@ -103,4 +103,15 @@ class user {
 
 		return $key;
 	}
+
+	static public function delete_invitation_key($userid, $key) {
+		$CI =& get_instance();
+
+		$CI->db
+			->where('key', $key)
+			->where('user', $userid)
+			->delete('actions');
+
+		return $CI->db->affected_rows();
+	}
 }

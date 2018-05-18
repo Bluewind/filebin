@@ -133,6 +133,18 @@ class User extends MY_Controller {
 		redirect("user/invite");
 	}
 
+	function delete_invitation_key()
+	{
+		$this->duser->require_implemented("can_register_new_users");
+		$this->muser->require_access();
+
+		$userid = $this->muser->get_userid();
+		$key = $this->input->post("key");
+
+		\service\user::delete_invitation_key($userid, $key);
+		redirect("user/invite");
+	}
+
 	function invite()
 	{
 		$this->duser->require_implemented("can_register_new_users");
