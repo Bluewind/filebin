@@ -78,6 +78,11 @@ class user {
 		);
 	}
 
+	/**
+	 * Create an invitation key for a user
+	 * @param userid id of the user
+	 * @return key the created invitation key
+	 */
 	static public function create_invitation_key($userid) {
 		$CI =& get_instance();
 
@@ -104,6 +109,12 @@ class user {
 		return $key;
 	}
 
+	/**
+	 * Remove an invitation key belonging to a user
+	 * @param userid id of the user
+	 * @param key key to remove
+	 * @return number of removed keys
+	 */
 	static public function delete_invitation_key($userid, $key) {
 		$CI =& get_instance();
 
