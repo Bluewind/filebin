@@ -128,25 +128,7 @@ class User extends MY_Controller {
 
 		$userid = $this->muser->get_userid();
 
-		$invitations = $this->db->select('user')
-			->from('actions')
-			->where('user', $userid)
-			->where('action', 'invitation')
-			->count_all_results();
-
-		if ($invitations + 1 > $this->config->item('max_invitation_keys')) {
-			throw new \exceptions\PublicApiException("user/invitation-limit", "You can't create more invitation keys at this time.");
-		}
-
-		$key = random_alphanum(12, 16);
-
-		$this->db->set(array(
-				'key'    => $key,
-				'user'   => $userid,
-				'date'   => time(),
-				'action' => 'invitation'
-			))
-			->insert('actions');
+		\service\user::create_invitation_key($userid);
 
 		redirect("user/invite");
 	}

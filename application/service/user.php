@@ -77,4 +77,30 @@ class user {
 			"apikeys" => $ret,
 		);
 	}
+
+	static public function create_invitation_key($userid) {
+		$CI =& get_instance();
+
+		$invitations = $CI->db->select('user')
+			->from('actions')
+			->where('user', $userid)
+			->where('action', 'invitation')
+			->count_all_results();
+
+		if ($invitations + 1 > $CI->config->item('max_invitation_keys')) {
+			throw new \exceptions\PublicApiException("user/invitation-limit", "You can't create more invitation keys at this time.");
+		}
+
+		$key = random_alphanum(12, 16);
+
+		$CI->db->set(array(
+				'key'    => $key,
+				'user'   => $userid,
+				'date'   => time(),
+				'action' => 'invitation'
+			))
+			->insert('actions');
+
+		return $key;
+	}
 }
