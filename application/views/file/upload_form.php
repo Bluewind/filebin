@@ -119,7 +119,7 @@
 
 		<h3>Special filenames:</h3>
 		<dl class="dl-horizontal">
-			<dt>*.asciinema.json</dt><dd>treat the file as an <a href="https://asciinema.org/">asciinema screencast</a> and display a videoplayer for it</dd>
+			<dt>*.asciinema.json or *.cast</dt><dd>treat the file as an <a href="https://asciinema.org/">asciinema screencast</a> and display a videoplayer for it</dd>
 		</dl>
 	</div>
 
