@@ -457,8 +457,8 @@ class files {
 		$tarball_dir = $CI->config->item("upload_path")."/special/multipaste-tarballs";
 		if (is_dir($tarball_dir)) {
 			$tarball_cache_time = $CI->config->item("tarball_cache_time");
-			$it = new RecursiveIteratorIterator(
-				new RecursiveDirectoryIterator($tarball_dir), RecursiveIteratorIterator::SELF_FIRST);
+			$it = new \RecursiveIteratorIterator(
+				new \RecursiveDirectoryIterator($tarball_dir), \RecursiveIteratorIterator::SELF_FIRST);
 
 			foreach ($it as $file) {
 				if ($file->isFile()) {
