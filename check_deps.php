@@ -64,6 +64,7 @@ $mod_groups = array(
 	"thumbnail generation - EXIF" => array("exif"),
 	"database support" => array("mysql", "mysqli", "pgsql", "pdo_mysql", "pdo_pgsql"),
 	"multipaste tarball support" => array("phar"),
+	"multibyte functions" => array("mbstring"),
 );
 foreach ($mod_groups as $function => $mods) {
 	$found = 0;

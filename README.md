@@ -43,6 +43,7 @@ You can also open a pull request on [GitHub](https://github.com/Bluewind/filebin
     * exif for thumbnail generation
     * phar for tarball creation
     * mysql, mysqli, pgsql, pdo_mysql (any of those) for database access
+	* mbstring for multibyte support
 	* xdebug for tests (not required on production)
 
 *  [composer](https://getcomposer.org/) for dependency management
