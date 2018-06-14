@@ -194,33 +194,46 @@ class Muser extends CI_Model {
 		$this->duser->require_implemented("can_delete_account");
 
 		if ($this->duser->test_login_credentials($username, $password)) {
-			$userid = $this->get_userid_by_name($username);
-			assert($userid !== null);
-
-			$this->db->delete('profiles', array('user' => $userid));
-
-			$this->load->model("mfile");
-			$this->load->model("mmultipaste");
-			$this->mfile->delete_by_user($userid);
-			$this->mmultipaste->delete_by_user($userid);
-
-			# null out user data to keep referer information traceable
-			# If referer information was relinked, one user could create many
-			# accounts, delete the account that was used to invite them and
-			# then cause trouble so that the account that invited him gets
-			# banned because the admin thinks that account invited abusers
-			$this->db->set(array(
-				'username' => null,
-				'password' => null,
-				'email'    => null,
-			))
-			->where(array('username' => $username))
-			->update('users');
-
+			$this->delete_user_real($username);
 			return true;
 		}
 
 		return false;
+	}
+
+	/**
+	 * Delete a user
+	 *
+	 * @param username
+	 * @return void
+	 */
+	public function delete_user_real($username)
+	{
+		$this->duser->require_implemented("can_delete_account");
+		$userid = $this->get_userid_by_name($username);
+		if ($userid === null) {
+			throw new \exceptions\ApiException("user/delete", "User cannot be found", ["username" => $username]);
+		}
+
+		$this->db->delete('profiles', array('user' => $userid));
+
+		$this->load->model("mfile");
+		$this->load->model("mmultipaste");
+		$this->mfile->delete_by_user($userid);
+		$this->mmultipaste->delete_by_user($userid);
+
+		# null out user data to keep referer information traceable
+		# If referer information was relinked, one user could create many
+		# accounts, delete the account that was used to invite them and
+		# then cause trouble so that the account that invited him gets
+		# banned because the admin thinks that account invited abusers
+		$this->db->set(array(
+			'username' => null,
+			'password' => null,
+			'email'    => null,
+		))
+		->where(array('username' => $username))
+		->update('users');
 	}
 
 	function get_userid()
