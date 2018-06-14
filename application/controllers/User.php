@@ -696,4 +696,22 @@ class User extends MY_Controller {
 
 		echo "User added\n";
 	}
+
+	function delete_user()
+	{
+		$this->_require_cli_request();
+		$this->duser->require_implemented("can_delete_account");
+
+		echo "\nWARNING: Deleting a user will delete ALL their data permanently.\n\n";
+
+		$username = $this->_get_line_cli("Username", function($username) {
+			if (get_instance()->muser->username_exists($username)) {
+				return true;
+			}
+			return false;
+		});
+		$this->muser->delete_user_real($username);
+		echo "User removed\n";
+	}
+
 }

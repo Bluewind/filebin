@@ -426,6 +426,7 @@ function output_cli_usage() {
 	echo "  file nuke_id <ID>       Nukes all IDs sharing the same hash\n";
 	echo "  user cron               Cronjob\n";
 	echo "  user add_user           Add a user\n";
+	echo "  user delete_user        Delete a user including all their data\n";
 	echo "  tools update_database   Update/Initialise the database\n";
 	echo "\n";
 	echo "Functions that shouldn't have to be run:\n";
