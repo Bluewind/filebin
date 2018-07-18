@@ -150,6 +150,7 @@ class files {
 		$hash = md5_file($new_file);
 		$storage_id = null;
 
+		$CI->db->trans_start();
 		$query = $CI->db->select('id, hash')
 			->from('file_storage')
 			->where('hash', $hash)
@@ -203,6 +204,7 @@ class files {
 		}
 
 		$CI->mfile->add_file($userid, $id, $filename, $storage_id);
+		$CI->db->trans_complete();
 	}
 
 	static public function verify_uploaded_files($files)
