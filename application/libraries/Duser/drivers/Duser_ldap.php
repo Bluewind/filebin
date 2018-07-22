@@ -30,15 +30,22 @@ class Duser_ldap extends Duser_Driver {
 			ldap_bind($ds, $config['bind_rdn'], $config['bind_password']);
 		}
 		
+		if (isset($config['filter'])) {
+			$filter = sprintf($config['filter'], $username);
+		} else {
+			$filter = $config["username_field"].'='.$username;
+		}
+
+		
 		switch ($config["scope"]) {
 			case "base":
-				$r = ldap_read($ds, $config['basedn'], $config["username_field"].'='.$username);
+				$r = ldap_read($ds, $config['basedn'], $filter);
 				break;
 			case "one":
-				$r = ldap_list($ds, $config['basedn'], $config["username_field"].'='.$username);
+				$r = ldap_list($ds, $config['basedn'], $filter);
 				break;
 			case "subtree":
-				$r = ldap_search($ds, $config['basedn'], $config["username_field"].'='.$username);
+				$r = ldap_search($ds, $config['basedn'], $filter);
 				break;
 			default:
 				throw new \exceptions\ApiException("libraries/duser/ldap/invalid-ldap-scope", "Invalid LDAP scope");

@@ -600,6 +600,9 @@ if (extension_loaded("ldap")) {
 		// Optional parameters
 		// "bind_rdn" => "uid=search-user,cn=users,dc=example,dc=com", // This is the user used to authenticate for searches
 		// "bind_password" => "***", // This is the password for the search user
+		// You can optionally filter the LDAP users who are allowed to log in using any valid LDAP filter. %s will be replaced
+		// by the user name.
+		// "filter" => "(&(uid=%s)(memberOf=cn=FileBinUsers,cn=groups,dc=example,dc=com))",
 	);
 }
 
