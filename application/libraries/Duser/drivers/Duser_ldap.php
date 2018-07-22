@@ -26,6 +26,10 @@ class Duser_ldap extends Duser_Driver {
 			return false;
 		}
 
+		if (isset($config['bind_rdn']) && isset($config['bind_password'])) {
+			ldap_bind($ds, $config['bind_rdn'], $config['bind_password']);
+		}
+		
 		switch ($config["scope"]) {
 			case "base":
 				$r = ldap_read($ds, $config['basedn'], $config["username_field"].'='.$username);

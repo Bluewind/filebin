@@ -596,7 +596,10 @@ if (extension_loaded("ldap")) {
 		),
 		// Please note that php-ldap converts attributes to lowercase
 		"userid_field" => "uidnumber", // This has to be a unique integer
-		"username_field" => "uid" // This is the value the user supplies on the login form
+		"username_field" => "uid", // This is the value the user supplies on the login form
+		// Optional parameters
+		// "bind_rdn" => "uid=search-user,cn=users,dc=example,dc=com", // This is the user used to authenticate for searches
+		// "bind_password" => "***", // This is the password for the search user
 	);
 }
 
