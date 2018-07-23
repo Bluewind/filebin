@@ -596,7 +596,13 @@ if (extension_loaded("ldap")) {
 		),
 		// Please note that php-ldap converts attributes to lowercase
 		"userid_field" => "uidnumber", // This has to be a unique integer
-		"username_field" => "uid" // This is the value the user supplies on the login form
+		"username_field" => "uid", // This is the value the user supplies on the login form
+		// Optional parameters
+		// "bind_rdn" => "uid=search-user,cn=users,dc=example,dc=com", // This is the user used to authenticate for searches
+		// "bind_password" => "***", // This is the password for the search user
+		// You can optionally filter the LDAP users who are allowed to log in using any valid LDAP filter. %s will be replaced
+		// by the user name.
+		// "filter" => "(&(uid=%s)(memberOf=cn=FileBinUsers,cn=groups,dc=example,dc=com))",
 	);
 }
 
