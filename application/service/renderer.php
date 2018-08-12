@@ -158,23 +158,29 @@ class renderer {
 	 */
 	private function reformat_json($lexer, $linecount, $content)
 	{
-		if ($lexer === "json" && $linecount === 1) {
-			$decoded_json = json_decode($content);
-			if ($decoded_json !== null && $decoded_json !== false) {
-				$pretty_json = json_encode($decoded_json, JSON_PRETTY_PRINT);
-				if ($pretty_json !== false) {
-					$content = $pretty_json;
-					$this->output_cache->render_now(
-						array(
-							"error_type" => "alert-info",
-							"error_message" => "<p>The file below has been reformated for readability. It may differ from the original.</p>"
-						),
-						"file/fragments/alert-wide"
-					);
-				}
-			}
+		if ($lexer !== "json" || $linecount !== 1) {
+			return $content;
 		}
-		return $content;
+
+		$decoded_json = json_decode($content);
+		if ($decoded_json === null || $decoded_json === false) {
+			return $content;
+		}
+
+		$pretty_json = json_encode($decoded_json, JSON_PRETTY_PRINT);
+		if ($pretty_json === false) {
+			return $content;
+		}
+
+		$this->output_cache->render_now(
+			array(
+				"error_type" => "alert-info",
+				"error_message" => "<p>The file below has been reformated for readability. It may differ from the original.</p>"
+			),
+			"file/fragments/alert-wide"
+		);
+
+		return $pretty_json;
 	}
 
 
