@@ -167,7 +167,7 @@ class renderer {
 			return $content;
 		}
 
-		$pretty_json = json_encode($decoded_json, JSON_PRETTY_PRINT);
+		$pretty_json = json_encode($decoded_json, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 		if ($pretty_json === false) {
 			return $content;
 		}
