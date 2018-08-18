@@ -1,7 +1,7 @@
 FROM alpine:edge
 MAINTAINER Sebastian Rakel <sebastian@devunit.eu>
 
-RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing bash php5 py-pygments py2-pip imagemagick php5-gd nodejs composer php5-pdo_mysql php5-exif
+RUN apk add --no-cache -X https://dl-cdn.alpinelinux.org/alpine/edge/testing bash php7 py-pygments py2-pip imagemagick php7-gd nodejs composer php7-pdo_mysql php7-exif php7-ctype php7-session git
 
 ENV FILEBIN_HOME_DIR /var/lib/filebin
 ENV FILEBIN_DIR $FILEBIN_HOME_DIR/filebin
@@ -9,7 +9,7 @@ ENV FILEBIN_DIR $FILEBIN_HOME_DIR/filebin
 ADD . $FILEBIN_DIR
 
 RUN adduser -S -h $FILEBIN_HOME_DIR filebin
-RUN chown filebin: -R $FILEBIN_HOME_DIR 
+RUN chown filebin: -R $FILEBIN_HOME_DIR
 
 RUN pip install ansi2html
 
