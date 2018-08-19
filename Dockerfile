@@ -1,7 +1,7 @@
 FROM alpine:edge
 MAINTAINER Sebastian Rakel <sebastian@devunit.eu>
 
-RUN apk add --no-cache -X https://dl-cdn.alpinelinux.org/alpine/edge/testing bash php7 py-pygments py2-pip imagemagick php7-gd nodejs composer php7-pdo_mysql php7-exif php7-ctype php7-session git
+RUN apk add --no-cache -X https://dl-cdn.alpinelinux.org/alpine/edge/testing bash php7 py-pygments py2-pip imagemagick php7-gd nodejs composer php7-pdo_mysql php7-exif php7-ctype php7-session git php7-finfo
 
 ENV FILEBIN_HOME_DIR /var/lib/filebin
 ENV FILEBIN_DIR $FILEBIN_HOME_DIR/filebin
