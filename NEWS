@@ -1,5 +1,11 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
+NEXT
+ - LDAP: Allow optional binding/authentication
+ - LDAP: Allow optional filtering of allowed users
+ - Various Dockerfile fixes to make it work again
+ - Document finfo dependency
+
 3.2.0 2018-07-04
  - Add `php index.php user delete_user` command for admin user deletion
  - Document add_user admin command
