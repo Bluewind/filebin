@@ -22,4 +22,8 @@ services:
             - FB_DB_DATABASE=filebin
             - FB_CONTACT_NAME=John Doe
             - FB_CONTACT_MAIL=root@example.local
+            - FB_SMTP_HOST=localhost
+            - FB_SMTP_PORT=587
+            - FB_SMTP_USER=webmaster@example.invalid
+            - FB_SMTP_PASSWORD=mysecretpassword
 

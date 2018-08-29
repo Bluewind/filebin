@@ -1,7 +1,7 @@
 FROM alpine:edge
 MAINTAINER Sebastian Rakel <sebastian@devunit.eu>
 
-RUN apk add --no-cache -X https://dl-cdn.alpinelinux.org/alpine/edge/testing bash php7 py-pygments py2-pip imagemagick php7-gd nodejs composer php7-pdo_mysql php7-exif php7-ctype php7-session git php7-finfo
+RUN apk add --no-cache bash php7 py-pygments py2-pip imagemagick php7-gd nodejs composer php7-pdo_mysql php7-exif php7-ctype php7-session git php7-fileinfo msmtp
 
 ENV FILEBIN_HOME_DIR /var/lib/filebin
 ENV FILEBIN_DIR $FILEBIN_HOME_DIR/filebin
@@ -12,6 +12,8 @@ RUN adduser -S -h $FILEBIN_HOME_DIR filebin
 RUN chown filebin: -R $FILEBIN_HOME_DIR
 
 RUN pip install ansi2html
+
+RUN sed -i 's+.*sendmail_path =.*+sendmail_path = "/usr/bin/msmtp -C ${FILEBIN_HOME_DIR}/msmtprc --logfile ${FILEBIN_HOME_DIR}/msmtp.log -a filebinmail -t"+' /etc/php7/php.ini
 
 USER filebin
 
