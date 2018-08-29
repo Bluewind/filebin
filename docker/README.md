@@ -23,6 +23,11 @@ The PHP webserver is listening on ```8080```
 - **FB_CONTACT_NAME:** Contact Name
 - **FB_CONTACT_MAIL:** Contact E-Mail (will be used as email for the first user)
 
+- **FB_SMTP_HOST:** Address of the SMTP Server
+- **FB_SMTP_PORT:** Port for SMTP Server (default 587)
+- **FB_SMTP_USER:** Username for SMTP Server (will also be used as mail from)
+- **FB_SMTP_PASSWORD:** Password for the SMTP Server Useraccount
+
 ## First User
 The first user is **admin** with the password **admin**
 

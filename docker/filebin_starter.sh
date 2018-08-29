@@ -2,12 +2,29 @@
 
 #set -euo pipefail
 
+function set_mail_config() {
+cat <<EOF > ${FILEBIN_HOME_DIR}/msmtprc	
+account filebinmail
+tls on
+tls_certcheck off
+auth on
+host ${FB_SMTP_HOST}
+port ${FB_SMTP_PORT}
+user ${FB_SMTP_USER}
+from ${FB_SMTP_USER}
+password ${FB_SMTP_PASSWORD}
+EOF
+
+chmod 600 ${FILEBIN_HOME_DIR}/msmtprc	
+}
+
 function set_config() {
     FB_ENCRYPTION_KEY=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32`
 cat <<EOF >${FILEBIN_DIR}/application/config/config-local.php
 <?php
 \$config['base_url'] = 'http://127.0.0.1:8080/';
 \$config['encryption_key'] = '${FB_ENCRYPTION_KEY}';
+\$config['email_from'] = '${FB_SMTP_USER}';
 EOF
 }
 
@@ -53,6 +70,7 @@ if [[ ! -e $FILEBIN_DIR/application/config/config-local.php ]]; then
 
     set_config
     set_database_config
+    set_mail_config
 
     CONTACT_INFO_FILE=${FILEBIN_DIR}/data/local/contact-info.php
     cp $FILEBIN_DIR/data/local/examples/contact-info.php ${CONTACT_INFO_FILE}
