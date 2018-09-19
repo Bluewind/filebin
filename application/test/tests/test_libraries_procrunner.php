@@ -95,7 +95,7 @@ class test_libraries_procrunner extends \test\Test {
 
 	public function test_forbid_stderr()
 	{
-		$p = new \libraries\ProcRunner(['python', 'thisDoesNotExist']);
+		$p = new \libraries\ProcRunner(['bash', '-c', 'echo "This is a test error message" >&2; exit 2;']);
 		$p->forbid_stderr();
 
 		try {
@@ -104,12 +104,12 @@ class test_libraries_procrunner extends \test\Test {
 		} catch (\exceptions\ApiException $e) {
 			$this->t->is($e->get_error_id(), 'procrunner/stderr', "correct exception triggered");
 			$this->t->is_deeply($e->get_data(), [
-				"'python' 'thisDoesNotExist'",
+				"'bash' '-c' 'echo \"This is a test error message\" >&2; exit 2;'",
 				null,
 				[
 					'return_code' => 2,
 					'stdout' => '',
-					'stderr' => "python: can't open file 'thisDoesNotExist': [Errno 2] No such file or directory\n",
+					'stderr' => "This is a test error message\n",
 				],
 			], "correct exception data");
 		}
