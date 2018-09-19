@@ -1,6 +1,8 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+
+3.3.0 2018-09-19
  - LDAP: Allow optional binding/authentication
  - LDAP: Allow optional filtering of allowed users
  - Various Dockerfile fixes to make it work again
