@@ -55,12 +55,39 @@ class Api extends MY_Controller {
 			if (!method_exists($c, $function)) {
 				throw new \exceptions\PublicApiException("api/unknown-endpoint", "Unknown endpoint requested");
 			}
-			return send_json_reply($c->$function());
+			return $this->send_json_reply($c->$function());
 		} catch (\exceptions\PublicApiException $e) {
-			return send_json_error_reply($e->get_error_id(), $e->getMessage(), $e->get_data());
+			return $this->send_json_error_reply($e->get_error_id(), $e->getMessage(), $e->get_data());
 		} catch (\Exception $e) {
 			\libraries\ExceptionHandler::log_exception($e);
-			return send_json_error_reply("internal-error", "An unhandled internal server error occured");
+			return $this->send_json_error_reply("internal-error", "An unhandled internal server error occured");
 		}
 	}
+
+	private function send_json_reply($array, $status = "success") {
+		$reply = array();
+		$reply["status"] = $status;
+		$reply["data"] = $array;
+
+		$CI =& get_instance();
+		$CI->output->set_content_type('application/json');
+		$CI->output->set_output(json_encode($reply));
+	}
+
+	private function send_json_error_reply($error_id, $message, $array = null, $status_code = 400) {
+		$reply = array();
+		$reply["status"] = "error";
+		$reply["error_id"] = $error_id;
+		$reply["message"] = $message;
+
+		if ($array !== null) {
+			$reply["data"] = $array;
+		}
+
+		$CI =& get_instance();
+		$CI->output->set_status_header($status_code);
+		$CI->output->set_content_type('application/json');
+		$CI->output->set_output(json_encode($reply));
+	}
+
 }
