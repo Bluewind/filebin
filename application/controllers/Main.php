@@ -588,9 +588,6 @@ class Main extends MY_Controller {
 		);
 
 		$this->data['title'] .= ' - Upload history';
-		foreach($fields as $length_key => $value) {
-			$lengths[$length_key] = mb_strlen($value);
-		}
 
 		foreach ($history["multipaste_items"] as $key => $item) {
 			$size = 0;
@@ -641,7 +638,6 @@ class Main extends MY_Controller {
 		}
 
 		$this->data["items"] = $history["items"];
-		$this->data["lengths"] = $lengths;
 		$this->data["fields"] = $fields;
 		$this->data["total_size"] = format_bytes($history["total_size"]);
 
