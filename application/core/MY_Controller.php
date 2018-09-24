@@ -27,7 +27,6 @@ class MY_Controller extends CI_Controller {
 		$old_path = getenv("PATH");
 		putenv("PATH=$old_path:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin");
 
-		mb_internal_encoding('UTF-8');
 		$this->load->helper(array('form', 'filebin'));
 
 		if ($this->uri->segment(1) == "api") {
