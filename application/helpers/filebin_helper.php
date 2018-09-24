@@ -114,28 +114,6 @@ function js_cache_buster()
 	return $ret;
 }
 
-function handle_etag($etag)
-{
-	$etag = strtolower($etag);
-	$modified = true;
-
-	if(isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
-		$oldtag = trim(strtolower($_SERVER['HTTP_IF_NONE_MATCH']), '"');
-		if($oldtag == $etag) {
-			$modified = false;
-		} else {
-			$modified = true;
-		}
-	}
-
-	header('Etag: "'.$etag.'"');
-
-	if (!$modified) {
-		header("HTTP/1.1 304 Not Modified");
-		exit();
-	}
-}
-
 // Reference: http://php.net/manual/en/features.file-upload.multiple.php#109437
 // This is a little different because we don't care about the fieldname
 function getNormalizedFILES()

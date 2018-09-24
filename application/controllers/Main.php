@@ -37,6 +37,28 @@ class Main extends MY_Controller {
 		}
 	}
 
+	private function _handle_etag($etag)
+	{
+		$etag = strtolower($etag);
+		$modified = true;
+
+		if(isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
+			$oldtag = trim(strtolower($_SERVER['HTTP_IF_NONE_MATCH']), '"');
+			if($oldtag == $etag) {
+				$modified = false;
+			} else {
+				$modified = true;
+			}
+		}
+
+		header('Etag: "'.$etag.'"');
+
+		if (!$modified) {
+			header("HTTP/1.1 304 Not Modified");
+			exit();
+		}
+	}
+
 	/**
 	 * Generate a page title of the format "Multipaste - $filename, $filename, … (N more)".
 	 * This mainly helps in IRC channels to quickly determine what is in a multipaste.
@@ -121,7 +143,7 @@ class Main extends MY_Controller {
 			break;
 
 		case "qr":
-			handle_etag($etag);
+			$this->_handle_etag($etag);
 			header("Content-disposition: inline; filename=\"".$id."_qr.png\"\n");
 			header("Content-Type: image/png\n");
 			$qr = new \Endroid\QrCode\QrCode();
@@ -156,7 +178,7 @@ class Main extends MY_Controller {
 		// user wants the plain file
 		if ($lexer == 'plain') {
 			assert(count($files) == 1);
-			handle_etag($etag);
+			$this->_handle_etag($etag);
 
 			$filedata = $files[0];
 			$filepath = $this->mfile->file($filedata["data_id"]);
@@ -199,7 +221,7 @@ class Main extends MY_Controller {
 					foreach (array("X-WebKit-CSP", "X-Content-Security-Policy", "Content-Security-Policy") as $header_name) {
 						header("$header_name: default-src 'none'; img-src *; media-src *; font-src *; style-src 'unsafe-inline' *; script-src 'none'; object-src *; frame-src 'none'; ");
 					}
-					handle_etag($etag);
+					$this->_handle_etag($etag);
 					$this->ddownload->serveFile($file, $filedata["filename"], $filedata["mimetype"]);
 					exit();
 				} else {
@@ -472,7 +494,7 @@ class Main extends MY_Controller {
 		}
 
 		$etag = "$id-thumb";
-		handle_etag($etag);
+		$this->_handle_etag($etag);
 
 		$thumb_size = 150;
 		$cache_timeout = 60*60*24*30; # 1 month
