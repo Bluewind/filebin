@@ -46,21 +46,6 @@ function format_bytes($size)
 	}
 }
 
-function even_odd($reset = false)
-{
-	static $counter = 1;
-
-	if ($reset) {
-		$counter = 1;
-	}
-
-	if ($counter++%2 == 0) {
-		return 'even';
-	} else {
-		return 'odd';
-	}
-}
-
 // Source: http://hu.php.net/manual/en/function.str-pad.php#71558
 // This is a multibyte enabled str_pad
 function mb_str_pad($ps_input, $pn_pad_length, $ps_pad_string = " ", $pn_pad_type = STR_PAD_RIGHT, $ps_encoding = NULL)

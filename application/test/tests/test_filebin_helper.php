@@ -80,14 +80,6 @@ class test_filebin_helper extends \test\Test {
 		$this->t->is(format_bytes(1500*1024*1024*1024*1024*1024), "1500.00PiB", "1500.00PiB");
 	}
 
-	public function test_even_odd()
-	{
-		$this->t->is(even_odd(true), "odd", "odd after reset");
-		$this->t->is(even_odd(), "even", "even");
-		$this->t->is(even_odd(), "odd", "odd");
-		$this->t->is(even_odd(true), "odd", "odd after reset");
-	}
-
 	public function test_mb_str_pad()
 	{
 		$this->t->is(mb_str_pad('test', 6), 'test  ', 'Simple test with length=6');
