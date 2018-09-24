@@ -462,13 +462,6 @@ class Main extends MY_Controller {
 		$this->load->view('footer', $this->data);
 	}
 
-	// Allow CLI clients to query the server for the maxium filesize so they can
-	// stop the upload before wasting time and bandwith
-	function get_max_size()
-	{
-		echo $this->config->item('upload_max_size');
-	}
-
 	function thumbnail()
 	{
 		session_write_close();
