@@ -80,12 +80,6 @@ class test_filebin_helper extends \test\Test {
 		$this->t->is(format_bytes(1500*1024*1024*1024*1024*1024), "1500.00PiB", "1500.00PiB");
 	}
 
-	public function test_mb_str_pad()
-	{
-		$this->t->is(mb_str_pad('test', 6), 'test  ', 'Simple test with length=6');
-		$this->t->is(mb_str_pad('çµ«ö', 6), 'çµ«ö  ', 'UTF8 test with length=6');
-	}
-
 	public function test_files_are_equal()
 	{
 		$a1 = FCPATH.'/data/tests/message1.bin';
