@@ -1,6 +1,8 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+ - Remove imagemagick PDF thumbnail support due to Arch Linux disabling it in
+   imagemagick due to repeated security concerns.
 
 3.3.0 2018-09-19
  - LDAP: Allow optional binding/authentication

@@ -18,8 +18,7 @@ class imagemagick implements \libraries\Image\ImageDriver {
 		$mimetype = $mimetype;
 		$base = explode("/", $mimetype)[0];
 
-		if ($base == "image"
-			|| in_array($mimetype, array("application/pdf"))) {
+		if ($base == "image") {
 			return 100;
 		}
 

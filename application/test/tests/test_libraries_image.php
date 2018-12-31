@@ -28,8 +28,8 @@ class test_libraries_image extends \test\Test {
 	{
 		$this->t->is(\libraries\Image::type_supported('image/png'), true, 'image/png should be supported');
 		$this->t->is(\libraries\Image::type_supported('image/jpeg'), true, 'image/jpeg should be supported');
-		$this->t->is(\libraries\Image::type_supported('application/pdf'), true, 'application/pdf should be supported');
 
+		$this->t->is(\libraries\Image::type_supported('application/pdf'), false, 'application/pdf should not be supported');
 		$this->t->is(\libraries\Image::type_supported('application/octet-stream'), false, 'application/octet-stream should not be supported');
 		$this->t->is(\libraries\Image::type_supported('text/plain'), false, 'text/plain should not be supported');
 	}
@@ -45,11 +45,21 @@ class test_libraries_image extends \test\Test {
 
 	public function test_makeThumb_PDF()
 	{
-		$img = new \libraries\Image(FCPATH."/data/tests/simple.pdf");
-		$img->makeThumb(150, 150);
-		$thumb = $img->get(IMAGETYPE_JPEG);
-
-		$this->t->ok($thumb !== "", "Got thumbnail");
+		try {
+			$img = new \libraries\Image(FCPATH."/data/tests/simple.pdf");
+			$this->t->fail("PDF should not be supported");
+			$img->makeThumb(150, 150);
+			$thumb = $img->get(IMAGETYPE_JPEG);
+			$this->t->ok($thumb !== "", "Got thumbnail");
+		} catch (\exceptions\PublicApiException $e) {
+			$correct_error = $e->get_error_id() == "libraries/Image/unsupported-image-type";
+			$this->t->ok($correct_error, "Should get exception");
+			if (!$correct_error) {
+				// @codeCoverageIgnoreStart
+				throw $e;
+				// @codeCoverageIgnoreEnd
+			}
+		}
 	}
 
 	public function test_makeThumb_binaryFile()
