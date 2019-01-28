@@ -1,6 +1,7 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+ - Fix CSRF issue breaking multipaste creation page
  - Update codeigniter to 3.1.10
  - Remove imagemagick PDF thumbnail support due to Arch Linux disabling it in
    imagemagick due to repeated security concerns.

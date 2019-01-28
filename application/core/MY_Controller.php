@@ -117,6 +117,11 @@ class MY_Controller extends CI_Controller {
 		// 2 functions for accessing config options, really?
 		$this->config->set_item('csrf_protection', true);
 		config_item("csrf_protection", true);
+
+		if ($this->uri->uri_string() == "file/multipaste/ajax_submit") {
+			$this->config->set_item('csrf_regenerate', false);
+		}
+
 		$this->security->__construct();
 		$this->security->csrf_verify();
 	}
