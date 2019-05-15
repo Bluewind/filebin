@@ -38,6 +38,9 @@ class Pygments {
 			$last_desc = "";
 
 			foreach (self::get_pygments_info() as $lexer) {
+				if (empty($lexer['names'])) {
+					continue;
+				}
 				$desc = $lexer['fullname'];
 				$name = $lexer['names'][0];
 				if ($desc == $last_desc) {

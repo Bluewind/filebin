@@ -1,6 +1,7 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+ - Fix compatability with Pygments 2.4.0
 
 3.3.1 2019-01-28
  - Fix CSRF issue breaking multipaste creation page
