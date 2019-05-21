@@ -1,6 +1,8 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+
+3.4.0 2019-05-21
  - Allow data: URLs in Content-Security-Policy header for images and fonts
 
 3.3.2 2019-05-15
