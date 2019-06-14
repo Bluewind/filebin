@@ -12,7 +12,7 @@
 		"php": ">=5.5",
 		"ext-gd": "*",
 		"ext-exif": "*",
-		"ext-finfo": "*",
+		"ext-fileinfo": "*",
 		"ext-phar": "*",
 		"ext-mbstring": "*"
 	},
