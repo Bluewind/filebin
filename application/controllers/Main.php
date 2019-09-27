@@ -535,7 +535,6 @@ class Main extends MY_Controller {
 				(files.user = '.$this->db->escape($user).')
 				AND (
 					mimetype LIKE \'image%\'
-					OR mimetype IN (\'application/pdf\')
 				)', null, false)
 			->order_by('date', 'desc')
 			->get()->result_array();
