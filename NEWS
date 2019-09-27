@@ -2,6 +2,12 @@ This file lists major, incompatible or otherwise important changes, you should l
 
 NEXT
 
+3.4.1 2019-09-27
+ - Update CodeIgniter to 3.1.11,
+   https://codeigniter.com/userguide3/changelog.html#version-3-1-11
+ - Remove (broken) thumbnails for PDF files from upload_history_thumbnails page
+ - Update composer files
+
 3.4.0 2019-05-21
  - Allow data: URLs in Content-Security-Policy header for images and fonts
 
