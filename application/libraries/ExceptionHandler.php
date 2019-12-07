@@ -139,7 +139,7 @@ class ExceptionHandler {
 	static public function check_for_fatal()
 	{
 		$error = error_get_last();
-		if ($error["type"] == E_ERROR) {
+		if (isset($error) && $error["type"] == E_ERROR) {
 			self::exception_handler(new \ErrorException(
 				$error["message"], 0, $error["type"], $error["file"], $error["line"]));
 		}

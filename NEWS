@@ -1,6 +1,7 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+ - PHP 7.4 compatibility fixes
 
 3.4.2 2019-12-06
  - PHP 7.4 compatibility fixes
