@@ -465,10 +465,11 @@ class Main extends MY_Controller {
 
 		if ($repaste_id) {
 			$filedata = $this->mfile->get_filedata($repaste_id);
-
-			$pygments = new \libraries\Pygments($this->mfile->file($filedata["data_id"]), $filedata["mimetype"], $filedata["filename"]);
-			if ($filedata !== false && $pygments->can_highlight()) {
-				$this->data["textarea_content"] = file_get_contents($this->mfile->file($filedata["data_id"]));
+			if ($filedata !== false) {
+				$pygments = new \libraries\Pygments($this->mfile->file($filedata["data_id"]), $filedata["mimetype"], $filedata["filename"]);
+				if ($pygments->can_highlight()) {
+					$this->data["textarea_content"] = file_get_contents($this->mfile->file($filedata["data_id"]));
+				}
 			}
 		}
 
