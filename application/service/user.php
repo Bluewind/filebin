@@ -93,7 +93,7 @@ class user {
 			->count_all_results();
 
 		if ($invitations + 1 > $CI->config->item('max_invitation_keys')) {
-			throw new \exceptions\PublicApiException("user/invitation-limit", "You can't create more invitation keys at this time.");
+			throw new \exceptions\InsufficientPermissionsException("user/invitation-limit", "You can't create more invitation keys at this time.");
 		}
 
 		$key = random_alphanum(12, 16);

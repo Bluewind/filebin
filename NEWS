@@ -2,7 +2,7 @@ This file lists major, incompatible or otherwise important changes, you should l
 
 NEXT
  - Log PublicApiException to error log
- - Reclassify various user input exceptions
+ - Reclassify various user input/insufficient permission exceptions
 
 3.4.3 2019-12-07
  - PHP 7.4 compatibility fixes

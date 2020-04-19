@@ -54,7 +54,7 @@ class MY_Controller extends CI_Controller {
 	protected function _require_cli_request()
 	{
 		if (!is_cli()) {
-			throw new \exceptions\PublicApiException("api/cli-only", "This function can only be accessed via the CLI interface");
+			throw new \exceptions\InsufficientPermissionsException("api/cli-only", "This function can only be accessed via the CLI interface");
 		}
 	}
 
