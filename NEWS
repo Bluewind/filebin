@@ -1,6 +1,7 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+ - Log PublicApiException to error log
 
 3.4.3 2019-12-07
  - PHP 7.4 compatibility fixes

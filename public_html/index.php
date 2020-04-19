@@ -378,6 +378,9 @@ try {
 	}
 	redirect("user/login?redirect_uri=".$redirect_uri);
 } catch (\exceptions\PublicApiException $e) {
+	if ($e->get_http_error_code() == 500) {
+		\libraries\ExceptionHandler::log_exception($e);
+	}
 	show_error(nl2br(htmlspecialchars($e->__toString())), $e->get_http_error_code());
 } finally {
 	if ($testname) {
