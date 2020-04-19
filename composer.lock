@@ -4,45 +4,46 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f81152e798dad85ddf5c5b538ec0f4c9",
+    "content-hash": "0ee8fee195562c16453e5feedb9d70b1",
     "packages": [],
     "packages-dev": [
         {
             "name": "phpunit/php-code-coverage",
-            "version": "5.3.2",
+            "version": "8.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "c89677919c5dd6d3b3852f230a663118762218ac"
+                "reference": "31e94ccc084025d6abee0585df533eb3a792b96a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/c89677919c5dd6d3b3852f230a663118762218ac",
-                "reference": "c89677919c5dd6d3b3852f230a663118762218ac",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/31e94ccc084025d6abee0585df533eb3a792b96a",
+                "reference": "31e94ccc084025d6abee0585df533eb3a792b96a",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-xmlwriter": "*",
-                "php": "^7.0",
-                "phpunit/php-file-iterator": "^1.4.2",
-                "phpunit/php-text-template": "^1.2.1",
-                "phpunit/php-token-stream": "^2.0.1",
-                "sebastian/code-unit-reverse-lookup": "^1.0.1",
-                "sebastian/environment": "^3.0",
-                "sebastian/version": "^2.0.1",
-                "theseer/tokenizer": "^1.1"
+                "php": "^7.3",
+                "phpunit/php-file-iterator": "^3.0",
+                "phpunit/php-text-template": "^2.0",
+                "phpunit/php-token-stream": "^4.0",
+                "sebastian/code-unit-reverse-lookup": "^2.0",
+                "sebastian/environment": "^5.0",
+                "sebastian/version": "^3.0",
+                "theseer/tokenizer": "^1.1.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.0"
+                "phpunit/phpunit": "^9.0"
             },
             "suggest": {
-                "ext-xdebug": "^2.5.5"
+                "ext-pcov": "*",
+                "ext-xdebug": "*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.3.x-dev"
+                    "dev-master": "8.0-dev"
                 }
             },
             "autoload": {
@@ -68,29 +69,32 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2018-04-06T15:36:58+00:00"
+            "time": "2020-02-19T13:41:19+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
-            "version": "1.4.5",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-file-iterator.git",
-                "reference": "730b01bc3e867237eaac355e06a36b85dd93a8b4"
+                "reference": "4ac5b3e13df14829daa60a2eb4fdd2f2b7d33cf4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/730b01bc3e867237eaac355e06a36b85dd93a8b4",
-                "reference": "730b01bc3e867237eaac355e06a36b85dd93a8b4",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/4ac5b3e13df14829daa60a2eb4fdd2f2b7d33cf4",
+                "reference": "4ac5b3e13df14829daa60a2eb4fdd2f2b7d33cf4",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": "^7.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4.x-dev"
+                    "dev-master": "3.0-dev"
                 }
             },
             "autoload": {
@@ -105,7 +109,7 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sb@sebastian-bergmann.de",
+                    "email": "sebastian@phpunit.de",
                     "role": "lead"
                 }
             ],
@@ -115,26 +119,31 @@
                 "filesystem",
                 "iterator"
             ],
-            "time": "2017-11-27T13:52:08+00:00"
+            "time": "2020-04-18T05:02:12+00:00"
         },
         {
             "name": "phpunit/php-text-template",
-            "version": "1.2.1",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-text-template.git",
-                "reference": "31f8b717e51d9a2afca6c9f046f5d69fc27c8686"
+                "reference": "526dc996cc0ebdfa428cd2dfccd79b7b53fee346"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/31f8b717e51d9a2afca6c9f046f5d69fc27c8686",
-                "reference": "31f8b717e51d9a2afca6c9f046f5d69fc27c8686",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/526dc996cc0ebdfa428cd2dfccd79b7b53fee346",
+                "reference": "526dc996cc0ebdfa428cd2dfccd79b7b53fee346",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": "^7.3"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
             "autoload": {
                 "classmap": [
                     "src/"
@@ -156,33 +165,33 @@
             "keywords": [
                 "template"
             ],
-            "time": "2015-06-21T13:50:34+00:00"
+            "time": "2020-02-01T07:43:44+00:00"
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "2.0.2",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "791198a2c6254db10131eecfe8c06670700904db"
+                "reference": "b2560a0c33f7710e4d7f8780964193e8e8f8effe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/791198a2c6254db10131eecfe8c06670700904db",
-                "reference": "791198a2c6254db10131eecfe8c06670700904db",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/b2560a0c33f7710e4d7f8780964193e8e8f8effe",
+                "reference": "b2560a0c33f7710e4d7f8780964193e8e8f8effe",
                 "shasum": ""
             },
             "require": {
                 "ext-tokenizer": "*",
-                "php": "^7.0"
+                "php": "^7.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.2.4"
+                "phpunit/phpunit": "^9.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0-dev"
+                    "dev-master": "4.0-dev"
                 }
             },
             "autoload": {
@@ -205,32 +214,32 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2017-11-27T05:48:46+00:00"
+            "time": "2020-02-07T06:19:00+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
-            "version": "1.0.1",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/code-unit-reverse-lookup.git",
-                "reference": "4419fcdb5eabb9caa61a27c7a1db532a6b55dd18"
+                "reference": "5b5dbe0044085ac41df47e79d34911a15b96d82e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/code-unit-reverse-lookup/zipball/4419fcdb5eabb9caa61a27c7a1db532a6b55dd18",
-                "reference": "4419fcdb5eabb9caa61a27c7a1db532a6b55dd18",
+                "url": "https://api.github.com/repos/sebastianbergmann/code-unit-reverse-lookup/zipball/5b5dbe0044085ac41df47e79d34911a15b96d82e",
+                "reference": "5b5dbe0044085ac41df47e79d34911a15b96d82e",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6 || ^7.0"
+                "php": "^7.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5.7 || ^6.0"
+                "phpunit/phpunit": "^9.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "2.0-dev"
                 }
             },
             "autoload": {
@@ -250,32 +259,35 @@
             ],
             "description": "Looks up which function or method a line of code belongs to",
             "homepage": "https://github.com/sebastianbergmann/code-unit-reverse-lookup/",
-            "time": "2017-03-04T06:30:41+00:00"
+            "time": "2020-02-07T06:20:13+00:00"
         },
         {
             "name": "sebastian/environment",
-            "version": "3.1.0",
+            "version": "5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "cd0871b3975fb7fc44d11314fd1ee20925fce4f5"
+                "reference": "c753f04d68cd489b6973cf9b4e505e191af3b05c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/cd0871b3975fb7fc44d11314fd1ee20925fce4f5",
-                "reference": "cd0871b3975fb7fc44d11314fd1ee20925fce4f5",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/c753f04d68cd489b6973cf9b4e505e191af3b05c",
+                "reference": "c753f04d68cd489b6973cf9b4e505e191af3b05c",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0"
+                "php": "^7.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.1"
+                "phpunit/phpunit": "^9.0"
+            },
+            "suggest": {
+                "ext-posix": "*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.1.x-dev"
+                    "dev-master": "5.0-dev"
                 }
             },
             "autoload": {
@@ -300,29 +312,29 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2017-07-01T08:51:00+00:00"
+            "time": "2020-04-14T13:36:52+00:00"
         },
         {
             "name": "sebastian/version",
-            "version": "2.0.1",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/version.git",
-                "reference": "99732be0ddb3361e16ad77b68ba41efc8e979019"
+                "reference": "0411bde656dce64202b39c2f4473993a9081d39e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/version/zipball/99732be0ddb3361e16ad77b68ba41efc8e979019",
-                "reference": "99732be0ddb3361e16ad77b68ba41efc8e979019",
+                "url": "https://api.github.com/repos/sebastianbergmann/version/zipball/0411bde656dce64202b39c2f4473993a9081d39e",
+                "reference": "0411bde656dce64202b39c2f4473993a9081d39e",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6"
+                "php": "^7.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "3.0-dev"
                 }
             },
             "autoload": {
@@ -343,7 +355,7 @@
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
-            "time": "2016-10-03T07:35:21+00:00"
+            "time": "2020-01-21T06:36:37+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -401,5 +413,6 @@
     },
     "platform-dev": {
         "ext-xdebug": "*"
-    }
+    },
+    "plugin-api-version": "1.1.0"
 }
