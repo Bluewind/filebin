@@ -326,7 +326,7 @@ class User extends MY_Controller {
 		$username = $this->input->post("username");
 
 		if (!$this->muser->username_exists($username)) {
-			throw new \exceptions\PublicApiException("user/reset_password/invalid-username", "Invalid username");
+			throw new \exceptions\UserInputException("user/reset_password/invalid-username", "Invalid username");
 		}
 
 		$userinfo = $this->db->select('id, email, username')
@@ -485,18 +485,18 @@ class User extends MY_Controller {
 			$values = explode("-", $value);
 
 			if (!is_array($values) || count($values) != 2) {
-				throw new \exceptions\PublicApiException("user/profile/invalid-upload-id-limit", "Invalid upload id limit value");
+				throw new \exceptions\UserInputException("user/profile/invalid-upload-id-limit", "Invalid upload id limit value");
 			}
 
 			$lower = intval($values[0]);
 			$upper = intval($values[1]);
 
 			if ($lower > $upper) {
-				throw new \exceptions\PublicApiException("user/profile/lower-bigger-than-upper", "lower limit > upper limit");
+				throw new \exceptions\UserInputException("user/profile/lower-bigger-than-upper", "lower limit > upper limit");
 			}
 
 			if ($lower < 3 || $upper > 64) {
-				throw new \exceptions\PublicApiException("user/profile/limit-out-of-bounds", "upper or lower limit out of bounds (3-64)");
+				throw new \exceptions\UserInputException("user/profile/limit-out-of-bounds", "upper or lower limit out of bounds (3-64)");
 			}
 
 			return $lower."-".$upper;
@@ -512,7 +512,7 @@ class User extends MY_Controller {
 			}
 
 			if (!$this->muser->valid_email($value)) {
-				throw new \exceptions\PublicApiException("user/profile/invalid-email", "Invalid email");
+				throw new \exceptions\UserInputException("user/profile/invalid-email", "Invalid email");
 			}
 
 			$this->load->library("email");

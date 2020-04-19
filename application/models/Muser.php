@@ -162,15 +162,15 @@ class Muser extends CI_Model {
 	public function add_user($username, $password, $email, $referrer)
 	{
 		if (!$this->valid_username($username)) {
-			throw new \exceptions\PublicApiException("user/invalid-username", "Invalid username (only up to 32 chars of a-z0-9 are allowed)");
+			throw new \exceptions\UserInputException("user/invalid-username", "Invalid username (only up to 32 chars of a-z0-9 are allowed)");
 		} else {
 			if ($this->muser->username_exists($username)) {
-				throw new \exceptions\PublicApiException("user/username-already-exists", "Username already exists");
+				throw new \exceptions\UserInputException("user/username-already-exists", "Username already exists");
 			}
 		}
 
 		if (!$this->valid_email($email)) {
-			throw new \exceptions\PublicApiException("user/invalid-email", "Invalid email");
+			throw new \exceptions\UserInputException("user/invalid-email", "Invalid email");
 		}
 
 		$this->db->set(array(

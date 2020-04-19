@@ -24,7 +24,7 @@ class Api extends MY_Controller {
 			$function = $this->uri->segment(4);
 
 			if (!preg_match("/^v([0-9]+)(.[0-9]+){0,2}$/", $requested_version)) {
-				throw new \exceptions\PublicApiException("api/invalid-version", "Invalid API version requested");
+				throw new \exceptions\UserInputException("api/invalid-version", "Invalid API version requested");
 			}
 
 			$requested_version = substr($requested_version, 1);
@@ -32,11 +32,11 @@ class Api extends MY_Controller {
 			$major = intval(explode(".", $requested_version)[0]);
 
 			if (!preg_match("/^[a-zA-Z-_]+$/", $controller)) {
-				throw new \exceptions\PublicApiException("api/invalid-endpoint", "Invalid endpoint requested");
+				throw new \exceptions\UserInputException("api/invalid-endpoint", "Invalid endpoint requested");
 			}
 
 			if (!preg_match("/^[a-zA-Z-_]+$/", $function)) {
-				throw new \exceptions\PublicApiException("api/invalid-endpoint", "Invalid endpoint requested");
+				throw new \exceptions\UserInputException("api/invalid-endpoint", "Invalid endpoint requested");
 			}
 
 			$namespace = "controllers\\api\\v".$major;
@@ -44,16 +44,16 @@ class Api extends MY_Controller {
 			$class_info = $namespace."\\api_info";
 
 			if (!class_exists($class_info) || version_compare($class_info::get_version(), $requested_version, "<")) {
-				throw new \exceptions\PublicApiException("api/version-not-supported", "Requested API version is not supported");
+				throw new \exceptions\UserInputException("api/version-not-supported", "Requested API version is not supported");
 			}
 
 			if (!class_exists($class)) {
-				throw new \exceptions\PublicApiException("api/unknown-endpoint", "Unknown endpoint requested");
+				throw new \exceptions\UserInputException("api/unknown-endpoint", "Unknown endpoint requested");
 			}
 
 			$c= new $class;
 			if (!method_exists($c, $function)) {
-				throw new \exceptions\PublicApiException("api/unknown-endpoint", "Unknown endpoint requested");
+				throw new \exceptions\UserInputException("api/unknown-endpoint", "Unknown endpoint requested");
 			}
 			return $this->send_json_reply($c->$function());
 		} catch (\exceptions\PublicApiException $e) {
