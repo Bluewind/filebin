@@ -20,7 +20,19 @@ define(['jquery', 'underscore', 'multipaste', 'jquery.colorbox'], function ($, _
 			$(window).resize(_.bind(this.onResize, this));
 		},
 
+		browserHandlesImageOrientation: function () {
+			var testImg = $('<img>');
+			$('body').append(testImg);
+			var style = window.getComputedStyle(testImg.get(0));
+			var result = style.getPropertyValue('image-orientation')
+			console.log('Browser default image-orientation: ', result)
+			testImg.remove();
+			return result == 'from-image';
+		},
+
 		setupColorbox: function () {
+			var browserHandlesImageOrientation = PrivateFunctions.browserHandlesImageOrientation();
+
 			$(ui.colorbox).colorbox({
 				transistion: "none",
 				speed: 0,
@@ -36,7 +48,11 @@ define(['jquery', 'underscore', 'multipaste', 'jquery.colorbox'], function ($, _
 				close: '<span class="glyphicon glyphicon-remove"></span>',
 				loop: false,
 				orientation: function() {
-					return $(this).data('orientation');
+					if (browserHandlesImageOrientation) {
+						return 1;
+					} else {
+						return $(this).data('orientation');
+					}
 				},
 			});
 		},

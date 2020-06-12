@@ -1,6 +1,8 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+ - Fix image orientation/rotation when viewing images with the
+   colorbox/lightbox in Firefox 76/Chromium 83.
 
 3.4.4 2020-04-19
  - Log PublicApiException to error log
