@@ -4,7 +4,7 @@
 Filebin is a paste service developed by Florian Pritz [https://paste.xinu.at/](https://paste.xinu.at/)
 
 ## Dockerfile
-[Dockerfile](https://git.server-speed.net/users/flo/filebin/tree/docker/Dockerfile)
+[Dockerfile](https://github.com/Bluewind/filebin/blob/master/Dockerfile)
 
 ## Ports
 The PHP webserver is listening on ```8080```
