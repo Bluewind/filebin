@@ -64,25 +64,20 @@ while ! nc "$FB_DB_HOSTNAME" 3306 </dev/null >/dev/null; do
 	sleep 0.5
 done
 
+set_config
+set_database_config
+set_mail_config
 
-if [[ ! -e $FILEBIN_DIR/application/config/config-local.php ]]; then
-    echo "no config found, new config will be generated"
+CONTACT_INFO_FILE=${FILEBIN_DIR}/data/local/contact-info.php
+cp $FILEBIN_DIR/data/local/examples/contact-info.php ${CONTACT_INFO_FILE}
 
-    set_config
-    set_database_config
-    set_mail_config
+sed -i "s/John Doe/${FB_CONTACT_NAME}/" ${CONTACT_INFO_FILE}
+sed -i "s/john.doe@example.com/${FB_CONTACT_MAIL}/" ${CONTACT_INFO_FILE}
 
-    CONTACT_INFO_FILE=${FILEBIN_DIR}/data/local/contact-info.php
-    cp $FILEBIN_DIR/data/local/examples/contact-info.php ${CONTACT_INFO_FILE}
+${FILEBIN_DIR}/scripts/install-git-hooks.sh
+${FILEBIN_DIR}/git-hooks/post-merge
 
-    sed -i "s/John Doe/${FB_CONTACT_NAME}/" ${CONTACT_INFO_FILE}
-    sed -i "s/john.doe@example.com/${FB_CONTACT_MAIL}/" ${CONTACT_INFO_FILE}
-
-    ${FILEBIN_DIR}/scripts/install-git-hooks.sh
-    ${FILEBIN_DIR}/git-hooks/post-merge
-
-    ${FILEBIN_HOME_DIR}/add_user.sh
-fi
+${FILEBIN_HOME_DIR}/add_user.sh
 
 cd $FILEBIN_DIR/public_html
 php -S 0.0.0.0:8080
