@@ -41,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	'port'	=> 3306,
 	'username' => '${FB_DB_USERNAME}',
 	'password' => '${FB_DB_PASSWORD}',
-	'database' => '',
+	'database' => '${FB_DB_DATABASE}',
 	'dbdriver' => 'pdo',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
