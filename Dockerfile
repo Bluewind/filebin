@@ -2,6 +2,7 @@ FROM alpine:edge
 LABEL maintainer="sebastian@devunit.eu"
 
 RUN apk add --no-cache bash php7 py-pygments py-pip imagemagick php7-gd nodejs composer php7-pdo_mysql php7-exif php7-ctype php7-session git php7-fileinfo msmtp
+RUN ln -sf /usr/bin/python3 /usr/bin/python
 
 ENV FILEBIN_HOME_DIR /var/lib/filebin
 ENV FILEBIN_DIR $FILEBIN_HOME_DIR/filebin
