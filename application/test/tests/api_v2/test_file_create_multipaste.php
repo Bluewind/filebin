@@ -122,4 +122,27 @@ class test_file_create_multipaste extends common {
 		$this->t->is($ret["data"]["total_count"], 1, "total_count correct");
 		$this->t->is($ret["data"]["deleted_count"], 1, "deleted_count correct");
 	}
+
+	public function test_create_multipaste_minidlength()
+	{
+		$apikey = $this->createUserAndApikey("basic");
+		$ret = $this->uploadFile($apikey, "data/tests/small-file");
+		$id = $ret["data"]["ids"][0];
+
+		$ret = $this->uploadFile($apikey, "data/tests/small-file");
+		$id2 = $ret["data"]["ids"][0];
+
+		$ret = $this->CallEndpoint("POST", "file/create_multipaste", array(
+			"apikey" => $apikey,
+			"ids[1]" => $id,
+			"ids[2]" => $id2,
+			"minimum-id-length" => 42,
+		));
+		$this->expectSuccess("create multipaste", $ret);
+
+		$this->t->isnt($ret["data"]["url_id"], "", "got a multipaste ID");
+		$this->t->isnt($ret["data"]["url"], "", "got a multipaste URL");
+
+		$this->t->ok(strlen($ret["data"]["url_id"]) >= 42, "minimum url length upheld");
+	}
 }

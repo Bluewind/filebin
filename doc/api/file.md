@@ -58,14 +58,16 @@ Required access level: `basic`
 
 Upload a new file.
 
-| POST field    | Type | Comment                    |
-| ----------    | ---- | -------                    |
-| file[`<index>`] | File | Required. Arbitrary index. |
+| POST field        | Type | Comment                    |
+| ----------        | ---- | -------                    |
+| file[`<index>`]   | File | Required. Arbitrary index. |
+| minimum-id-length | Int  | Optional. Values >= 2 only |
 
-| error_id           | Message                                        | Note                                  |
-| --------           | -------                                        | ----                                  |
-| file/no-file       | No file was uploaded or unknown error occurred |                                       |
-| file/upload-verify | Failed to verify uploaded file(s)              | This error provides additional detail |
+| error_id                   | Message                                        | Note                                  |
+| --------                   | -------                                        | ----                                  |
+| file/no-file               | No file was uploaded or unknown error occurred |                                       |
+| file/bad-minimum-id-length | Invalid value passsed to bad-minimum-id-length |                                       |
+| file/upload-verify         | Failed to verify uploaded file(s)              | This error provides additional detail |
 
 ```javascript
 // Success response
@@ -100,6 +102,10 @@ Example:
    }
 }
 ```
+
+| Version | Change                                                                            |
+| ------- | ------                                                                            |
+| NEXT    | Add parameter ''minimum-id-length'' to control the length of generated content id |
 
 ## file/history
 
@@ -253,15 +259,17 @@ Required access level: `basic`
 
 Create a new multipaste.
 
-| POST field | Type      | Comment                                                                           |
-| ---------- | ----      | -------                                                                           |
-| ids[`<index>`] | upload-id | Required. Arbitrary index. This only accepts IDs of files, not other multipastes. |
+| POST field        | Type      | Comment                                                                           |
+| ----------        | ----      | -------                                                                           |
+| ids[`<index>`]    | upload-id | Required. Arbitrary index. This only accepts IDs of files, not other multipastes. |
+| minimum-id-length | Int       | Optional. Values >= 2 only                                                        |
 
-| error_id                             | Message                         | Note                                  |
-| --------                             | -------                         | ----                                  |
-| file/create_multipaste/no-ids        | No IDs specified                |                                       |
-| file/create_multipaste/duplicate-id  | Duplicate IDs are not supported |                                       |
-| file/create_multipaste/verify-failed | Failed to verify ID(s)          | This error provides additional detail |
+| error_id                             | Message                                        | Note                                  |
+| --------                             | -------                                        | ----                                  |
+| file/bad-minimum-id-length           | Invalid value passsed to bad-minimum-id-length |                                       |
+| file/create_multipaste/no-ids        | No IDs specified                               |                                       |
+| file/create_multipaste/duplicate-id  | Duplicate IDs are not supported                |                                       |
+| file/create_multipaste/verify-failed | Failed to verify ID(s)                         | This error provides additional detail |
 
 ```javascript
 // Success response
@@ -292,7 +300,8 @@ Example:
 }
 ```
 
-| Version | Change                                                    |
-| ------- | ------                                                    |
-| 1.1.0   | Add url key to response                                   |
-| 1.3.0   | Change required access level from ''apikey'' to ''basic'' |
+| Version | Change                                                                           |
+| ------- | ------                                                                           |
+| 1.1.0   | Add url key to response                                                          |
+| 1.3.0   | Change required access level from ''apikey'' to ''basic''                        |
+| NEXT    | Add paramter ''minimum-id-length'' to control the length of generated content id |

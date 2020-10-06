@@ -29,7 +29,7 @@ class file extends \controllers\api\api_controller {
 
 		\service\files::verify_uploaded_files($files);
 
-		$limits = $this->CI->muser->get_upload_id_limits();
+		$limits = $this->determine_id_limits();
 		$userid = $this->CI->muser->get_userid();
 		$urls = array();
 
@@ -87,10 +87,26 @@ class file extends \controllers\api\api_controller {
 		$this->CI->muser->require_access("basic");
 		$ids = $this->CI->input->post_array("ids");
 		$userid = $this->CI->muser->get_userid();
-		$limits = $this->CI->muser->get_upload_id_limits();
+		$limits = $this->determine_id_limits();
 
 		return \service\files::create_multipaste($ids, $userid, $limits);
 	}
 
+
+	private function determine_id_limits()
+	{
+		$posted_minlength = $this->CI->input->post('minimum-id-length');
+		if (is_null($posted_minlength)) {
+			$limits = $this->CI->muser->get_upload_id_limits();
+		} else {
+			if ((!preg_match("/^\d+$/", $posted_minlength)) || intval($posted_minlength) <= 1 ) {
+				throw new \exceptions\UserInputException("file/bad-minimum-id-length", "Passed parameter 'minimum-id-length' is not a valid integer or too small (min value: 2)");
+			}
+
+			$limits = [$posted_minlength, null];
+		}
+
+		return $limits;
+	}
 }
 # vim: set noet:

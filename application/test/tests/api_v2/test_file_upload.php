@@ -68,4 +68,45 @@ class test_file_upload extends common {
 		), $ret, "expected reply");
 	}
 
+	public function test_upload_minidlength()
+	{
+		$apikey = $this->createUserAndApikey();
+		$ret = $this->CallEndpoint("POST", "file/upload", array(
+			"apikey" => $apikey,
+			"file[1]" => curl_file_create("data/tests/small-file"),
+			"minimum-id-length" => 42,
+		));
+		$this->expectSuccess("upload file", $ret);
+
+		foreach ($ret["data"]["urls"] as $url) {
+			$matches = array();
+			preg_match('/\/([^\/]+)\/$/', $url, $matches);
+			$this->t->ok(strlen($matches[1]) >= 42, "minimum url length upheld");
+		}
+	}
+
+	public function test_upload_bad_minidlength()
+	{
+		$apikey = $this->createUserAndApikey();
+
+		$combinations = [
+			"non-numberic minimum-id-length" => "nonumber",
+			"negative minimum-id-length (-42)" => -42,
+			"minimum-id-length=0" => 0,
+			"minimum-id-length=1" => 1,
+		];
+		foreach ($combinations as $msg => $input) {
+			$ret = $this->CallEndpoint("POST", "file/upload", array(
+				"apikey" => $apikey,
+				"file[1]" => curl_file_create("data/tests/small-file"),
+				"minimum-id-length" => $input,
+			));
+			$this->expectError("upload file with bad minimum-id-length. Test value: $msg", $ret);
+			$this->t->is_deeply(array(
+				'status' => 'error',
+				'error_id' => 'file/bad-minimum-id-length',
+				'message' => "Passed parameter 'minimum-id-length' is not a valid integer or too small (min value: 2)",
+			), $ret, "expected reply");
+		}
+	}
 }
