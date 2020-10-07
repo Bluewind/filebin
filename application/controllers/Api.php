@@ -52,7 +52,7 @@ class Api extends MY_Controller {
 			}
 
 			$c= new $class;
-			if (!method_exists($c, $function)) {
+			if (!method_exists($c, $function) || !is_callable([$c, $function])) {
 				throw new \exceptions\UserInputException("api/unknown-endpoint", "Unknown endpoint requested");
 			}
 			return $this->send_json_reply($c->$function());
