@@ -1,8 +1,8 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
- - api: add `minimum-id-length` post parameter to `file/create_multipaste` and
-   `file/upload` endpoints
+ - API 2.2.0: Add `minimum-id-length` post parameter to
+   `file/create_multipaste` and `file/upload` endpoints
 
 3.4.5 2020-06-12
  - Fix image orientation/rotation when viewing images with the

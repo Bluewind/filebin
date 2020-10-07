@@ -147,8 +147,8 @@ These are the most common errors that can be returned by any API call.
 
 | Version | Endpoint | Note |
 | ------- | -------- | ---- |
-| NEXT    | file/create_multipaste | Add paramter ''minimum-id-length'' to control the length of generated content id |
-| NEXT    | file/upload | Add parameter ''minimum-id-length'' to control the length of generated content id |
+| 2.2.0   | file/create_multipaste | Add paramter ''minimum-id-length'' to control the length of generated content id |
+| 2.2.0   | file/upload | Add parameter ''minimum-id-length'' to control the length of generated content id |
 | 2.1.1   | file/history | Empty objects (values of `items` and `multipaste_items`) are now always returned as {}. Before they were returned as [] |
 | 2.1.1   | file/delete | Empty objects (values of `errors` and `deleted`) are now always returned as {}. Before they were returned as [] |
 | 2.1.0   | file/history | Add ''item.thumbnail'' |

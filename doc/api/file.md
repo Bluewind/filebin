@@ -105,7 +105,7 @@ Example:
 
 | Version | Change                                                                            |
 | ------- | ------                                                                            |
-| NEXT    | Add parameter ''minimum-id-length'' to control the length of generated content id |
+| 2.2.0   | Add parameter ''minimum-id-length'' to control the length of generated content id |
 
 ## file/history
 
@@ -304,4 +304,4 @@ Example:
 | ------- | ------                                                                           |
 | 1.1.0   | Add url key to response                                                          |
 | 1.3.0   | Change required access level from ''apikey'' to ''basic''                        |
-| NEXT    | Add paramter ''minimum-id-length'' to control the length of generated content id |
+| 2.2.0   | Add paramter ''minimum-id-length'' to control the length of generated content id |
