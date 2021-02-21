@@ -1,6 +1,8 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+
+3.6.0 2021-02-21
  - PHP 8.0 comptibility fixes
  - Add json and crystal filename extensions for highlighting
 
