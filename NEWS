@@ -1,6 +1,7 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+ - PHP 8.0 comptibility fixes
 
 3.5.0 2020-10-07
  - API 2.2.0: Add `minimum-id-length` post parameter to
