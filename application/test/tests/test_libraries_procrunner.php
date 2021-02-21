@@ -49,7 +49,11 @@ class test_libraries_procrunner extends \test\Test {
 		$p = new \libraries\ProcRunner(['thisCommandDoesNotExist']);
 		$ret = $p->exec();
 
-		$this->t->is($ret['stderr'], "sh: thisCommandDoesNotExist: command not found\n", 'stderr should be empty');
+		if (PHP_MAJOR_VERSION >= 8) {
+			$this->t->is($ret['stderr'], "sh: line 1: thisCommandDoesNotExist: command not found\n", 'stderr should be empty');
+		} else {
+			$this->t->is($ret['stderr'], "sh: thisCommandDoesNotExist: command not found\n", 'stderr should be empty');
+		}
 		$this->t->is($ret['stdout'], '', 'stdout should be empty');
 		$this->t->is($ret['return_code'], 127, 'return code should be 127');
 	}
