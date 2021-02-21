@@ -105,7 +105,10 @@ class Tools extends MY_Controller {
 	function generate_coverage_report()
 	{
 		include APPPATH."../vendor/autoload.php";
-		$coverage = new \SebastianBergmann\CodeCoverage\CodeCoverage();
+		$filter = new \SebastianBergmann\CodeCoverage\Filter;
+		$coverage = new \SebastianBergmann\CodeCoverage\CodeCoverage(
+			(new \SebastianBergmann\CodeCoverage\Driver\Selector)->forLineCoverage($filter),
+			$filter);
 		foreach (glob(FCPATH."/test-coverage-data/*") as $file) {
 			$coverage->merge(unserialize(file_get_contents($file)));
 		}
