@@ -6,6 +6,10 @@
 export ENVIRONMENT="testsuite"
 export COLLECT_COVERAGE=1
 
+if [[ $COLLECT_COVERAGE = 1 ]]; then
+	export XDEBUG_MODE=coverage
+fi
+
 startdir="$(dirname "$0")"
 datadir="testsuite-tmp"
 
