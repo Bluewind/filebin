@@ -359,11 +359,11 @@ if (getenv("ENVIRONMENT") === "testsuite" && getenv("COLLECT_COVERAGE") == 1) {
 if ($testname) {
 	include APPPATH."../vendor/autoload.php";
 	$filter = new \SebastianBergmann\CodeCoverage\Filter();
-	$filter->addDirectoryToWhitelist(APPPATH);
-	$filter->removeDirectoryFromWhitelist(APPPATH."/third_party/");
+	$filter->includeDirectory(APPPATH);
+	$filter->excludeDirectory(APPPATH."/third_party/");
 	// Force phpdbg for speed
 	//$driver = new \SebastianBergmann\CodeCoverage\Driver\PHPDBG();
-	$driver = null;
+	$driver = (new \SebastianBergmann\CodeCoverage\Driver\Selector)->forLineCoverage($filter);
 	$coverage = new \SebastianBergmann\CodeCoverage\CodeCoverage($driver, $filter);
 	$coverage->start($testname);
 }
