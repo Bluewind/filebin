@@ -44,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Helpers
  * @category	Helpers
  * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/helpers/captcha_helper.html
+ * @link		https://codeigniter.com/userguide3/helpers/captcha_helper.html
  */
 
 // ------------------------------------------------------------------------
@@ -94,10 +94,21 @@ if ( ! function_exists('create_captcha'))
 			}
 		}
 
-		if ($img_path === '' OR $img_url === ''
-			OR ! is_dir($img_path) OR ! is_really_writable($img_path)
-			OR ! extension_loaded('gd'))
+		if ( ! extension_loaded('gd'))
 		{
+			log_message('error', 'create_captcha(): GD extension is not loaded.');
+			return FALSE;
+		}
+
+		if ($img_path === '' OR $img_url === '')
+		{
+			log_message('error', 'create_captcha(): $img_path and $img_url are required.');
+			return FALSE;
+		}
+
+		if ( ! is_dir($img_path) OR ! is_really_writable($img_path))
+		{
+			log_message('error', "create_captcha(): '{$img_path}' is not a dir, nor is it writable.");
 			return FALSE;
 		}
 

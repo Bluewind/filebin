@@ -48,7 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Drivers
  * @category	Database
  * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
+ * @link		https://codeigniter.com/userguide3/database/
  */
 abstract class CI_DB_driver {
 
@@ -886,6 +886,18 @@ abstract class CI_DB_driver {
 	public function trans_status()
 	{
 		return $this->_trans_status;
+	}
+	
+	// --------------------------------------------------------------------
+
+	/**
+	 * Returns TRUE if a transaction is currently active
+	 *
+	 * @return	bool
+	 */
+	public function trans_active()
+	{
+		return (bool) $this->_trans_depth;
 	}
 
 	// --------------------------------------------------------------------

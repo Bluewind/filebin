@@ -42,7 +42,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * @category	Database
  * @author	EllisLab Dev Team
- * @link	https://codeigniter.com/user_guide/database/
+ * @link	https://codeigniter.com/userguide3/database/
  *
  * @param 	string|string[]	$params
  * @param 	bool		$query_builder_override
@@ -185,7 +185,7 @@ function &DB($params = '', $query_builder_override = NULL)
 	elseif ( ! class_exists('CI_DB', FALSE))
 	{
 		/**
-	 	 * @ignore
+		 * @ignore
 		 */
 		class CI_DB extends CI_DB_driver { }
 	}

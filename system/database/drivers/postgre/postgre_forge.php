@@ -44,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Drivers
  * @category	Database
  * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/database/
+ * @link		https://codeigniter.com/userguide3/database/
  */
 class CI_DB_postgre_forge extends CI_DB_forge {
 
@@ -101,7 +101,7 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 	 * @return	string|string[]
 	 */
 	protected function _alter_table($alter_type, $table, $field)
- 	{
+	{
 		if (in_array($alter_type, array('DROP', 'ADD'), TRUE))
 		{
 			return parent::_alter_table($alter_type, $table, $field);
@@ -149,7 +149,7 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 		}
 
 		return $sqls;
- 	}
+	}
 
 	// --------------------------------------------------------------------
 
