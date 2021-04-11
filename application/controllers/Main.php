@@ -468,6 +468,7 @@ class Main extends MY_Controller {
 			if ($filedata !== false) {
 				$pygments = new \libraries\Pygments($this->mfile->file($filedata["data_id"]), $filedata["mimetype"], $filedata["filename"]);
 				if ($pygments->can_highlight()) {
+					$this->data["textarea_filename"] = $filedata["filename"];
 					$this->data["textarea_content"] = file_get_contents($this->mfile->file($filedata["data_id"]));
 				}
 			}

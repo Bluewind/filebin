@@ -14,7 +14,7 @@
 							 <div class="tab-pane active" id="text-upload-tab-1">
 								<div class="panel panel-default">
 									<div class="panel-heading">
-										<input type="text" name="filename[1]" class="form-control" placeholder="Filename/title (default: stdin)">
+										<input type="text" name="filename[1]" class="form-control" placeholder="Filename/title (default: stdin)" value="<?php if (isset($textarea_filename)) { echo htmlspecialchars($textarea_filename); } ?>">
 									</div>
 									<textarea name="content[1]" class="form-control text-upload" placeholder="Paste content"><?php
 										if (isset($textarea_content)) {
