@@ -1,6 +1,8 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+
+3.6.1 2021-04-11
  - Copy filename when repasting file
  - Add link to new android client
 
