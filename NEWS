@@ -1,6 +1,7 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+ - Add link to new android client
 
 3.6.0 2021-02-21
  - PHP 8.0 comptibility fixes
