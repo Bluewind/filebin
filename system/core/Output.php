@@ -145,7 +145,7 @@ class CI_Output {
 			&& extension_loaded('zlib')
 		);
 
-		isset(self::$func_overload) OR self::$func_overload = (extension_loaded('mbstring') && ini_get('mbstring.func_overload'));
+		isset(self::$func_overload) OR self::$func_overload = ( ! is_php('8.0') && extension_loaded('mbstring') && @ini_get('mbstring.func_overload'));
 
 		// Get mime types for later
 		$this->mimes =& get_mimes();
@@ -299,10 +299,14 @@ class CI_Output {
 	 */
 	public function get_header($header)
 	{
-		// Combine headers already sent with our batched headers
+		// We only need [x][0] from our multi-dimensional array
+		$header_lines = array_map(function ($headers)
+		{
+			return array_shift($headers);
+		}, $this->headers);
+
 		$headers = array_merge(
-			// We only need [x][0] from our multi-dimensional array
-			array_map('array_shift', $this->headers),
+			$header_lines,
 			headers_list()
 		);
 
