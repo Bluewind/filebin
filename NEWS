@@ -1,6 +1,10 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+ - Use python3 instead of python for Ubuntu 20.04 and Debian 11 compatibility.
+   If you do not have python 3, you will have to change shebang in
+   `scripts/get_lexer_list.py`. The script is still compatible with python 2.
+ - Update CodeIgniter to latest master for some additional PHP 8.0 and 8.1 fixes
 
 3.6.1 2021-04-11
  - Copy filename when repasting file
