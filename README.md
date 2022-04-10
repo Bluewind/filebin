@@ -38,7 +38,7 @@ You can also open a pull request on [GitHub](https://github.com/Bluewind/filebin
 
 ## Dependencies
 
-*  PHP >=5.5 with the following modules
+*  PHP >=7.0 with the following modules
     * gd for thumbnail generation
     * exif for thumbnail generation
     * phar for tarball creation

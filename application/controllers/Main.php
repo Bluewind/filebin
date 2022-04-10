@@ -98,7 +98,7 @@ class Main extends MY_Controller {
 	{
 		session_write_close();
 		$id = $this->uri->segment(1);
-		$lexer = urldecode($this->uri->segment(2));
+		$lexer = urldecode($this->uri->segment(2) ?? '');
 
 		$is_multipaste = false;
 		if ($this->mmultipaste->id_exists($id)) {

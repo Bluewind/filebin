@@ -1,6 +1,8 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+ - BREAKING CHANGE: Minimum requried PHP version is now >= 7
+ - More PHP 8.1 compatibility fixes
 
 3.6.2 2022-01-09
  - Use python3 instead of python for Ubuntu 20.04 and Debian 11 compatibility.
