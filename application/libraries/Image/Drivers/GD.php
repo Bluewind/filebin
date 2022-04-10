@@ -128,8 +128,8 @@ class GD implements \libraries\Image\ImageDriver {
 
 		$this->resize($temp_width, $temp_height);
 
-		$x0 = ($temp_width - $target_width) / 2;
-		$y0 = ($temp_height - $target_height) / 2;
+		$x0 = floor(($temp_width - $target_width) / 2);
+		$y0 = floor(($temp_height - $target_height) / 2);
 		$this->crop($x0, $y0, $target_width, $target_height);
 
 		$this->apply_exif_orientation();
