@@ -35,7 +35,7 @@
  * @link	https://codeigniter.com
  * @since	Version 3.0.0
  * @filesource
-*/
+ */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
@@ -401,15 +401,31 @@ class CI_Session_files_driver extends CI_Session_driver implements CI_Session_dr
 	// --------------------------------------------------------------------
 
 	/**
+	 * Update Timestamp
+	 *
+	 * Update session timestamp without modifying data
+	 *
+	 * @param	string	$id	Session ID
+	 * @param	string	$data	Unknown & unused
+	 * @return	bool
+	 */
+	public function updateTimestamp($id, $unknown)
+	{
+		return touch($this->_file_path.$id);
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * Validate ID
 	 *
 	 * Checks whether a session ID record exists server-side,
 	 * to enforce session.use_strict_mode.
 	 *
-	 * @param	string	$id
+	 * @param	string	$id	Session ID
 	 * @return	bool
 	 */
-	public function validateSessionId($id)
+	public function validateId($id)
 	{
 		$result = is_file($this->_file_path.$id);
 		clearstatcache(TRUE, $this->_file_path.$id);
