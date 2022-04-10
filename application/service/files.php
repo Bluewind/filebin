@@ -242,7 +242,7 @@ class files {
 				}
 			}
 
-			$filesize = filesize($file['tmp_name']);
+			$filesize = isset($file['tmp_name']) ? filesize($file['tmp_name']) : 0;
 			if ($filesize > $CI->config->item('upload_max_size')) {
 				$error_message = "File too big";
 			}
