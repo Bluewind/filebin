@@ -46,6 +46,7 @@ class Multipaste extends MY_Controller {
 
 		$this->data['ids'] = $ids;
 		$this->data['items'] = array_map(function($id) {return $this->_get_multipaste_item($id);}, $ids);
+		$this->data['items'] = array_filter($this->data['items'], function($item) {return $item !== false;});
 
 		$this->load->view('header', $this->data);
 		$this->load->view('file/multipaste/queue', $this->data);
@@ -99,6 +100,10 @@ class Multipaste extends MY_Controller {
 
 	private function _get_multipaste_item($id) {
 		$filedata = $this->mfile->get_filedata($id);
+		if ($filedata === false) {
+			return false;
+		}
+
 		$item = [];
 		$item['id'] = $filedata['id'];
 		$item['tooltip'] = \service\files::tooltip($filedata);
