@@ -1,7 +1,7 @@
-FROM alpine:edge
+FROM alpine:3
 LABEL maintainer="sebastian@devunit.eu"
 
-RUN apk add --no-cache bash php7 py-pygments py-pip imagemagick php7-gd nodejs composer php7-pdo_mysql php7-exif php7-ctype php7-session git php7-fileinfo msmtp
+RUN apk add --no-cache bash php8 py-pygments py-pip imagemagick php8-gd nodejs composer php8-pdo_mysql php8-exif php8-ctype php8-session git php8-fileinfo msmtp php8-pgsql php8-phar php8-json
 RUN ln -sf /usr/bin/python3 /usr/bin/python
 
 ENV FILEBIN_HOME_DIR /var/lib/filebin
@@ -14,7 +14,7 @@ RUN chown filebin: -R $FILEBIN_HOME_DIR
 
 RUN pip install ansi2html
 
-RUN sed -i 's+.*sendmail_path =.*+sendmail_path = "/usr/bin/msmtp -C ${FILEBIN_HOME_DIR}/msmtprc --logfile ${FILEBIN_HOME_DIR}/msmtp.log -a filebinmail -t"+' /etc/php7/php.ini
+RUN sed -i 's+.*sendmail_path =.*+sendmail_path = "/usr/bin/msmtp -C ${FILEBIN_HOME_DIR}/msmtprc --logfile ${FILEBIN_HOME_DIR}/msmtp.log -a filebinmail -t"+' /etc/php8/php.ini
 
 USER filebin
 
