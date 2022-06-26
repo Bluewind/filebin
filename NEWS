@@ -3,7 +3,7 @@ This file lists major, incompatible or otherwise important changes, you should l
 NEXT
 
 4.0.0 2022-04-10
- - BREAKING CHANGE: Minimum requried PHP version is now >= 7
+ - BREAKING CHANGE: Minimum required PHP version is now >= 7
  - More PHP 8.1 compatibility fixes
  - Fix exception in multipaste queue when queued item has been deleted
 
