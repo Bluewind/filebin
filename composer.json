@@ -9,7 +9,7 @@
 		"source": "https://github.com/Bluewind/filebin"
 	},
 	"require": {
-		"php": ">=5.5",
+		"php": ">=7.0",
 		"ext-gd": "*",
 		"ext-exif": "*",
 		"ext-fileinfo": "*",
