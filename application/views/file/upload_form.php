@@ -162,7 +162,7 @@
 
 			<h4>Android</h4>
 				<p>
-					Development: <a href="https://github.com/v4rakh/fbmobile">v4rakh/fbmobile @ Github</a><br>
+					Development: <a href="https://git.myservermanager.com/varakh/fbmobile">v4rakh/fbmobile @ git.myservermanager.com</a><br>
 					Google Play: <a href="https://play.google.com/store/apps/details?id=de.varakh.fbmobile">FileBin @ Google Play</a><br>
 				</p>
 
