@@ -11,7 +11,6 @@ class Mmultipaste extends CI_Model {
 
 	function __construct()
 	{
-		parent::__construct();
 		$this->load->model("muser");
 		$this->load->model("mfile");
 	}

@@ -13,7 +13,6 @@ class Mfile extends CI_Model {
 
 	function __construct()
 	{
-		parent::__construct();
 		$this->load->model("muser");
 
 		$this->upload_path = $this->config->item('upload_path');

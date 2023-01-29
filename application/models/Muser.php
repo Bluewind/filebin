@@ -19,8 +19,6 @@ class Muser extends CI_Model {
 
 	function __construct()
 	{
-		parent::__construct();
-
 		$this->load->helper("filebin");
 		$this->load->driver("duser");
 		$this->hashalgo = $this->config->item('auth_db')['hashing_algorithm'];
