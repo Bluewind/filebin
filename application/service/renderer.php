@@ -10,6 +10,9 @@
 namespace service;
 class renderer {
 
+	private $output_cache;
+	private $mfile;
+	private $data;
 
 	/**
 	 * @param $output_cache output cache object
