@@ -11,6 +11,10 @@ namespace service;
 
 class multipaste_queue {
 
+	private $session;
+	private $mfile;
+	private $mmultipaste;
+
 	public function __construct($session = null, $mfile = null, $mmultipaste = null) {
 		$CI =& get_instance();
 

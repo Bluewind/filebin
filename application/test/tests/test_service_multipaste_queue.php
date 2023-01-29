@@ -11,6 +11,11 @@ namespace test\tests;
 
 class test_service_multipaste_queue extends \test\Test {
 
+	private $session;
+	private $mfile;
+	private $mmultipaste;
+	private $m;
+
 	public function __construct()
 	{
 		parent::__construct();

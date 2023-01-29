@@ -10,6 +10,7 @@
 namespace controllers\api;
 
 abstract class api_controller {
+	public $CI;
 	public function __construct() {
 		$this->CI =& get_instance();
 	}

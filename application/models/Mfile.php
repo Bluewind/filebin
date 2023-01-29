@@ -10,6 +10,7 @@
 class Mfile extends CI_Model {
 
 	private $upload_path;
+	private $id_validation_config;
 
 	function __construct()
 	{

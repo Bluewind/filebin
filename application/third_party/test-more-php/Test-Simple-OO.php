@@ -73,6 +73,7 @@ class TestSimple {
     protected $NumberOfTests;
     protected $CurrentTestNumber;
     protected $Filter;
+    protected $LastFail;
 
     protected $notes;
 
