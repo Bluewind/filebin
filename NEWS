@@ -1,6 +1,7 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+ - Fix PHP 8.2 deprecation warnings
 
 4.0.0 2022-04-10
  - BREAKING CHANGE: Minimum required PHP version is now >= 7

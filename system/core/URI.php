@@ -92,6 +92,8 @@ class CI_URI {
 	 */
 	protected $_permitted_uri_chars;
 
+	public $config;
+
 	/**
 	 * Class constructor
 	 *
