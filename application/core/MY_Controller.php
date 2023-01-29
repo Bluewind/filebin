@@ -123,6 +123,5 @@ class MY_Controller extends CI_Controller {
 		}
 
 		$this->security->__construct('UTF-8');
-		$this->security->csrf_verify();
 	}
 }
