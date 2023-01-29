@@ -205,8 +205,6 @@ class CI_Session {
 	 */
 	protected function _ci_load_classes($driver)
 	{
-		// PHP 5.4 compatibility
-		interface_exists('SessionHandlerInterface', FALSE) OR require_once(BASEPATH.'libraries/Session/SessionHandlerInterface.php');
 		// PHP 7 compatibility
 		interface_exists('SessionUpdateTimestampHandlerInterface', FALSE) OR require_once(BASEPATH.'libraries/Session/SessionUpdateTimestampHandlerInterface.php');
 

@@ -483,7 +483,7 @@ class CI_Encryption {
 			$data,
 			$params['handle'],
 			$params['key'],
-			1, // DO NOT TOUCH!
+			OPENSSL_RAW_DATA,
 			$iv
 		);
 
@@ -642,7 +642,7 @@ class CI_Encryption {
 				$data,
 				$params['handle'],
 				$params['key'],
-				1, // DO NOT TOUCH!
+				OPENSSL_RAW_DATA,
 				$iv
 			);
 	}
@@ -929,9 +929,6 @@ class CI_Encryption {
 	{
 		if (self::$func_overload)
 		{
-			// mb_substr($str, $start, null, '8bit') returns an empty
-			// string on PHP 5.3
-			isset($length) OR $length = ($start >= 0 ? self::strlen($str) - $start : -$start);
 			return mb_substr($str, $start, $length, '8bit');
 		}
 

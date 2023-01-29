@@ -96,6 +96,13 @@ class CI_Loader {
 	protected $_ci_cached_vars =	array();
 
 	/**
+	 * Stack of variable arrays to provide nested _ci_load calls with all variables from parent calls
+	 *
+	 * @var	array
+	 */
+	protected $_ci_load_vars_stack =	array();
+
+	/**
 	 * List of loaded classes
 	 *
 	 * @var	array
@@ -350,9 +357,10 @@ class CI_Loader {
 				throw new RuntimeException('Unable to locate the model you have specified: '.$model);
 			}
 		}
-		elseif ( ! is_subclass_of($model, 'CI_Model'))
+
+		if ( ! is_subclass_of($model, 'CI_Model'))
 		{
-			throw new RuntimeException("Class ".$model." already exists and doesn't extend CI_Model");
+			throw new RuntimeException("Class ".$model." doesn't extend CI_Model");
 		}
 
 		$this->_ci_models[] = $name;
@@ -369,19 +377,16 @@ class CI_Loader {
 	 *
 	 * @param	mixed	$params		Database configuration options
 	 * @param	bool	$return 	Whether to return the database object
-	 * @param	bool	$query_builder	Whether to enable Query Builder
-	 *					(overrides the configuration setting)
-	 *
 	 * @return	object|bool	Database object if $return is set to TRUE,
 	 *					FALSE on failure, CI_Loader instance in any other case
 	 */
-	public function database($params = '', $return = FALSE, $query_builder = NULL)
+	public function database($params = '', $return = FALSE)
 	{
 		// Grab the super object
 		$CI =& get_instance();
 
 		// Do we even need to load the database class?
-		if ($return === FALSE && $query_builder === NULL && isset($CI->db) && is_object($CI->db) && ! empty($CI->db->conn_id))
+		if ($return === FALSE && isset($CI->db) && is_object($CI->db) && ! empty($CI->db->conn_id))
 		{
 			return FALSE;
 		}
@@ -390,7 +395,7 @@ class CI_Loader {
 
 		if ($return === TRUE)
 		{
-			return DB($params, $query_builder);
+			return DB($params);
 		}
 
 		// Initialize the db variable. Needed to prevent
@@ -398,7 +403,7 @@ class CI_Loader {
 		$CI->db = '';
 
 		// Load the DB class
-		$CI->db =& DB($params, $query_builder);
+		$CI->db =& DB($params);
 		return $this;
 	}
 
@@ -935,17 +940,38 @@ class CI_Loader {
 		}
 
 		/*
-		 * Extract and cache variables
+		 * Extract and stack variables
 		 *
 		 * You can either set variables using the dedicated $this->load->vars()
 		 * function or via the second parameter of this function. We'll merge
-		 * the two types and cache them so that views that are embedded within
-		 * other views can have access to these variables.
+		 * the two types so that loaded views and files have access to these
+		 * variables.
+		 * Additionally we want all subsequent nested _ci_load() calls embedded
+		 * within the current file to 'inherit' all variables that are
+		 * accessible to the current file. For this purpose we push the current
+		 * variable configuration (_ci_vars) to the stack and remove it again
+		 * after the file or view is completely loaded. Nested _ci_load() calls
+		 * within the current file extend the stack with their variable
+		 * configuration.
 		 */
-		empty($_ci_vars) OR $this->_ci_cached_vars = array_merge($this->_ci_cached_vars, $_ci_vars);
-		extract($this->_ci_cached_vars);
 
-		/*
+		is_array($_ci_vars) OR $_ci_vars = array();
+
+		// Include the global cached vars into the current _ci_vars if needed
+		empty($this->_ci_cached_vars) OR $_ci_vars = array_merge($this->_ci_cached_vars, $_ci_vars);
+
+		// Merge the last variable configuration from a parent _ci_load()
+		// call into the current _ci_vars
+		if ( ! empty($this->_ci_load_vars_stack))
+		{
+			$previous_variable_configuration = end($this->_ci_load_vars_stack);
+			$_ci_vars = array_merge($previous_variable_configuration, $_ci_vars);
+		}
+
+		array_push($this->_ci_load_vars_stack, $_ci_vars);
+		extract($_ci_vars);
+
+		/**
 		 * Buffer the output
 		 *
 		 * We buffer the output for two reasons:
@@ -958,19 +984,11 @@ class CI_Loader {
 		 */
 		ob_start();
 
-		// If the PHP installation does not support short tags we'll
-		// do a little string replacement, changing the short tags
-		// to standard PHP echo statements.
-		if ( ! is_php('5.4') && ! ini_get('short_open_tag') && config_item('rewrite_short_tags') === TRUE)
-		{
-			echo eval('?>'.preg_replace('/;*\s*\?>/', '; ?>', str_replace('<?=', '<?php echo ', file_get_contents($_ci_path))));
-		}
-		else
-		{
-			include($_ci_path); // include() vs include_once() allows for multiple views with the same name
-		}
-
+		include($_ci_path); // include() vs include_once() allows for multiple views with the same name
 		log_message('info', 'File loaded: '.$_ci_path);
+
+		// Remove current _ci_vars from stack
+		array_pop($this->_ci_load_vars_stack);
 
 		// Return the file data if requested
 		if ($_ci_return === TRUE)
