@@ -258,7 +258,7 @@ class Mfile extends CI_Model {
 				rmdir($dir);
 			}
 		}
-		delete_cache("${data_id}_thumb_150");
+		delete_cache("{$data_id}_thumb_150");
 	}
 
 	public function get_owner($id)

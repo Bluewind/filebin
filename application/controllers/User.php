@@ -265,10 +265,10 @@ class User extends MY_Controller {
 			$this->email->to($useremail);
 			$this->email->subject("FileBin account deleted");
 			$this->email->message(""
-				."Your FileBin account '${username}' at ".site_url()."\n"
+				."Your FileBin account '{$username}' at ".site_url()."\n"
 				."has been permemently deleted.\n"
 				."\n"
-				."The request has been sent from the IP address '${_SERVER["REMOTE_ADDR"]}'\n"
+				."The request has been sent from the IP address '{$_SERVER["REMOTE_ADDR"]}'\n"
 				."and was confirmed with your password.\n"
 				."\n"
 				."Thank you for using FileBin!\n"
@@ -348,8 +348,8 @@ class User extends MY_Controller {
 		$this->email->to($userinfo["email"]);
 		$this->email->subject("FileBin password reset");
 		$this->email->message(""
-			."Someone requested a password reset for the account '${userinfo["username"]}'\n"
-			."from the IP address '${_SERVER["REMOTE_ADDR"]}'.\n"
+			."Someone requested a password reset for the account '{$userinfo["username"]}'\n"
+			."from the IP address '{$_SERVER["REMOTE_ADDR"]}'.\n"
 			."\n"
 			."Please follow this link to reset your password:\n"
 			.site_url("user/reset_password/$key")
@@ -553,7 +553,7 @@ class User extends MY_Controller {
 				$this->email->to($email['email']);
 				$this->email->subject("FileBin email change confirmation");
 				$this->email->message(""
-					."A request has been sent to change the email address of account '${old["username"]}'\n"
+					."A request has been sent to change the email address of account '{$old["username"]}'\n"
 					."from ".$old['email']." to $value.\n"
 					."\n"
 					."Please follow this link to CONFIRM the change:\n"

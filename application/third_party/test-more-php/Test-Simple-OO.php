@@ -103,7 +103,7 @@ class TestSimple {
         $skipinfo = '';
         if ($this->NumberOfTests === 'skip_all') $skipinfo = ' # '.$this->SkipAllReason;
 
-        echo "1..${NumberOfTests}${skipinfo}\n";
+        echo "1..{$NumberOfTests}{$skipinfo}\n";
         $this->NumberOfTests = $NumberOfTests;
 
         return;

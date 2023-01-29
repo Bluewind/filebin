@@ -215,7 +215,7 @@ class TestMore extends TestSimple {
         if ( is_int($this->NumberOfTests) ) {
             $unrun = $this->NumberOfTests - (int)$this->TestsRun;
             $plural = $unrun == 1 ? '' : 's';
-            $unrunmsg = "# Looks like ${unrun} planned test${plural} never ran.\n";
+            $unrunmsg = "# Looks like {$unrun} planned test{$plural} never ran.\n";
         }
 
         $gasp = $this->LastFail . "\n"
@@ -268,7 +268,7 @@ class TestMore extends TestSimple {
                 $error = "  Syntax check for '$module' failed";
             }
         } else {
-            $error = "  Cannot find ${type}d file '$module'";
+            $error = "  Cannot find {$type}d file '$module'";
         }
 
         $pass = !$retval && $done; 

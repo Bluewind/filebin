@@ -439,14 +439,14 @@ class files {
 			// likely unsupported filetype
 		}
 
-		$tooltip  = "${filedata["id"]} - $filesize<br>";
+		$tooltip  = "{$filedata["id"]} - $filesize<br>";
 		$tooltip .= "$upload_date<br>";
 
 
 		if ($height > 0 && $width > 0) {
-			$tooltip .= "${width}x${height} - ${filedata["mimetype"]}<br>";
+			$tooltip .= "{$width}x{$height} - {$filedata["mimetype"]}<br>";
 		} else {
-			$tooltip .= "${filedata["mimetype"]}<br>";
+			$tooltip .= "{$filedata["mimetype"]}<br>";
 		}
 
 		return $tooltip;

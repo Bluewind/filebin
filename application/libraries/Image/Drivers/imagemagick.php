@@ -80,14 +80,14 @@ class imagemagick implements \libraries\Image\ImageDriver {
 	public function resize($width, $height)
 	{
 		$this->arguments[] = "-resize";
-		$this->arguments[] = "${width}x${height}";
+		$this->arguments[] = "{$width}x{$height}";
 	}
 
 	public function crop($x, $y, $width, $height)
 	{
 		$this->arguments[] = "+repage";
 		$this->arguments[] = "-crop";
-		$this->arguments[] = "${width}x${height}+${x}+${y}";
+		$this->arguments[] = "{$width}x{$height}+{$x}+{$y}";
 		$this->arguments[] = "+repage";
 	}
 
@@ -100,11 +100,11 @@ class imagemagick implements \libraries\Image\ImageDriver {
 		$this->apply_exif_orientation();
 
 		$this->arguments[] = "-thumbnail";
-		$this->arguments[] = "${target_width}x${target_height}^";
+		$this->arguments[] = "{$target_width}x{$target_height}^";
 		$this->arguments[] = "-gravity";
 		$this->arguments[] = "center";
 		$this->arguments[] = "-extent";
-		$this->arguments[] = "${target_width}x${target_height}^";
+		$this->arguments[] = "{$target_width}x{$target_height}^";
 	}
 
 	public function apply_exif_orientation()

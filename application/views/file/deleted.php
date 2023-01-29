@@ -2,7 +2,7 @@
 	<?php if (!empty($errors)) {
 		echo "<p>";
 		foreach ($errors as $error) {
-			echo "${error["id"]}: ${error["reason"]}<br>\n";
+			echo "{$error["id"]}: {$error["reason"]}<br>\n";
 		}
 		echo "</p>";
 	} ?>

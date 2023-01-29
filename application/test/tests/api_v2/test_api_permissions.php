@@ -99,7 +99,7 @@ class test_api_permissions extends common {
 				$this->t->is_deeply(array(
 					'status' => "error",
 					'error_id' => "api/insufficient-permissions",
-					'message' => "Access denied: Access level too low. Required: ${test['wanted_level']}; Have: ${test['have_level']}",
+					'message' => "Access denied: Access level too low. Required: {$test['wanted_level']}; Have: {$test['have_level']}",
 				   ), $ret, "expected permission error");
 			}
 		}
