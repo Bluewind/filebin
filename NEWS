@@ -2,6 +2,7 @@ This file lists major, incompatible or otherwise important changes, you should l
 
 NEXT
  - Fix PHP 8.2 deprecation warnings
+ - Fix PHP 8.3 deprecation warnings
  - Update CodeIgniter to development branch
 
 4.0.0 2022-04-10

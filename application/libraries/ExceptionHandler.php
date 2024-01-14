@@ -15,8 +15,6 @@ class ExceptionHandler {
 		set_error_handler(array("\libraries\ExceptionHandler", "error_handler"));
 		set_exception_handler(array("\libraries\ExceptionHandler", 'exception_handler'));
 		register_shutdown_function(array("\libraries\ExceptionHandler", "check_for_fatal"));
-		assert_options(ASSERT_ACTIVE, true);
-		assert_options(ASSERT_CALLBACK, array("\libraries\ExceptionHandler", '_assert_failure'));
 	}
 
 	static function error_handler($errno, $errstr, $errfile, $errline)
@@ -143,12 +141,6 @@ class ExceptionHandler {
 			self::exception_handler(new \ErrorException(
 				$error["message"], 0, $error["type"], $error["file"], $error["line"]));
 		}
-	}
-
-	static public function assert_failure($file, $line, $expr, $message = "")
-	{
-		self::exception_handler(new Exception("assert($expr): Assertion failed in $file at line $line".($message != "" ? " with message: '$message'" : "")));
-		exit(1);
 	}
 
 }
