@@ -1,6 +1,7 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+ - Fix password reset trying to send mails to deleted users
 
 4.0.1 2024-01-14
  - Fix PHP 8.2 deprecation warnings

@@ -24,6 +24,10 @@ class Duser_db extends Duser_Driver {
 	{
 		$CI =& get_instance();
 
+		if ($username === null) {
+			return false;
+		}
+
 		$query = $CI->db->select('username, id, password')
 			->from('users')
 			->where('username', $username)
@@ -48,6 +52,10 @@ class Duser_db extends Duser_Driver {
 	{
 		$CI =& get_instance();
 
+		if ($username === null) {
+			return false;
+		}
+
 		$query = $CI->db->select('id')
 			->from('users')
 			->where('username', $username)
@@ -63,6 +71,10 @@ class Duser_db extends Duser_Driver {
 	public function get_email($userid)
 	{
 		$CI =& get_instance();
+
+		if ($userid === null) {
+			throw new \exceptions\ApiException("libraries/duser/db/get_email-failed", "User does not exist");
+		}
 
 		$query = $CI->db->select('email')
 			->from('users')
