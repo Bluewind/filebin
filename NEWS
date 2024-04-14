@@ -1,6 +1,8 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+
+4.0.2 2024-04-14
  - Fix syntax highlighting for systemd files
  - Fix password reset trying to send mails to deleted users
 
