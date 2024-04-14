@@ -115,6 +115,7 @@ class Pygments {
 		'application/x-shellscript' => 'bash',
 		'application/xslt+xml' => "xml",
 		'application/x-x509-ca-cert' => 'text',
+		'application/x-wine-extension-ini' => 'systemd',
 		'message/rfc822' => 'text',
 		'text/css' => 'css',
 		'text/html' => 'xml',
