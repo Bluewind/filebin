@@ -1,6 +1,8 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+
+4.0.3 2025-01-27
  - Update Gentoo overlay instructions
  - Fix race condition during file upload directory creation
 
