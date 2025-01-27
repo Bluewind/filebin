@@ -43,7 +43,7 @@ mkdir -p "$datadir"
 
 php=(php)
 if ((COLLECT_COVERAGE)); then
-	php=(phpdbg -qrr)
+	php=(php -d xdebug.mode=coverage)
 fi
 
 #  run tests
