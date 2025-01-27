@@ -184,7 +184,13 @@ class files {
 		$data_id = $hash."-".$storage_id;
 
 		$dir = $CI->mfile->folder($data_id);
-		file_exists($dir) || mkdir ($dir);
+		try {
+			is_dir($dir) || mkdir ($dir);
+		} catch (\ErrorException $e) {
+			if (!is_dir($dir)) {
+				throw $e;
+			}
+		}
 		$new_path = $CI->mfile->file($data_id);
 
 		// Update mtime for cronjob
