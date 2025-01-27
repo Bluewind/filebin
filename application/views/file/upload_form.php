@@ -155,7 +155,7 @@
 
 				<p>
 					Arch Linux: <code>pacman -S fb-client</code><br />
-					Gentoo: Add <a href="https://git.holgersson.xyz/foss/holgersson-overlay/src/branch/master/README.rst">this overlay</a> and run <code>emerge -a fb-client</code><br />
+					Gentoo: Add <code>holgersson-overlay</code> as explained <a href="https://wiki.gentoo.org/wiki/Ebuild_repository#Repository_management">here</a> and run <code>emerge -a fb-client</code><br />
 					FreeBSD: <code>pkg install fb</code><br />
 					OpenSUSE: <a href="https://build.opensuse.org/package/show/home:mwilhelmy/fb-client">home:mwilhelmy / fb-client</a>
 				</p>
