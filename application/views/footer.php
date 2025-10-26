@@ -6,7 +6,7 @@
 			<p>Site code licensed under <a href="http://www.gnu.org/licenses/agpl-3.0.html" target="_blank">AGPL v3</a>.</p>
 			<p><a href="http://glyphicons.com">Glyphicons Free</a> licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
 			<ul class="footer-links">
-				<li><a href="http://git.server-speed.net/users/flo/filebin/">Source</a></li>
+				<li><a href="https://github.com/Bluewind/filebin">Source</a></li>
 				<li class="muted">&middot;</li>
 				<li><a href="<?php echo site_url("file/contact"); ?>">Contact</a></li>
 			</ul>

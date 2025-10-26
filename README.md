@@ -8,7 +8,7 @@ Additional documentation can be found in [`./doc`](doc/).
 ## Installation/Development
 
 Git is used for tracking changes and updating installations. The repository is
-located at [https://git.server-speed.net/users/flo/filebin/](https://git.server-speed.net/users/flo/filebin/).
+located at [https://github.com/Bluewind/filebin](https://github.com/Bluewind/filebin).
 Clone the repository and follow the instructions in `./INSTALL`. Do not
 install using tarballs as this is not supported.
 

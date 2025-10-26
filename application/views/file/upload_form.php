@@ -148,7 +148,7 @@
 		<h3>Clients</h3>
 			<h4>Linux</h4>
 				<p>
-					Development: <?php echo anchor("https://git.server-speed.net/users/flo/fb/"); ?><br />
+					Development: <?php echo anchor("https://github.com/Bluewind/fb"); ?><br />
 					Latest release: <?php echo $client_link ? anchor($client_link) : "unknown"; ?><br />
 					GPG sigs, older versions: <?php echo anchor("https://paste.xinu.at/data/client"); ?>
 				</p>

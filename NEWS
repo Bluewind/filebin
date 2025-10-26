@@ -1,6 +1,7 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+ - Point to github repos in docs
 
 4.0.3 2025-01-27
  - Update Gentoo overlay instructions
