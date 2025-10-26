@@ -1,6 +1,7 @@
 This file lists major, incompatible or otherwise important changes, you should look at it after every update.
 
 NEXT
+ - PHP 8.4 compatibility fixes
 
 4.0.4 2025-10-26
  - Point to github repos in docs
